@@ -1,0 +1,82 @@
+\chapter{Positive Linear Functionals and States}
+
+%Will continue to chase results backwards in Sakai. Note that the norm on a $C^{*}$--algebra
+%is uniquely determined (we will include the needed results for this above and remove this
+%comment once we have). The following proposition characterizes it in terms of the states on 
+%$\mathcal{A}$, also establishing that states separate the elements of $\mathcal{A}$. Let
+%$\mathcal{S}$ denote the set of states on the appropriate $C^{*}$--algebra in the sequel.
+
+%\begin{proposition}
+%  \label{prop:norm_as_state_sup}
+%  Let $h$ be a self-adjoint element in a $C^{*}$--algebra $\mathcal{A}$.
+%  then $\|h\|=\sup_{\varphi\in \mathcal{S}}|\varphi(h)|$.
+%\end{proposition}
+
+%\begin{proof}
+%\end{proof}
+
+Let $M$ be a $W^{*}$--algebra and let $T$ denote the set of all $\sigma$--continuous positive
+linear functionals on $M$, and $E$ the linear space of all finite linear combinations
+of elements of $T$. Let $P$ and $M^{s}$ denote the set of positive elements and set of self-adjoint elements of $M$, respectively.
+
+\begin{lemma}
+  \label{lem:pos_cvx_cone}
+  \lean{ConvexCone.positive}
+  \mathlibok
+  $P$ is a convex cone in $M$.
+\end{lemma}
+
+\begin{proof}
+  \leanok
+\end{proof}
+
+\begin{lemma}
+  \label{lem:pos_sa_sigma_closed_Sak_1_7_1} (Sak 1.7.1)
+  \lean{Ultraweak.isClosed_setOf_isSelfAdjoint,Ultraweak.isClosed_nonneg}
+  \leanok
+  \uses{def:sigma_top}
+  $P$ and $M^{s}$ are $\sigma$--closed.
+\end{lemma}
+
+\begin{proof}
+  \leanok
+\end{proof}
+
+\begin{lemma}
+  \label{lem:non_pos_elem_neg_for_some_state_Sak_1_7_2} (Sak 1.7.2)
+  \lean{Ultraweak.exists_positiveCLM_apply_lt_zero}
+  \leanok
+  \uses{def:sigma_top}
+  \uses{lem:pos_cvx_cone,lem:pos_sa_sigma_closed_Sak_1_7_1}
+  For any self-adjoint element $a\notin P$, there exists $\varphi\in T$
+  such that $\varphi(a)<0$.
+\end{lemma}
+
+\begin{proof}
+  \leanok
+  By Lemmas \ref{lem:pos_cvx_cone} and \ref{lem:pos_sa_sigma_closed_Sak_1_7_1}, $P$ is an
+  ultraweakly closed convex cone in the underlying real locally convex space. Geometric
+  Hahn--Banach separation gives an ultraweakly continuous real-linear functional $f$ which is
+  nonnegative on $P$ and satisfies $f(a)<0$; the cone property gives the nonnegativity after
+  rescaling. Compose $f$ with the real-part projection, equivalently with the average of the
+  identity and the ultraweakly continuous star map, and extend the resulting real-linear
+  functional complex-linearly. On self-adjoint elements this extension agrees with $f$, so it is
+  positive, ultraweakly continuous, and still takes a negative value at $a$.
+\end{proof}
+
+\begin{lemma}
+  \label{lem:uw_pos_sep_pts}
+  \lean{Ultraweak.ext_positiveCLM}
+  \leanok
+  \uses{lem:non_pos_elem_neg_for_some_state_Sak_1_7_2,def:sigma_top}
+If $a\in M$, and $\psi(a)=0$ for every $\psi\in T$, then $a=0$.
+\end{lemma}
+
+\begin{proof}
+  \leanok
+  First suppose that $a$ is self-adjoint and every element of $T$ vanishes at $a$. Applying Lemma
+  \ref{lem:non_pos_elem_neg_for_some_state_Sak_1_7_2} to $a$ and to $-a$ shows respectively that
+  $a\ge0$ and $a\le0$, so $a=0$. For arbitrary $a$, positive functionals preserve star and hence
+  vanish on both the real and imaginary parts of $a$. The self-adjoint case makes both parts zero,
+  and the decomposition $a=\Re(a)+i\Im(a)$ finishes the proof.
+\end{proof}

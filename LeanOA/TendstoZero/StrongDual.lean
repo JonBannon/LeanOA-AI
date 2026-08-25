@@ -1,6 +1,10 @@
-import Mathlib.Analysis.Normed.Operator.Mul
-import LeanOA.Lp.Holder
-import LeanOA.TendstoZero.Defs
+module
+
+public import Mathlib.Analysis.Normed.Operator.Mul
+public import LeanOA.Lp.Holder
+public import LeanOA.TendstoZero.Defs
+
+@[expose] public section
 
 open scoped ENNReal tendstoZero lp
 
@@ -21,6 +25,7 @@ lemma lp.norm_scalarDualPairing {p q : ℝ≥0∞} [Fact (1 ≤ p)] [Fact (1 ≤
 
 namespace tendstoZero
 
+set_option backward.isDefEq.respectTransparency false in
 variable (ι 𝕜) in
 /-- The natural continuous linear map from `ℓ¹(ι, 𝕜)` into the (strong) dual of `c₀(ι, 𝕜)`
 given by `fun x y ↦ ∑' i, (y i) * (x i)`. the order of the parameter is reversed because we
@@ -35,6 +40,7 @@ lemma lpOneToStrongDual_apply_apply
     lpOneToStrongDual ι 𝕜 x y = ∑' i, y.1 i * x i :=
   rfl
 
+set_option backward.isDefEq.respectTransparency false in
 lemma norm_lpOneToStrongDual_apply (x : ℓ¹(ι, 𝕜)) :
     ‖lpOneToStrongDual ι 𝕜 x‖ ≤ ‖x‖ := by
   refine (lpOneToStrongDual ι 𝕜 x).opNorm_le_bound (by positivity) fun φ ↦ ?_
@@ -44,10 +50,12 @@ lemma norm_lpOneToStrongDual_apply (x : ℓ¹(ι, 𝕜)) :
   · exact lp.norm_scalarDualPairing
   · exact le_rfl
 
+set_option backward.isDefEq.respectTransparency false in
 lemma norm_lpOneToStrongDual : ‖lpOneToStrongDual ι 𝕜‖ ≤ 1 :=
   lpOneToStrongDual ι 𝕜 |>.opNorm_le_bound (by positivity) fun x ↦ by
     simpa only [one_mul] using norm_lpOneToStrongDual_apply x
 
+set_option backward.isDefEq.respectTransparency false in
 open ComplexOrder in
 lemma sum_strongDual_eval_single_le_norm [DecidableEq ι]
     (φ : StrongDual 𝕜 c₀(ι, 𝕜)) (s : Finset ι) :
@@ -63,9 +71,9 @@ lemma sum_strongDual_eval_single_le_norm [DecidableEq ι]
   have := RCLike.norm_of_nonneg' (K := 𝕜) (h₁ ▸ s.sum_nonneg (by simp))
   rw [h₁, ← this, RCLike.ofReal_le_ofReal, ← mul_one ‖φ‖]
   refine φ.le_opNorm_of_le ?_
-  simp only [AddSubgroupClass.coe_norm, AddSubgroup.val_finset_sum, coe_smul, coe_single]
+  simp only [AddSubgroupClass.coe_norm, AddSubgroup.val_finsetSum, coe_smul, coe_single]
   refine lp.norm_le_of_forall_le (by positivity) fun i ↦ ?_
-  simp only [AddSubgroup.val_finset_sum, lp.coeFn_smul, Finset.sum_apply, Pi.smul_apply,
+  simp only [AddSubgroup.val_finsetSum, lp.coeFn_smul, Finset.sum_apply, Pi.smul_apply,
     lp.single_apply, smul_eq_mul]
   by_cases! hi : i ∈ s
   · rw [s.sum_eq_single_of_mem i hi (by simp +contextual)]
@@ -91,6 +99,7 @@ noncomputable def strongDualTolpOne [DecidableEq ι]
     (φ : StrongDual 𝕜 c₀(ι, 𝕜)) : ℓ¹(ι, 𝕜) :=
   ⟨fun i ↦ φ (single i 1), strongDual_eval_single_memℓp_one φ⟩
 
+set_option backward.isDefEq.respectTransparency false in
 lemma norm_strongDualTolpOne_apply [DecidableEq ι]
     (φ : StrongDual 𝕜 c₀(ι, 𝕜)) : ‖strongDualTolpOne φ‖ ≤ ‖φ‖ :=
   lp.norm_le_of_forall_sum_le (by simp) (by positivity) <| by
@@ -127,6 +136,7 @@ noncomputable def lpOneToStrongDualLinearEquiv [DecidableEq ι] :
       simp_rw [← smul_eq_mul, ← map_smul, smul_single, smul_eq_mul, mul_one]
       exact φ.hasSum (hasSum_single x) |>.tsum_eq }
 
+set_option backward.isDefEq.respectTransparency false in
 variable (ι 𝕜) in
 /-- The linear isometry equivalence between `ℓ¹(ι, 𝕜)` and the (strong) dual of `c₀(ι, 𝕜)`.
 In the forward direction, this is given by `fun x y ↦ ∑' i, (y i) * (x i)`, and in the
