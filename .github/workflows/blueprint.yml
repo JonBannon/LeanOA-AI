@@ -94,6 +94,13 @@ jobs:
         uses: leanprover-community/docgen-action@main
         with:
           api-docs: true
+          # Disabled deliberately. The action's docs cache covers dependencies
+          # only (Mathlib, Std, ...) and excludes this project. On a cache hit,
+          # lake replays `LeanOA:docs` instead of generating it, so no
+          # docs/LeanOA/*.html are written and every declaration link in the
+          # blueprint 404s - while the build still reports success.
+          # Costs ~25 min per run; correctness is worth it.
+          use-github-cache: "false"
           blueprint: true
           build-page: true
           deploy: true
