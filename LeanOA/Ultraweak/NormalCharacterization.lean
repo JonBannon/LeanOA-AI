@@ -40,7 +40,8 @@ private theorem continuous_strong_cutoff_of_le_on_corner
   refine ⟨{ψp}, c, fun x ↦ ?_⟩
   simp only [Seminorm.comp_apply, Finset.sup_singleton, Strong.seminormFamily,
     Seminorm.smul_apply, NNReal.smul_def]
-  rw [LinearMap.comp_apply, Strong.linearEquiv_apply, cutoff_apply]
+  rw [LinearMap.comp_apply, LinearEquiv.coe_toLinearMap,
+    Strong.linearEquiv_apply, ContinuousLinearMap.coe_coe, cutoff_apply]
   have hφψ :
       φ (p * (star (ofStrong x) * ofStrong x) * p) ≤
         ψ (toUltraweak ℂ P (p * (star (ofStrong x) * ofStrong x) * p)) := by
@@ -101,9 +102,11 @@ theorem isNormalOnProjections_iff_mem_continuousDual (φ : M →ₚ[ℂ] ℂ) :
         (Ultraweak.mem_continuousDual_iff_exists_comp_toUltraweakL
           ψ.toContinuousLinearMap).2 ⟨ψᵤ.toContinuousLinearMap, by
             ext x
-            simp only [ψ, PositiveContinuousLinearMap.coe_toPositiveLinearMap,
-              PositiveContinuousLinearMap.comp_apply, Ultraweak.toUltraweakPosCLM_apply,
-              ContinuousLinearMap.comp_apply, Ultraweak.toUltraweakL_apply]⟩
+            simp only [ContinuousLinearMap.comp_apply, Ultraweak.toUltraweakL_apply,
+              PositiveContinuousLinearMap.coe_toContinuousLinearMap,
+              PositiveLinearMap.toContinuousLinearMap_apply, ψ,
+              PositiveContinuousLinearMap.coe_toPositiveLinearMap,
+              PositiveContinuousLinearMap.comp_apply, Ultraweak.toUltraweakPosCLM_apply]⟩
     obtain ⟨p, hp, hp_ne, hpr, hp_lt⟩ :=
       hφ.exists_nonzero_subprojection_lt_of_predual (P := P) hψ r.2 <| by
         simpa only [ψ, PositiveContinuousLinearMap.coe_toPositiveLinearMap,
