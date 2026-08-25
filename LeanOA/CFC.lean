@@ -126,7 +126,7 @@ lemma isBounded_of_bddAbove_of_bddBelow {A : Type*}
       imaginaryPart_eq_of_le (hb hx₀)]
   simp only [Metric.mem_closedBall, dist_eq_norm]
   rw [← this.coe_realPart]
-  simp only [map_sub, AddSubgroupClass.coe_norm, AddSubgroupClass.coe_sub]
+  simp only [map_sub, AddSubgroupClass.coe_sub]
   apply IsSelfAdjoint.norm_le_max_of_le_of_le (by cfc_tac)
   all_goals simpa using realPart_mono (by aesop)
 

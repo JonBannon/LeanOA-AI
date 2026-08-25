@@ -112,11 +112,19 @@ lemma mem_continuousDual_iff_exists_comp_toUltraweakL [CompleteSpace P]
             (toUltraweak 𝕜 P x)).symm
       _ = g (toUltraweak 𝕜 P x) := by rw [LinearEquiv.apply_symm_apply]
 
-/-- Every element of the specified predual represents an ultraweakly continuous functional. -/
-@[simp]
-lemma Predual.toDualₗᵢ_mem_continuousDual [CompleteSpace P] (p : P) :
-    Predual.toDualₗᵢ (𝕜 := 𝕜) (M := M) (P := P) p ∈ continuousDual 𝕜 M P :=
-  mem_continuousDual _ |>.2 ⟨p, rfl⟩
+/-- A norm-continuous functional belongs to the represented continuous dual exactly when its
+transport to the specified ultraweak topology is continuous. -/
+lemma mem_continuousDual_iff_continuous_ultraweak [CompleteSpace P]
+    (f : StrongDual 𝕜 M) :
+    f ∈ continuousDual 𝕜 M P ↔ Continuous fun x : σ(M, P)_𝕜 ↦ f (ofUltraweak x) := by
+  rw [mem_continuousDual_iff_exists_comp_toUltraweakL]
+  constructor
+  · rintro ⟨g, rfl⟩
+    exact g.continuous
+  · intro hf
+    refine ⟨⟨f.toLinearMap.comp (linearEquiv 𝕜 M P).toLinearMap, hf⟩, ?_⟩
+    ext x
+    rfl
 
 end Ultraweak
 
@@ -124,10 +132,16 @@ namespace Predual
 
 variable [CompleteSpace P]
 
+/-- Every element of the specified predual represents an ultraweakly continuous functional. -/
+@[simp]
+lemma toDualₗᵢ_mem_continuousDual (p : P) :
+    toDualₗᵢ (𝕜 := 𝕜) (M := M) (P := P) p ∈ Ultraweak.continuousDual 𝕜 M P :=
+  Ultraweak.mem_continuousDual _ |>.2 ⟨p, rfl⟩
+
 /-- The canonical isometric embedding of a specified predual onto its image in the norm dual. -/
 noncomputable def toContinuousDualₗᵢ :
     P →ₗᵢ[𝕜] (Ultraweak.continuousDual 𝕜 M P).toSubmodule where
-  toFun p := ⟨toDualₗᵢ p, Ultraweak.Predual.toDualₗᵢ_mem_continuousDual p⟩
+  toFun p := ⟨toDualₗᵢ p, toDualₗᵢ_mem_continuousDual p⟩
   map_add' p q := Subtype.ext <| map_add (toDualₗᵢ (𝕜 := 𝕜) (M := M) (P := P)) p q
   map_smul' c p := Subtype.ext <| map_smul (toDualₗᵢ (𝕜 := 𝕜) (M := M) (P := P)) c p
   norm_map' p := (toDualₗᵢ (𝕜 := 𝕜) (M := M) (P := P)).norm_map p

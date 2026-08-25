@@ -394,10 +394,34 @@ The second comparison below uses the Mackey--Arens maximality theorem, formalize
 By $A\le B$ on topologies below, we mean $A$ is weaker than $B$.
 
 \begin{theorem}
+  \label{thm:polar_decomposition_ultraweak_functional}
+  \lean{Ultraweak.exists_positive_comp_mulLeft_of_isSelfAdjoint}
+  \leanok
+  \uses{def:sigma_top,thm:Banach_Alaoglu,prop:extr_sa_sa_unitaries_Sak_1_6_3,lem:star_left_mul_right_mul_sig_cts_Sak_1_7_8}
+  Let $f$ be a self-adjoint $\sigma(M,M_{*})$--continuous complex-linear functional. There are a
+  positive $\sigma(M,M_{*})$--continuous functional $\varphi$ and a self-adjoint unitary $u\in M$
+  such that
+  \[
+    f(x)=\varphi(ux) \qquad (x\in M).
+  \]
+\end{theorem}
+
+\begin{proof}
+  \leanok
+  On the ultraweakly compact self-adjoint unit ball, maximize the real part of $f$ and pass to an
+  extreme point of the resulting exposed face. The extreme-point characterization identifies this
+  point with a self-adjoint unitary $u$. Self-adjointness of $f$ and the phase-rotation argument show
+  that $f(u)=\lVert f\rVert$. Consequently $x\mapsto f(ux)$ is positive, by the norm characterization
+  of positive functionals, and is ultraweakly continuous by continuity of left multiplication.
+  Taking this functional as $\varphi$ and using $u^{2}=1$ gives the displayed factorization. The
+  subsingleton algebra is handled separately, so no nontriviality hypothesis is needed.
+\end{proof}
+
+\begin{theorem}
   \label{thm:sigma_le_s_le_tau}
   \lean{Ultraweak.Strong.continuous_toUltraweakₗ,Ultraweak.Strong.continuous_fromMackeyₗ}
   \leanok
-  \uses{def:Mackey_top,def:strong_top,def:sigma_top, prop:extr_sa_sa_unitaries_Sak_1_6_3}
+  \uses{def:Mackey_top,def:strong_top,def:sigma_top,thm:polar_decomposition_ultraweak_functional}
   We have $\sigma(M,M_{*})\le s(M,M_{*})\le \tau(M,M_{*})$.
 \end{theorem}
 

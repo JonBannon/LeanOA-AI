@@ -185,11 +185,10 @@ non-instance bridge so callers do not need to unfold the weak-bilinear realizati
 theorem Ultraweak.locallyConvexSpace : LocallyConvexSpace 𝕜 (σ(M, P)_𝕜) := by
   let _ : Module ℝ M := RestrictScalars.module ℝ 𝕜 M
   let _ : IsScalarTower ℝ 𝕜 M := RestrictScalars.isScalarTower ℝ 𝕜 M
-  let _ : Module ℝ (σ(M, P)_𝕜) := RestrictScalars.module ℝ 𝕜 (σ(M, P)_𝕜)
-  let _ : IsScalarTower ℝ 𝕜 (σ(M, P)_𝕜) := RestrictScalars.isScalarTower ℝ 𝕜 (σ(M, P)_𝕜)
   rw [locallyConvexSpace_iff_exists_convex_subset]
   simpa only [convex_RCLike_iff_convex_real] using
-    (locallyConvexSpace_iff_exists_convex_subset ℝ (σ(M, P)_𝕜)).mp inferInstance
+    (locallyConvexSpace_iff_exists_convex_subset ℝ (σ(M, P)_𝕜)).mp
+      (inferInstance : LocallyConvexSpace ℝ (σ(M, P)_𝕜))
 
 -- the notation is still somewhat broken. Maybe we need `σ_𝕜(M, P)`.
 instance : T2Space (σ(M, P)_𝕜) := (weakDualCLE 𝕜 M P).symm.toHomeomorph.t2Space

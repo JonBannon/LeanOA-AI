@@ -162,11 +162,23 @@ private theorem isLUB_star_right_conjugate_aux (a u : σ(M, P)) (s : Set σ(M, P
   Since the first factor is bounded and the latter tendsto to zero, the product tends to zero.
   Hence `φ (a * (u - x))` tends to zero by the squeeze theorem. -/
   refine squeeze_zero (fun _ ↦ by positivity) (fun x ↦ ?_) <| bdd_le_mul_tendsto_zero' c hcu h₂
-  have hux : 0 ≤ u - x := sub_nonneg.mpr <| h.1 x.prop
-  rw [← CFC.sqrt_mul_sqrt_self' (u - x)]
-  have := φ.toPositiveLinearMap.cauchy_schwarz_mul_star
-    (a * CFC.sqrt (u - x)) (star (CFC.sqrt (u - x)))
-  simpa [(CFC.sqrt_nonneg (u - x)).star_eq, mul_assoc]
+  have hux : 0 ≤ u - (x : σ(M, P)) := sub_nonneg.mpr <| h.1 x.prop
+  let r : σ(M, P) :=
+    toUltraweak ℂ P (CFC.sqrt (ofUltraweak (u - (x : σ(M, P)))))
+  have hrstar : star r = r := by
+    rw [← ofUltraweak_inj, ofUltraweak_star, ofUltraweak_toUltraweak,
+      (CFC.sqrt_nonneg (ofUltraweak (u - (x : σ(M, P))))).star_eq]
+  have hrr : r * r = u - (x : σ(M, P)) := by
+    rw [← ofUltraweak_inj, ofUltraweak_mul, ofUltraweak_toUltraweak,
+      CFC.sqrt_mul_sqrt_self' _ (ofUltraweak_nonneg.mpr hux), ofUltraweak_sub]
+  have har : (a * r) * star (a * r) = a * (u - (x : σ(M, P))) * star a := by
+    calc
+      (a * r) * star (a * r) = a * (r * r) * star a := by
+        simp only [star_mul, hrstar, mul_assoc]
+      _ = a * (u - (x : σ(M, P))) * star a := by rw [hrr]
+  have hcs := φ.toPositiveLinearMap.cauchy_schwarz_mul_star (a * r) r
+  simpa only [PositiveContinuousLinearMap.coe_toPositiveLinearMap, hrstar, hrr, har,
+    mul_assoc] using hcs
 
 /-- If `s` is a nonempty directed set which is bounded above with supremum `u`,
 then so is `(a * · * star a) '' s`, and its least upper bound is `a * u * star a`. -/

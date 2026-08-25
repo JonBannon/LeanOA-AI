@@ -19,6 +19,16 @@ noncomputable def linearEquiv (𝕝 : Type*) [CommSemiring 𝕝] [Module 𝕝 E]
     WeakBilin B ≃ₗ[𝕝] E :=
   LinearEquiv.refl ..
 
+@[simp]
+lemma linearEquiv_apply (𝕝 : Type*) [CommSemiring 𝕝] [Module 𝕝 E]
+    (B : E →ₗ[𝕜] F →ₗ[𝕜] 𝕜) (x : WeakBilin B) : linearEquiv 𝕝 B x = x :=
+  rfl
+
+@[simp]
+lemma linearEquiv_symm_apply (𝕝 : Type*) [CommSemiring 𝕝] [Module 𝕝 E]
+    (B : E →ₗ[𝕜] F →ₗ[𝕜] 𝕜) (x : E) : (linearEquiv 𝕝 B).symm x = x :=
+  rfl
+
 /-- The dual pairing between `WeakBilin (B : E →ₗ[𝕜] F →ₗ[𝕜] 𝕜)` and `F`. In order to avoid abuse
 of the definitional equality between `E` and `WeakBilin B`, it is necessary to use this pairing
 instead of `B` itself when considering statements involving the weak topology induced by the
@@ -54,19 +64,18 @@ lemma isInducing (B : E →ₗ[𝕜] F →ₗ[𝕜] 𝕜) :
 protected noncomputable def congr (B : E →ₗ[𝕜] F →ₗ[𝕜] 𝕜) (e : E ≃ₗ[𝕜] E') (f : F ≃ₗ[𝕜] F')
     (B' : E' →ₗ[𝕜] F' →ₗ[𝕜] 𝕜) (hB : e.arrowCongr (f.arrowCongr (.refl ..)) B = B') :
     WeakBilin B ≃L[𝕜] WeakBilin B' where
-  toLinearEquiv := linearEquiv 𝕜 B ≪≫ₗ e ≪≫ₗ (linearEquiv 𝕜 B').symm
+  toLinearEquiv :=
+    { toFun := e
+      invFun := e.symm
+      left_inv := e.symm_apply_apply
+      right_inv := e.apply_symm_apply
+      map_add' := e.map_add
+      map_smul' := e.map_smul }
   continuous_toFun := by
-    apply continuous_of_continuous_eval' B' fun y' ↦ ?_
-    simp_rw [pairing_apply]
-    simpa [← hB] using! WeakBilin.eval_continuous' B _
+    apply continuous_of_continuous_eval B' fun y' ↦ ?_
+    simpa [← hB] using WeakBilin.eval_continuous B (f.symm y')
   continuous_invFun := by
-    apply continuous_of_continuous_eval' B fun y ↦ ?_
-    simp_rw [pairing_apply]
-    simp only [DFunLike.ext_iff, LinearEquiv.arrowCongr_apply, LinearEquiv.refl_apply] at hB
-    simp only [LinearEquiv.invFun_eq_symm, LinearEquiv.trans_symm, LinearEquiv.symm_symm,
-      LinearEquiv.trans_apply, LinearEquiv.apply_symm_apply]
-    rw [← f.symm_apply_apply y]
-    simp only [hB]
-    exact eval_continuous B' _
+    apply continuous_of_continuous_eval B fun y ↦ ?_
+    simpa [← hB] using WeakBilin.eval_continuous B' (f y)
 
 end WeakBilin

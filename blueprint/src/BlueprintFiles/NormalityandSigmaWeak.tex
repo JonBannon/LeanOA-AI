@@ -164,7 +164,7 @@ $\{p\in \mathcal{P}(M)\mid\mathscr{Q}(p)\}$. We use the same symbol for this ind
 
 \begin{lemma}
   \label{lem:msr_th_lemma}
-  \lean{PositiveLinearMap.IsNormalOnProjections.exists_nonzero_subprojection_lt}
+  \lean{PositiveLinearMap.IsNormalOnProjections.exists_nonzero_subprojection_lt_of_predual}
   \leanok
   \uses{def:normal_on_projections,prop:proj_compl_lat_wstar_Sak_1_10_2,cor:proj_sub_of_subproj}
   Let $\varphi$ and $\psi$ be positive linear functionals which are both normal on projections.
@@ -287,7 +287,7 @@ closed subspace of functionals represented by that predual.
   \label{thm:unique_predual}
   \lean{Ultraweak.continuousDual_eq,Predual.equiv,Predual.equiv_apply_duality,Predual.equiv_eq_of_apply_duality_eq}
   \leanok
-  \uses{def:specified_ultraweak_dual,thm:sigma_cts_of_normal_Sak_1_13_2,lem:star_left_mul_right_mul_sig_cts_Sak_1_7_8}
+  \uses{def:specified_ultraweak_dual,thm:sigma_cts_of_normal_Sak_1_13_2,thm:polar_decomposition_ultraweak_functional,lem:star_left_mul_right_mul_sig_cts_Sak_1_7_8}
   The closed subspaces of $M^{*}$ represented by $P$ and $Q$ are equal. Consequently there is a
   canonical complex-linear isometric equivalence
   \[

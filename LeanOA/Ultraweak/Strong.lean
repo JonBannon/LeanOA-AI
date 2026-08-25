@@ -561,6 +561,13 @@ lemma toUltraweakL_fromMackeyL [CompleteSpace P] (x : MackeySpace ℂ σ(M, P)) 
 
 end Strong
 
+/-- A norm-continuous functional belongs to the represented continuous dual exactly when its
+transport to the strong topology is continuous. -/
+theorem mem_continuousDual_iff_continuous_strong [CompleteSpace P] (f : StrongDual ℂ M) :
+    f ∈ continuousDual ℂ M P ↔ Continuous fun x : s(M, P) ↦ f (ofStrong x) :=
+  (mem_continuousDual_iff_continuous_ultraweak f).trans <|
+    Strong.continuous_ultraweak_iff_strong f.toLinearMap
+
 end
 
 end Ultraweak

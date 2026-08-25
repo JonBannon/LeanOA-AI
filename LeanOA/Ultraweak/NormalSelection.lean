@@ -20,7 +20,7 @@ open scoped ComplexOrder
 
 namespace PositiveLinearMap.IsNormalOnProjections
 
-section CompleteProjectionLattice
+section DirectedCompleteProjectionOrder
 
 variable {M : Type*} [NonUnitalCStarAlgebra M] [PartialOrder M] [StarOrderedRing M]
 
@@ -92,7 +92,7 @@ theorem exists_nonzero_subprojection_lt {f g : M →ₚ[ℂ] ℂ}
   apply add_left_cancel (a := q₀.1)
   simpa only [add_zero, r] using congrArg Subtype.val (hq₀r.antisymm hrq₀).symm
 
-end CompleteProjectionLattice
+end DirectedCompleteProjectionOrder
 
 section Predual
 

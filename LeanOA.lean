@@ -3,10 +3,10 @@ module  -- shake: keep-all --deprecated_module: ignore
 public import LeanOA.AbsConvex
 public import LeanOA.BlueprintImports
 public import LeanOA.CFC
-public import LeanOA.CStarAlgebra.Extreme
-public import LeanOA.CStarAlgebra.RealRankZero
 public import LeanOA.CStarAlgebra.Corner
+public import LeanOA.CStarAlgebra.Extreme
 public import LeanOA.CStarAlgebra.PositiveLinearFunctional
+public import LeanOA.CStarAlgebra.RealRankZero
 public import LeanOA.CStarModule.Standard
 public import LeanOA.ComplexOrder
 public import LeanOA.ExtremallyDisconnected
@@ -63,8 +63,8 @@ public import LeanOA.Ultraweak.ContinuousFunctionalCalculus
 public import LeanOA.Ultraweak.ContinuousStar
 public import LeanOA.Ultraweak.Corner
 public import LeanOA.Ultraweak.Dual
-public import LeanOA.Ultraweak.IsUnital
 public import LeanOA.Ultraweak.Ideal
+public import LeanOA.Ultraweak.IsUnital
 public import LeanOA.Ultraweak.LUB
 public import LeanOA.Ultraweak.Masa
 public import LeanOA.Ultraweak.Multiplication
@@ -73,6 +73,8 @@ public import LeanOA.Ultraweak.NormalCharacterization
 public import LeanOA.Ultraweak.NormalCutoff
 public import LeanOA.Ultraweak.NormalSelection
 public import LeanOA.Ultraweak.OrderClosed
+public import LeanOA.Ultraweak.PolarDecomposition
+public import LeanOA.Ultraweak.PredualUniqueness
 public import LeanOA.Ultraweak.ProjectionLattice
 public import LeanOA.Ultraweak.SeparatingDual
 public import LeanOA.Ultraweak.StarSubalgebra

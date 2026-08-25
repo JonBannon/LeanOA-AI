@@ -303,17 +303,50 @@ lemma Module.dualPairing_flip_polar_polar {𝕜 E F : Type*} [RCLike 𝕜] [AddC
     [AddCommGroup F] [Module 𝕜 F] [TopologicalSpace E] (B : E →ₗ[𝕜] F →ₗ[𝕜] 𝕜) [B.IsWeak]
     {s : Set E} (hs : AbsConvex 𝕜 s) (hs' : IsCompact s) (hs_non : s.Nonempty) :
     (LinearMap.id).flip.polar (B.polar s) = B '' s := by
+  letI : Module 𝕜 (WeakBilin (LinearMap.id (M := Dual 𝕜 F))) :=
+    WeakBilin.instModule' _
+  let e : WeakBilin (LinearMap.id (M := Dual 𝕜 F)) ≃ₗ[𝕜] Dual 𝕜 F :=
+    linearEquiv 𝕜 (LinearMap.id (M := Dual 𝕜 F))
   let B₂ : E →ₗ[𝕜] WeakBilin (LinearMap.id) :=
-    (LinearEquiv.refl _ _).arrowCongr (linearEquiv 𝕜 (LinearMap.id)).symm B
+    e.symm.toLinearMap.comp B
+  have e_B₂_apply (x : E) : e (B₂ x) = B x := by
+    exact e.apply_symm_apply _
+  have pairing_B₂_apply (x : E) (y : F) :
+      pairing (LinearMap.id (M := Dual 𝕜 F)) (B₂ x) y = B x y := by
+    rw [pairing_apply, show linearEquiv 𝕜 (LinearMap.id (M := Dual 𝕜 F)) = e from rfl,
+      e_B₂_apply]
+    rfl
+  have pairing_e_symm_apply (x : Dual 𝕜 F) (y : F) :
+      pairing (LinearMap.id (M := Dual 𝕜 F)) (e.symm x) y = x y := by
+    rw [pairing_apply, show linearEquiv 𝕜 (LinearMap.id (M := Dual 𝕜 F)) = e from rfl,
+      e.apply_symm_apply]
+    rfl
   have hB₂ : Continuous B₂ := by
     apply WeakBilin.continuous_of_continuous_eval' _ fun y ↦ ?_
-    simpa [B₂, pairing] using LinearMap.IsWeak.continuous_eval B y
+    simpa only [pairing_B₂_apply] using LinearMap.IsWeak.continuous_eval B y
   suffices (pairing (LinearMap.id)).flip.polar (B.polar s) = (B₂ '' s) by
-    simp only [LinearEquiv.arrowCongr_apply, LinearEquiv.refl_symm, LinearEquiv.refl_apply,
-      ← Set.image_image, LinearEquiv.image_symm_eq_preimage, B₂] at this
-    exact linearEquiv 𝕜 (LinearMap.id) |>.surjective.preimage_injective this
+    ext x
+    calc
+      x ∈ (LinearMap.id).flip.polar (B.polar s) ↔
+          e.symm x ∈ (pairing (LinearMap.id)).flip.polar (B.polar s) := by
+        simp only [LinearMap.polar_mem_iff, LinearMap.flip_apply, pairing_e_symm_apply]
+        rfl
+      _ ↔ e.symm x ∈ B₂ '' s := by rw [this]
+      _ ↔ x ∈ B '' s := by
+        constructor
+        · rintro ⟨z, hz, hzx⟩
+          refine ⟨z, hz, ?_⟩
+          calc
+            B z = e (B₂ z) := (e_B₂_apply z).symm
+            _ = e (e.symm x) := congrArg e hzx
+            _ = x := e.apply_symm_apply x
+        · rintro ⟨z, hz, rfl⟩
+          refine ⟨z, hz, e.injective ?_⟩
+          rw [e_B₂_apply, e.apply_symm_apply]
   have h₁ : B.polar s = (pairing (LinearMap.id)).polar (B₂ '' s) := by
-    ext; simp [LinearMap.polar_mem_iff, B₂, pairing]
+    ext y
+    simp only [LinearMap.polar_mem_iff, Set.mem_image, forall_exists_index, and_imp,
+      forall_apply_eq_imp_iff₂, pairing_B₂_apply]
   apply Eq.trans congr((pairing (LinearMap.id)).flip.polar $h₁)
   rw [LinearMap.bipolar, closedAbsConvexHull_eq_self]
   · exact hs.image _

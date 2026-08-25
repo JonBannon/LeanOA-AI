@@ -40,7 +40,7 @@ private theorem continuous_strong_cutoff_of_le_on_corner
   refine ⟨{ψp}, c, fun x ↦ ?_⟩
   simp only [Seminorm.comp_apply, Finset.sup_singleton, Strong.seminormFamily,
     Seminorm.smul_apply, NNReal.smul_def]
-  change ‖φ (ofStrong x * p)‖ ≤ (c : ℝ) * Strong.seminorm ψp x
+  rw [LinearMap.comp_apply, Strong.linearEquiv_apply, cutoff_apply]
   have hφψ :
       φ (p * (star (ofStrong x) * ofStrong x) * p) ≤
         ψ (toUltraweak ℂ P (p * (star (ofStrong x) * ofStrong x) * p)) := by
@@ -77,15 +77,6 @@ private theorem continuous_strong_cutoff_of_le_on_corner
         ofUltraweak_toUltraweak, c]
       rfl
 
-private theorem mem_continuousDual_of_continuous_strong (f : StrongDual ℂ M)
-    (hf : Continuous fun x : s(M, P) ↦ f (ofStrong x)) :
-    f ∈ Ultraweak.continuousDual ℂ M P := by
-  refine (Ultraweak.mem_continuousDual_iff_exists_comp_toUltraweakL f).2 ⟨⟨
-    f.toLinearMap.comp (Ultraweak.linearEquiv ℂ M P).toLinearMap,
-    (Strong.continuous_ultraweak_iff_strong f.toLinearMap).2 hf⟩, ?_⟩
-  ext x
-  simp
-
 /-- A positive functional on a C-star algebra with a specified Banach predual is normal on
 projections exactly when it is represented by that predual. -/
 theorem isNormalOnProjections_iff_mem_continuousDual (φ : M →ₚ[ℂ] ℂ) :
@@ -110,11 +101,13 @@ theorem isNormalOnProjections_iff_mem_continuousDual (φ : M →ₚ[ℂ] ℂ) :
         (Ultraweak.mem_continuousDual_iff_exists_comp_toUltraweakL
           ψ.toContinuousLinearMap).2 ⟨ψᵤ.toContinuousLinearMap, by
             ext x
-            simp [ψ]⟩
+            simp only [ψ, PositiveContinuousLinearMap.coe_toPositiveLinearMap,
+              PositiveContinuousLinearMap.comp_apply, Ultraweak.toUltraweakPosCLM_apply,
+              ContinuousLinearMap.comp_apply, Ultraweak.toUltraweakL_apply]⟩
     obtain ⟨p, hp, hp_ne, hpr, hp_lt⟩ :=
       hφ.exists_nonzero_subprojection_lt_of_predual (P := P) hψ r.2 <| by
-        change φ r.1 < ψᵤ (toUltraweak ℂ P r.1)
-        exact hψᵤ
+        simpa only [ψ, PositiveContinuousLinearMap.coe_toPositiveLinearMap,
+          PositiveContinuousLinearMap.comp_apply, Ultraweak.toUltraweakPosCLM_apply] using hψᵤ
     let Q := P ⧸ Ultraweak.preannihilator (P := P)
       (IsStarProjection.Corner.rangeSubmodule hp)
     letI : Predual ℂ hp.Corner Q :=
@@ -123,7 +116,7 @@ theorem isNormalOnProjections_iff_mem_continuousDual (φ : M →ₚ[ℂ] ℂ) :
       CStarAlgebra.isRealRankZero_of_predual (P := Q)
     have hcorner (x : hp.Corner) (hx : 0 ≤ x) :
         φ (IsStarProjection.Corner.inclusionP hp x) ≤
-          ψᵤ (toUltraweak ℂ P (IsStarProjection.Corner.inclusionP hp x)) := by
+          ψ (IsStarProjection.Corner.inclusionP hp x) := by
       apply PositiveLinearMap.le_on_nonneg_of_le_on_isStarProjection
         (φ.comp (IsStarProjection.Corner.inclusionP hp).toPositiveLinearMap)
         (ψ.comp (IsStarProjection.Corner.inclusionP hp).toPositiveLinearMap)
@@ -145,8 +138,11 @@ theorem isNormalOnProjections_iff_mem_continuousDual (φ : M →ₚ[ℂ] ℂ) :
               IsStarProjection.Corner.inclusionP_apply] using
               IsStarProjection.Corner.projection_mul hp q)).le
     have hp_cutoff : φ.IsUltraweakCutoff P ⟨p, hp⟩ :=
-      mem_continuousDual_of_continuous_strong (φ.cutoff p) <|
-        continuous_strong_cutoff_of_le_on_corner φ ψᵤ hp hcorner
+      (Ultraweak.mem_continuousDual_iff_continuous_strong (P := P) (φ.cutoff p)).2 <|
+        continuous_strong_cutoff_of_le_on_corner φ ψᵤ hp fun x hx ↦ by
+          simpa only [ψ, PositiveContinuousLinearMap.coe_toPositiveLinearMap,
+            PositiveContinuousLinearMap.comp_apply, Ultraweak.toUltraweakPosCLM_apply] using
+              hcorner x hx
     have hp₀p : p₀.1 * p = 0 := by
       rw [← (hp.le_iff_mul_eq_right r.2).mp hpr, ← mul_assoc,
         p₀.2.mul_one_sub_self, zero_mul]
