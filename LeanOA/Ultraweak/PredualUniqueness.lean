@@ -6,9 +6,9 @@ public import LeanOA.Ultraweak.PolarDecomposition
 @[expose] public section
 
 /-!
-# Uniqueness of preduals of C-star algebras
+# Uniqueness of preduals of non-unital C-star algebras
 
-Any two specified Banach preduals of a C-star algebra represent the same norm-continuous
+Any two specified Banach preduals of a non-unital C-star algebra represent the same norm-continuous
 functionals. Consequently, matching represented functionals gives a canonical linear isometry
 between the two preduals.
 -/
@@ -18,6 +18,8 @@ open scoped ComplexOrder ComplexStarModule Ultraweak
 namespace Ultraweak
 
 noncomputable section
+
+section Unital
 
 variable {M P Q : Type*} [CStarAlgebra M] [PartialOrder M] [StarOrderedRing M]
   [NormedAddCommGroup P] [NormedSpace ℂ P] [CompleteSpace P] [Predual ℂ M P]
@@ -72,10 +74,22 @@ private theorem continuousDual_le :
     ((continuousDual ℂ M Q).smul_mem Complex.I <|
       comp_toUltraweakL_mem_continuousDual_of_isSelfAdjoint gi hgi)
 
-/-- The norm-continuous functionals represented by a C-star algebra predual are independent of
-the specified predual. -/
-theorem continuousDual_eq : continuousDual ℂ M P = continuousDual ℂ M Q :=
-  le_antisymm continuousDual_le continuousDual_le
+end Unital
+
+section NonUnital
+
+variable {M P Q : Type*} [NonUnitalCStarAlgebra M] [PartialOrder M] [StarOrderedRing M]
+  [NormedAddCommGroup P] [NormedSpace ℂ P] [CompleteSpace P] [Predual ℂ M P]
+  [NormedAddCommGroup Q] [NormedSpace ℂ Q] [CompleteSpace Q] [Predual ℂ M Q]
+
+/-- The norm-continuous functionals represented by a non-unital C-star algebra predual are
+independent of the specified predual. -/
+theorem continuousDual_eq : continuousDual ℂ M P = continuousDual ℂ M Q := by
+  letI : IsUnital M := CStarAlgebra.isUnital_of_predual (P := P)
+  letI : CStarAlgebra M := IsUnital.toCStarAlgebra
+  exact le_antisymm continuousDual_le continuousDual_le
+
+end NonUnital
 
 end
 
@@ -86,7 +100,7 @@ namespace Ultraweak
 
 section Uniqueness
 
-variable {M P Q : Type*} [CStarAlgebra M] [PartialOrder M] [StarOrderedRing M]
+variable {M P Q : Type*} [NonUnitalCStarAlgebra M] [PartialOrder M] [StarOrderedRing M]
   [NormedAddCommGroup P] [NormedSpace ℂ P] [CompleteSpace P] [Predual ℂ M P]
   [NormedAddCommGroup Q] [NormedSpace ℂ Q] [CompleteSpace Q] [Predual ℂ M Q]
 
@@ -112,12 +126,12 @@ namespace Predual
 
 section Uniqueness
 
-variable {M P Q : Type*} [CStarAlgebra M] [PartialOrder M] [StarOrderedRing M]
+variable {M P Q : Type*} [NonUnitalCStarAlgebra M] [PartialOrder M] [StarOrderedRing M]
   [NormedAddCommGroup P] [NormedSpace ℂ P] [CompleteSpace P] [Predual ℂ M P]
   [NormedAddCommGroup Q] [NormedSpace ℂ Q] [CompleteSpace Q] [Predual ℂ M Q]
 
-/-- The canonical linear isometry between two specified Banach preduals of the same C-star
-algebra. It is characterized by representing the same functional on the algebra. -/
+/-- The canonical linear isometry between two specified Banach preduals of the same non-unital
+C-star algebra. It is characterized by representing the same functional on the algebra. -/
 noncomputable def equiv : P ≃ₗᵢ[ℂ] Q :=
   (continuousDualEquiv (𝕜 := ℂ) (M := M) (P := P)).trans <|
     (Ultraweak.continuousDualCongr (M := M) (P := P) (Q := Q)).trans

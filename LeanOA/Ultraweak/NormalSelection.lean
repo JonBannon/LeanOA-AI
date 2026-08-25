@@ -11,8 +11,8 @@ public import Mathlib.Order.Zorn
 
 Given two positive functionals which preserve directed suprema of projections, a strict inequality
 on a projection persists uniformly on all nonzero subprojections of some nonzero subprojection.
-The main result is algebraic once nonempty directed families of projections have suprema. A
-separate wrapper uses an explicit Banach predual only to supply those suprema.
+The main result is algebraic once nonempty chains of projections have suprema. Separate wrappers
+accept directed completeness or use an explicit Banach predual to supply full completeness.
 -/
 
 open Set
@@ -20,7 +20,7 @@ open scoped ComplexOrder
 
 namespace PositiveLinearMap.IsNormalOnProjections
 
-section DirectedCompleteProjectionOrder
+section ChainCompleteProjectionOrder
 
 variable {M : Type*} [NonUnitalCStarAlgebra M] [PartialOrder M] [StarOrderedRing M]
 
@@ -33,16 +33,17 @@ private lemma le_of_not_lt_apply (f g : M →ₚ[ℂ] ℂ) {q : M} (hq : 0 ≤ q
   exact ⟨le_of_not_gt fun hgf ↦ h ⟨hgf, hf.2.symm.trans hg.2⟩, hg.2.symm.trans hf.2⟩
 
 /-- If two normal positive functionals satisfy a strict inequality on a projection, then the same
-strict inequality holds on every nonzero subprojection of some nonzero subprojection.
+strict inequality holds on every nonzero subprojection of some nonzero subprojection, provided
+every nonempty chain of projections has a least upper bound.
 
 The hypothesis itself forces the original projection to be nonzero. Both normality assumptions are
-purely order-theoretic. The final hypothesis supplies least upper bounds of nonempty directed sets
-in the inherited projection order. This is both weaker than a complete lattice and avoids
-installing a second, potentially incoherent order through a bundled lattice instance. -/
-theorem exists_nonzero_subprojection_lt {f g : M →ₚ[ℂ] ℂ}
+purely order-theoretic. The final hypothesis is exactly the chain completeness used by Zorn's
+lemma, stated in the inherited projection order. This avoids installing a second, potentially
+incoherent order through a bundled lattice instance. -/
+theorem exists_nonzero_subprojection_lt_of_chain_lubs {f g : M →ₚ[ℂ] ℂ}
     (hf : f.IsNormalOnProjections) (hg : g.IsNormalOnProjections)
     (hcomplete : ∀ s : Set {q : M // IsStarProjection q}, s.Nonempty →
-      DirectedOn (· ≤ ·) s → ∃ p, IsLUB s p) {p : M}
+      IsChain (· ≤ ·) s → ∃ p, IsLUB s p) {p : M}
     (hp : IsStarProjection p) (hfg : f p < g p) :
     ∃ p₁ : M, IsStarProjection p₁ ∧ p₁ ≠ 0 ∧ p₁ ≤ p ∧
       ∀ {q : M}, IsStarProjection q → q ≠ 0 → q ≤ p₁ → f q < g q := by
@@ -55,7 +56,7 @@ theorem exists_nonzero_subprojection_lt {f g : M →ₚ[ℂ] ℂ}
   obtain ⟨q₀, -, hq₀S, hq₀max⟩ := zorn_le_nonempty₀ S (fun c hcS hc q hqc ↦ by
     have hnon : c.Nonempty := ⟨q, hqc⟩
     have hcdir : DirectedOn (· ≤ ·) c := hc.directedOn
-    obtain ⟨r, hr⟩ := hcomplete c hnon hcdir
+    obtain ⟨r, hr⟩ := hcomplete c hnon hc
     have hfc := hf hnon hcdir hr
     have hgc := hg hnon hcdir hr
     refine ⟨r, ⟨hr.2 fun q hq ↦ (hcS hq).1, hgc.2 ?_⟩, hr.1⟩
@@ -92,16 +93,30 @@ theorem exists_nonzero_subprojection_lt {f g : M →ₚ[ℂ] ℂ}
   apply add_left_cancel (a := q₀.1)
   simpa only [add_zero, r] using congrArg Subtype.val (hq₀r.antisymm hrq₀).symm
 
-end DirectedCompleteProjectionOrder
+/-- A directed-complete wrapper for `exists_nonzero_subprojection_lt_of_chain_lubs`.
+
+This preserves the previous API for callers which naturally have least upper bounds of all
+nonempty directed sets of projections. -/
+theorem exists_nonzero_subprojection_lt {f g : M →ₚ[ℂ] ℂ}
+    (hf : f.IsNormalOnProjections) (hg : g.IsNormalOnProjections)
+    (hcomplete : ∀ s : Set {q : M // IsStarProjection q}, s.Nonempty →
+      DirectedOn (· ≤ ·) s → ∃ p, IsLUB s p) {p : M}
+    (hp : IsStarProjection p) (hfg : f p < g p) :
+    ∃ p₁ : M, IsStarProjection p₁ ∧ p₁ ≠ 0 ∧ p₁ ≤ p ∧
+      ∀ {q : M}, IsStarProjection q → q ≠ 0 → q ≤ p₁ → f q < g q :=
+  hf.exists_nonzero_subprojection_lt_of_chain_lubs hg
+    (fun s hnon hs ↦ hcomplete s hnon hs.directedOn) hp hfg
+
+end ChainCompleteProjectionOrder
 
 section Predual
 
-variable {M P : Type*} [CStarAlgebra M] [PartialOrder M] [StarOrderedRing M]
+variable {M P : Type*} [NonUnitalCStarAlgebra M] [PartialOrder M] [StarOrderedRing M]
   [NormedAddCommGroup P] [NormedSpace ℂ P] [CompleteSpace P] [Predual ℂ M P]
 
 include P
 
-/-- The projection-selection lemma for a C-star algebra with a specified Banach predual.
+/-- The projection-selection lemma for a non-unital C-star algebra with a specified Banach predual.
 
 This is a convenience wrapper around `exists_nonzero_subprojection_lt`; the predual is used only
 to supply the complete lattice of projections. -/
@@ -110,6 +125,8 @@ theorem exists_nonzero_subprojection_lt_of_predual {f g : M →ₚ[ℂ] ℂ}
     (hp : IsStarProjection p) (hfg : f p < g p) :
     ∃ p₁ : M, IsStarProjection p₁ ∧ p₁ ≠ 0 ∧ p₁ ≤ p ∧
       ∀ {q : M}, IsStarProjection q → q ≠ 0 → q ≤ p₁ → f q < g q := by
+  letI : IsUnital M := CStarAlgebra.isUnital_of_predual (P := P)
+  letI : CStarAlgebra M := IsUnital.toCStarAlgebra
   letI : CompleteLattice {q : M // IsStarProjection q} :=
     IsStarProjection.completeLatticeOfPredual (P := P)
   exact hf.exists_nonzero_subprojection_lt hg

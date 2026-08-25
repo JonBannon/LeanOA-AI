@@ -157,15 +157,17 @@ theorem IsNormalOnProjections.isUltraweakCutoff_of_isLUB {φ : M →ₚ[ℂ] ℂ
 
 end Predual
 
-section UnitalPredual
+section PredualMaximal
 
-variable {M P : Type*} [CStarAlgebra M] [PartialOrder M] [StarOrderedRing M]
+variable {M P : Type*} [NonUnitalCStarAlgebra M] [PartialOrder M] [StarOrderedRing M]
   [NormedAddCommGroup P] [NormedSpace ℂ P] [CompleteSpace P] [Predual ℂ M P]
 
 /-- A normal positive functional has a maximal projection with ultraweakly continuous cutoff. -/
 theorem IsNormalOnProjections.exists_maximal_isUltraweakCutoff {φ : M →ₚ[ℂ] ℂ}
     (hφ : φ.IsNormalOnProjections) :
     ∃ p : {p : M // IsStarProjection p}, Maximal (φ.IsUltraweakCutoff P) p := by
+  letI : IsUnital M := CStarAlgebra.isUnital_of_predual (P := P)
+  letI : CStarAlgebra M := IsUnital.toCStarAlgebra
   letI : CompleteLattice {p : M // IsStarProjection p} :=
     IsStarProjection.completeLatticeOfPredual (P := P)
   let pzero : {p : M // IsStarProjection p} := ⟨0, IsStarProjection.zero M⟩
@@ -177,6 +179,6 @@ theorem IsNormalOnProjections.exists_maximal_isUltraweakCutoff {φ : M →ₚ[�
           simpa only [pzero] using φ.isUltraweakCutoff_zero (P := P))
   exact ⟨p, hp⟩
 
-end UnitalPredual
+end PredualMaximal
 
 end PositiveLinearMap

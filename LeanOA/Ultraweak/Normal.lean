@@ -19,7 +19,7 @@ without selecting a `WStarAlgebra` instance.
 open Filter Set
 open scoped ComplexOrder Topology Ultraweak
 
-variable {M P : Type*} [CStarAlgebra M] [PartialOrder M] [StarOrderedRing M]
+variable {M P : Type*} [NonUnitalCStarAlgebra M] [PartialOrder M] [StarOrderedRing M]
   [NormedAddCommGroup P] [NormedSpace ℂ P] [CompleteSpace P] [Predual ℂ M P]
 
 namespace PositiveLinearMap
@@ -28,6 +28,8 @@ namespace PositiveLinearMap
 theorem isNormalOnProjections_of_mem_continuousDual (f : M →ₚ[ℂ] ℂ)
     (hf : f.toContinuousLinearMap ∈ Ultraweak.continuousDual ℂ M P) :
     f.IsNormalOnProjections := by
+  letI : IsUnital M := CStarAlgebra.isUnital_of_predual (P := P)
+  letI : CStarAlgebra M := IsUnital.toCStarAlgebra
   obtain ⟨g, hg⟩ :=
     (Ultraweak.mem_continuousDual_iff_exists_comp_toUltraweakL f.toContinuousLinearMap).1 hf
   have hg_apply (x : M) : g (toUltraweak ℂ P x) = f x := by

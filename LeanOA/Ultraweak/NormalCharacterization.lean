@@ -13,7 +13,7 @@ public import LeanOA.Ultraweak.Strong
 /-!
 # Order-theoretic characterization of ultraweakly continuous positive functionals
 
-A positive functional on a C-star algebra with a specified Banach predual is ultraweakly
+A positive functional on a non-unital C-star algebra with a specified Banach predual is ultraweakly
 continuous exactly when it preserves directed suprema of projections. The predual remains an
 explicit parameter throughout, so the characterization does not depend on a selected
 `WStarAlgebra` instance.
@@ -22,10 +22,12 @@ explicit parameter throughout, so the characterization does not depend on a sele
 open scoped ComplexOrder NNReal Ultraweak
 open Ultraweak
 
+namespace PositiveLinearMap
+
+section Unital
+
 variable {M P : Type*} [CStarAlgebra M] [PartialOrder M] [StarOrderedRing M]
   [NormedAddCommGroup P] [NormedSpace ℂ P] [CompleteSpace P] [Predual ℂ M P]
-
-namespace PositiveLinearMap
 
 private theorem continuous_strong_cutoff_of_le_on_corner
     (φ : M →ₚ[ℂ] ℂ) (ψ : σ(M, P) →P[ℂ] ℂ) {p : M} (hp : IsStarProjection p)
@@ -78,11 +80,20 @@ private theorem continuous_strong_cutoff_of_le_on_corner
         ofUltraweak_toUltraweak, c]
       rfl
 
-/-- A positive functional on a C-star algebra with a specified Banach predual is normal on
-projections exactly when it is represented by that predual. -/
+end Unital
+
+section NonUnital
+
+variable {M P : Type*} [NonUnitalCStarAlgebra M] [PartialOrder M] [StarOrderedRing M]
+  [NormedAddCommGroup P] [NormedSpace ℂ P] [CompleteSpace P] [Predual ℂ M P]
+
+/-- A positive functional on a non-unital C-star algebra with a specified Banach predual is normal
+on projections exactly when it is represented by that predual. -/
 theorem isNormalOnProjections_iff_mem_continuousDual (φ : M →ₚ[ℂ] ℂ) :
     φ.IsNormalOnProjections ↔
       φ.toContinuousLinearMap ∈ Ultraweak.continuousDual ℂ M P := by
+  letI : IsUnital M := CStarAlgebra.isUnital_of_predual (P := P)
+  letI : CStarAlgebra M := IsUnital.toCStarAlgebra
   constructor
   · intro hφ
     obtain ⟨p₀, hp₀⟩ := hφ.exists_maximal_isUltraweakCutoff (P := P)
@@ -162,5 +173,7 @@ theorem isNormalOnProjections_iff_mem_continuousDual (φ : M →ₚ[ℂ] ℂ) :
     simpa only [add_zero, q] using
       (congrArg Subtype.val (hp₀q.antisymm hqp₀)).symm
   · exact φ.isNormalOnProjections_of_mem_continuousDual
+
+end NonUnital
 
 end PositiveLinearMap

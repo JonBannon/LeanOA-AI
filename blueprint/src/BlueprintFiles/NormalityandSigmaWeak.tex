@@ -1,8 +1,10 @@
 \chapter{Normality and Ultraweak Continuity for Positive Functionals}
 
-In what follows, let $M$ be a $C^{*}$--algebra with its compatible ordered star-ring
-structure, and fix a specified Banach predual $P$ of $M$. No nontriviality assumption on $M$ is
-needed. Let $\mathcal{P}(M)$ denote the projection lattice of $M$, and let $\varphi$ be a positive
+In what follows, let $M$ be a possibly non-unital $C^{*}$--algebra with its compatible ordered
+star-ring structure, and fix a specified Banach predual $P$ of $M$. The existence of $P$ forces
+$M$ to be unital, but the public statements below do not assume unitality separately and introduce
+the resulting unit only inside their proofs. No nontriviality assumption on $M$ is needed. Let
+$\mathcal{P}(M)$ denote the projection lattice of $M$, and let $\varphi$ be a positive
 linear functional on $M$. We say that $\varphi$ is \textbf{normal on projections} if the map
 $p\mapsto\varphi(p)$ preserves least upper bounds of nonempty directed families of projections.
 Equivalently, whenever $(p_{\alpha})$ is an increasing net of projections with supremum $p$, we
@@ -164,7 +166,7 @@ $\{p\in \mathcal{P}(M)\mid\mathscr{Q}(p)\}$. We use the same symbol for this ind
 
 \begin{lemma}
   \label{lem:msr_th_lemma}
-  \lean{PositiveLinearMap.IsNormalOnProjections.exists_nonzero_subprojection_lt_of_predual}
+  \lean{PositiveLinearMap.IsNormalOnProjections.exists_nonzero_subprojection_lt_of_chain_lubs,PositiveLinearMap.IsNormalOnProjections.exists_nonzero_subprojection_lt,PositiveLinearMap.IsNormalOnProjections.exists_nonzero_subprojection_lt_of_predual}
   \leanok
   \uses{def:normal_on_projections,prop:proj_compl_lat_wstar_Sak_1_10_2,cor:proj_sub_of_subproj}
   Let $\varphi$ and $\psi$ be positive linear functionals which are both normal on projections.
@@ -175,6 +177,10 @@ $\{p\in \mathcal{P}(M)\mid\mathscr{Q}(p)\}$. We use the same symbol for this ind
 
 \begin{proof}
   \leanok
+  The reusable formal core assumes only that each nonempty chain of projections has a least upper
+  bound. A directed-complete wrapper preserves the stronger order-theoretic interface, and the
+  displayed predual wrapper obtains completeness from $P$.
+
   Let $S$ consist of the subprojections $q\le p$ for which
   $\psi(q)\le\varphi(q)$. It contains zero. The supremum of a chain in $S$ remains below $p$;
   normality of both functionals says that their values at this supremum are the corresponding
@@ -243,6 +249,7 @@ closure of the corresponding cut-off functionals.
   The implication from (2) to (1) is Theorem \ref{thm:uw_continuous_is_normal}. For the converse,
   suppose that $\varphi$ is normal. Lemma \ref{lem:zorn_base} gives a maximal projection
   $p_0\in\mathcal{P}(M)$ for which the cutoff $x\mapsto\varphi(xp_0)$ is represented by $P$.
+  The specified predual first supplies the multiplicative identity used in the rest of the proof.
   Suppose that $p_0\ne1$. Lemma \ref{lem:exists_uw_ge_normal} gives a positive
   $\sigma(M,P)$--continuous functional $\psi$ such that
   $\varphi(1-p_0)<\psi(1-p_0)$. By the easy implication, $\psi$ is normal on projections, so the
@@ -279,9 +286,10 @@ are independent of which predual is specified.
 
 \section{Uniqueness of the Predual}
 
-We now let $P$ and $Q$ be two specified Banach preduals of the same $C^{*}$--algebra $M$. Each
-predual has a canonical linear isometric embedding into the norm dual $M^{*}$, and its image is the
-closed subspace of functionals represented by that predual.
+We now let $P$ and $Q$ be two specified Banach preduals of the same possibly non-unital
+$C^{*}$--algebra $M$. Either predual supplies unitality internally. Each predual has a canonical
+linear isometric embedding into the norm dual $M^{*}$, and its image is the closed subspace of
+functionals represented by that predual.
 
 \begin{theorem}
   \label{thm:unique_predual}
