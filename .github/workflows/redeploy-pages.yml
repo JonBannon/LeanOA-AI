@@ -1,0 +1,72 @@
+name: Redeploy Pages from an existing build
+
+# Repackages the `github-pages` artifact from a previous successful run,
+# correcting the stale `/LeanOA/` base path, and redeploys it.
+# This avoids a full Lean rebuild when only the Jekyll link prefix is wrong.
+
+on:
+  workflow_dispatch:
+    inputs:
+      run-id:
+        description: "Run ID whose github-pages artifact should be redeployed"
+        required: true
+
+permissions:
+  contents: read
+  actions: read          # required to read an artifact from another run
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  redeploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Download the built site
+        uses: actions/download-artifact@v4
+        with:
+          name: github-pages
+          run-id: ${{ inputs.run-id }}
+          github-token: ${{ github.token }}
+          path: artifact
+
+      - name: Unpack
+        run: |
+          mkdir -p site
+          tar -xf artifact/artifact.tar -C site
+
+      - name: Correct the base path in the Jekyll pages
+        run: |
+          # Only the site-root pages carry the bad prefix. Do NOT recurse:
+          # docs/ contains legitimate `LeanOA/` module paths that must not change.
+          patched=0
+          for f in site/*.html; do
+            [ -e "$f" ] || continue
+            before=$(md5sum "$f" | cut -d' ' -f1)
+            sed -i \
+              -e 's|="/LeanOA/|="/LeanOA-AI/|g' \
+              -e 's|https://jonbannon.github.io/LeanOA/|https://jonbannon.github.io/LeanOA-AI/|g' \
+              "$f"
+            after=$(md5sum "$f" | cut -d' ' -f1)
+            if [ "$before" != "$after" ]; then echo "patched $f"; patched=$((patched+1)); fi
+          done
+          echo "patched $patched file(s)"
+          [ "$patched" -gt 0 ] || { echo "::error::Nothing was patched - wrong run-id?"; exit 1; }
+          if grep -rlo '="/LeanOA/' site --include='*.html'; then
+            echo "::error::stale /LeanOA/ references remain"; exit 1
+          fi
+
+      - name: Upload corrected site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
