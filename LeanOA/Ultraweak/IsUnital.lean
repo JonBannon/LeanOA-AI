@@ -14,7 +14,7 @@ provides an explicit closed-submodule transport of that result.
 -/
 
 open Metric Set
-open scoped Ultraweak
+open scoped ComplexOrder Ultraweak
 
 variable {A M P : Type*}
 
@@ -27,8 +27,12 @@ theorem CStarAlgebra.isUnital_of_predual [NonUnitalCStarAlgebra A]
       convert (Complex.continuous_ofReal.comp continuous_fst).mul
         ((Ultraweak.eval_continuous p).comp continuous_snd) using 1
       ext x
-      rw [RCLike.real_smul_eq_coe_smul (K := ℂ), ofUltraweak_smul, map_smul]
+      rw [RCLike.real_smul_eq_coe_smul (K := ℂ),
+        ← Ultraweak.linearEquiv_apply ℂ A P, map_smul, Ultraweak.linearEquiv_apply, map_smul]
       rfl⟩
+  letI : LocallyConvexSpace ℂ σ(A, P) := Ultraweak.locallyConvexSpace ℂ A P
+  letI : LocallyConvexSpace ℝ σ(A, P) :=
+    LocallyConvexSpace.to_real ℂ σ(A, P) inferInstance
   let e := (Ultraweak.linearEquiv ℂ A P).restrictScalars ℝ
   have he : (e : σ(A, P) → A) = ofUltraweak := by
     ext x

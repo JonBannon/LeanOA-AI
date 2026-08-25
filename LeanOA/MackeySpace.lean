@@ -80,14 +80,17 @@ instance : IsTopologicalAddGroup (MackeySpace 𝕜 E) :=
     (MackeySpace.mackeyCLE 𝕜 E).toLinearMap
 
 instance : ContinuousSMul 𝕜 (MackeySpace 𝕜 E) := by
-  letI : ContinuousSMul 𝕜 (Mackey (weakDualPairing 𝕜 E).flip) :=
+  let hMackey : ContinuousSMul 𝕜 (Mackey (weakDualPairing 𝕜 E).flip) :=
     PolarTopology.continuousSMul (B := (weakDualPairing 𝕜 E).flip)
       (𝔖 := {s | IsCompact s ∧ AbsConvex 𝕜 s}) fun _ hs ↦ by
       let _ := LinearMap.IsWeak.isTopologicalAddGroup (weakDualPairing 𝕜 E)
       let _ := LinearMap.IsWeak.continuousSMul (weakDualPairing 𝕜 E)
       exact hs.1.isVonNBounded 𝕜
-  exact (MackeySpace.mackeyCLE 𝕜 E).toHomeomorph.isInducing.continuousSMul
-    continuous_id rfl
+  refine ⟨(MackeySpace.mackeyCLE 𝕜 E).symm.continuous.comp
+    (hMackey.continuous_smul.comp <| continuous_fst.prodMk <|
+      (MackeySpace.mackeyCLE 𝕜 E).continuous.comp continuous_snd) |>.congr ?_⟩
+  intro p
+  simp
 
 instance : LocallyConvexSpace 𝕜 (MackeySpace 𝕜 E) :=
   (MackeySpace.mackeyCLE 𝕜 E).toHomeomorph.isInducing.locallyConvexSpace
