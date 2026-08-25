@@ -4,6 +4,7 @@ public import Mathlib.Topology.Algebra.Module.ContinuousLinearMap.Basic
 public import Mathlib.Algebra.Order.Module.PositiveLinearMap
 public import Mathlib.Algebra.Order.Star.Basic
 public import Mathlib.Analysis.Complex.Basic
+public import LeanOA.Mathlib.Topology.Order.MonotoneConvergence
 
 @[expose] public section
 
@@ -105,6 +106,12 @@ lemma map_smul_of_tower {S : Type*} [SMul S E₁] [SMul S E₂]
 @[aesop safe apply (rule_sets := [CStarAlgebra])]
 protected lemma map_nonneg (f : E₁ →P[R] E₂) {x : E₁} (hx : 0 ≤ x) : 0 ≤ f x :=
   _root_.map_nonneg f hx
+
+/-- A positive continuous linear map is Scott continuous when directed suprema in its domain are
+topological limits and its codomain has closed order. -/
+theorem scottContinuous [SupConvergenceClass E₁] [OrderClosedTopology E₂]
+    (f : E₁ →P[R] E₂) : ScottContinuous f :=
+  (map_continuous f).scottContinuous_of_monotone (OrderHomClass.mono f)
 
 section Comp
 
@@ -221,6 +228,12 @@ lemma nsmul_apply (f : E₁ →P[R] E₂) (n : ℕ) (x : E₁) :
 instance : AddCommMonoid (E₁ →P[R] E₂) :=
   toPositiveLinearMap_injective.addCommMonoid _ toPositiveLinearMap_zero toPositiveLinearMap_add
     toPositiveLinearMap_nsmul
+
+@[simp]
+lemma sum_apply {ι : Type*} (s : Finset ι) (f : ι → E₁ →P[R] E₂) (x : E₁) :
+    (∑ i ∈ s, f i) x = ∑ i ∈ s, f i x := by
+  classical
+  induction s using Finset.induction_on <;> simp_all
 
 end General
 

@@ -7,7 +7,7 @@ on:
       - '**/*.lean'
       - '**/blueprint.yml'
       - 'blueprint/**'
-      - 'docs/**'
+      - 'home_page/**'
       - 'scripts/**'
       - 'lean-toolchain'
       - 'lakefile.toml'
@@ -19,7 +19,7 @@ on:
       - '**/*.lean'
       - '**/blueprint.yml'
       - 'blueprint/**'
-      - 'docs/**'
+      - 'home_page/**'
       - 'scripts/**'
       - 'lean-toolchain'
       - 'lakefile.toml'
@@ -93,5 +93,8 @@ jobs:
       - name: Compile blueprint and documentation
         uses: leanprover-community/docgen-action@main
         with:
+          api-docs: true
           blueprint: true
+          build-page: true
+          deploy: true
           homepage: home_page

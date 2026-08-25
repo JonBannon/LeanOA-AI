@@ -116,7 +116,7 @@ lemma AlgEquiv.quasispectrum_eq {F R A B : Type*} [CommSemiring R] [NonUnitalRin
 @[simps!]
 noncomputable def cfcₙHomTransfer (e : A ≃⋆ₐ[R] B) (hpq : ∀ x, p x ↔ q (e x))
     (b : B) (hb : q b) : C(quasispectrum R b, R)₀ →⋆ₙₐ[R] B :=
-  ContinuousMapZero.starAlgEquiv_precomp R
+  ContinuousMapZero.starAlgEquivPrecomp R
     (Homeomorph.setCongr (by simp)) (by ext; simp [Homeomorph.setCongr]) |>.arrowCongr'
     e (cfcₙHom (hpq (e.symm b) |>.mpr <| by simpa))
 
@@ -152,7 +152,7 @@ theorem NonUnitalContinuousFunctionalCalculus.transfer (e : A ≃⋆ₐ[R] B)
       continuous_cfcₙHomTransfer e hpq b hb he,
       cfcₙHomTransfer_injective e hpq b hb,
       cfcₙHomTransfer_id e hpq b hb,
-      fun f ↦ by simp [cfcₙHom_map_quasispectrum ha, ContinuousMapZero.starAlgEquiv_precomp],
+      fun f ↦ by simp [cfcₙHom_map_quasispectrum ha, ContinuousMapZero.starAlgEquivPrecomp],
       fun f ↦ by simp [← hpq, cfcₙHom_predicate ha]⟩
 
 lemma cfcₙHom_eq_cfcₙHomTransfer [NonUnitalContinuousFunctionalCalculus R B q]

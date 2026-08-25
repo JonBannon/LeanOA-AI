@@ -188,6 +188,14 @@ theorem flip_polar_polar [TopologicalSpace E] [hB : B.IsWeak] {s : Set E}
 
 alias bipolar := flip_polar_polar
 
+/-- The double annihilator of a closed submodule in a weak topology is the original submodule. -/
+theorem flip_polarSubmodule_polarSubmodule [TopologicalSpace E] [B.IsWeak]
+    (S : Submodule 𝕜 E) (hS : IsClosed (S : Set E)) :
+    B.flip.polarSubmodule (B.polarSubmodule S) = S := by
+  rw [← SetLike.coe_injective.eq_iff, coe_polarSubmodule, coe_polarSubmodule,
+    flip_polar_polar B S.nonempty, closedAbsConvexHull_eq_self]
+  exacts [⟨balanced_iff_smul_mem.mpr fun {a} _ {x} hx ↦ S.smul_mem a hx, S.convex⟩, hS]
+
 /-
 This fails when `s` is empty. Indeed, `closedAbsConvexHull (E := WeakBilin B) 𝕜 s` is the empty set,
 but `B.polar_gc.closureOperator s` equals `{0}` when `B` is left separating (see example above).

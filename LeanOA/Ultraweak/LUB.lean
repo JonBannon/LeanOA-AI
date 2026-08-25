@@ -83,6 +83,19 @@ lemma DirectedOn.exists_isLUB (s : Set σ(M, P)) (hs : DirectedOn (· ≤ ·) s)
   limit is the least upper bound. -/
   simpa [setOf] using! isLUB_of_tendsto_atTop (β := s) (Subtype.mono_coe (· ∈ s)) hx
 
+/-- A nonempty norm-bounded directed set has a least upper bound and converges ultraweakly to it. -/
+lemma DirectedOn.exists_isLUB_of_isBounded (s : Set σ(M, P)) (hs : DirectedOn (· ≤ ·) s)
+    (hnon : s.Nonempty) (hbd : IsBounded s) :
+    ∃ x : σ(M, P), IsLUB s x ∧ Tendsto (Subtype.val : s → σ(M, P)) atTop (𝓝 x) := by
+  apply DirectedOn.exists_isLUB s hs hnon
+  have hbdM : IsBounded (ofUltraweak '' s : Set M) := isBounded_image_ofUltraweak.mpr hbd
+  have hdM : DirectedOn (· ≤ ·) (ofUltraweak '' s : Set M) := by
+    rintro _ ⟨x, hx, rfl⟩ _ ⟨y, hy, rfl⟩
+    obtain ⟨z, hz, hxz, hyz⟩ := hs x hx y hy
+    exact ⟨ofUltraweak z, ⟨z, hz, rfl⟩, hxz, hyz⟩
+  obtain ⟨b, hb⟩ := Bornology.IsBounded.bddAbove_of_directedOn hbdM hdM
+  exact ⟨toUltraweak ℂ P b, fun x hx ↦ hb ⟨x, hx, rfl⟩⟩
+
 /-- `σ(M, P)` is a conditionally complete partial order. Since this is only dependent upon the
 order, not the topology, the same is true of `M`. -/
 noncomputable instance : ConditionallyCompletePartialOrderSup σ(M, P) where

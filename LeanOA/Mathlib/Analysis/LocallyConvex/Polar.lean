@@ -11,6 +11,19 @@ open WeakBilin
 
 namespace LinearMap
 
+lemma coe_polarSubmodule {𝕜 E F S : Type*} [NontriviallyNormedField 𝕜]
+    [AddCommMonoid E] [Module 𝕜 E] [AddCommMonoid F] [Module 𝕜 F]
+    [SetLike S E] [SMulMemClass S 𝕜 E] (B : E →ₗ[𝕜] F →ₗ[𝕜] 𝕜) (s : S) :
+    (B.polarSubmodule s : Set F) = B.polar s :=
+  rfl
+
+lemma mem_polarSubmodule {𝕜 E F S : Type*} [NontriviallyNormedField 𝕜]
+    [AddCommMonoid E] [Module 𝕜 E] [AddCommMonoid F] [Module 𝕜 F]
+    [SetLike S E] [SMulMemClass S 𝕜 E] (B : E →ₗ[𝕜] F →ₗ[𝕜] 𝕜) (s : S) (y : F) :
+    y ∈ B.polarSubmodule s ↔ ∀ x ∈ s, B x y = 0 := by
+  rw [← SetLike.mem_coe, coe_polarSubmodule, B.polar_subMulAction]
+  rfl
+
 theorem isClosed_polar {𝕜 E F : Type*} [NormedCommRing 𝕜] [AddCommMonoid E]
     [AddCommMonoid F] [Module 𝕜 E] [Module 𝕜 F] [TopologicalSpace F] (B : E →ₗ[𝕜] F →ₗ[𝕜] 𝕜)
     [hB : B.flip.IsWeak] (s : Set E) :

@@ -129,3 +129,23 @@ lemma isBounded_of_bddAbove_of_bddBelow {A : Type*}
   simp only [map_sub, AddSubgroupClass.coe_norm, AddSubgroupClass.coe_sub]
   apply IsSelfAdjoint.norm_le_max_of_le_of_le (by cfc_tac)
   all_goals simpa using realPart_mono (by aesop)
+
+/-- A norm-bounded directed set in a unital C-star algebra is bounded above. The elements need not
+themselves be self-adjoint: directedness forces their differences to be self-adjoint. -/
+lemma Bornology.IsBounded.bddAbove_of_directedOn {A : Type*} [CStarAlgebra A]
+    [PartialOrder A] [StarOrderedRing A] {s : Set A} (hs : IsBounded s)
+    (hd : DirectedOn (· ≤ ·) s) : BddAbove s := by
+  obtain (rfl | hn) := s.eq_empty_or_nonempty
+  · simp
+  obtain ⟨C, hC⟩ := hs.subset_closedBall (0 : A)
+  obtain ⟨x₀, hx₀⟩ := hn
+  refine ⟨x₀ + algebraMap ℝ A (2 * C), fun x hx ↦ ?_⟩
+  obtain ⟨z, hz, hxz, hx₀z⟩ := hd x hx x₀ hx₀
+  apply hxz.trans
+  rw [add_comm]
+  apply sub_le_iff_le_add.mp
+  refine (sub_nonneg.mpr hx₀z).isSelfAdjoint.le_algebraMap_norm_self.trans ?_
+  exact algebraMap_mono A <| calc
+    ‖z - x₀‖ ≤ ‖z‖ + ‖x₀‖ := norm_sub_le ..
+    _ ≤ C + C := add_le_add (by simpa using hC hz) (by simpa using hC hx₀)
+    _ = 2 * C := by ring

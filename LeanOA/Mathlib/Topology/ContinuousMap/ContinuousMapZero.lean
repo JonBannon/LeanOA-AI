@@ -21,10 +21,10 @@ lemma single_def [DiscreteTopology A] [DecidableEq A] [Zero Y] [Zero A]
 @[simp] lemma single_apply_of_ne_zero [DiscreteTopology A] [DecidableEq A] [Zero Y] [Zero A]
     (i : A) (x : Y) {j : A} (hj : j ≠ 0) : single i x j = (Pi.single i x : A → Y) j := by simp_all
 
-/-- The star algebra equivalence between `C(Y, R)₉` and `C(X, R)₀` given by precomposing
+/-- The star algebra equivalence between `C(Y, R)₀` and `C(X, R)₀` given by precomposing
 with a homeomorphism `X ≃ₜ Y` mapping `0` to `0`. -/
-@[simps!, nolint defsWithUnderscore]
-def starAlgEquiv_precomp {X Y : Type*} (R : Type*) [Zero X] [Zero Y]
+@[simps!]
+def starAlgEquivPrecomp {X Y : Type*} (R : Type*) [Zero X] [Zero Y]
     [TopologicalSpace X] [TopologicalSpace Y] [TopologicalSpace R]
     [CommSemiring R] [StarRing R] [IsTopologicalSemiring R] [ContinuousStar R]
     (f : X ≃ₜ Y) (hf : f 0 = 0) :

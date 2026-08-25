@@ -91,4 +91,26 @@ lemma ext_positiveCLM_iff {a b : σ(M, P)} :
     a = b ↔ ∀ φ : σ(M, P) →P[ℂ] ℂ, φ a = φ b :=
   ⟨by congr!, ext_positiveCLM⟩
 
+/-- At every nonzero positive element, an arbitrary positive linear functional is strictly
+dominated by some positive ultraweakly continuous linear functional. -/
+lemma exists_positiveCLM_apply_gt (φ : M →ₚ[ℂ] ℂ) {x : M} (hx : 0 ≤ x) (hx0 : x ≠ 0) :
+    ∃ ψ : σ(M, P) →P[ℂ] ℂ, φ x < ψ (toUltraweak ℂ P x) := by
+  let y := toUltraweak ℂ P x
+  have hy0 : y ≠ 0 := by simpa [y] using hx0
+  obtain ⟨ψ, hψ0⟩ : ∃ ψ : σ(M, P) →P[ℂ] ℂ, ψ y ≠ 0 := by
+    by_contra! h
+    exact hy0 (eq_zero_of_forall_positiveCLM y h)
+  have hy : 0 ≤ y := by simpa [y] using hx
+  have hψ := Complex.nonneg_iff.mp (ψ.map_nonneg hy)
+  have hψre : 0 < (ψ y).re :=
+    lt_of_le_of_ne hψ.1 fun h ↦ hψ0 <| Complex.ext h.symm hψ.2.symm
+  obtain ⟨n, hn⟩ := exists_lt_nsmul hψre (φ x).re
+  refine ⟨n • ψ, ?_⟩
+  rw [PositiveContinuousLinearMap.nsmul_apply, Complex.lt_def]
+  refine ⟨by simpa using hn, ?_⟩
+  have hφ := Complex.nonneg_iff.mp (φ.map_nonneg hx)
+  change (φ x).im = (n • ψ y).im
+  rw [← hφ.2]
+  exact Complex.nonneg_iff.mp (nsmul_nonneg (ψ.map_nonneg hy) n) |>.2
+
 end Ultraweak

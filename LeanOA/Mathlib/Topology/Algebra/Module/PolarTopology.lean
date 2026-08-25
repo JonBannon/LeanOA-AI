@@ -185,7 +185,7 @@ variable {B 𝔖} in
 lemma toUniformConvergenceCLM_apply_apply (x : PolarTopology B 𝔖) (y : F) :
     toUniformConvergenceCLM x y = B x y := by
   simp [toUniformConvergenceCLM]
-  rfl -- gross
+  rfl
 
 noncomputable instance : UniformSpace (PolarTopology B 𝔖) :=
   .comap (toUniformConvergenceCLM (B := B) (𝔖 := 𝔖)) inferInstance
@@ -198,6 +198,57 @@ instance : IsUniformAddGroup (PolarTopology B 𝔖) := .comap _
 lemma isUniformInducing_toUniformConvergenceCLM :
     IsUniformInducing (toUniformConvergenceCLM (B := B) (𝔖 := 𝔖)) where
   comap_uniformity := rfl
+
+section congrLeft
+
+variable {E' : Type*} [AddCommGroup E'] [Module 𝕜 E']
+  {B' : E' →ₗ[𝕜] F →ₗ[𝕜] 𝕜} [B'.flip.IsWeak]
+
+/-- A pairing-preserving linear equivalence in the left coordinate induces a continuous linear
+equivalence between the corresponding polar topologies, for any fixed family of subsets in the
+right coordinate. -/
+noncomputable def congrLeft (e : E ≃ₗ[𝕜] E') (h : ∀ x y, B' (e x) y = B x y) :
+    PolarTopology B 𝔖 ≃L[𝕜] PolarTopology B' 𝔖 where
+  toLinearEquiv := linearEquiv ≪≫ₗ e ≪≫ₗ linearEquiv.symm
+  continuous_toFun := by
+    rw [continuous_induced_rng]
+    have hc : Continuous (toUniformConvergenceCLM (B := B) (𝔖 := 𝔖)) :=
+      (isUniformInducing_toUniformConvergenceCLM B 𝔖).isInducing.continuous
+    convert hc using 1
+    funext x
+    apply DFunLike.ext _ _
+    intro y
+    simp only [Function.comp_apply, toUniformConvergenceCLM_apply_apply]
+    convert h (linearEquiv x) y using 1 <;> rfl
+  continuous_invFun := by
+    rw [continuous_induced_rng]
+    have hc : Continuous (toUniformConvergenceCLM (B := B') (𝔖 := 𝔖)) :=
+      (isUniformInducing_toUniformConvergenceCLM B' 𝔖).isInducing.continuous
+    convert hc using 1
+    funext x
+    apply DFunLike.ext _ _
+    intro y
+    simp only [Function.comp_apply, toUniformConvergenceCLM_apply_apply]
+    convert (h (e.symm (linearEquiv x)) y).symm using 1
+    · rfl
+    · rw [e.apply_symm_apply]
+      rfl
+
+@[simp]
+lemma congrLeft_apply (e : E ≃ₗ[𝕜] E') (h : ∀ x y, B' (e x) y = B x y)
+    (x : PolarTopology B 𝔖) :
+    congrLeft B 𝔖 e h x =
+      (linearEquiv (B := B') (𝔖 := 𝔖)).symm (e (linearEquiv x)) :=
+  rfl
+
+@[simp]
+lemma congrLeft_symm_apply (e : E ≃ₗ[𝕜] E') (h : ∀ x y, B' (e x) y = B x y)
+    (x : PolarTopology B' 𝔖) :
+    (congrLeft B 𝔖 e h).symm x =
+      (linearEquiv (B := B) (𝔖 := 𝔖)).symm (e.symm (linearEquiv x)) :=
+  rfl
+
+end congrLeft
 
 instance : ContinuousConstSMul 𝕜 (PolarTopology B 𝔖) :=
   isUniformInducing_toUniformConvergenceCLM B 𝔖 |>.isInducing.continuousConstSMul id <| by simp
@@ -493,8 +544,6 @@ theorem locallyConvexSpace [Module ℝ E] [h : IsScalarTower ℝ 𝕜 E] (h𝔖_
     LocallyConvexSpace ℝ (PolarTopology B 𝔖) :=
   (withSeminorms B 𝔖 h𝔖_non h𝔖_dir h𝔖 ).toLocallyConvexSpace
 
--- Question: Should we first map these through `linearEquiv.symm`, and then `(bilin B 𝔖).polar`?
--- It might make it easier to apply the bipolar theorem later.
 lemma isVonNBounded_nhdsPolars [TopologicalSpace E] [IsTopologicalAddGroup E]
     [ContinuousSMul 𝕜 E] [hB : B.IsCompatibleDual] (s : Set F) (hs : s ∈ B.nhdsPolars) :
     IsVonNBounded 𝕜 s := by
@@ -517,7 +566,7 @@ lemma continuous_seminorm_comp [TopologicalSpace E] [IsTopologicalAddGroup E]
 
 open LinearMap WithSeminorms
 
-/-- The continuous linear equivalence between `E` satisfiying `B.flip.IsCompatibleDual` and
+/-- The continuous linear equivalence between `E` satisfying `B.flip.IsCompatibleDual` and
 `PolarTopology B (nhdsPolars B)`. -/
 def polarTopologyNhdsPolars [TopologicalSpace E] [IsTopologicalAddGroup E]
     [ContinuousSMul 𝕜 E] [hLCS : LocallyConvexSpace 𝕜 E]
@@ -539,9 +588,9 @@ def polarTopologyNhdsPolars [TopologicalSpace E] [IsTopologicalAddGroup E]
       rw [← IsCompatibleDual.flip_polar_polar (Filter.nonempty_of_mem hu_nhd) (B := B)]
       ext; congr!
     simp only [id_eq]
-    have foo := polar_mem_nhds (B := B) (𝔖 := nhdsPolars B) nonempty_nhdsPolars
+    have hpolar := polar_mem_nhds (B := B) (𝔖 := nhdsPolars B) nonempty_nhdsPolars
       directedOn_nhdsPolars (B.polar u) ⟨u, hu_nhd, rfl⟩ (hB.isVonNBounded_polar _ hu_nhd)
-    filter_upwards [foo] with x hx using show x ∈ f ⁻¹' u from this ▸ hx
+    filter_upwards [hpolar] with x hx using show x ∈ f ⁻¹' u from this ▸ hx
   continuous_invFun := by
     simp only [LinearEquiv.invFun_eq_symm]
     apply withSeminorms B (nhdsPolars B) nonempty_nhdsPolars directedOn_nhdsPolars

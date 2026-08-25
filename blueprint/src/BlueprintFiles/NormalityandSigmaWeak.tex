@@ -1,17 +1,44 @@
 \chapter{Normality and Ultraweak Continuity for Positive Functionals}
 
-In what follows, let $M$ be a (nonzero) $W^{*}$--algebra. Let $\mathcal{P}(M)$
-denote the projection lattice of $M$. Let $\varphi$ be a positive linear functional $\varphi$ on $M$.
-We say $\varphi$ is \textbf{normal} if whenever $(p_{\alpha})$ is an increasing net of projections in $M$ with supremum $p$,
-we have $\varphi(p_{\alpha})\to \varphi(p)$. In this section we show that this property is equivalent to 
-$\sigma(M, M_{*})$--continuity. We say that a linear functional $\varphi$ on $M$
-is \textbf{positive} if $\varphi(x)\ge 0$ whenever $x\ge 0$.
+In what follows, let $M$ be a $C^{*}$--algebra with its compatible ordered star-ring
+structure, and fix a specified Banach predual $P$ of $M$. No nontriviality assumption on $M$ is
+needed. Let $\mathcal{P}(M)$ denote the projection lattice of $M$, and let $\varphi$ be a positive
+linear functional on $M$. We say that $\varphi$ is \textbf{normal on projections} if the map
+$p\mapsto\varphi(p)$ preserves least upper bounds of nonempty directed families of projections.
+Equivalently, whenever $(p_{\alpha})$ is an increasing net of projections with supremum $p$, we
+have $\varphi(p_{\alpha})\to\varphi(p)$. The formal predicate below is deliberately purely
+order-theoretic; it has no topology, $C^{*}$--algebra, or predual built into its definition.
 
-\section{Ultraweakly Continuous Implies Normal} 
+We prove that normality on projections is equivalent to representation by the specified predual,
+or equivalently to $\sigma(M,P)$--continuity. Recall that a linear functional $\varphi$ is
+\textbf{positive} if $\varphi(x)\ge 0$ whenever $x\ge 0$.
 
-In what follows, let $T$ denote the set of all $\sigma$--continuous positive
+\begin{definition}
+  \label{def:normal_on_projections}
+  \lean{PositiveLinearMap.IsNormalOnProjections}
+  \leanok
+  For a positive linear map $f$, \textbf{normality on projections} means Scott continuity of the
+  induced map $p\mapsto f(p)$ on the subtype of star projections. Thus $f$ preserves least upper
+  bounds of nonempty directed families of projections. The formal definition is stated for
+  ordered modules over a semiring and does not assume any topology or $C^{*}$--algebra structure.
+\end{definition}
+
+\begin{definition}
+  \label{def:specified_ultraweak_dual}
+  \lean{Ultraweak.continuousDual,Ultraweak.mem_continuousDual_iff_exists_comp_toUltraweakL}
+  \leanok
+  \uses{def:sigma_top}
+  The \textbf{continuous dual represented by $P$} is the norm-closed subspace of the norm dual of
+  $M$ obtained as the image of the canonical isometric embedding of $P$. A norm-continuous
+  functional belongs to this subspace exactly when it factors through the explicit continuous
+  linear map from $M$ to $\sigma(M,P)$.
+\end{definition}
+
+\section{Ultraweakly Continuous Implies Normal}
+
+In what follows, let $T$ denote the set of all $\sigma(M,P)$--continuous positive
 linear functionals on $M$, and $E$ the linear space of all finite linear combinations
-of elements of $T$. Let $P$ denote the set of positive elements of $M$.
+of elements of $T$. Write $M_{+}$ for the set of positive elements of $M$.
 
 \begin{lemma}
   \label{lem:homeo_of_cts_bij_cpt_haus}
@@ -41,18 +68,21 @@ of elements of $T$. Let $P$ denote the set of positive elements of $M$.
 
 \begin{theorem}
   \label{lem:sigma_cont_of_normal_Sak_1_7_4} (Sak 1.7.4)
-  \uses{thm:Banach_Alaoglu,lem:homeo_of_cts_bij_cpt_haus,lem:uw_pos_sep_pts,lem:selfadjoint_le_norm,def:sigma_top,thm:comm_cstar_cts_fcns_Sak_1_2_1}
+  \lean{Ultraweak.DirectedOn.exists_isLUB_of_isBounded,Ultraweak.DirectedOn.isLUB_star_right_conjugate}
+  \leanok
+  \uses{thm:Banach_Alaoglu,lem:homeo_of_cts_bij_cpt_haus,lem:uw_pos_sep_pts,lem:selfadjoint_le_norm,def:sigma_top}
   Every uniformly bounded, increasing net in $M^{s}$ converges
   to its least upper bound in the $\sigma$--topology. Further, if
   $x=\sup_{\lambda}x_{\lambda}$ then $a^{*}xa=\sup_{\lambda}a^{*}x_{\lambda}a$.
 \end{theorem}
 
 \begin{proof}
+  \leanok
   Letting $T$ denote the set of $\sigma$--continuous positive functionals on $M$ and $E$ its linear span, by
   Lemma \ref{lem:uw_pos_sep_pts}, the subspace $E$ separates the points of $M$ and so the $\sigma(M,E)$
   is Hausdorff. By the Banach-Alaoglu Theorem (\ref{thm:Banach_Alaoglu}) the closed unit ball $B$ of $M$ is
-  compact in the $\sigma(M,M_{*})$--topology. Since $\sigma(M,E)$ is weaker than $\sigma(M,M_{*})$, the identity
-  map on $B$ is $\sigma(M,M_{*})-\sigma(M,E)$--continuous, and therefore a homeomorphism, 
+  compact in the $\sigma(M,P)$--topology. Since $\sigma(M,E)$ is weaker than $\sigma(M,P)$, the identity
+  map on $B$ is $\sigma(M,P)-\sigma(M,E)$--continuous, and therefore a homeomorphism,
   by Lemma \ref{lem:homeo_of_cts_bij_cpt_haus}. So, to prove that a uniformly bounded net $(x_{t})$ is $\sigma$--
   Cauchy, it's enough to check that for all $\varepsilon>0$ and $\varphi\in T$ that there is a $\Lambda$ such that
   $\varphi(x_{\lambda}-x_{\mu})\le \varepsilon$ for $\lambda \ge \mu \ge \Lambda$.
@@ -78,7 +108,7 @@ of elements of $T$. Let $P$ denote the set of positive elements of $M$.
   \end{align}
   for all $\varphi\in T$. 
   It suffices to show that $\varphi(a^{*}x_{\lambda}+x_{\lambda}a)\to \varphi(a^{*}x+xa)$ for all $\varphi\in T$, 
-  because then $\varphi(a^{*}x_{\lambda}a)\to \varphi(a^{*}xa)$ by the above. We can use Cauchy-Schwartz for this as follows. If $\alpha\le \beta$,
+  because then $\varphi(a^{*}x_{\lambda}a)\to \varphi(a^{*}xa)$ by the above. We can use Cauchy--Schwarz for this as follows. If $\alpha\le \beta$,
   we have $x_{\beta}-x_{\alpha}\ge 0$, and since the net $(x_{\lambda})$ is uniformly bounded there exists $M>0$ such that (using \ref{lem:selfadjoint_le_norm})
   \begin{align}
     |\varphi(a^{*}(x_{\beta}-x_{\alpha}))|&=|\varphi(a^{*}(x_{\beta}-x_{\alpha})^{1/2}(x_{\beta}-x_{\alpha})^{1/2})|\\\nonumber
@@ -89,114 +119,206 @@ of elements of $T$. Let $P$ denote the set of positive elements of $M$.
   It follows that $\varphi(a^{*}x_{\lambda}+x_{\lambda}a)\to \varphi(a^{*}x+xa)$, and the proof is finished.
 \end{proof}
 
-\section{Normal Implies Ultraweakly Continuous}
+\begin{theorem}
+  \label{thm:uw_continuous_is_normal}
+  \lean{PositiveLinearMap.isNormalOnProjections_of_mem_continuousDual}
+  \leanok
+  \uses{def:normal_on_projections,def:specified_ultraweak_dual,lem:sigma_cont_of_normal_Sak_1_7_4,prop:proj_compl_lat_wstar_Sak_1_10_2}
+  If a positive functional $\varphi$ is represented by the specified predual $P$, equivalently if
+  $\varphi$ is $\sigma(M,P)$--continuous, then $\varphi$ is normal on projections.
+\end{theorem}
 
 \begin{proof}
+  \leanok
+  Factor $\varphi$ through the explicit map from $M$ to its $\sigma(M,P)$ topology. A nonempty
+  directed family of projections converges ultraweakly to any specified least upper bound, so
+  continuity of the factor gives convergence of the corresponding values of $\varphi$.
+  Positivity makes these values monotone, and hence identifies their limit as their least upper
+  bound. Thus the induced map on projections preserves every nonempty directed supremum.
 \end{proof}
 
-If $P:\mathcal{P}(M)\to \text{Prop}$ is a predicate, the usual ordering ``$\le$'' on projections
-induces an order on the set $\{p\in \mathcal{P}(M)|P(p)\}$. In what follows there will be no confusion if 
-we also denote this induced order by ``$\le$''.
+\section{Normal Implies Ultraweakly Continuous}
+
+If $\mathscr{Q}:\mathcal{P}(M)\to \operatorname{Prop}$ is a predicate, the usual ordering
+``$\le$'' on projections induces an order on
+$\{p\in \mathcal{P}(M)\mid\mathscr{Q}(p)\}$. We use the same symbol for this induced order.
 
 \begin{lemma}
   \label{lem:exists_uw_ge_normal}
+  \lean{Ultraweak.exists_positiveCLM_apply_gt}
+  \leanok
   \uses{lem:uw_pos_sep_pts}
-  For every positive normal linear functional $\varphi$ and nonzero $p\in \mathcal{P}(M)$
-  there exists a positive $\sigma(M,M_{*})$--continuous linear functional $\psi$ such that $\varphi(p)<\psi(p)$.
+  For every positive linear functional $\varphi$ and every nonzero positive element $a\in M_{+}$,
+  there exists a positive $\sigma(M,P)$--continuous linear functional $\psi$ such that
+  $\varphi(a)<\psi(a)$.
 \end{lemma}
 
 \begin{proof}
-  By Lemma \ref{lem:uw_pos_sep_pts} there is a $\sigma(M,M_{*})$--continuous positive linear
-  functional $\psi_0$ on $M$ such that $\psi_0(p)\ne 0$. Rescale this functional by a positive constant to obtain
-  $\psi$ such that $\varphi(p)<\psi(p)$.
+  \leanok
+  By Lemma \ref{lem:uw_pos_sep_pts} there is a $\sigma(M,P)$--continuous positive linear
+  functional $\psi_0$ on $M$ such that $\psi_0(a)\ne 0$. Positivity forces
+  $\psi_0(a)>0$, so a sufficiently large positive integral multiple of $\psi_0$ strictly
+  dominates $\varphi$ at $a$. Neither normality of $\varphi$ nor the assumption that $a$ is a
+  projection is needed.
 \end{proof}
 
 \begin{lemma}
   \label{lem:msr_th_lemma}
-  \uses{lem:sigma_cont_of_normal_Sak_1_7_4,prop:proj_compl_lat_wstar_Sak_1_10_2,cor:proj_sub_of_subproj}
-For all positive linear functionals $\varphi,\psi$ with
-$\varphi$ normal and $\psi$ $\sigma(M,M_{*})$--continuous and every nonzero $p\in \mathcal{P}(M)$
-such that $\varphi(p)<\psi(p)$, there exists a nonzero $p_1 \in \mathcal{P}(M)$ such that $p_1\le p$ and for all nonzero
-$q\in \mathcal{P}(M)$ with $q\le p_1$, we have $\varphi(q)<\psi(q)$. 
+  \lean{PositiveLinearMap.IsNormalOnProjections.exists_nonzero_subprojection_lt}
+  \leanok
+  \uses{def:normal_on_projections,prop:proj_compl_lat_wstar_Sak_1_10_2,cor:proj_sub_of_subproj}
+  Let $\varphi$ and $\psi$ be positive linear functionals which are both normal on projections.
+  If $p\in\mathcal{P}(M)$ satisfies $\varphi(p)<\psi(p)$, then there is a nonzero
+  $p_1\in\mathcal{P}(M)$ with $p_1\le p$ such that
+  $\varphi(q)<\psi(q)$ for every nonzero projection $q\le p_1$.
 \end{lemma}
 
 \begin{proof}
-  We proceed by contradiction. Suppose the conclusion does not hold. Then, for every nonzero subprojection
-  $p_1$ of $p$ there is a nonzero subprojection $q\le p_1$ such that $\varphi(q)\ge \psi(q)$. In particular,
-  (letting $p_1=q$) there is a $q\le p$ such that $\varphi(q)\ge \psi(q)$. If $(q_\alpha)$ is a chain
-  of such nonzero projections, $q_{\alpha}\to \sup q_{\alpha}$ in the $\sigma$--topology by Theorem \ref{lem:sigma_cont_of_normal_Sak_1_7_4}, 
-  and by Lemma \ref{prop:proj_compl_lat_wstar_Sak_1_10_2} we know this supremum is a subprojection of $p_1$. Since $\varphi$
-  is positive and normal, and $\psi$ is positive and $\sigma$--continuous, we have $\varphi(\sup q_{\alpha})\ge \psi(\sup q_{\alpha})$.
-  Therefore, by Zorn's Lemma, there is a maximal $q_{0}\le p$ such that $\varphi(q_0)\ge \psi(q_0)$. We claim $q_{0}=p$. If not, 
-  $p-q_0$ is a nonzero subprojection of $p$ by Corollary \ref{cor:proj_sub_of_subproj}, and there exists a nonzero projection $q_{1}\le p-q_{0}$
-  such that $\varphi(q_{1})\ge \psi(q_{1})$. But then $q_{0}$ is a proper subprojection of $q_0+q_1$ and by linearity and positivity 
-  $\varphi(q_0+q_1)\ge \psi(q_0+q_1)$ contradicting the maximality of $q_0$. Thus $p=q_0$ and so $\varphi(p) \ge \psi(p)$, contradicting 
-  the hypothesis $\varphi(p)<\psi(p)$.  
+  \leanok
+  Let $S$ consist of the subprojections $q\le p$ for which
+  $\psi(q)\le\varphi(q)$. It contains zero. The supremum of a chain in $S$ remains below $p$;
+  normality of both functionals says that their values at this supremum are the corresponding
+  suprema of their values on the chain, so the inequality is preserved. Zorn's lemma therefore
+  gives a maximal $q_0\in S$. The strict hypothesis at $p$ implies $q_0\ne p$.
+
+  Put $p_1=p-q_0$. This is a nonzero subprojection of $p$. If a nonzero projection
+  $q\le p_1$ failed the desired strict inequality, then $\psi(q)\le\varphi(q)$. The projections
+  $q_0$ and $q$ are orthogonal, so $q_0+q$ would be a strictly larger member of $S$, contradicting
+  maximality.
 \end{proof}
 
-Note that the following likely contains the most crucial use of the normality of $\varphi$ for the later proof 
-of Theorem \ref{thm:sigma_cts_of_normal_Sak_1_13_2}.
+This two-normal-functional formulation is stronger than the specialization needed below. In that
+application $\psi$ is initially known to be $\sigma(M,P)$--continuous; Theorem
+\ref{thm:uw_continuous_is_normal} first makes it normal, after which this lemma applies.
+
+The following is the key use of normality in the later proof of Theorem
+\ref{thm:sigma_cts_of_normal_Sak_1_13_2}: it turns convergence on projections into operator-norm
+closure of the corresponding cut-off functionals.
 
 \begin{lemma}
   \label{lem:zorn_base}
-  \uses{cor:proj_sub_of_subproj,lem:selfadjoint_le_norm,lem:sigma_cont_of_normal_Sak_1_7_4,prop:proj_compl_lat_wstar_Sak_1_10_2,def:sigma_top}
-  Let $\varphi$ be a normal positive linear functional on $M$ and consider the predicate $P:\mathcal{P}(M)\to \text{Prop}$ defined, for $p\in \mathcal{P}(M)$, by 
-  ``$M\ni x \mapsto \varphi(xp)$ is $\sigma(M,M_{*})$--continuous''. If $(p_{\alpha})$ is a chain of projections in $M$ such that $P(p_{\alpha})$ is true for each $\alpha$,
-  then $P(\sup(p_{\alpha}))$ is true. Hence by Zorn's Lemma there is a maximal $p_0\in \mathcal{P}(M)$ such that $P(p_0)$ is true.  
+  \lean{PositiveLinearMap.IsNormalOnProjections.isUltraweakCutoff_of_isLUB,PositiveLinearMap.IsNormalOnProjections.exists_maximal_isUltraweakCutoff}
+  \leanok
+  \uses{def:normal_on_projections,def:specified_ultraweak_dual,cor:proj_sub_of_subproj,prop:proj_compl_lat_wstar_Sak_1_10_2}
+  Let $\varphi$ be a positive functional which is normal on projections, and let
+  $\mathscr{Q}(p)$ mean that the cutoff $x\mapsto\varphi(xp)$ is represented by the specified
+  predual $P$. If $S$ is a nonempty directed family of projections with least upper bound $p$ and
+  $\mathscr{Q}(q)$ holds for every $q\in S$, then $\mathscr{Q}(p)$ holds. Consequently there is a
+  maximal projection $p_0$ satisfying $\mathscr{Q}(p_0)$.
 \end{lemma}
 
 \begin{proof}
-  Let $x$ be on the unit sphere and let $p$ be the supremum of the $p_{\alpha}$. By Theorem \ref{lem:sigma_cont_of_normal_Sak_1_7_4} and Lemma \ref{prop:proj_compl_lat_wstar_Sak_1_10_2} 
-  we know $p_{\alpha}$ converges in $\sigma$--topology to $p$, and $p$ is a projection. 
-  By Corollary \ref{cor:proj_sub_of_subproj} we know $p-p_\alpha$ is a projection. By the $C^{*}$--property
-  of the norm ($\|x^{*}x\|=\|x\|^{2}$), Lemma \ref{lem:selfadjoint_le_norm} and the positivity of $\varphi$ we have $\varphi(x^{*}x)\le \varphi(1)$.
-  Now these facts together with Cauchy-Schwartz and the monotonicity of square roots, 
-  \begin{align}
-    |\varphi(x(p-p_{\alpha}))|&\le \varphi(x^{*}x)^{1/2}\varphi(p-p_{\alpha})^{1/2}\\ \nonumber
-    &\le \varphi(1)^{1/2}\varphi(p-p_{\alpha})^{1/2}.
-  \end{align}
-  Hence, by the definition of operator norm, $\|\varphi(\cdot(p-p_{\alpha}))\|\le \varphi(1)^{1/2}\varphi(p-p_{\alpha})^{1/2}$. The right
-  hand side converges to 0 with $\alpha$ due to the normality of $\varphi$ and therefore $\varphi(\cdot p_{\alpha})$ converges to $\varphi(\cdot p)$
-  in norm. Since the set of $\sigma$--continuous functionals on $M$ is norm closed, it follows that $\sigma(\cdot p)$ is $\sigma$--continuous.
-  We obtain a maximal $p_{0}$ by Zorn's Lemma.
-\end{proof}
+  \leanok
+  For comparable projections $q\le p$, Cauchy--Schwarz gives the operator-norm estimate
+  \[
+    \|\varphi(\mathord\cdot(p-q))\|
+      \le \sqrt{\|\varphi\|}\,\sqrt{\|\varphi(p-q)\|}.
+  \]
+  Normality identifies $\varphi(p)$ as the least upper bound of the values $\varphi(q)$ for
+  $q\in S$. Hence the canonical net over $S$ satisfies $\varphi(p-q)\to0$, and the estimate shows
+  that the cutoffs at $q$ converge in operator norm to the cutoff at $p$. The functionals
+  represented by $P$ form the norm-closed submodule
+  \texttt{Ultraweak.continuousDual}, so the limiting cutoff is represented by $P$ as well.
 
-\begin{lemma}
-  \label{lem:bdd_sigma_cts_iff_bdd_s_cts_Sak_1_8_10} (Sak 1.8.10)
-  \uses{def:sigma_top}
-  A linear functional $\rho$ on $M$ is $\sigma$--continuous on the unit sphere (hence $\sigma$--continuous) if and only if it is $s$--continuous on the
-  unit sphere (hence $s$--continuous).
-\end{lemma}
-
-\begin{proof}
+  The projection lattice supplied by the specified predual is complete, zero has zero cutoff,
+  and the preceding directed-supremum closure supplies the chain upper bounds required by Zorn's
+  lemma. This yields a maximal projection with represented cutoff.
 \end{proof}
 
 \begin{theorem}
   \label{thm:sigma_cts_of_normal_Sak_1_13_2} (Sak 1.13.2)
-  \uses{def:sigma_top,cor:sigma_eq_s_on_ball,lem:zorn_base,lem:exists_uw_ge_normal,lem:msr_th_lemma,lem:cut_down_of_wstar,lem:spec_masa_wstar_stonean_Sak_1_7_5,lem:fin_lin_approx_of_stonean_Sak_1_3_1,lem:bdd_sigma_cts_iff_bdd_s_cts_Sak_1_8_10,lem:wstar_of_masa}
-  Every positive normal linear functional $\varphi$ on $M$ is $\sigma(M,M_{*})$--continuous.
+  \lean{PositiveLinearMap.isNormalOnProjections_iff_mem_continuousDual}
+  \leanok
+  \uses{def:normal_on_projections,def:specified_ultraweak_dual,thm:uw_continuous_is_normal,lem:zorn_base,lem:exists_uw_ge_normal,lem:msr_th_lemma,lem:cut_down_sigma_closed_cts,thm:real_rank_zero_of_predual,cor:positive_functional_le_of_projection_le,lem:bdd_sigma_cts_iff_bdd_s_cts_Sak_1_8_10}
+  For every positive linear functional $\varphi$ on $M$, the following are equivalent:
+  \begin{enumerate}
+    \item $\varphi$ is normal on projections;
+    \item $\varphi$ is represented by the specified predual $P$, equivalently
+      $\varphi$ is $\sigma(M,P)$--continuous.
+  \end{enumerate}
 \end{theorem}
 
 \begin{proof}
-  The claim is obvious for the zero functional. Let $\varphi$ be a nonzero positive normal linear functional. By Lemma \ref{lem:zorn_base} we have
-  a maximal $p_0\in \mathcal{P}(M)$ such that $M\ni x \mapsto \varphi(xp_0)$ is $\sigma(M,M_{*})$--continuous. Assume for the purposes of finding
-  a contradiction that $p_0\ne 1$. By Lemma \ref{lem:exists_uw_ge_normal}
-  there is a $\sigma(M,M_{*})$--continuous positive functional $\psi$ on $M$ such that $\varphi(1-p_0)<\psi(1-p_0)$. By Lemma \ref{lem:msr_th_lemma}
-  there is a nonzero subprojection $p\le 1-p_0$ in $M$ such that $\varphi(q)< \psi(q)$ for every nonzero $q\le p$ in $M$. Let $x\in pMp$ be on the unit sphere. 
-  Then $x^{*}x$ is positive and hence normal, so the $C^{*}$--subalgebra of $pMp$ generated by $x^{*}x$ and $p$ is commutative, and is hence contained in a maximal abelian
-  $*$--subalgebra $A$ of $pMp$. Now $A$ is a $W^{*}$--subalgebra of $pMp$ by Lemma \ref{lem:wstar_of_masa} and hence is a maximal commutative $C^{*}$--subalgebra of $pMp$. Via the Gelfand Transform, 
-  $A$ is star isomorphic to $C(K)$, where $K$ is Stonean by Lemmas \ref{lem:cut_down_of_wstar} and \ref{lem:spec_masa_wstar_stonean_Sak_1_7_5}. 
-  By Lemma \ref{lem:fin_lin_approx_of_stonean_Sak_1_3_1} it follows that $\varphi(a)\le \psi(a)$ for every $a\ge 0$ in $A$, which holds a fortiori for $a\ge 0$ in $C^{*}(x^{*}x,p)$. 
-  In particular, $\varphi(px^{*}xp)\le \psi(px^{*}xp)$. Therefore,
+  \leanok
+  The implication from (2) to (1) is Theorem \ref{thm:uw_continuous_is_normal}. For the converse,
+  suppose that $\varphi$ is normal. Lemma \ref{lem:zorn_base} gives a maximal projection
+  $p_0\in\mathcal{P}(M)$ for which the cutoff $x\mapsto\varphi(xp_0)$ is represented by $P$.
+  Suppose that $p_0\ne1$. Lemma \ref{lem:exists_uw_ge_normal} gives a positive
+  $\sigma(M,P)$--continuous functional $\psi$ such that
+  $\varphi(1-p_0)<\psi(1-p_0)$. By the easy implication, $\psi$ is normal on projections, so the
+  two-normal-functional selection Lemma \ref{lem:msr_th_lemma} gives a nonzero projection
+  $p\le1-p_0$ such that $\varphi(q)<\psi(q)$ for every nonzero projection $q\le p$.
+
+  Use the explicit analytic corner associated to $p$. Its ambient range is ultraweakly closed, so
+  the quotient of $P$ by the preannihilator of that range is a specified Banach predual of the
+  corner. Theorem \ref{thm:real_rank_zero_of_predual} therefore makes the corner real rank zero.
+  Restrict $\varphi$ and $\psi$ along its explicit inclusion into $M$. Their inequality holds on
+  every corner projection: it is strict for nonzero projections and equality at zero. Corollary
+  \ref{cor:positive_functional_le_of_projection_le} promotes this to
+  $\varphi(a)\le\psi(a)$ for every nonnegative corner element $a$. In particular,
+  $px^{*}xp$ is positive in the corner and
+  $\varphi(px^{*}xp)\le\psi(px^{*}xp)$. Cauchy--Schwarz now gives
   \begin{align}
     |\varphi(x(p_0+p))|&\le |\varphi(xp_0)|+|\varphi(xp)|\\ \nonumber
     &\le |\varphi(xp_0)|+\varphi(1)^{1/2}\varphi(px^{*}xp)^{1/2}\\ \nonumber
     &\le |\varphi(xp_0)|+\varphi(1)^{1/2}\psi(px^{*}xp)^{1/2}.
   \end{align}
-  Since $x\mapsto \varphi(xp_0)$ is $\sigma$--continuous, it is $s$-continuous by Lemma \ref{lem:bdd_sigma_cts_iff_bdd_s_cts_Sak_1_8_10}. The seminorm
-  $x \mapsto \psi(px^{*}xp)^{1/2}$ is a defining seminorm for the $s$--topology on $M$. It follows that $x\mapsto \varphi(x(p_0+p))$ is $s$-continuous
-  and therefore $\sigma$--continuous, by Corollary \ref{cor:sigma_eq_s_on_ball}. This contradicts the maximality of $p_0$, and therefore $p_0=1$ and the result follows. 
+  The cutdown by $p$ is explicitly ultraweakly continuous, so
+  $x\mapsto\psi(px^{*}xp)^{1/2}$ is a defining seminorm for the strong topology. The cutoff at
+  $p_0$ is ultraweakly, hence strongly, continuous. The estimate therefore makes the cutoff at
+  $p_0+p$ strongly continuous; Lemma
+  \ref{lem:bdd_sigma_cts_iff_bdd_s_cts_Sak_1_8_10} makes it ultraweakly continuous. Since
+  $p\le1-p_0$, the projections $p_0$ and $p$ are orthogonal, so $p_0+p$ is a projection strictly
+  above $p_0$. This contradicts maximality. Thus $p_0=1$, and the cutoff at $1$ is precisely
+  $\varphi$, proving that $\varphi$ is represented by $P$.
 \end{proof}
 
-The above result gives us that the $\sigma$-weak continuity of a positive functional is determined entirely by the order structure on $M$,
-and thus is independent of the choice of predual. 
+The theorem is parameterized by an arbitrary specified Banach predual. Consequently, the
+ultraweakly continuous positive functionals are determined entirely by the projection order and
+are independent of which predual is specified.
+
+\section{Uniqueness of the Predual}
+
+We now let $P$ and $Q$ be two specified Banach preduals of the same $C^{*}$--algebra $M$. Each
+predual has a canonical linear isometric embedding into the norm dual $M^{*}$, and its image is the
+closed subspace of functionals represented by that predual.
+
+\begin{theorem}
+  \label{thm:unique_predual}
+  \lean{Ultraweak.continuousDual_eq,Predual.equiv,Predual.equiv_apply_duality,Predual.equiv_eq_of_apply_duality_eq}
+  \leanok
+  \uses{def:specified_ultraweak_dual,thm:sigma_cts_of_normal_Sak_1_13_2,lem:star_left_mul_right_mul_sig_cts_Sak_1_7_8}
+  The closed subspaces of $M^{*}$ represented by $P$ and $Q$ are equal. Consequently there is a
+  canonical complex-linear isometric equivalence
+  \[
+    E_{P,Q}:P\mathrel{\cong}Q
+  \]
+  which preserves evaluation on $M$:
+  \[
+    \langle x,E_{P,Q}(p)\rangle_{Q}=\langle x,p\rangle_{P}
+    \qquad (x\in M,\ p\in P).
+  \]
+  This pairing-preservation property uniquely characterizes $E_{P,Q}$ among complex-linear
+  isometric equivalences $P\cong Q$.
+\end{theorem}
+
+\begin{proof}
+  \leanok
+  Let $f\in M^{*}$ be represented by $P$, and factor it through $\sigma(M,P)$. Split the resulting
+  complex-linear functional into its self-adjoint real and imaginary parts. The polar
+  decomposition of a self-adjoint ultraweakly continuous functional writes each part as
+  $\varphi\circ L_{u}$, where $\varphi$ is positive and $\sigma(M,P)$--continuous and $u$ is a
+  self-adjoint unitary. By Theorem \ref{thm:sigma_cts_of_normal_Sak_1_13_2}, normality of the
+  positive functional $\varphi$ is intrinsic to the projection order, so $\varphi$ is also
+  $\sigma(M,Q)$--continuous. Left multiplication by $u$ is $\sigma(M,Q)$--continuous by Lemma
+  \ref{lem:star_left_mul_right_mul_sig_cts_Sak_1_7_8}. Thus both self-adjoint parts, and hence
+  $f$, are represented by $Q$. Interchanging $P$ and $Q$ proves equality of the two represented
+  closed subspaces of $M^{*}$.
+
+  The canonical embeddings identify both $P$ and $Q$ linearly and isometrically with this common
+  subspace. Compose the first identification with the inverse of the second, using the identity on
+  the common image, to obtain $E_{P,Q}$. By construction its image represents exactly the same
+  functional on $M$, which proves the evaluation formula. Finally, the canonical embedding of
+  $Q$ into $M^{*}$ is injective, so that formula determines the value of any pairing-preserving
+  equivalence at every $p\in P$ and proves uniqueness.
+\end{proof}

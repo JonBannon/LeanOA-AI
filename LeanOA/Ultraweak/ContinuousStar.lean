@@ -7,6 +7,7 @@ public import Mathlib.Analysis.Complex.Basic
 @[expose] public section
 
 open scoped NNReal Topology
+open Filter Set
 
 namespace WeakDual
 
@@ -26,7 +27,26 @@ lemma continuous_of_continuousOn (f : WeakDual 𝕜 E →ₗ[𝕜] WeakDual 𝕜
     (isClosed_closedBall 0 1) isClosed_singleton
 
 set_option backward.isDefEq.respectTransparency false in
-/-- A *real* linear man from the weak dual of a Banach space to itself is continuous
+/-- A scalar-valued linear map on the weak dual of a Banach space is continuous if its kernel
+intersected with the norm-closed unit ball is closed. -/
+lemma continuous_linearMap_of_isClosed_ker_inter_closedBall
+    (f : WeakDual 𝕜 E →ₗ[𝕜] 𝕜)
+    (hf : IsClosed ((f.ker : Set (WeakDual 𝕜 E)) ∩
+      (toStrongDual ⁻¹' Metric.closedBall 0 1))) : Continuous f :=
+  f.continuous_of_isClosed_ker <|
+    krein_smulian_of_submodule (f.ker.restrictScalars ℝ≥0) hf
+
+set_option backward.isDefEq.respectTransparency false in
+/-- A scalar-valued linear map on the weak dual of a Banach space is continuous if its
+restriction to the norm-closed unit ball is continuous. -/
+lemma continuous_linearMap_of_continuousOn (f : WeakDual 𝕜 E →ₗ[𝕜] 𝕜)
+    (hf : ContinuousOn f (toStrongDual ⁻¹' Metric.closedBall 0 1)) : Continuous f := by
+  apply continuous_linearMap_of_isClosed_ker_inter_closedBall f
+  rw [Set.inter_comm]
+  exact hf.preimage_isClosed_of_isClosed (isClosed_closedBall 0 1) isClosed_singleton
+
+set_option backward.isDefEq.respectTransparency false in
+/-- A *real* linear map from the weak dual of a Banach space to itself is continuous
 if it is continuous on the closed unit ball. -/
 lemma continuous_of_continuousOn_of_real (f : WeakDual 𝕜 E →ₗ[ℝ] WeakDual 𝕜 E)
     (hf : ContinuousOn f (toStrongDual ⁻¹' Metric.closedBall 0 1)) : Continuous f := by
@@ -63,6 +83,76 @@ lemma continuous_of_continuousOn (f : σ(M, P)_𝕜 →ₗ[𝕜] σ(M, P)_𝕜)
   refine hf.comp (map_continuous (weakDualCLE 𝕜 M P).symm).continuousOn fun x hx ↦ ?_
   rw [ofUltraweak_preimage_closedBall]
   simpa using hx
+
+/-- A scalar-valued linear map on an ultraweak space is continuous if its restriction to the
+underlying norm-closed unit ball is continuous. -/
+lemma continuous_linearMap_of_continuousOn (f : σ(M, P)_𝕜 →ₗ[𝕜] 𝕜)
+    (hf : ContinuousOn f (ofUltraweak ⁻¹' Metric.closedBall 0 1)) : Continuous f := by
+  let e := weakDualCLE 𝕜 M P
+  have h : Continuous (f.comp e.symm.toLinearEquiv.toLinearMap) := by
+    refine WeakDual.continuous_linearMap_of_continuousOn _ ?_
+    refine hf.comp (map_continuous e.symm).continuousOn fun x hx ↦ ?_
+    rw [ofUltraweak_preimage_closedBall]
+    simpa [e] using hx
+  convert h.comp (map_continuous e) using 1
+  funext x
+  change f x = f (e.symm (e x))
+  rw [e.symm_apply_apply]
+
+/-- A scalar-valued linear map on an ultraweak space is continuous if its kernel intersected with
+the underlying norm-closed unit ball is closed. -/
+lemma continuous_linearMap_of_isClosed_ker_inter_closedBall
+    (f : σ(M, P)_𝕜 →ₗ[𝕜] 𝕜)
+    (hf : IsClosed ((f.ker : Set (σ(M, P)_𝕜)) ∩
+      (ofUltraweak ⁻¹' Metric.closedBall 0 1))) : Continuous f := by
+  let e := weakDualCLE 𝕜 M P
+  let g : WeakDual 𝕜 P →ₗ[𝕜] 𝕜 := f.comp e.symm.toLinearEquiv.toLinearMap
+  have hg : IsClosed ((g.ker : Set (WeakDual 𝕜 P)) ∩
+      (WeakDual.toStrongDual ⁻¹' Metric.closedBall 0 1)) := by
+    convert hf.preimage (map_continuous e.symm) using 1
+    ext x
+    change (f (e.symm x) = 0 ∧ WeakDual.toStrongDual x ∈ Metric.closedBall 0 1) ↔
+      (f (e.symm x) = 0 ∧ ofUltraweak (e.symm x) ∈ Metric.closedBall 0 1)
+    refine and_congr_right fun _ ↦ ?_
+    symm
+    change e.symm x ∈ ofUltraweak ⁻¹' Metric.closedBall 0 1 ↔
+      x ∈ WeakDual.toStrongDual ⁻¹' Metric.closedBall 0 1
+    rw [ofUltraweak_preimage_closedBall]
+    simp [e]
+  have h := WeakDual.continuous_linearMap_of_isClosed_ker_inter_closedBall g hg
+  convert h.comp (map_continuous e) using 1
+  funext x
+  change f x = f (e.symm (e x))
+  rw [e.symm_apply_apply]
+
+set_option backward.isDefEq.respectTransparency false in
+/-- An idempotent linear map on an ultraweak space is continuous if its range and kernel are closed
+and it preserves the underlying closed unit ball. -/
+lemma continuous_of_isClosed_range_ker_of_idempotent
+    (f : σ(M, P)_𝕜 →ₗ[𝕜] σ(M, P)_𝕜) (hf : ∀ x, f (f x) = f x)
+    (hrange : IsClosed (LinearMap.range f : Set (σ(M, P)_𝕜)))
+    (hker : IsClosed (LinearMap.ker f : Set (σ(M, P)_𝕜)))
+    (hball : MapsTo f (ofUltraweak ⁻¹' Metric.closedBall (0 : M) 1)
+      (ofUltraweak ⁻¹' Metric.closedBall (0 : M) 1)) : Continuous f := by
+  refine continuous_of_continuousOn f fun x _ ↦ ?_
+  have hmem : ∀ᶠ y in nhdsWithin x (ofUltraweak ⁻¹' Metric.closedBall (0 : M) 1),
+      f y ∈ ofUltraweak ⁻¹' Metric.closedBall (0 : M) 1 := by
+    filter_upwards [self_mem_nhdsWithin] with y hy
+    exact hball hy
+  refine isCompact_closedBall 𝕜 P (0 : M) 1
+    |>.tendsto_nhds_of_unique_mapClusterPt hmem fun y _ hxy ↦ ?_
+  obtain ⟨l, hl, hly⟩ := mapClusterPt_iff_ultrafilter.mp hxy
+  have hsub : Tendsto (fun z ↦ z - f z) l (nhds (x - y)) :=
+    .sub (hl.trans nhdsWithin_le_nhds) hly
+  have hyRange : y ∈ LinearMap.range f := hrange.mem_of_tendsto hly <|
+    .of_forall fun z ↦ LinearMap.mem_range_self f z
+  have hxyKer : x - y ∈ LinearMap.ker f := hker.mem_of_tendsto hsub <|
+    .of_forall fun z ↦ by
+      change f (z - f z) = 0
+      rw [map_sub, hf, sub_self]
+  obtain ⟨z, rfl⟩ := hyRange
+  rw [LinearMap.mem_ker, map_sub, hf, sub_eq_zero] at hxyKer
+  exact hxyKer.symm
 
 variable [Module ℝ M] [IsScalarTower ℝ 𝕜 M]
 set_option backward.isDefEq.respectTransparency false in

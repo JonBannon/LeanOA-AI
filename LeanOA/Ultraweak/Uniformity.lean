@@ -2,6 +2,7 @@ module
 
 public import LeanOA.Ultraweak.Bornology
 public import LeanOA.Ultraweak.SeparatingDual
+public import LeanOA.Mathlib.Topology.Algebra.Module.WeakBilin
 public import LeanOA.WeakDual.UniformSpace
 
 @[expose] public section
@@ -48,7 +49,7 @@ variable (P) in
 noncomputable def toUltraweakPosCLM : M →P[ℂ] σ(M, P) where
   toFun m := toUltraweak ℂ P m
   map_add' := by simp
-  map_smul' := by simp
+  map_smul' m x := toUltraweak_smul (𝕜 := ℂ) (P := P) m x
   monotone' _ _ := id
   cont := by fun_prop
 
@@ -80,8 +81,16 @@ private abbrev WeakE := WeakBilin (fromEₗ M P)
 private instance : T2Space (WeakE M P) :=
   WeakBilin.isEmbedding (fromEₗ_injective M P) |>.t2Space
 
--- we're missing `WeakBilin` API
-private noncomputable def weakEEquiv : WeakE M P ≃ₗ[ℂ] M := .refl ℂ _
+private noncomputable def weakEEquiv : WeakE M P ≃ₗ[ℂ] M :=
+  WeakBilin.linearEquiv ℂ (fromEₗ M P)
+
+omit [StarOrderedRing M] [CompleteSpace P] in
+@[simp]
+private lemma weakEEquiv_apply (x : WeakE M P) : weakEEquiv M P x = x := rfl
+
+omit [StarOrderedRing M] [CompleteSpace P] in
+@[simp]
+private lemma weakEEquiv_symm_apply (x : M) : (weakEEquiv M P).symm x = x := rfl
 
 omit [StarOrderedRing M] [CompleteSpace P] in
 /-- A filter is cauchy relative to the `WeakE M P` topology if and only if
@@ -94,11 +103,13 @@ private lemma cauchy_weakE_iff_forall_posCLM {l : Filter (WeakE M P)} :
     fun h ⟨φ, hφ⟩ ↦ ?_⟩
   simp only [fromEₗ_apply_apply]
   have hl : l.NeBot := (h 0).1.of_map
+  letI := hl
   induction hφ using Submodule.span_induction with
   | mem φ hφ => obtain ⟨φ, hφ, rfl⟩ := hφ; exact h φ
   | zero => exact h 0
   | add φ ψ hφ hψ ihφ ihψ =>
-    simpa using! (ihφ.prod ihψ).mono (tendsto_map.prodMk tendsto_map) |>.map uniformContinuous_add
+    simpa using! (ihφ.prod ihψ).mono' (hl.map _) (tendsto_map.prodMk tendsto_map)
+      |>.map uniformContinuous_add
   | smul a φ hφ ihφ => simpa using! ihφ.map <| uniformContinuous_const_smul a
 
 private lemma tendsto_weakE_iff_forall_posCLM {α : Type*} [TopologicalSpace α]

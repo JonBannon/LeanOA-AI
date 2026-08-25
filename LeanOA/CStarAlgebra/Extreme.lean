@@ -39,8 +39,6 @@ In particular, we show that in a C⋆-algebra :
   there is some c such that x ≠ 0. Then scale so that ‖x‖ ≤ 1, and a ± x form the elements of
   our nontrivial convex combination.
 
-* Prove Sakai 1.6.4.
-
 ## References
 [Sakai], [Pedersen], [Takesaki], [Kadison], [Murphy]
 -/

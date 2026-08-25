@@ -2,6 +2,7 @@ module
 
 public import LeanOA.Ultraweak.Basic
 public import LeanOA.KreinSmulian
+public import LeanOA.Mathlib.Analysis.Real.Sqrt
 public import Mathlib.Analysis.CStarAlgebra.ContinuousFunctionalCalculus.Basic
 
 @[expose] public section
@@ -33,12 +34,6 @@ end KreinSmulian
 
 variable {M P : Type*} [CStarAlgebra M]
 variable [NormedAddCommGroup P] [NormedSpace ℂ P] [Predual ℂ M P] [CompleteSpace P]
-
-lemma tendsto_sqrt_one_add_sq_sub_self_atTop :
-    Tendsto (fun x : ℝ ↦ √(1 + x ^ 2) - x) atTop (𝓝 0) := by
-  -- This can be solved instantaneously with `compute_asymptotics`,
-  -- but it isn't yet merged into Mathlib, so it's unavailable here.
-  sorry
 
 lemma IsSelfAdjoint.norm_add_I_smul_sq_of_commute {A : Type*}
     [NonUnitalCStarAlgebra A] {x y : A} (hx : IsSelfAdjoint x)
@@ -120,7 +115,8 @@ lemma isClosed_setOf_isSelfAdjoint : IsClosed {x : σ(M, P) | IsSelfAdjoint x} :
   rw [← abs_eq_zero]
   refine le_antisymm ?_ (abs_nonneg c)
   -- To show `c ≤ 0` It suffices to show `Tendsto (fun n : ℕ ↦ √(1 + n ^ 2) - n) atTop (𝓝 0)`
-  refine ge_of_tendsto' (tendsto_sqrt_one_add_sq_sub_self_atTop.comp tendsto_natCast_atTop_atTop)
+  refine ge_of_tendsto'
+    (Real.tendsto_sqrt_one_add_sq_sub_self_atTop.comp tendsto_natCast_atTop_atTop)
     fun n ↦ ?_
   /- By `IsSelfAdjoint.max_norm_add_sub_algebraMap_ge` it suffices to show that
   `‖ℑ x ± n‖ ≤ √(1 + n ^ 2)`. -/

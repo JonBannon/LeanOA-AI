@@ -12,7 +12,7 @@ open Set Filter Bornology
 variable {𝕜 E F : Type*} [RCLike 𝕜] [AddCommGroup E] [Module 𝕜 E]
 variable [AddCommGroup F] [Module 𝕜 F] [TopologicalSpace F]
 
-/-- The Mackey toplogy on a space `E` relative to a bilinear form `B : E →ₗ[𝕜] F →ₗ[𝕜] 𝕜` is the
+/-- The Mackey topology on a space `E` relative to a bilinear form `B : E →ₗ[𝕜] F →ₗ[𝕜] 𝕜` is the
 polar topology corresponding to all (weakly) compact absolutely convex sets in `F`.
 
 Although it is not required for the definition, the space `F` should be equipped with the weak
@@ -26,7 +26,7 @@ variable (B) in
 /-- The identity map from `E` to its type synonym equipped with the Mackey topology. -/
 noncomputable def toMackey : E ≃ₗ[𝕜] Mackey B := PolarTopology.linearEquiv.symm
 
-/-- The identity map from the type synonrm `Mackey B` back to `E` with its original topology. -/
+/-- The identity map from the type synonym `Mackey B` back to `E` with its original topology. -/
 noncomputable def ofMackey : Mackey B ≃ₗ[𝕜] E := PolarTopology.linearEquiv
 
 @[simp]
@@ -56,33 +56,47 @@ theorem directedOn_setOf_isCompact_absConvex (𝕜 F : Type*) [RCLike 𝕜]
   case hs | ht => intro; grw [← subset_closedAbsConvexHull, ← subset_convexHull]; simp_all
   exact hs₁.convexHull_union ht₁ hs₂.2 ht₂.2 |>.closedAbsConvexHull (convex_convexHull 𝕜 _)
 
-namespace Mackey
+open ContinuousLinearMap Module in
+open scoped Topology in
+/-- If `s` is a basis of neighborhoods of zero, the continuous dual is the union of the polars of
+the sets `s i`. This is Theorem 3.2 in Voigt, *Topological Vector Spaces*. -/
+lemma StrongDual.range_coeLM_eq_sUnion_polar_nhds {𝕜 E : Type*} [NontriviallyNormedField 𝕜]
+    [AddCommGroup E] [Module 𝕜 E] [TopologicalSpace E] [IsTopologicalAddGroup E]
+    [ContinuousSMul 𝕜 E] {ι : Sort*} {p : ι → Prop} {s : ι → Set E}
+    (h : (𝓝 0).HasBasis p s) :
+    (coeLM 𝕜 : StrongDual 𝕜 E →ₗ[𝕜] Dual 𝕜 E).range =
+      ⋃₀ {(LinearMap.id (R := 𝕜) (M := Dual 𝕜 E)).flip.polar (s i) | (i : ι) (_ : p i)} := by
+  ext f
+  simp only [SetLike.mem_coe, LinearMap.mem_range, coeLM_apply, exists_prop, Set.mem_sUnion,
+    Set.mem_setOf_eq, exists_exists_and_eq_and]
+  constructor
+  · rintro ⟨y, rfl⟩
+    have := ContinuousAt.tendsto <| map_continuousAt y 0
+    simp only [map_zero, LinearMap.polar, LinearMap.flip_apply, LinearMap.id_coe, id_eq,
+      Set.mem_setOf_eq, coe_coe] at this ⊢
+    convert Filter.Tendsto.basis_left this h (Metric.closedBall 0 1)
+      <| Metric.closedBall_mem_nhds _ zero_lt_one
+    simp only [Metric.closedBall, dist_zero_right, Set.MapsTo, Set.mem_setOf_eq]
+  · rintro ⟨i, hi_p, hi⟩
+    have : s i ∈ 𝓝 0 := by
+      apply h.1 (s i) |>.mpr
+      exact ⟨i, hi_p, Subset.rfl⟩
+    exact ⟨LinearMap.clmOfExistsBoundedImage f
+      ⟨s i, this, Bornology.isVonNBounded_image _ _ hi⟩, rfl⟩
 
-/-- This version assumes `B.IsWeak` and is only meant to be used in developing the API for
-`Mackey`. -/
-theorem _root_.IsCompact.isVonNBounded' {𝕜 E F : Type*} [RCLike 𝕜]
-    [AddCommGroup E] [Module 𝕜 E] [AddCommGroup F] [Module 𝕜 F] [TopologicalSpace E]
-    (B : E →ₗ[𝕜] F →ₗ[𝕜] 𝕜) [B.IsWeak] {s : Set E} (hs : IsCompact s) :
-    IsVonNBounded 𝕜 s :=
-  have := LinearMap.IsWeak.isTopologicalAddGroup B
-  have := LinearMap.IsWeak.continuousSMul B
-  hs.isVonNBounded 𝕜
+namespace Mackey
 
 variable (B)
 variable [B.flip.IsWeak]
 
--- can we eliminate the need for `T2Space F` here? At least under certain circumstances?
--- probably `IsCompatibleDual` will be enough? This was used in the proof that the
--- `closedAbsConvexHull` of a compact convex set is compact. I'm unsure if it's strictly necessary
--- there.
-instance [Module ℝ E] [IsScalarTower ℝ 𝕜 E] [T2Space F] :
+instance [Module ℝ E] [IsScalarTower ℝ 𝕜 E] [T1Space F] :
     LocallyConvexSpace ℝ (Mackey B) :=
   have := LinearMap.IsWeak.isTopologicalAddGroup B.flip
   have := LinearMap.IsWeak.continuousSMul B.flip
   PolarTopology.locallyConvexSpace (nonempty_setOf_isCompact_absConvex 𝕜 _)
-    (directedOn_setOf_isCompact_absConvex 𝕜 _) fun _ h ↦ h.1.isVonNBounded' B.flip
+    (directedOn_setOf_isCompact_absConvex 𝕜 _) fun _ h ↦ h.1.isVonNBounded 𝕜
 
-instance [T2Space F] : LocallyConvexSpace 𝕜 (Mackey B) :=
+instance [T1Space F] : LocallyConvexSpace 𝕜 (Mackey B) :=
   let _ : Module ℝ E := RestrictScalars.module ℝ 𝕜 E
   let _ : IsScalarTower ℝ 𝕜 E := RestrictScalars.isScalarTower ℝ 𝕜 E
   .to_rclike 𝕜 (Mackey B) inferInstance
@@ -91,33 +105,39 @@ instance [T2Space F] : LocallyConvexSpace 𝕜 (Mackey B) :=
 in those for which the sets are also absolutely convex. -/
 noncomputable abbrev seminorm (s : Set F) (hs : IsCompact s) :
     Seminorm 𝕜 (Mackey B) :=
-  PolarTopology.seminorm B {s | IsCompact s ∧ AbsConvex 𝕜 s} s <| hs.isVonNBounded' B.flip
+  PolarTopology.seminorm B {s | IsCompact s ∧ AbsConvex 𝕜 s} s <| by
+    let _ := LinearMap.IsWeak.isTopologicalAddGroup B.flip
+    let _ := LinearMap.IsWeak.continuousSMul B.flip
+    exact hs.isVonNBounded 𝕜
 
 /-- The compact absolutely convex sets give rise to a seminorm family on `Mackey B` which induces
 the topology. -/
 noncomputable abbrev seminormFamily :
     SeminormFamily 𝕜 (Mackey B) {s : Set F | IsCompact s ∧ AbsConvex 𝕜 s} :=
   PolarTopology.seminormFamily B {s | IsCompact s ∧ AbsConvex 𝕜 s}
-    fun _s hs ↦ hs.1.isVonNBounded' B.flip
+    fun _ hs ↦ by
+      let _ := LinearMap.IsWeak.isTopologicalAddGroup B.flip
+      let _ := LinearMap.IsWeak.continuousSMul B.flip
+      exact hs.1.isVonNBounded 𝕜
 
-lemma continuous_seminorm [T2Space F] (s : Set F) (hs₁ : IsCompact s) (hs₂ : AbsConvex 𝕜 s) :
+lemma continuous_seminorm [T1Space F] (s : Set F) (hs₁ : IsCompact s) (hs₂ : AbsConvex 𝕜 s) :
     Continuous (seminorm B s hs₁) :=
   have := LinearMap.IsWeak.isTopologicalAddGroup B.flip
   have := LinearMap.IsWeak.continuousSMul B.flip
   PolarTopology.continuous_seminorm (nonempty_setOf_isCompact_absConvex 𝕜 F)
-    (directedOn_setOf_isCompact_absConvex 𝕜 F) _ ⟨hs₁, hs₂⟩ (hs₁.isVonNBounded' B.flip)
+    (directedOn_setOf_isCompact_absConvex 𝕜 F) _ ⟨hs₁, hs₂⟩ (hs₁.isVonNBounded 𝕜)
 
-lemma directed_seminormFamily [T2Space F] : Directed (· ≤ ·) (seminormFamily B) :=
+lemma directed_seminormFamily [T1Space F] : Directed (· ≤ ·) (seminormFamily B) :=
   have := LinearMap.IsWeak.isTopologicalAddGroup B.flip
   have := LinearMap.IsWeak.continuousSMul B.flip
-  PolarTopology.directed_seminormFamily (fun _s hs ↦ hs.1.isVonNBounded' B.flip)
+  PolarTopology.directed_seminormFamily (fun _ hs ↦ hs.1.isVonNBounded 𝕜)
     (directedOn_setOf_isCompact_absConvex 𝕜 F)
 
-lemma withSeminorms [T2Space F] : WithSeminorms (seminormFamily B) :=
+lemma withSeminorms [T1Space F] : WithSeminorms (seminormFamily B) :=
   have := LinearMap.IsWeak.isTopologicalAddGroup B.flip
   have := LinearMap.IsWeak.continuousSMul B.flip
   PolarTopology.withSeminorms B _ (nonempty_setOf_isCompact_absConvex 𝕜 F)
-    (directedOn_setOf_isCompact_absConvex 𝕜 F) fun _s hs ↦ hs.1.isVonNBounded' B.flip
+    (directedOn_setOf_isCompact_absConvex 𝕜 F) fun _ hs ↦ hs.1.isVonNBounded 𝕜
 
 end Mackey
 
@@ -141,33 +161,6 @@ noncomputable def ofMackeyCLM [TopologicalSpace E] [IsTopologicalAddGroup E] [Co
   toLinearMap := ofMackey.toLinearMap
   cont := continuous_ofMackey B
 
-open ContinuousLinearMap Module in
-open scoped Topology in
--- this is Theorem 3.2 in Voigt, *Topological Vector Spaces*, used in the proof that the Mackey
--- topology is compatible.
-lemma StrongDual.range_coeLM_eq_sUnion_polar_nhds {𝕜 E : Type*} [NontriviallyNormedField 𝕜]
-    [AddCommGroup E] [Module 𝕜 E] [TopologicalSpace E] [IsTopologicalAddGroup E]
-    [ContinuousSMul 𝕜 E] {ι : Sort*} {p : ι → Prop} {s : ι → Set E}
-    (h : (𝓝 0).HasBasis p s) :
-    (coeLM 𝕜 : StrongDual 𝕜 E →ₗ[𝕜] Dual 𝕜 E).range =
-      ⋃₀ {(LinearMap.id (R := 𝕜) (M := Dual 𝕜 E)).flip.polar (s i) | (i : ι) (_ : p i)} := by
-  ext f
-  simp only [SetLike.mem_coe, LinearMap.mem_range, coeLM_apply, exists_prop, Set.mem_sUnion,
-    Set.mem_setOf_eq, exists_exists_and_eq_and]
-  constructor
-  · rintro ⟨y , rfl⟩
-    have := ContinuousAt.tendsto <| map_continuousAt y 0
-    simp only [map_zero, LinearMap.polar, LinearMap.flip_apply, LinearMap.id_coe, id_eq,
-      Set.mem_setOf_eq, coe_coe] at this ⊢
-    convert Filter.Tendsto.basis_left this h (Metric.closedBall 0 1)
-      <| Metric.closedBall_mem_nhds _ zero_lt_one
-    simp only [Metric.closedBall, dist_zero_right, Set.MapsTo, Set.mem_setOf_eq]
-  · rintro ⟨i, _, hi2⟩
-    have : s i ∈ 𝓝 0 := by apply h.1 (s i) |>.mpr; use i
-    use LinearMap.clmOfExistsBoundedImage f ⟨s _, this, Bornology.isVonNBounded_image _ _ hi2⟩
-    aesop
-
-
 open PolarTopology in
 theorem isWeak_bilin :
     (bilin B {s | IsCompact s ∧ AbsConvex 𝕜 s}).IsWeak := by
@@ -175,18 +168,18 @@ theorem isWeak_bilin :
   aesop
 
 open ContinuousLinearMap Module PolarTopology Pointwise LinearMap in
-set_option linter.unusedSectionVars false in
-theorem Mackey.range_coeLM_eq_image_bilin [IsTopologicalAddGroup F] [Module ℝ F]
-    [IsScalarTower ℝ 𝕜 F] [T1Space F] [ContinuousSMul 𝕜 F] :
+theorem Mackey.range_coeLM_eq_image_bilin [Module ℝ F] [IsScalarTower ℝ 𝕜 F] [T1Space F] :
     (coeLM 𝕜 : StrongDual 𝕜 (Mackey B) →ₗ[𝕜] Dual 𝕜 (Mackey B)).range =
       (bilin B {s | IsCompact s ∧ AbsConvex 𝕜 s}) '' univ := by
   letI B₁ := bilin B {s | IsCompact s ∧ AbsConvex 𝕜 s}
-  have : ContinuousSMul ℝ F := IsScalarTower.continuousSMul 𝕜
-  have : ContinuousSMul 𝕜 (Mackey B) := by
-    apply PolarTopology.continuousSMul (E := Mackey B)
+  letI := LinearMap.IsWeak.isTopologicalAddGroup B.flip
+  letI := LinearMap.IsWeak.continuousSMul B.flip
+  letI : ContinuousSMul ℝ F := IsScalarTower.continuousSMul 𝕜
+  letI : ContinuousSMul 𝕜 (Mackey B) := by
+    apply PolarTopology.continuousSMul (B := B)
     exact fun _ hS ↦ IsCompact.isVonNBounded 𝕜 hS.1
-  have := isWeak_bilin B
-  rw [StrongDual.range_coeLM_eq_sUnion_polar_nhds <|
+  letI := isWeak_bilin B
+  rw [StrongDual.range_coeLM_eq_sUnion_polar_nhds (𝕜 := 𝕜) (E := Mackey B) <|
       hasBasis_nhds_zero_polar (nonempty_setOf_isCompact_absConvex _ _)
         (directedOn_setOf_isCompact_absConvex _ _)
         (by simpa [mem_setOf_eq, and_imp] using fun _ h _ ↦ IsCompact.isVonNBounded _ h)
@@ -200,11 +193,11 @@ theorem Mackey.range_coeLM_eq_image_bilin [IsTopologicalAddGroup F] [Module ℝ 
     by_cases hne : s.Nonempty
     · rw [Module.dualPairing_flip_polar_polar B₁ (by aesop) (by aesop) hne] at hb
       grind
-    · simp only [image_univ, mem_range, not_nonempty_iff_eq_empty.mp hne , polar_empty] at hb ⊢
+    · simp only [image_univ, Set.mem_range, not_nonempty_iff_eq_empty.mp hne , polar_empty] at hb ⊢
       rw [polar_univ, mem_singleton_iff] at hb
       · use 0; rw [hb, map_zero]
       exact separatingRight_iff_flip_ker_eq_bot.mpr rfl
-  · simp only [image_univ, mem_range, mem_setOf_eq, exists_prop, mem_sUnion,
+  · simp only [image_univ, Set.mem_range, mem_setOf_eq, exists_prop, mem_sUnion,
     exists_exists_and_eq_and, forall_exists_index]
     intro f hf
     use closedAbsConvexHull 𝕜 (convexHull ℝ {f})
@@ -221,9 +214,7 @@ theorem Mackey.range_coeLM_eq_image_bilin [IsTopologicalAddGroup F] [Module ℝ 
            (mem_absConvexHull_iff.mpr fun _ a _ ↦ a rfl : f ∈ absConvexHull 𝕜 {_}), hf⟩⟩
 
 open ContinuousLinearMap Module PolarTopology Pointwise LinearMap in
-set_option linter.unusedSectionVars false in
-theorem Mackey.range_coeLM_eq_range_bilin [IsTopologicalAddGroup F] [Module ℝ F]
-    [IsScalarTower ℝ 𝕜 F] [T1Space F] [ContinuousSMul 𝕜 F] :
+theorem Mackey.range_coeLM_eq_range_bilin [Module ℝ F] [IsScalarTower ℝ 𝕜 F] [T1Space F] :
     (bilin B {s | IsCompact s ∧ AbsConvex 𝕜 s}).range =
       (coeLM 𝕜 : StrongDual 𝕜 (Mackey B) →ₗ[𝕜] Dual 𝕜 (Mackey B)).range := by
   have : (bilin B {s | IsCompact s ∧ AbsConvex 𝕜 s}).range =
@@ -235,10 +226,11 @@ theorem Mackey.range_coeLM_eq_range_bilin [IsTopologicalAddGroup F] [Module ℝ 
 
 open ContinuousLinearMap Module PolarTopology Pointwise LinearMap in
 /-- The topology on `Mackey B` is compatible with the type-appropriate version of `B`. -/
-instance [IsTopologicalAddGroup F] [Module ℝ F] [IsScalarTower ℝ 𝕜 F] [T1Space F]
-    [ContinuousSMul 𝕜 F] : (bilin B {s | IsCompact s ∧ AbsConvex 𝕜 s}).flip.IsCompatibleDual where
+instance [Module ℝ F] [IsScalarTower ℝ 𝕜 F] [T1Space F] :
+    (bilin B {s | IsCompact s ∧ AbsConvex 𝕜 s}).flip.IsCompatibleDual where
   range_eq_range := Mackey.range_coeLM_eq_range_bilin B
   injective := by
+    letI := LinearMap.IsWeak.isTopologicalAddGroup B.flip
     rw [LinearMap.flip_flip, ← LinearMap.ker_eq_bot]
     ext x
     constructor
@@ -251,3 +243,28 @@ instance [IsTopologicalAddGroup F] [Module ℝ F] [IsScalarTower ℝ 𝕜 F] [T1
     · intro hx
       simp at hx
       aesop
+
+namespace Mackey
+
+variable {E' : Type*} [AddCommGroup E'] [Module 𝕜 E']
+  {B' : E' →ₗ[𝕜] F →ₗ[𝕜] 𝕜} [B'.flip.IsWeak]
+
+/-- Pairing-preserving linear equivalences in the left coordinate induce continuous linear
+equivalences between the corresponding Mackey spaces. -/
+noncomputable def congrLeft (e : E ≃ₗ[𝕜] E') (h : ∀ x y, B' (e x) y = B x y) :
+    Mackey B ≃L[𝕜] Mackey B' :=
+  PolarTopology.congrLeft B {s | IsCompact s ∧ AbsConvex 𝕜 s} e h
+
+@[simp]
+lemma congrLeft_apply (e : E ≃ₗ[𝕜] E') (h : ∀ x y, B' (e x) y = B x y)
+    (x : Mackey B) :
+    congrLeft B e h x = toMackey B' (e (ofMackey x)) :=
+  rfl
+
+@[simp]
+lemma congrLeft_symm_apply (e : E ≃ₗ[𝕜] E') (h : ∀ x y, B' (e x) y = B x y)
+    (x : Mackey B') :
+    (congrLeft B e h).symm x = toMackey B (e.symm (ofMackey x)) :=
+  rfl
+
+end Mackey

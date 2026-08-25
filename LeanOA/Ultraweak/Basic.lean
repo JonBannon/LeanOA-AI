@@ -7,7 +7,9 @@ public import Mathlib.Analysis.RCLike.Extend
 
 @[expose] public section
 
-/-- A class which encodes a specified isometric linear isomorpism between `M`
+open scoped ComplexOrder
+
+/-- A class which encodes a specified isometric linear isomorphism between `M`
 and the strong dual of `P`, so that we may treat `P` as a predual of `M`. -/
 class Predual (𝕜 M P : Type*) [RCLike 𝕜]
     [NormedAddCommGroup M] [NormedAddCommGroup P]
@@ -15,6 +17,24 @@ class Predual (𝕜 M P : Type*) [RCLike 𝕜]
   /-- A linear isometric equivalence between `M` and the dual of its predual `P`. -/
   equivDual : M ≃ₗᵢ[𝕜] StrongDual 𝕜 P
 
+namespace Predual
+
+variable {𝕜 A M P : Type*} [RCLike 𝕜]
+  [NormedAddCommGroup A] [NormedSpace 𝕜 A]
+  [NormedAddCommGroup M] [NormedSpace 𝕜 M]
+  [NormedAddCommGroup P] [NormedSpace 𝕜 P] [Predual 𝕜 M P]
+
+/-- Transport a specified predual across a linear isometric equivalence. -/
+@[implicit_reducible]
+noncomputable def congr (e : A ≃ₗᵢ[𝕜] M) : Predual 𝕜 A P :=
+  ⟨e.trans equivDual⟩
+
+/-- The canonical specified predual on a multiplicative opposite, transported explicitly along
+the linear isometry `unop`. -/
+noncomputable instance instMulOpposite : Predual 𝕜 Mᵐᵒᵖ P :=
+  congr (MulOpposite.opLinearIsometryEquiv 𝕜 M).symm
+
+end Predual
 
 set_option linter.unusedVariables false in
 /-- A type synonym of `M` equipped with the *ultraweak topology* (also known as the
@@ -138,6 +158,17 @@ lemma continuous_toUltraweak : Continuous (toUltraweak 𝕜 P : M → σ(M, P)_�
     fun_prop
 
 variable (𝕜 M P) in
+/-- The canonical continuous linear map from the norm topology to the specified ultraweak
+topology. -/
+noncomputable def Ultraweak.toUltraweakL : M →L[𝕜] σ(M, P)_𝕜 :=
+  ⟨(Ultraweak.linearEquiv 𝕜 M P).symm.toLinearMap, continuous_toUltraweak⟩
+
+@[simp]
+lemma Ultraweak.toUltraweakL_apply (x : M) :
+    toUltraweakL 𝕜 M P x = toUltraweak 𝕜 P x :=
+  rfl
+
+variable (𝕜 M P) in
 /-- The canonical continuous linear equivalence between `σ(M, P)_𝕜` and `WeakDual 𝕜 P`. -/
 noncomputable def Ultraweak.weakDualCLE : σ(M, P)_𝕜 ≃L[𝕜] WeakDual 𝕜 P where
   toLinearEquiv :=
@@ -146,6 +177,19 @@ noncomputable def Ultraweak.weakDualCLE : σ(M, P)_𝕜 ≃L[𝕜] WeakDual 𝕜
     StrongDual.toWeakDual
   continuous_toFun := WeakDual.continuous_of_continuous_eval <| WeakBilin.eval_continuous _
   continuous_invFun := continuous_of_continuous_eval <| by simpa using WeakDual.eval_continuous
+
+variable (𝕜 M P) in
+/-- The ultraweak topology is locally convex over its `RCLike` scalar field. This is a named,
+non-instance bridge so callers do not need to unfold the weak-bilinear realization of
+`σ(M, P)_𝕜`. -/
+theorem Ultraweak.locallyConvexSpace : LocallyConvexSpace 𝕜 (σ(M, P)_𝕜) := by
+  let _ : Module ℝ M := RestrictScalars.module ℝ 𝕜 M
+  let _ : IsScalarTower ℝ 𝕜 M := RestrictScalars.isScalarTower ℝ 𝕜 M
+  let _ : Module ℝ (σ(M, P)_𝕜) := RestrictScalars.module ℝ 𝕜 (σ(M, P)_𝕜)
+  let _ : IsScalarTower ℝ 𝕜 (σ(M, P)_𝕜) := RestrictScalars.isScalarTower ℝ 𝕜 (σ(M, P)_𝕜)
+  rw [locallyConvexSpace_iff_exists_convex_subset]
+  simpa only [convex_RCLike_iff_convex_real] using
+    (locallyConvexSpace_iff_exists_convex_subset ℝ (σ(M, P)_𝕜)).mp inferInstance
 
 -- the notation is still somewhat broken. Maybe we need `σ_𝕜(M, P)`.
 instance : T2Space (σ(M, P)_𝕜) := (weakDualCLE 𝕜 M P).symm.toHomeomorph.t2Space

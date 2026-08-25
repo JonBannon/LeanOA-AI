@@ -24,11 +24,11 @@ open Complex ContinuousLinearMap UniformSpace Completion
 variable {A : Type*} [NonUnitalRing A] [PartialOrder A] [Module ℂ A] (f : A →ₚ[ℂ] ℂ)
 
 set_option linter.unusedVariables false in
-/-- The Gelfand─Naimark─Segal (GNS) space constructed from a positive linear functional on a
+/-- The Gelfand–Naimark–Segal (GNS) space constructed from a positive linear functional on a
 non-unital C⋆-algebra. This is a type synonym of `A`.
 
 This space is only a pre-inner product space. Its Hilbert space completion is
-`PositiveLinearMap.GNS`. -/
+`Completion f.PreGNS'`. -/
 @[nolint unusedArguments]
 def PreGNS' (f : A →ₚ[ℂ] ℂ) := A
 
@@ -86,6 +86,33 @@ lemma preGNS'_norm_def' (f : A →ₚ[ℂ] ℂ) (a : f.PreGNS') :
     ← Complex.eq_coe_norm_of_nonneg]
   exact map_nonneg f (star_mul_self_nonneg _)
 
+/-- The seminorm on a star algebra induced by a positive linear functional through its
+Gelfand–Naimark–Segal construction. -/
+noncomputable def gnsSeminorm (f : A →ₚ[ℂ] ℂ) : Seminorm ℂ A :=
+  (normSeminorm ℂ f.PreGNS').comp f.toPreGNS'.toLinearMap
+
+@[simp]
+lemma gnsSeminorm_apply (f : A →ₚ[ℂ] ℂ) (x : A) :
+    f.gnsSeminorm x = √‖f (star x * x)‖ := by
+  simp [gnsSeminorm, preGNS'_norm_def']
+
+lemma gnsSeminorm_mono (f g : A →ₚ[ℂ] ℂ)
+    (h : ∀ x, 0 ≤ x → f x ≤ g x) : f.gnsSeminorm ≤ g.gnsSeminorm := fun x ↦ by
+  rw [gnsSeminorm_apply, gnsSeminorm_apply]
+  gcongr
+  exact CStarAlgebra.norm_le_norm_of_nonneg_of_le
+    (f.map_nonneg (star_mul_self_nonneg x)) (h _ (star_mul_self_nonneg x))
+
+@[simp]
+lemma norm_toPreGNS' (f : A →ₚ[ℂ] ℂ) (x : A) :
+    ‖f.toPreGNS' x‖ = f.gnsSeminorm x := by
+  simp [gnsSeminorm]
+
+lemma gnsSeminorm_ofPreGNS' (f : A →ₚ[ℂ] ℂ) (x : f.PreGNS') :
+    f.gnsSeminorm (f.ofPreGNS' x) = ‖x‖ := by
+  rw [← norm_toPreGNS']
+  simp
+
 lemma cauchy_schwarz_star_mul (f : A →ₚ[ℂ] ℂ) (x y : A) :
     ‖f (star x * y)‖ ≤ √‖f (star x * x)‖ * √‖f (star y * y)‖ := by
   simpa [preGNS'_inner_def, preGNS'_norm_def'] using!
@@ -96,6 +123,120 @@ lemma cauchy_schwarz_mul_star (f : A →ₚ[ℂ] ℂ) (x y : A) :
   simpa using cauchy_schwarz_star_mul f (star x) (star y)
 
 end CauchySchwarz
+
+section GNSCoefficients
+
+open scoped InnerProductSpace
+open ContinuousLinearMap UniformSpace Completion Topology Set
+
+variable {A : Type*} [NonUnitalCStarAlgebra A] [PartialOrder A] [StarOrderedRing A]
+
+/-- The GNS seminorm is continuous with respect to the C-star-algebra norm. -/
+theorem gnsSeminorm_le_sqrt_opNorm_mul_norm (φ : A →ₚ[ℂ] ℂ) (x : A) :
+    φ.gnsSeminorm x ≤ √‖φ.toContinuousLinearMap‖ * ‖x‖ := by
+  rw [φ.gnsSeminorm_apply]
+  have hx := φ.toContinuousLinearMap.le_opNorm (star x * x)
+  change ‖φ (star x * x)‖ ≤ _ at hx
+  grw [hx]
+  rw [CStarRing.norm_star_mul_self, Real.sqrt_mul (norm_nonneg _),
+    show √(‖x‖ * ‖x‖) = ‖x‖ by rw [← sq, Real.sqrt_sq (norm_nonneg x)]]
+
+/-- The canonical map from a C-star algebra into the completion of its GNS pre-inner-product
+space. -/
+noncomputable def toGNS' (φ : A →ₚ[ℂ] ℂ) : A →L[ℂ] Completion φ.PreGNS' :=
+  ((toComplL : φ.PreGNS' →L[ℂ] Completion φ.PreGNS').toLinearMap.comp
+      φ.toPreGNS'.toLinearMap).mkContinuous √‖φ.toContinuousLinearMap‖ fun x => by
+    rw [LinearMap.comp_apply, LinearEquiv.coe_toLinearMap]
+    change ‖(φ.toPreGNS' x : Completion φ.PreGNS')‖ ≤ _
+    simpa using φ.gnsSeminorm_le_sqrt_opNorm_mul_norm x
+
+@[simp]
+lemma toGNS'_apply (φ : A →ₚ[ℂ] ℂ) (x : A) :
+    φ.toGNS' x = (φ.toPreGNS' x : Completion φ.PreGNS') := rfl
+
+theorem norm_toGNS'_le (φ : A →ₚ[ℂ] ℂ) :
+    ‖φ.toGNS'‖ ≤ √‖φ.toContinuousLinearMap‖ := by
+  apply LinearMap.mkContinuous_norm_le
+  positivity
+
+/-- GNS coefficient functionals parameterized continuously by the completed GNS space. -/
+noncomputable def gnsCoefficientMap (φ : A →ₚ[ℂ] ℂ) :
+    Completion φ.PreGNS' →L⋆[ℂ] (A →L[ℂ] ℂ) :=
+  ((ContinuousLinearMap.compL ℂ A (Completion φ.PreGNS') ℂ).flip φ.toGNS').comp
+    (innerSL ℂ)
+
+@[simp]
+lemma gnsCoefficientMap_apply (φ : A →ₚ[ℂ] ℂ) (z : Completion φ.PreGNS') (x : A) :
+    φ.gnsCoefficientMap z x = ⟪z, φ.toGNS' x⟫_ℂ := by
+  rw [gnsCoefficientMap]
+  rfl
+
+/-- The continuous conjugate-linear map sending `y` to the GNS coefficient functional
+`x ↦ φ (star y * x)`. -/
+noncomputable def gnsCoefficient (φ : A →ₚ[ℂ] ℂ) : A →L⋆[ℂ] (A →L[ℂ] ℂ) :=
+  φ.gnsCoefficientMap.comp φ.toGNS'
+
+@[simp]
+lemma gnsCoefficient_apply (φ : A →ₚ[ℂ] ℂ) (y x : A) :
+    φ.gnsCoefficient y x = φ (star y * x) := by
+  rw [gnsCoefficient]
+  change φ.gnsCoefficientMap (φ.toGNS' y) x = _
+  rw [gnsCoefficientMap_apply]
+  simp only [toGNS'_apply]
+  rw [UniformSpace.Completion.inner_coe, preGNS'_inner_def, ofPreGNS'_toPreGNS',
+    ofPreGNS'_toPreGNS']
+
+@[simp]
+lemma gnsCoefficientMap_coe (φ : A →ₚ[ℂ] ℂ) (y : A) :
+    φ.gnsCoefficientMap (φ.toPreGNS' y : Completion φ.PreGNS') = φ.gnsCoefficient y := by
+  rw [← toGNS'_apply]
+  rfl
+
+/-- A functional dominated by a GNS seminorm is represented by a vector in the completed GNS
+space. -/
+theorem exists_eq_gnsCoefficientMap_of_bound (φ : A →ₚ[ℂ] ℂ)
+    (f : A →L[ℂ] ℂ) (C : ℝ) (hf : ∀ x, ‖f x‖ ≤ C * φ.gnsSeminorm x) :
+    ∃ z, f = φ.gnsCoefficientMap z := by
+  let fGNS : φ.PreGNS' →L[ℂ] ℂ :=
+    (f.toLinearMap.comp φ.ofPreGNS'.toLinearMap).mkContinuous C fun x => by
+      rw [← φ.gnsSeminorm_ofPreGNS' x]
+      exact hf (φ.ofPreGNS' x)
+  let fGNSCompletion : Completion φ.PreGNS' →L[ℂ] ℂ :=
+    (innerSL ℂ (1 : Completion ℂ)).comp fGNS.completion
+  let z : Completion φ.PreGNS' :=
+    (InnerProductSpace.toDual ℂ (Completion φ.PreGNS')).symm fGNSCompletion
+  refine ⟨z, ?_⟩
+  ext x
+  rw [gnsCoefficientMap_apply, InnerProductSpace.toDual_symm_apply]
+  simp only [fGNSCompletion, ContinuousLinearMap.comp_apply, toGNS'_apply,
+    ContinuousLinearMap.completion_apply_coe, fGNS, LinearMap.mkContinuous_apply,
+    LinearMap.comp_apply, LinearEquiv.coe_toLinearMap, ofPreGNS'_toPreGNS']
+  change f x = ⟪(1 : Completion ℂ), (f x : Completion ℂ)⟫_ℂ
+  rw [← UniformSpace.Completion.coe_one, UniformSpace.Completion.inner_coe,
+    RCLike.inner_apply]
+  simp
+
+/-- Every coefficient parameterized by the completed GNS space is a norm limit of
+coefficients parameterized by elements of the algebra. -/
+theorem gnsCoefficientMap_mem_closure_range (φ : A →ₚ[ℂ] ℂ)
+    (z : Completion φ.PreGNS') :
+    φ.gnsCoefficientMap z ∈ closure (range φ.gnsCoefficient) := by
+  apply map_mem_closure φ.gnsCoefficientMap.continuous
+    (UniformSpace.Completion.denseRange_coe z)
+  rintro _ ⟨y, rfl⟩
+  exact ⟨φ.ofPreGNS' y, by
+    rw [← φ.gnsCoefficientMap_coe]
+    simp⟩
+
+/-- A functional dominated by a GNS seminorm lies in the operator-norm closure of the GNS
+coefficient functionals. -/
+theorem mem_closure_range_gnsCoefficient_of_bound (φ : A →ₚ[ℂ] ℂ)
+    (f : A →L[ℂ] ℂ) (C : ℝ) (hf : ∀ x, ‖f x‖ ≤ C * φ.gnsSeminorm x) :
+    f ∈ closure (range φ.gnsCoefficient) := by
+  obtain ⟨z, rfl⟩ := φ.exists_eq_gnsCoefficientMap_of_bound f C hf
+  exact φ.gnsCoefficientMap_mem_closure_range z
+
+end GNSCoefficients
 end PositiveLinearMap
 
 namespace PositiveContinuousLinearMap

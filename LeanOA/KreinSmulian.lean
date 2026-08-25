@@ -12,7 +12,7 @@ public import Mathlib.Analysis.Convex.NNReal
 /-! # Krein-Smulian theorem
 
 This file establishes the Krein-Smulian theorem. If `A : Set (WeakDual 𝕜 E)` is
-convex and its intersection with arbitrrarily large closed balls is closed, then
+convex and its intersection with arbitrarily large closed balls is closed, then
 `A` is itself closed. As a corollary if the intersection of
 `A : Submodule ℝ≥0 (WeakDual 𝕜 E)` with the closed unit ball is closed, then `A` is
 itself closed.
@@ -59,6 +59,19 @@ end StrongDual
 
 variable {𝕜 E : Type*} [RCLike 𝕜] [NormedAddCommGroup E] [NormedSpace 𝕜 E]
 
+/-- The polar operation on the weak dual reverses inclusion. -/
+theorem WeakDual.polar_antitone : Antitone (WeakDual.polar 𝕜 : Set E → Set (WeakDual 𝕜 E)) :=
+  fun _ _ h _ hf x hx ↦ hf x (h hx)
+
+/-- The polar in the weak dual of a doubly indexed union is the corresponding doubly indexed
+intersection of polars. -/
+theorem WeakDual.polar_iUnion₂ {ι : Sort*} {κ : ι → Sort*}
+    {s : (i : ι) → κ i → Set E} :
+    WeakDual.polar 𝕜 (⋃ i, ⋃ j, s i j) = ⋂ i, ⋂ j, WeakDual.polar 𝕜 (s i j) := by
+  ext f
+  simp only [WeakDual.polar_def, mem_setOf_eq, mem_iUnion, mem_iInter]
+  aesop
+
 namespace KreinSmulian
 
 /-- An abbreviation for the hypothesis of the Krein-Smulian theorem: the intersection of `A`
@@ -69,7 +82,7 @@ abbrev KreinSmulianProperty (A : Set (WeakDual 𝕜 E)) : Prop :=
 variable (A : Set (WeakDual 𝕜 E))
 
 -- Auxiliary result contained in the proof of Lemma 12.3
-/-- This is in some sense the key lemma used to prove the Krein-Smulian theorem. Suppse that the
+/-- This is in some sense the key lemma used to prove the Krein-Smulian theorem. Suppose that the
 intersection of `A : Set (WeakDual 𝕜 E)` with some closed ball of radius `t` is closed and that
 for some set `F : Set E`, the intersection of `A` with a closed ball of radius `s` (`< t`) is
 disjoint from the polar of `F`. Then we may adjoin a finite set `G` to `F`, with
@@ -99,11 +112,11 @@ lemma separationSeq_induction_step_aux {s t : ℝ} (hs : 0 < s) (ht : s < t)
   have h_dir : Directed (· ⊇ ·) T := by
     intro ⟨G, hG₁, hG₂⟩ ⟨H, hH₁, hH₂⟩
     simp only [Subtype.exists, exists_and_left, exists_prop, ι, T]
-    refine ⟨G ∪ H, ?sub1, ⟨hG₁.union hH₁, union_subset hG₂ hH₂⟩, ?sub2⟩
-    case sub1 | sub2 => exact LinearMap.polar_antitone _ (by simp)
+    refine ⟨G ∪ H, ?_, ⟨hG₁.union hH₁, union_subset hG₂ hH₂⟩, ?_⟩
+    all_goals exact WeakDual.polar_antitone (by simp)
   simpa [ι, T, and_assoc] using h_cpct.elim_directed_family_closed T hTc hsT h_dir
 
-/-- Suppose `A : Set (WeakDual 𝕜 E)` satisfies the `KreinSmulianProperty` and it's polar
+/-- Suppose `A : Set (WeakDual 𝕜 E)` satisfies the `KreinSmulianProperty` and its polar
 does not intersect the unit ball. This is a sequence `F` of pairs of finite sets defined
 recursively by: `F 0 := ({0}, {0})`, `(F (n + 1)).2 := (F n).2 ∪ (F (n + 1)).1` and
 `(F (n + 1)).1` is the result of applying `separationSeq_induction_step_aux`
@@ -150,8 +163,8 @@ lemma separation_aux (hA : KreinSmulianProperty A)
   use fun n ↦ (separationSeq A hA hA' n).fst.fst
   refine fun n ↦ ⟨(separationSeq A hA hA' n).snd.1, (separationSeq A hA hA' n).snd.2.2.1, ?_⟩
   convert (separationSeq A hA hA' n).snd.2.2.2 using 2
-  rw [separationSeq_apply_fst_snd_eq_iUnion, polar]
-  exact LinearMap.polar_iUnion₂ _ |>.symm
+  rw [separationSeq_apply_fst_snd_eq_iUnion]
+  exact WeakDual.polar_iUnion₂.symm
 
 set_option backward.isDefEq.respectTransparency false in
 /-- The sequence obtained in `separation_aux` tends to zero along the cofinite filter
@@ -344,9 +357,15 @@ lemma krein_smulian_of_submodule (A : Submodule ℝ≥0 (WeakDual 𝕜 E))
   have := hA.smul r
   rw [smul_set_inter] at this
   convert this using 2 <;> ext x
-  · simp
-  · simp [mem_smul_set_iff_inv_smul_mem₀, Units.smul_def, NNReal.smul_def,
-      LinearMapClass.map_smul_of_tower toStrongDual _ x, norm_smul, inv_mul_le_one₀ hr]
+  · rw [Set.mem_smul_set_iff_inv_smul_mem]
+    change x ∈ A ↔ (↑r⁻¹ : ℝ≥0) • x ∈ A
+    exact (A.smul_mem_iff (Units.ne_zero r⁻¹)).symm
+  · rw [Set.mem_smul_set_iff_inv_smul_mem]
+    simp only [Units.smul_def, Units.val_inv_eq_inv_val, mem_preimage, mem_closedBall,
+      dist_zero_right, NNReal.smul_def]
+    rw [NNReal.coe_inv, RCLike.real_smul_eq_coe_smul (K := 𝕜) (↑r : ℝ)⁻¹ x]
+    rw [map_smul, norm_smul]
+    simpa using (inv_mul_le_one₀ hr).symm
 
 set_option backward.isDefEq.respectTransparency false in
 /-- A linear map from the weak dual of a Banach space to itself is continuous if
@@ -362,7 +381,7 @@ lemma continuous_of_continuousOn (f : WeakDual 𝕜 E →ₗ[𝕜] WeakDual 𝕜
     (isClosed_closedBall 0 1) isClosed_singleton
 
 set_option backward.isDefEq.respectTransparency false in
-/-- A *real* linear man from the weak dual of a Banach space to itself is continuous
+/-- A *real* linear map from the weak dual of a Banach space to itself is continuous
 if it is continuous on the closed unit ball. -/
 lemma continuous_of_continuousOn_of_real (f : WeakDual 𝕜 E →ₗ[ℝ] WeakDual 𝕜 E)
     (hf : ContinuousOn f (toStrongDual ⁻¹' Metric.closedBall 0 1)) : Continuous f := by

@@ -1,8 +1,52 @@
 module
 
 public import Mathlib.Analysis.CStarAlgebra.ContinuousFunctionalCalculus.Order
+public import Mathlib.Analysis.CStarAlgebra.ContinuousFunctionalCalculus.Range
 
 @[expose] public section
+
+section IsSelfAdjoint
+
+variable {A : Type*} [NonUnitalRing A] [StarRing A]
+  [Module ℝ A] [IsScalarTower ℝ A A] [SMulCommClass ℝ A A]
+  [TopologicalSpace A] [NonUnitalContinuousFunctionalCalculus ℝ A IsSelfAdjoint]
+  [PartialOrder A] [StarOrderedRing A] [NonnegSpectrumClass ℝ A]
+  [IsTopologicalRing A] [ContinuousConstSMul ℝ A] [StarModule ℝ A] [ContinuousStar A] [T2Space A]
+
+/-- A closed star subalgebra inherits the spectral order of its ambient algebra. -/
+instance {S : Type*} [SetLike S A] [NonUnitalSubringClass S A] [SMulMemClass S ℝ A]
+    [StarMemClass S A] (s : S) [IsClosed (s : Set A)] :
+    StarOrderedRing s := by
+  refine .of_nonneg_iff' add_le_add_right fun x ↦ ⟨fun hx ↦ ?_, ?_⟩
+  · let r : A := CFC.sqrt (x : A)
+    have hr : r ∈ s := by
+      simp only [r, CFC.sqrt, cfcₙ_nnreal_eq_real _ (x : A) hx]
+      exact cfcₙ_mem _ x.2
+    refine ⟨⟨r, hr⟩, Subtype.ext ?_⟩
+    simp [r, (CFC.sqrt_nonneg (x : A)).star_eq, CFC.sqrt_mul_sqrt_self (x : A)]
+  · rintro ⟨x, rfl⟩
+    exact star_mul_self_nonneg (x : A)
+
+end IsSelfAdjoint
+
+section IsStarNormal
+
+variable {A : Type*} [NonUnitalRing A] [StarRing A]
+  [Module ℂ A] [IsScalarTower ℂ A A] [SMulCommClass ℂ A A]
+  [TopologicalSpace A] [NonUnitalContinuousFunctionalCalculus ℂ A IsStarNormal]
+  [PartialOrder A] [StarOrderedRing A] [NonnegSpectrumClass ℝ A]
+  [IsTopologicalRing A] [ContinuousConstSMul ℂ A] [StarModule ℂ A] [ContinuousStar A] [T2Space A]
+
+/-- A closed complex star subalgebra inherits the spectral order of its ambient algebra. -/
+instance {S : Type*} [SetLike S A] [NonUnitalSubringClass S A] [SMulMemClass S ℂ A]
+    [StarMemClass S A] (s : S) [IsClosed (s : Set A)] :
+    StarOrderedRing s := by
+  have : SMulMemClass S ℝ A := ⟨fun r _ h ↦ SMulMemClass.smul_mem (r : ℂ) h⟩
+  have : ContinuousConstSMul ℝ A :=
+    Topology.IsInducing.id.continuousConstSMul Complex.ofReal (by simp)
+  infer_instance
+
+end IsStarNormal
 
 variable {ι A : Type*} [NonUnitalCStarAlgebra A] [PartialOrder A] [StarOrderedRing A]
 
