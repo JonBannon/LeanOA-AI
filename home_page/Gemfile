@@ -1,6 +1,8 @@
 source "https://rubygems.org"
 
-# To upgrade, run `bundle update github-pages`.
+ruby "3.4.3"
+
+# To upgrade, run `bundle lock --update --add-platform x86_64-linux`.
 gem "github-pages", group: :jekyll_plugins
 # If you have any plugins, put them here!
 group :jekyll_plugins do

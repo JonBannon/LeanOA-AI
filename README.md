@@ -4,6 +4,7 @@ LeanOA formalizes operator-algebra results culminating in the uniqueness of Bana
 W-star algebras. The Lean library, mathematical blueprint, and generated API documentation are
 published together for this repository.
 
+- [LeanOA documentation site](https://jonbannon.github.io/LeanOA/)
 - [API documentation](https://jonbannon.github.io/LeanOA/docs/)
 - [Web blueprint](https://jonbannon.github.io/LeanOA/blueprint/)
 - [Blueprint PDF](https://jonbannon.github.io/LeanOA/blueprint.pdf)
