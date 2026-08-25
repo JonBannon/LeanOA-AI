@@ -129,7 +129,7 @@ set_option backward.isDefEq.respectTransparency false in
 /-- An idempotent linear map on an ultraweak space is continuous if its range and kernel are closed
 and it preserves the underlying closed unit ball. -/
 lemma continuous_of_isClosed_range_ker_of_idempotent
-    (f : σ(M, P)_𝕜 →ₗ[𝕜] σ(M, P)_𝕜) (hf : ∀ x, f (f x) = f x)
+    (f : σ(M, P)_𝕜 →ₗ[𝕜] σ(M, P)_𝕜) (hf : IsIdempotentElem f)
     (hrange : IsClosed (LinearMap.range f : Set (σ(M, P)_𝕜)))
     (hker : IsClosed (LinearMap.ker f : Set (σ(M, P)_𝕜)))
     (hball : MapsTo f (ofUltraweak ⁻¹' Metric.closedBall (0 : M) 1)
@@ -148,10 +148,11 @@ lemma continuous_of_isClosed_range_ker_of_idempotent
     .of_forall fun z ↦ LinearMap.mem_range_self f z
   have hxyKer : x - y ∈ LinearMap.ker f := hker.mem_of_tendsto hsub <|
     .of_forall fun z ↦ by
-      change f (z - f z) = 0
-      rw [map_sub, hf, sub_self]
+      rw [LinearMap.IsIdempotentElem.ker_eq_range_one_sub hf]
+      simp
   obtain ⟨z, rfl⟩ := hyRange
-  rw [LinearMap.mem_ker, map_sub, hf, sub_eq_zero] at hxyKer
+  rw [LinearMap.mem_ker, map_sub, (LinearMap.IsIdempotentElem.mem_range_iff hf).mp
+    (LinearMap.mem_range_self f z), sub_eq_zero] at hxyKer
   exact hxyKer.symm
 
 variable [Module ℝ M] [IsScalarTower ℝ 𝕜 M]

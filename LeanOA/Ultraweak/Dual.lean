@@ -199,9 +199,8 @@ lemma mem_ofSubmodule (N : Submodule 𝕜 M) (x : σ(M, P)_𝕜) :
 
 @[simp]
 lemma ofSubmodule_iInf {ι : Sort*} (N : ι → Submodule 𝕜 M) :
-    ofSubmodule (P := P) (⨅ i, N i) = ⨅ i, ofSubmodule (P := P) (N i) := by
-  ext
-  simp
+    ofSubmodule (P := P) (⨅ i, N i) = ⨅ i, ofSubmodule (P := P) (N i) :=
+  Submodule.comap_iInf (linearEquiv 𝕜 M P).toLinearMap N
 
 /-- An intersection of submodules closed in the specified ultraweak topology is ultraweakly
 closed. -/

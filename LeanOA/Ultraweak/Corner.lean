@@ -304,12 +304,10 @@ private lemma isCompact_upperOffDiagonalUnit (hp : IsStarProjection p) :
 
 omit [PartialOrder M] [StarOrderedRing M] [CompleteSpace P] in
 include hp in
-lemma _root_.IsStarProjection.ultraweakMulLeftₗ_idempotent (x : σ(M, P)) :
-    Ultraweak.mulLeftₗ (𝕜 := ℂ) (P := P) p
-        (Ultraweak.mulLeftₗ (𝕜 := ℂ) (P := P) p x) =
-      Ultraweak.mulLeftₗ (𝕜 := ℂ) (P := P) p x := by
-  rw [← ofUltraweak_inj]
-  simp [← mul_assoc, hp.isIdempotentElem.eq]
+lemma _root_.IsStarProjection.ultraweakMulLeftₗ_idempotent :
+    IsIdempotentElem (Ultraweak.mulLeftₗ (𝕜 := ℂ) (P := P) p) := by
+  rw [isIdempotentElem_iff, Module.End.mul_eq_comp,
+    ← Ultraweak.mulLeftₗ_mul, hp.isIdempotentElem.eq]
 
 omit [PartialOrder M] [StarOrderedRing M] [CompleteSpace P] in
 include hp in
@@ -323,29 +321,23 @@ include hp in
 lemma _root_.IsStarProjection.mem_range_ultraweakMulLeftₗ_iff {x : σ(M, P)} :
     x ∈ LinearMap.range (Ultraweak.mulLeftₗ (𝕜 := ℂ) (P := P) p) ↔
       p * ofUltraweak x = ofUltraweak x := by
-  constructor
-  · rintro ⟨y, rfl⟩
-    simp [← mul_assoc, hp.isIdempotentElem.eq]
-  · intro hx
-    exact ⟨x, by rw [← ofUltraweak_inj]; simpa using hx⟩
+  rw [LinearMap.IsIdempotentElem.mem_range_iff
+    (hp.ultraweakMulLeftₗ_idempotent (P := P))]
+  rw [← ofUltraweak_inj]
+  rfl
 
 omit [PartialOrder M] [StarOrderedRing M] [CompleteSpace P] in
 include hp in
 lemma _root_.IsStarProjection.range_ultraweakMulLeftₗ_one_sub :
     LinearMap.range (Ultraweak.mulLeftₗ (𝕜 := ℂ) (P := P) (1 - p)) =
       LinearMap.ker (Ultraweak.mulLeftₗ (𝕜 := ℂ) (P := P) p) := by
-  ext x
-  rw [hp.one_sub.mem_range_ultraweakMulLeftₗ_iff,
-    Ultraweak.mem_ker_mulLeftₗ_iff]
-  constructor <;> intro hx
-  · calc
-      p * ofUltraweak x = ofUltraweak x - (1 - p) * ofUltraweak x := by
-        noncomm_ring
-      _ = 0 := by rw [hx]; simp
-  · calc
-      (1 - p) * ofUltraweak x = ofUltraweak x - p * ofUltraweak x := by
-        noncomm_ring
-      _ = ofUltraweak x := by rw [hx]; simp
+  rw [show Ultraweak.mulLeftₗ (𝕜 := ℂ) (P := P) (1 - p) =
+      1 - Ultraweak.mulLeftₗ (𝕜 := ℂ) (P := P) p by
+    ext x
+    rw [← ofUltraweak_inj]
+    simp]
+  exact (LinearMap.IsIdempotentElem.ker_eq_range_one_sub
+    (hp.ultraweakMulLeftₗ_idempotent (P := P))).symm
 
 /-- The inclusion of a projection corner into its ambient algebra equipped with the ultraweak
 topology. -/
@@ -411,10 +403,11 @@ lemma mem_ker_ultraweakCutdownₗ_iff {x : σ(M, P)} :
   rw [LinearMap.mem_ker, ultraweakCutdownₗ_apply, toUltraweak_eq_zero]
 
 omit [PartialOrder M] [StarOrderedRing M] [CompleteSpace P] in
-lemma ultraweakCutdownₗ_idempotent (x : σ(M, P)) :
-    ultraweakCutdownₗ (P := P) hp (ultraweakCutdownₗ (P := P) hp x) =
-      ultraweakCutdownₗ (P := P) hp x := by
-  rw [← ofUltraweak_inj]
+lemma ultraweakCutdownₗ_idempotent :
+    IsIdempotentElem (ultraweakCutdownₗ (P := P) hp) := by
+  rw [isIdempotentElem_iff, Module.End.mul_eq_comp]
+  ext x
+  rw [LinearMap.comp_apply, ← ofUltraweak_inj]
   simp only [ultraweakCutdownₗ_apply, ofUltraweak_toUltraweak]
   simp only [← mul_assoc, hp.isIdempotentElem.eq]
   rw [mul_assoc (p * ofUltraweak x) p p, hp.isIdempotentElem.eq]

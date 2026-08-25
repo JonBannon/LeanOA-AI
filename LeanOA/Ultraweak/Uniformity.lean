@@ -85,14 +85,6 @@ private noncomputable def weakEEquiv : WeakE M P ≃ₗ[ℂ] M :=
   WeakBilin.linearEquiv ℂ (fromEₗ M P)
 
 omit [StarOrderedRing M] [CompleteSpace P] in
-@[simp]
-private lemma weakEEquiv_apply (x : WeakE M P) : weakEEquiv M P x = x := rfl
-
-omit [StarOrderedRing M] [CompleteSpace P] in
-@[simp]
-private lemma weakEEquiv_symm_apply (x : M) : (weakEEquiv M P).symm x = x := rfl
-
-omit [StarOrderedRing M] [CompleteSpace P] in
 /-- A filter is cauchy relative to the `WeakE M P` topology if and only if
 mapping it through `φ` is cauchy for every `φ : σ(M, P) →P[ℂ] ℂ`. -/
 private lemma cauchy_weakE_iff_forall_posCLM {l : Filter (WeakE M P)} :

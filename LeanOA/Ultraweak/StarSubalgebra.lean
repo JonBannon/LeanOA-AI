@@ -186,14 +186,8 @@ variable {A Q : Type u} [CStarAlgebra A]
 /-- The explicit linear isometry between a star subalgebra and the ambient submodule with the same
 carrier. -/
 private noncomputable def toSubmoduleLinearIsometryEquiv (S : StarSubalgebra ℂ A) :
-    S ≃ₗᵢ[ℂ] S.toSubmodule where
-  toFun x := ⟨x, x.property⟩
-  invFun x := ⟨x, x.property⟩
-  left_inv _ := rfl
-  right_inv _ := rfl
-  map_add' _ _ := rfl
-  map_smul' _ _ := rfl
-  norm_map' _ := rfl
+    S ≃ₗᵢ[ℂ] S.toSubmodule :=
+  { S.toSubalgebra.toSubmoduleEquiv.symm with norm_map' := fun _ ↦ rfl }
 
 /-- An ultraweakly closed star subalgebra, equipped with its explicitly induced C-star structure,
 is a W-star algebra. -/
