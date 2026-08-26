@@ -1,0 +1,392 @@
+\chapter{Support Projections and Central Support}
+
+This chapter records the next formalization target after Sakai's Theorem 1.9.1: completion of
+Section 1.10 through Proposition 1.10.7.  Propositions 1.10.1 and 1.10.2 are already formalized as
+Proposition \ref{prop:left_ideals_in_wstar_proj_Sak_1_10_1}, Corollary
+\ref{cor:right_ideals_in_wstar_proj_Sak_1_10_1}, and Proposition
+\ref{prop:proj_compl_lat_wstar_Sak_1_10_2}.  The remaining results construct left, right, and
+self-adjoint support projections, identify ultraweakly closed two-sided ideals with central
+projections, and prove the orthogonality theorem for central supports.
+
+This is also the necessary bridge to Sakai's spectral resolution in Section 1.11, where the
+spectral family is defined by
+\[
+  e(\lambda)=s\bigl((\lambda 1-h)^{+}\bigr).
+\]
+
+The local Mathlib version and the original LeanOA repository have no operator-algebra support
+projection or central-support construction to reuse.  The implementation should nevertheless be
+mostly connective tissue around existing general objects:
+\texttt{LinearMap.ker}, Mathlib's native left ideals \texttt{Ideal}, native
+\texttt{TwoSidedIdeal}, \texttt{Set.center}, the complete lattice of projections already proved in
+this repository, and Mathlib's nonunital star-subalgebra closure API.  In particular, annihilators
+must be introduced at the ring-theoretic level, not as sets specialized to normed spaces, and a
+two-sided ideal must not be encoded by a new repository-specific structure.
+
+\section{Algebraic annihilators}
+
+The topology used later should be absent from the basic definitions.  For a subset $S$ of a
+semiring $R$, write
+\[
+  \operatorname{Ann}_{\ell}(S)=\{x\in R\mid xs=0\text{ for every }s\in S\},\qquad
+  \operatorname{Ann}_{r}(S)=\{x\in R\mid sx=0\text{ for every }s\in S\}.
+\]
+The first is a left ideal of $R$, while the second is represented by a left ideal of
+$R^{\mathrm{op}}$, consistently with Mathlib's convention.
+
+\begin{definition}
+  \label{def:one_sided_annihilators}
+  \notready
+  Let $R$ be a semiring and $S\subseteq R$.  Define the left annihilator of $S$ as an
+  \texttt{Ideal R} and the right annihilator as an \texttt{Ideal (MulOpposite R)}.  For a singleton,
+  these are the kernels of right multiplication by $a$ in $R$ and by
+  $\operatorname{op}(a)$ in $R^{\mathrm{op}}$, respectively.
+\end{definition}
+
+These definitions should be built from infima of \texttt{LinearMap.ker}; their carrier and
+singleton simp lemmas should reduce to the displayed pointwise conditions.  This formulation
+requires no star operation, order, norm, topology, or scalar field.
+
+\begin{definition}
+  \label{def:two_sided_annihilators}
+  \notready
+  Let $R$ be a ring.  The annihilator of a left ideal $I$,
+  \[
+    \{x\in R\mid xs=0\text{ for every }s\in I\},
+  \]
+  and the annihilator of a right ideal $J$,
+  \[
+    \{x\in R\mid sx=0\text{ for every }s\in J\},
+  \]
+  are native Mathlib \texttt{TwoSidedIdeal R}s.
+\end{definition}
+
+\begin{proof}
+  \notready
+  Absorption on one side follows by associativity and zero multiplication.  On the other side,
+  use that $I$ is closed under left multiplication and that $J$, encoded in $R^{\mathrm{op}}$, is
+  closed under right multiplication.  Package the resulting carriers with
+  \texttt{TwoSidedIdeal.mk'} and expose membership simp lemmas.
+\end{proof}
+
+\begin{lemma}
+  \label{lem:annihilators_ultraweak_closed}
+  \notready
+  \uses{def:one_sided_annihilators,def:two_sided_annihilators,lem:star_left_mul_right_mul_sig_cts_Sak_1_7_8}
+  Let $M$ be a $C^{*}$--algebra with specified complete predual $P$.  The left and right
+  annihilators of an arbitrary subset of $M$ are ultraweakly closed.  The two-sided annihilator of
+  any left or right ideal is also ultraweakly closed when viewed through its underlying complex
+  submodule.
+\end{lemma}
+
+\begin{proof}
+  \notready
+  Each annihilator is an intersection of kernels of maps of the form $x\mapsto xa$ or
+  $x\mapsto ax$.  Fixed left and right multiplication are already ultraweakly continuous, so the
+  kernels are closed and arbitrary intersections remain closed.  The proof should use the
+  transported submodule API and should not repeat a net calculation.
+\end{proof}
+
+\begin{lemma}
+  \label{lem:ultraweak_op_homeomorph}
+  \notready
+  The canonical maps $\operatorname{op}:M\to M^{\mathrm{op}}$ and
+  $\operatorname{unop}:M^{\mathrm{op}}\to M$ induce mutually inverse complex-linear
+  homeomorphisms for the ultraweak topologies determined by a specified predual $P$.  Consequently
+  a subset is ultraweakly closed if and only if its image in the opposite algebra is ultraweakly
+  closed.
+\end{lemma}
+
+\begin{proof}
+  \notready
+  The specified predual on $M^{\mathrm{op}}$ is already transported from the predual on $M$ along
+  Mathlib's linear isometric equivalence \texttt{op}/\texttt{unop}.  Apply the functorial API for
+  weak topologies to that equivalence.  This should be a general transport lemma for specified
+  preduals, not a fact tied to ideals.
+\end{proof}
+
+\section{Left, right, and self-adjoint support}
+
+The public support projections should not retain a choice of predual.  For a $W^{*}$--algebra
+$M$, define them using the canonical complete lattice
+$\{p:M\mid p\text{ is a projection}\}$:
+\[
+  l(a)=\bigwedge\{p\mid pa=a\},\qquad
+  r(a)=\bigwedge\{p\mid ap=a\}.
+\]
+The annihilator argument supplies the substantive fact that these infima themselves fix $a$.
+This separates the choice-free public objects from the explicit predual used in their proofs.
+
+\begin{definition}
+  \label{def:left_right_support_Sak_1_10_3} (Sakai 1.10.3)
+  \notready
+  \uses{prop:proj_compl_lat_wstar_Sak_1_10_2}
+  For $a$ in a $W^{*}$--algebra $M$, its \emph{left support} $l(a)$ is the infimum of the
+  projections $p$ satisfying $pa=a$, and its \emph{right support} $r(a)$ is the infimum of the
+  projections $q$ satisfying $aq=a$.  Both constructions take values in the existing subtype of
+  star projections.
+\end{definition}
+
+\begin{proposition}
+  \label{prop:left_right_support_characterization}
+  \notready
+  \uses{def:left_right_support_Sak_1_10_3,lem:annihilators_ultraweak_closed,prop:left_ideals_in_wstar_proj_Sak_1_10_1,cor:right_ideals_in_wstar_proj_Sak_1_10_1}
+  For every $a\in M$,
+  \[
+    l(a)a=a,\qquad ar(a)=a.
+  \]
+  Moreover, for every projection $p$,
+  \[
+    l(a)\leq p\ \Longleftrightarrow\ pa=a,
+    \qquad
+    r(a)\leq p\ \Longleftrightarrow\ ap=a.
+  \]
+  Equivalently, the singleton annihilators satisfy
+  \[
+    \operatorname{Ann}_{\ell}(\{a\})=M(1-l(a)),\qquad
+    \operatorname{Ann}_{r}(\{a\})=(1-r(a))M.
+  \]
+\end{proposition}
+
+\begin{proof}
+  \notready
+  By Lemma \ref{lem:annihilators_ultraweak_closed} and Proposition
+  \ref{prop:left_ideals_in_wstar_proj_Sak_1_10_1}, write the left annihilator as $Me$ for a unique
+  projection $e$.  Then $(1-e)a=a$.  If $pa=a$, the projection $1-p$ annihilates $a$, hence
+  $1-p\leq e$ and $1-e\leq p$.  Thus $1-e$ has the defining universal property of $l(a)$.
+  The right-support statement is the same argument in the opposite algebra.  Record both the
+  universal properties and the annihilator identities as the primary API, so later proofs do not
+  unfold choices of ideal generators.
+\end{proof}
+
+\begin{lemma}
+  \label{lem:support_star_compatibility}
+  \notready
+  \uses{prop:left_right_support_characterization}
+  For every $a\in M$,
+  \[
+    l(a^{*})=r(a),\qquad r(a^{*})=l(a).
+  \]
+  If $h=h^{*}$, these projections agree.  Their common value is denoted $s(h)$ and is called the
+  support projection of $h$.
+\end{lemma}
+
+\begin{proof}
+  \notready
+  Taking adjoints converts $pa=a$ into $a^{*}p=a^{*}$ because $p$ is self-adjoint.  Apply the two
+  order characterizations in Proposition \ref{prop:left_right_support_characterization} and use
+  antisymmetry.  This part is algebraic once the support universal properties are available.
+\end{proof}
+
+Several useful consequences should be included with this node: supports of zero and one,
+invariance under multiplication by a nonzero scalar, and monotonicity of support on nonnegative
+elements.  They should be proved from the universal properties or continuous functional calculus,
+as appropriate, rather than from the implementation of the infimum.
+
+\section{The nonunital ultraweak algebra generated by an element}
+
+Sakai's ``$W^{*}$--subalgebra generated by $h$'' in Proposition 1.10.4 need not contain the
+ambient identity.  Its internal identity is precisely $s(h)$.  Therefore the existing unital
+ultraweak-closure construction is not the correct formal object; the parallel construction for
+Mathlib's nonunital star subalgebras is required.
+
+\begin{lemma}
+  \label{lem:internal_unit_is_projection}
+  \notready
+  Let $N$ be a star-stable nonunital subalgebra of a star ring.  If $N$ has an internal identity,
+  then the ambient value of that identity is a star projection.
+\end{lemma}
+
+\begin{proof}
+  \notready
+  Idempotence is the unit law.  Apply the right unit law to the adjoint of the identity and take
+  adjoints to prove self-adjointness.  The current proof of this fact is private inside the
+  ultraweak left-ideal argument; it should be promoted to a reusable algebraic lemma and that file
+  refactored to use it.
+\end{proof}
+
+\begin{definition}
+  \label{def:nonunital_ultraweak_closure}
+  \notready
+  Let $S$ be a nonunital star subalgebra of a $C^{*}$--algebra with specified predual.  Define its
+  ultraweak transport, the predicate that it is ultraweakly closed, its ultraweak closure, and the
+  nonunital ultraweak star algebra generated by a set.
+\end{definition}
+
+\begin{proposition}
+  \label{prop:nonunital_ultraweak_closure_api}
+  \notready
+  \uses{def:nonunital_ultraweak_closure,lem:wstar_unital,lem:internal_unit_is_projection}
+  The nonunital ultraweak closure contains the original algebra, is ultraweakly closed, and is
+  minimal among ultraweakly closed nonunital star subalgebras containing it.  It inherits a
+  nonunital $C^{*}$--algebra structure; if the predual is complete, it is internally unital by the
+  existing closed-submodule unitality theorem, and the ambient value of that identity is a star
+  projection.  Ultraweak closure preserves commutativity.
+\end{proposition}
+
+\begin{proof}
+  \notready
+  Mirror the established unital ultraweak-closure API, reusing Mathlib's topological closure for
+  nonunital star subalgebras.  The proof of internal unitality is an application of Lemma
+  \ref{lem:wstar_unital} to the underlying closed submodule and its tautological linear isometry,
+  not a second proof of Sakai's unitality theorem.
+\end{proof}
+
+\begin{proposition}
+  \label{prop:support_mem_generated_wstar_Sak_1_10_4} (Sakai 1.10.4)
+  \notready
+  \uses{lem:support_star_compatibility,prop:left_right_support_characterization,prop:nonunital_ultraweak_closure_api}
+  Let $h=h^{*}$ and let $C$ be the nonunital ultraweak star algebra generated by $h$.  Then
+  $s(h)\in C$.  More strongly, when $C$ is equipped with its inherited nonunital
+  $C^{*}$--algebra structure, the ambient value of its internal identity is $s(h)$.
+\end{proposition}
+
+\begin{proof}
+  \notready
+  Let $p\in C$ be the internal identity.  Since $ph=h$, minimality gives $s(h)\leq p$.
+  The element $p-s(h)$ annihilates $h$, hence it annihilates every nonunital star polynomial in
+  $h$.  Fixed multiplication is ultraweakly continuous, so it also annihilates the ultraweak
+  closure $C$, and in particular $(p-s(h))p=0$.  As $s(h)\leq p$, this forces $p=s(h)$.
+\end{proof}
+
+\section{Closed two-sided ideals and central projections}
+
+Use Mathlib's bundled \texttt{TwoSidedIdeal M} throughout this section.  Its underlying left and
+right ideals are \texttt{TwoSidedIdeal.asIdeal} and
+\texttt{TwoSidedIdeal.asIdealOpposite}; ultraweak closedness is imposed on their common underlying
+complex submodule.
+
+\begin{proposition}
+  \label{prop:closed_two_sided_ideal_central_projection_Sak_1_10_5} (Sakai 1.10.5)
+  \notready
+  \uses{prop:left_ideals_in_wstar_proj_Sak_1_10_1,cor:right_ideals_in_wstar_proj_Sak_1_10_1,lem:ultraweak_op_homeomorph}
+  Every ultraweakly closed two-sided ideal $J$ of a $W^{*}$--algebra $M$ has the form
+  \[
+    J=Mz=zM
+  \]
+  for a unique central projection $z$.  Formally, $J$ is a native
+  \texttt{TwoSidedIdeal M}, and the conclusion identifies both its underlying left ideal with
+  \texttt{Ideal.span \{z\}} and its opposite underlying left ideal with
+  \texttt{Ideal.span \{MulOpposite.op z\}}.
+\end{proposition}
+
+\begin{proof}
+  \notready
+  Apply the left-ideal case of Proposition 1.10.1.  Transport closedness through Lemma
+  \ref{lem:ultraweak_op_homeomorph} and apply the right-ideal case to obtain projections
+  $z_{\ell}$ and $z_{r}$.  Since both are identities on the same ideal,
+  $z_{\ell}=z_{r}=z$.  For $x\in M$, the elements $xz$ and $zx$ lie in $J$; using $z$ as the right
+  and left identity of $J$ gives $xz=zxz=zx$.  Thus $z$ is central.  Uniqueness follows from
+  uniqueness in either one-sided representation.
+\end{proof}
+
+\begin{corollary}
+  \label{cor:central_projection_closed_ideal_order_iso}
+  \notready
+  \uses{prop:closed_two_sided_ideal_central_projection_Sak_1_10_5,prop:proj_compl_lat_wstar_Sak_1_10_2}
+  Central projections in $M$, ordered by the ambient projection order, are order-isomorphic to
+  ultraweakly closed two-sided ideals via $z\mapsto Mz$.  Consequently the subtype of central
+  projections is a complete lattice.
+\end{corollary}
+
+\begin{proof}
+  \notready
+  Restrict the existing order isomorphism between projections and ultraweakly closed left ideals.
+  Proposition \ref{prop:closed_two_sided_ideal_central_projection_Sak_1_10_5} identifies exactly
+  which left ideals are two-sided.  Arbitrary intersections of closed two-sided ideals are again
+  closed and two-sided, so the same infimum construction used for Proposition 1.10.2 transports a
+  complete lattice structure.  The implementation should use a subtype of Mathlib's projection
+  subtype together with membership in \texttt{Set.center}, rather than introduce a second notion
+  of projection or centrality.
+\end{proof}
+
+\begin{definition}
+  \label{def:central_support_Sak_1_10_6} (Sakai 1.10.6)
+  \notready
+  \uses{cor:central_projection_closed_ideal_order_iso}
+  If $p$ is a projection in $M$, its \emph{central support} $c(p)$ is the infimum, in the complete
+  lattice of central projections, of all central projections $z$ satisfying $p\leq z$.
+\end{definition}
+
+\begin{proposition}
+  \label{prop:central_support_characterization}
+  \notready
+  \uses{def:central_support_Sak_1_10_6}
+  The central support $c(p)$ is central, $p\leq c(p)$, and for every central projection $z$,
+  \[
+    c(p)\leq z\ \Longleftrightarrow\ p\leq z.
+  \]
+  The operation $c$ is monotone and idempotent, and $c(p)=p$ precisely when $p$ is central.
+\end{proposition}
+
+\begin{proof}
+  \notready
+  These are the standard infimum and closure-operator laws in the complete lattice of central
+  projections.  They should be proved order-theoretically from Corollary
+  \ref{cor:central_projection_closed_ideal_order_iso}; no new analytic argument is needed.
+\end{proof}
+
+\section{Orthogonality of central supports}
+
+\begin{lemma}
+  \label{lem:projection_mul_eq_zero_iff_le_complement}
+  \notready
+  \uses{lem:proj_sub_pos_iff_comm_eq_self}
+  If $p$ and $q$ are projections in a unital $C^{*}$--algebra, then
+  \[
+    pq=0\ \Longleftrightarrow\ p\leq 1-q.
+  \]
+  Equivalently, $p$ and $q$ are disjoint in the projection order if and only if their product is
+  zero.
+\end{lemma}
+
+\begin{proof}
+  \notready
+  Apply the existing characterization $p\leq r\iff pr=p$ to the projection $r=1-q$ and expand
+  $p(1-q)$.  This lemma belongs with the general $C^{*}$--algebra projection API and must not be
+  specialized to $W^{*}$--algebras.
+\end{proof}
+
+\begin{proposition}
+  \label{prop:central_support_orthogonal_Sak_1_10_7} (Sakai 1.10.7)
+  \notready
+  \uses{def:two_sided_annihilators,lem:annihilators_ultraweak_closed,prop:closed_two_sided_ideal_central_projection_Sak_1_10_5,prop:central_support_characterization,lem:projection_mul_eq_zero_iff_le_complement}
+  Let $p,q$ be projections in a $W^{*}$--algebra $M$.  If
+  \[
+    pMq=\{0\},\qquad\text{that is,}\qquad pxq=0\quad\text{for every }x\in M,
+  \]
+  then
+  \[
+    c(p)c(q)=0.
+  \]
+\end{proposition}
+
+\begin{proof}
+  \notready
+  Let $J$ be the two-sided annihilator of the right ideal $pM$.  It is ultraweakly closed by
+  Lemma \ref{lem:annihilators_ultraweak_closed}, and the hypothesis says $q\in J$.  By Proposition
+  \ref{prop:closed_two_sided_ideal_central_projection_Sak_1_10_5}, write $J=Mz$ for a central
+  projection $z$.  Then $q\leq z$, hence $c(q)\leq z$, so $pc(q)=0$.  Lemma
+  \ref{lem:projection_mul_eq_zero_iff_le_complement} gives $p\leq1-c(q)$.  The complement is
+  central, and minimality of $c(p)$ yields $c(p)\leq1-c(q)$, which is equivalent to
+  $c(p)c(q)=0$.
+\end{proof}
+
+\begin{corollary}
+  \label{cor:central_support_orthogonal_iff}
+  \notready
+  \uses{prop:central_support_orthogonal_Sak_1_10_7,prop:central_support_characterization}
+  For projections $p,q$ in $M$,
+  \[
+    c(p)c(q)=0\ \Longleftrightarrow\ (\forall x\in M,\;pxq=0).
+  \]
+\end{corollary}
+
+\begin{proof}
+  \notready
+  The reverse implication is Proposition
+  \ref{prop:central_support_orthogonal_Sak_1_10_7}.  Conversely, use $p\leq c(p)$ and
+  $q\leq c(q)$ together with centrality to insert $c(p)$ and $c(q)$ into $pxq$; the product then
+  vanishes because $c(p)c(q)=0$.  This equivalence is the reusable API form of Sakai's
+  proposition.
+\end{proof}

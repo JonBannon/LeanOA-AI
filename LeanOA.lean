@@ -5,6 +5,7 @@ public import LeanOA.BlueprintImports
 public import LeanOA.CFC
 public import LeanOA.CStarAlgebra.Corner
 public import LeanOA.CStarAlgebra.Extreme
+public import LeanOA.CStarAlgebra.KaplanskyDensity
 public import LeanOA.CStarAlgebra.PositiveLinearFunctional
 public import LeanOA.CStarAlgebra.RealRankZero
 public import LeanOA.CStarModule.Standard
@@ -30,6 +31,7 @@ public import LeanOA.Mathlib.Analysis.CStarAlgebra.MulNonneg
 public import LeanOA.Mathlib.Analysis.CStarAlgebra.PositiveLinearMap
 public import LeanOA.Mathlib.Analysis.CStarAlgebra.Projection
 public import LeanOA.Mathlib.Analysis.Complex.Basic
+public import LeanOA.Mathlib.Analysis.Convex.Topology
 public import LeanOA.Mathlib.Analysis.LocallyConvex.Bipolar
 public import LeanOA.Mathlib.Analysis.LocallyConvex.Bounded
 public import LeanOA.Mathlib.Analysis.LocallyConvex.IsCompatibleDual
@@ -65,6 +67,7 @@ public import LeanOA.Ultraweak.Corner
 public import LeanOA.Ultraweak.Dual
 public import LeanOA.Ultraweak.Ideal
 public import LeanOA.Ultraweak.IsUnital
+public import LeanOA.Ultraweak.KaplanskyDensity
 public import LeanOA.Ultraweak.LUB
 public import LeanOA.Ultraweak.Masa
 public import LeanOA.Ultraweak.Multiplication

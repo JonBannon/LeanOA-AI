@@ -268,3 +268,118 @@ lemma congrLeft_symm_apply (e : E ≃ₗ[𝕜] E') (h : ∀ x y, B' (e x) y = B 
   rfl
 
 end Mackey
+
+namespace Mackey
+
+/-- Mackey convergence is uniform when the test vector is allowed to vary in a fixed weakly
+compact absolutely convex set.  This is the filter form of the estimate used in Sakai's
+resolvent argument. -/
+theorem tendsto_pairing_zero_of_tendsto_zero {X : Type*} {l : Filter X}
+    {u : X → Mackey B} (hu : Tendsto u l (nhds 0)) {v : X → F} {K : Set F}
+    (hKc : IsCompact K) (hKa : AbsConvex 𝕜 K) (hv : ∀ᶠ i in l, v i ∈ K) :
+    Tendsto (fun i ↦ B (ofMackey (u i)) (v i)) l (nhds 0) := by
+  have hunif := PolarTopology.tendsto_iff.mp hu K ⟨hKc, hKa⟩
+  rw [Metric.tendsto_nhds]
+  intro ε hε
+  rw [Metric.tendstoUniformlyOn_iff] at hunif
+  filter_upwards [hunif ε hε, hv] with i hi hvi
+  simpa only [ofMackey, map_zero, LinearMap.zero_apply, dist_zero_left, dist_comm] using
+    hi (v i) hvi
+
+end Mackey
+
+namespace Mackey
+
+variable {E' F' : Type*} [AddCommGroup E'] [Module 𝕜 E']
+  [T1Space F] [AddCommGroup F'] [Module 𝕜 F'] [TopologicalSpace F'] [T1Space F']
+  {B' : E' →ₗ[𝕜] F' →ₗ[𝕜] 𝕜} [B'.flip.IsWeak]
+
+/-- A pair of transpose linear maps between dual pairings induces a continuous linear map
+between their Mackey spaces.
+
+No continuity hypothesis is needed on the map in the right coordinate: the transpose identity
+makes it continuous for the two weak topologies.  In particular, it maps weakly compact
+absolutely convex sets to weakly compact absolutely convex sets, which is exactly what is needed
+for continuity of the associated polar seminorms. -/
+noncomputable def map (T : E →ₗ[𝕜] E') (T' : F' →ₗ[𝕜] F)
+    (hT : ∀ x y, B' (T x) y = B x (T' y)) :
+    Mackey B →L[𝕜] Mackey B' := by
+  let f : Mackey B →ₗ[𝕜] Mackey B' :=
+    (toMackey B').toLinearMap.comp (T.comp ofMackey.toLinearMap)
+  have hT'_continuous : Continuous T' := by
+    apply LinearMap.IsWeak.continuous_of_continuous_eval B.flip
+    intro x
+    simpa [LinearMap.flip_apply, hT] using
+      (LinearMap.IsWeak.continuous_eval B'.flip (T x))
+  refine ⟨f, (withSeminorms B').continuous_of_continuous_comp f fun K ↦ ?_⟩
+  let S : Set F := T' '' (K : Set F')
+  have hS_compact : IsCompact S := K.2.1.image hT'_continuous
+  have hS_absConvex : AbsConvex 𝕜 S := K.2.2.image T'
+  have hS_continuous := continuous_seminorm B S hS_compact hS_absConvex
+  convert hS_continuous using 1
+  ext x
+  change sSup ((fun y ↦ ‖B' (T (ofMackey x)) y‖) '' (K : Set F')) =
+    sSup ((fun y ↦ ‖B (ofMackey x) y‖) '' (T' '' (K : Set F')))
+  apply congrArg sSup
+  rw [Set.image_image]
+  exact Set.image_congr fun y _ ↦ congrArg norm (hT _ _)
+
+@[simp]
+lemma map_apply (T : E →ₗ[𝕜] E') (T' : F' →ₗ[𝕜] F)
+    (hT : ∀ x y, B' (T x) y = B x (T' y)) (x : Mackey B) :
+    map (B := B) (B' := B') T T' hT x = toMackey B' (T (ofMackey x)) :=
+  by simp [map]
+
+end Mackey
+
+namespace Mackey
+
+variable {E' F' : Type*} [AddCommGroup E'] [Module 𝕜 E']
+  [T1Space F] [AddCommGroup F'] [Module 𝕜 F'] [TopologicalSpace F'] [T1Space F']
+  {B' : E' →ₗ[𝕜] F' →ₗ[𝕜] 𝕜} [B'.flip.IsWeak]
+
+/-- A pair of transpose conjugate-linear maps between dual pairings induces a continuous
+conjugate-linear map between their Mackey spaces.
+
+The conjugation in the transpose identity disappears after taking norms in the polar seminorms.
+This is the semilinear counterpart of `Mackey.map`. -/
+noncomputable def mapStar (T : E →ₗ⋆[𝕜] E') (T' : F' →ₗ⋆[𝕜] F)
+    (hT : ∀ x y, B' (T x) y = star (B x (T' y))) :
+    Mackey B →L⋆[𝕜] Mackey B' := by
+  let f : Mackey B →ₗ⋆[𝕜] Mackey B' :=
+    { toFun := fun x ↦ toMackey B' (T (ofMackey x))
+      map_add' := by simp
+      map_smul' := by simp }
+  have hT'_continuous : Continuous T' := by
+    apply LinearMap.IsWeak.continuous_of_continuous_eval B.flip
+    intro x
+    have h := (LinearMap.IsWeak.continuous_eval B'.flip (T x)).star
+    convert h using 1
+    funext y
+    rw [LinearMap.flip_apply, LinearMap.flip_apply, hT, star_star]
+  refine ⟨f, (withSeminorms B').continuous_of_continuous_comp f fun K ↦ ?_⟩
+  let S : Set F := T' '' (K : Set F')
+  have hS_compact : IsCompact S := K.2.1.image hT'_continuous
+  have hS_absConvex : AbsConvex 𝕜 S := by
+    refine ⟨?_, K.2.2.2.semilinear_image (fun {_ _} ↦ star_le_star_iff) T'⟩
+    rw [balanced_iff_smul_mem]
+    intro c hc z
+    rintro ⟨y, hy, rfl⟩
+    refine ⟨star c • y, K.2.2.1.smul_mem (by simpa only [norm_star] using hc) hy, ?_⟩
+    simp
+  have hS_continuous := continuous_seminorm B S hS_compact hS_absConvex
+  convert hS_continuous using 1
+  ext x
+  change sSup ((fun y ↦ ‖B' (T (ofMackey x)) y‖) '' (K : Set F')) =
+    sSup ((fun y ↦ ‖B (ofMackey x) y‖) '' (T' '' (K : Set F')))
+  apply congrArg sSup
+  rw [Set.image_image]
+  exact Set.image_congr fun y _ ↦ by rw [hT, norm_star]
+
+@[simp]
+lemma mapStar_apply (T : E →ₗ⋆[𝕜] E') (T' : F' →ₗ⋆[𝕜] F)
+    (hT : ∀ x y, B' (T x) y = star (B x (T' y))) (x : Mackey B) :
+    mapStar (B := B) (B' := B') T T' hT x = toMackey B' (T (ofMackey x)) :=
+  by simp [mapStar]
+
+end Mackey

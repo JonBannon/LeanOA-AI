@@ -3,7 +3,8 @@
 Sak-AI is an AI-produced Lean operator-algebra project for private verification of results.  Its
 first long-term target is the development of Sakai's *C*-Algebras and *W*-Algebras*, followed by
 the volumes of Takesaki.  The current Lean library includes the uniqueness of Banach preduals of
-W-star algebras, and the blueprint now continues with Sakai's Kaplansky density theorem.
+W-star algebras and Sakai's Kaplansky density theorem.  The blueprint now continues through the
+support-projection and central-support results of Sakai Section 1.10.
 
 - [Sak-AI documentation site](https://jonbannon.github.io/Sak-AI/)
 - [API documentation](https://jonbannon.github.io/Sak-AI/docs/)
