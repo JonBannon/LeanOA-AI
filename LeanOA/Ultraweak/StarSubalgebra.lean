@@ -139,6 +139,10 @@ instance (s : Set M) : IsUltraweakClosed (P := P) (ultraweakAdjoin (P := P) s) :
     ((StarAlgebra.adjoin ℂ s).ultraweakClosure (P := P))
   infer_instance
 
+theorem isUltraweakClosed_ultraweakAdjoin (s : Set M) :
+    IsUltraweakClosed (P := P) (ultraweakAdjoin (P := P) s) :=
+  inferInstance
+
 theorem ultraweakAdjoin_le {s : Set M} {S : StarSubalgebra ℂ M}
     (hs : s ⊆ S) (hS : S.IsUltraweakClosed (P := P)) : ultraweakAdjoin (P := P) s ≤ S :=
   ultraweakClosure_minimal (StarAlgebra.adjoin_le hs) hS
