@@ -6,6 +6,10 @@
 usemathjax: true
 ---
 
+Sak-AI is an AI-produced Lean operator-algebra project. Its first long-term target is Sakai's
+*C*-Algebras and *W*-Algebras; the current blueprint continues from predual uniqueness to
+Kaplansky's density theorem (Sakai 1.9.1).
+
 Useful links:
 
 * [GitHub]({{ site.repository_url }})

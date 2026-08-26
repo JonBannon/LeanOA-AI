@@ -18,15 +18,15 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Operator Algebras in Lean
+title: Sak-AI
 #email: your-email@example.com
-description: Formalized operator algebras and uniqueness of W-star algebra preduals
+description: An AI-produced Lean development of Sakai's operator algebra text
 url: "https://jonbannon.github.io"
-baseurl: "/LeanOA-AI"
+baseurl: "/Sak-AI"
 twitter_username:
 github_username: JonBannon
-repository: JonBannon/LeanOA-AI
-repository_url: "https://github.com/JonBannon/LeanOA-AI"
+repository: JonBannon/Sak-AI
+repository_url: "https://github.com/JonBannon/Sak-AI"
 
 # Build settings
 remote_theme: pages-themes/midnight@v0.2.0 

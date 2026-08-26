@@ -1,0 +1,259 @@
+\chapter{Kaplansky's Density Theorem}
+
+This chapter records the next formalization target: Sakai's Theorem 1.9.1.  It is the natural
+next step after the comparison of the ultraweak, strong, and Mackey topologies in Section 1.8.
+It also fills the principal gap between that development and the results on ultraweakly closed
+ideals and the projection lattice from Section 1.10.
+
+Throughout this chapter,
+\[
+  S_M=\{x\in M\mid \lVert x\rVert\leq 1\}
+\]
+denotes the \emph{closed unit ball}.  Sakai calls this set the unit sphere; the distinction is made
+explicit here because Mathlib uses separate names for spheres and closed balls.
+
+The theorem is stated first at Sakai's full generality.  A later corollary specializes the auxiliary
+test space to the specified predual, which is the form most often called Kaplansky's density
+theorem.  None of the unfinished nodes below should introduce a second predual or a competing
+operator topology.  They should be built from Mathlib's dual-pairing, weak-topology, convexity, and
+closed-ball APIs, together with the existing \texttt{Mackey} and \texttt{Ultraweak} constructions.
+
+\section{Dual-pairing and convex-closure infrastructure}
+
+The two completed results in this section are already in Mathlib.  They are exposed as separate
+nodes so that the new proof terminates in existing general functional analysis rather than a
+repository-specific reproof.
+
+\begin{theorem}
+  \label{thm:krein_milman}
+  \lean{closure_convexHull_extremePoints}
+  \mathlibok
+  Let $K$ be a compact convex subset of a Hausdorff locally convex real topological vector space.
+  Then $K$ is the closure of the convex hull of its extreme points.
+\end{theorem}
+
+\begin{proof}
+  \leanok
+  This is the Krein--Milman theorem in Mathlib.
+\end{proof}
+
+\begin{theorem}
+  \label{thm:convex_closure_same_dual}
+  \lean{LinearEquiv.image_closure_of_convex'}
+  \mathlibok
+  Let two locally convex topologies on linearly equivalent complex vector spaces have their
+  continuous duals identified by precomposition with the equivalence.  The equivalence commutes
+  with closure on every real-convex set.  In particular, compatible weak and Mackey topologies have
+  the same closed convex sets.
+\end{theorem}
+
+\begin{proof}
+  \leanok
+  Mathlib proves this by transporting both closures to the weak topology and applying geometric
+  Hahn--Banach separation.
+\end{proof}
+
+\begin{lemma}
+  \label{lem:bounded_weak_topologies_agree}
+  \notready
+  Let $B:M\times P\to\mathbb C$ be a bounded dual pairing of normed spaces, and let
+  $V\subseteq P$ be a norm-dense complex linear subspace.  On every norm-bounded subset of $M$,
+  convergence against all elements of $V$ is equivalent to convergence against all elements of
+  $P$.  Equivalently, the weak topologies $\sigma(M,V)$ and $\sigma(M,P)$ induce the same topology
+  on each norm-closed ball.
+\end{lemma}
+
+\begin{proof}
+  \notready
+  One implication is immediate.  For the other, fix $p\in P$ and approximate it in norm by
+  $v\in V$.  Uniform boundedness of the points of the net bounds the evaluation error
+  $|B(x,p-v)|$ uniformly, while convergence against $v$ handles the remaining term.  This is a
+  general bounded-dual-pairing lemma and should be added at that level, not in the operator-algebra
+  namespace.
+\end{proof}
+
+\begin{lemma}
+  \label{lem:mackey_continuous_of_dual_map}
+  \notready
+  Let $B:E\times F\to\mathbb C$ and $B':E'\times F'\to\mathbb C$ be separating dual pairings.  If
+  complex-linear maps $T:E\to E'$ and $T':F'\to F$ satisfy
+  \[
+    B'(Tx,y)=B(x,T'y),
+  \]
+  then $T$ is continuous from the Mackey topology $\tau(E,F)$ to
+  $\tau(E',F')$.
+\end{lemma}
+
+\begin{proof}
+  \notready
+  Pull an absolutely convex weakly compact subset of $F'$ back along $T'$.  Its image is again
+  absolutely convex and weakly compact, and the displayed identity identifies the corresponding
+  Mackey seminorms.  This is the functorial map theorem missing from the current \texttt{Mackey}
+  API; the existing \texttt{Mackey.congrLeft} handles only equivalences.
+\end{proof}
+
+\section{Sakai-invariant test spaces}
+
+\begin{definition}
+  \label{def:sakai_invariant_test_space}
+  \notready
+  Let $M$ have specified predual $P$.  A \textbf{Sakai-invariant test space} is a norm-dense
+  complex linear subspace $V\subseteq P$ which is closed under the dual actions induced by
+  involution and fixed left and right multiplication on $M$: for $v\in V$ and $a\in M$, the
+  functionals
+  \[
+    x\longmapsto \overline{v(x^{*})},\qquad
+    x\longmapsto v(ax),\qquad
+    x\longmapsto v(xa)
+  \]
+  are again represented by elements of $V$.
+\end{definition}
+
+The formal object should be a predicate on a submodule of the specified predual, with the three
+induced maps recorded explicitly.  It should not be a typeclass: a single predual may contain many
+useful test spaces, and inference should not choose one globally.
+
+\begin{lemma}
+  \label{lem:tau_continuity_of_sakai_invariant}
+  \notready
+  \uses{def:sakai_invariant_test_space,lem:mackey_continuous_of_dual_map}
+  If $V$ is a Sakai-invariant test space, then involution and the maps
+  $x\mapsto ax$ and $x\mapsto xa$ are continuous for the Mackey topology $\tau(M,V)$.
+\end{lemma}
+
+\begin{proof}
+  \notready
+  Apply Lemma \ref{lem:mackey_continuous_of_dual_map} to each operation and the corresponding
+  induced map on $V$.  Complex conjugation means that involution is naturally real-linear; its
+  continuity should be stated through the existing star/topological-star API rather than forced
+  into a complex-linear map.
+\end{proof}
+
+\section{The contraction transform}
+
+For $a\in M$, define Sakai's contraction transform by
+\[
+  \kappa(a)=2a(1+a^{*}a)^{-1}.
+\]
+The next three nodes isolate the $C^{*}$--algebraic part of the argument from the later topology.
+This separation is important: the transform and its estimates do not depend on a predual.
+
+\begin{definition}
+  \label{def:kaplansky_transform}
+  \notready
+  For an element $a$ of a unital $C^{*}$--algebra, the \textbf{Kaplansky contraction transform} is
+  $\kappa(a)=2a(1+a^{*}a)^{-1}$.
+\end{definition}
+
+The public construction may be packaged as a function once invertibility of $1+a^{*}a$ is supplied
+canonically by positivity.  Its membership theorem below must also cover a non-unital
+$C^{*}$--subalgebra of a unital ambient algebra.
+
+\begin{proposition}
+  \label{prop:kaplansky_transform_mem_closedBall}
+  \notready
+  \uses{def:kaplansky_transform}
+  For every $a$ in a unital $C^{*}$--algebra, $1+a^{*}a$ is invertible and
+  $\lVert\kappa(a)\rVert\leq 1$.
+\end{proposition}
+
+\begin{proof}
+  \notready
+  Positivity gives $1\leq 1+a^{*}a$ and hence invertibility.  Continuous functional calculus
+  reduces the norm estimate to the scalar inequality
+  $2\sqrt t/(1+t)\leq1$ for $t\geq0$.  The implementation should reuse Mathlib's positive-order,
+  inverse, square-root, and continuous-functional-calculus APIs.
+\end{proof}
+
+\begin{lemma}
+  \label{lem:kaplansky_transform_mem_subalgebra}
+  \notready
+  \uses{def:kaplansky_transform,prop:kaplansky_transform_mem_closedBall}
+  Let $A$ be a norm-closed, possibly non-unital star subalgebra of a unital $C^{*}$--algebra $M$.
+  If $a\in A$, then $\kappa(a)\in A$.  Consequently, $\kappa$ maps $A$ into $A\cap S_M$ even
+  when $1\notin A$.
+\end{lemma}
+
+\begin{proof}
+  \notready
+  Express the transform through the non-unital continuous functional calculus, using a scalar
+  function which vanishes at the distinguished point.  This avoids adjoining an identity to $A$
+  and keeps the result compatible with Mathlib's non-unital $C^{*}$--subalgebra API.
+\end{proof}
+
+\begin{lemma}
+  \label{lem:kaplansky_transform_fixed_on_extreme}
+  \notready
+  \uses{def:kaplansky_transform,lem:extreme_partial_isom}
+  If $u$ is an extreme point of $S_M$, then $\kappa(u)=u$.
+\end{lemma}
+
+\begin{proof}
+  \notready
+  Lemma \ref{lem:extreme_partial_isom} makes $p=u^{*}u$ a projection.  Since
+  $(1+p)^{-1}=1-\tfrac12p$ and $up=u$, direct calculation gives
+  $2u(1+p)^{-1}=u$.
+\end{proof}
+
+\section{The density theorem}
+
+\begin{proposition}
+  \label{prop:kaplansky_transform_in_ball_closure}
+  \notready
+  \uses{def:sakai_invariant_test_space,lem:bounded_weak_topologies_agree,thm:convex_closure_same_dual,lem:tau_continuity_of_sakai_invariant,prop:kaplansky_transform_mem_closedBall,lem:kaplansky_transform_mem_subalgebra}
+  Let $V\subseteq P$ be a Sakai-invariant test space, and let $A$ be a norm-closed star
+  subalgebra of $M$ which is dense for $\sigma(M,V)$.  Then for every $a\in M$,
+  \[
+    \kappa(a)\in\overline{A\cap S_M}^{\,\sigma(M,P)}.
+  \]
+\end{proposition}
+
+\begin{proof}
+  \notready
+  Because $A$ is a linear subspace, it is convex.  The weak and Mackey topologies associated to
+  the same dual pairing have the same convex closures, so choose a net $(a_i)$ in $A$ converging to
+  $a$ for $\tau(M,V)$.  Sakai's resolvent calculation, using the continuity from Lemma
+  \ref{lem:tau_continuity_of_sakai_invariant}, shows that
+  $\kappa(a_i)\to\kappa(a)$ in $\sigma(M,V)$.  Each $\kappa(a_i)$ belongs to $A\cap S_M$.
+  Lemma \ref{lem:bounded_weak_topologies_agree} upgrades this bounded convergence to
+  $\sigma(M,P)$--convergence.
+\end{proof}
+
+\begin{theorem}
+  \label{thm:kaplansky_density_Sak_1_9_1} (Sakai 1.9.1)
+  \notready
+  \uses{thm:krein_milman,thm:convex_closure_same_dual,prop:kaplansky_transform_in_ball_closure,lem:kaplansky_transform_fixed_on_extreme}
+  Let $M$ be a $W^{*}$--algebra with specified predual $P$, let $V\subseteq P$ be a
+  Sakai-invariant test space, and let $A$ be a self-adjoint subalgebra of $M$ which is dense for
+  $\sigma(M,V)$.  Then $A\cap S_M$ is dense in $S_M$ for the Mackey topology
+  $\tau(M,P)$.
+\end{theorem}
+
+\begin{proof}
+  \notready
+  Replacing $A$ by its norm closure preserves the hypotheses and the desired conclusion.
+  Proposition \ref{prop:kaplansky_transform_in_ball_closure} and Lemma
+  \ref{lem:kaplansky_transform_fixed_on_extreme} show that the ultraweak closure of
+  $A\cap S_M$ contains every extreme point of $S_M$.  That closure is convex.  The closed unit ball
+  is ultraweakly compact by Banach--Alaoglu, so Theorem \ref{thm:krein_milman} says it is the
+  closure of the convex hull of its extreme points.  Hence $A\cap S_M$ is ultraweakly dense in
+  $S_M$.  Finally, Theorem \ref{thm:convex_closure_same_dual} identifies the closure of this convex
+  set for the compatible ultraweak and Mackey topologies.
+\end{proof}
+
+\begin{corollary}
+  \label{cor:kaplansky_density_ultraweak}
+  \notready
+  \uses{thm:kaplansky_density_Sak_1_9_1,thm:sigma_le_s_le_tau}
+  Let $A$ be a self-adjoint subalgebra which is ultraweakly dense in a $W^{*}$--algebra $M$.
+  Then $A\cap S_M$ is dense in $S_M$ for the Mackey topology.  Consequently it is also dense for
+  the strong and ultraweak topologies.
+\end{corollary}
+
+\begin{proof}
+  \notready
+  Take $V=P$ in Theorem \ref{thm:kaplansky_density_Sak_1_9_1}.  The identity subspace is
+  automatically Sakai-invariant by ultraweak continuity of involution and fixed multiplication.
+  The final implications follow from
+  $\sigma(M,P)\leq s(M,P)\leq\tau(M,P)$.
+\end{proof}
