@@ -47,58 +47,11 @@ def toStrong (x : M) : s(M, P) := x
 /-- The canonical map from `s(M, P)` to `M`. -/
 def ofStrong (x : s(M, P)) : M := x
 
-@[simp]
-lemma toStrong_ofStrong (x : s(M, P)) : toStrong P (ofStrong x) = x := rfl
-
-@[simp]
-lemma ofStrong_toStrong (x : M) : ofStrong (toStrong P x) = x := rfl
-
-@[simp]
-lemma ofStrong_add (x y : s(M, P)) : ofStrong (x + y) = ofStrong x + ofStrong y := rfl
-
-@[simp]
-lemma toStrong_add (x y : M) : toStrong P (x + y) = toStrong P x + toStrong P y := rfl
-
-@[simp]
-lemma ofStrong_smul (c : ℂ) (x : s(M, P)) : ofStrong (c • x) = c • ofStrong x := rfl
-
-@[simp]
-lemma toStrong_smul (c : ℂ) (x : M) : toStrong P (c • x) = c • toStrong P x := rfl
-
-@[simp]
-lemma ofStrong_zero : ofStrong (0 : s(M, P)) = (0 : M) := rfl
-
-@[simp]
-lemma toStrong_zero : toStrong P (0 : M) = (0 : s(M, P)) := rfl
-
-@[simp]
-lemma ofStrong_neg (x : s(M, P)) : ofStrong (-x) = -ofStrong x := rfl
-
-@[simp]
-lemma toStrong_neg (x : M) : toStrong P (-x) = -toStrong P x := rfl
-
-@[simp]
-lemma ofStrong_sub (x y : s(M, P)) : ofStrong (x - y) = ofStrong x - ofStrong y := rfl
-
-@[simp]
-lemma toStrong_sub (x y : M) : toStrong P (x - y) = toStrong P x - toStrong P y := rfl
-
-@[simp]
-lemma ofStrong_inj {x y : s(M, P)} : ofStrong x = ofStrong y ↔ x = y := Iff.rfl
-
-@[simp]
-lemma toStrong_inj {x y : M} : toStrong P x = toStrong P y ↔ x = y := Iff.rfl
-
 variable (M P) in
 /-- The canonical linear equivalence from `s(M, P)` to `M`. -/
-@[simps]
-def Strong.linearEquiv : s(M, P) ≃ₗ[ℂ] M where
-  toFun := ofStrong
-  invFun := toStrong P
-  map_add' _ _ := ofStrong_add _ _
-  map_smul' _ _ := ofStrong_smul _ _
-  left_inv := toStrong_ofStrong
-  right_inv := ofStrong_toStrong
+@[simps!]
+def Strong.linearEquiv : s(M, P) ≃ₗ[ℂ] M :=
+  LinearEquiv.refl ℂ M
 
 namespace Strong
 
@@ -110,7 +63,7 @@ def seminorm (phi : σ(M, P) →P[ℂ] ℂ) : Seminorm ℂ s(M, P) :=
 @[simp]
 lemma seminorm_apply (phi : σ(M, P) →P[ℂ] ℂ) (x : s(M, P)) :
     seminorm phi x = √‖phi (toUltraweak ℂ P (star (ofStrong x) * ofStrong x))‖ := by
-  simp [seminorm]
+  simp [seminorm, ofStrong]
 
 /-- The family of strong seminorms indexed by positive ultraweakly continuous functionals. -/
 def seminormFamily : SeminormFamily ℂ s(M, P) (σ(M, P) →P[ℂ] ℂ) :=
@@ -132,9 +85,6 @@ instance : LocallyConvexSpace ℂ s(M, P) :=
   let _ : Module ℝ s(M, P) := RestrictScalars.module ℝ ℂ s(M, P)
   let _ : IsScalarTower ℝ ℂ s(M, P) := RestrictScalars.isScalarTower ℝ ℂ s(M, P)
   .to_rclike ℂ s(M, P) withSeminorms.toLocallyConvexSpace
-
-lemma continuous_seminorm (phi : σ(M, P) →P[ℂ] ℂ) : Continuous (seminorm phi) :=
-  withSeminorms.continuous_seminorm phi
 
 /-! ## Explicit comparison maps -/
 
@@ -333,14 +283,14 @@ private theorem exists_predual [CompleteSpace P] (f : StrongDual ℂ s(M, P)) :
       _ = (C : ℝ) * ‖psi.toGNS'‖ * ‖x‖ := by rw [mul_assoc]⟩
   have hfM : fM ∈ closure (range psi.gnsCoefficient) :=
     psi.mem_closure_range_gnsCoefficient_of_bound fM C fun x ↦ by
-      simpa [fM, fMₗ, psi] using hf (toStrong P x)
+      simpa [fM, fMₗ, psi, toStrong, ofStrong] using hf (toStrong P x)
   have hcoeff : range psi.gnsCoefficient ⊆
       range (Predual.toDualₗᵢ (𝕜 := ℂ) (M := M) (P := P)) := by
     rintro - ⟨y, rfl⟩
     exact gnsCoefficient_mem_range_toDualₗᵢ phi y
   obtain ⟨p, hp⟩ := closure_minimal hcoeff Predual.isClosed_range_toDualₗᵢ hfM
   refine ⟨p, fun x ↦ ?_⟩
-  simpa [fM, fMₗ] using congr($(hp.symm) x)
+  simpa [fM, fMₗ, toStrong] using congr($(hp.symm) x)
 
 /-- Restriction of an ultraweakly continuous functional to the strong topology. -/
 noncomputable def dualMap [CompleteSpace P] :
@@ -375,7 +325,7 @@ theorem dualMap_surjective [CompleteSpace P] :
   obtain ⟨p, hp⟩ := exists_predual f
   refine ⟨(predualDualEquiv ℂ M P p).toWeakDual, ?_⟩
   ext x
-  simpa using (hp (ofStrong x)).symm
+  simpa [toStrong, ofStrong] using (hp (ofStrong x)).symm
 
 /-- The continuous dual of the strong topology is the ultraweak continuous dual. -/
 noncomputable def dualEquiv [CompleteSpace P] :
@@ -466,7 +416,9 @@ private theorem continuous_ultraweak_of_continuousOn_strong_closedUnitBall
   convert himageClosed using 1
   rw [LinearEquiv.image_eq_preimage_symm]
   ext x
-  simp [S, fS, fU, ofStrong_toUltraweakEquiv_symm]
+  have hx : (toUltraweakEquiv (M := M) (P := P)).symm x =
+      toStrong P (ofUltraweak x) := rfl
+  simp [S, fS, fU, hx, toStrong, ofStrong]
 
 /-- For `f : M →ₗ[ℂ] ℂ`, the following are equivalent: continuity of
 `x ↦ f (ofUltraweak x)` on `σ(M, P)`; continuity of `x ↦ f (ofStrong x)` on `s(M, P)`;

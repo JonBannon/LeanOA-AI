@@ -113,11 +113,6 @@ noncomputable def continuousDualCongr :
     (continuousDual ℂ M Q).toSubmodule <|
       congrArg ClosedSubmodule.toSubmodule continuousDual_eq
 
-@[simp]
-lemma coe_continuousDualCongr_apply (f : (continuousDual ℂ M P).toSubmodule) :
-    ((continuousDualCongr f : (continuousDual ℂ M Q).toSubmodule) : StrongDual ℂ M) = f :=
-  rfl
-
 end Uniqueness
 
 end Ultraweak
@@ -153,7 +148,7 @@ theorem toDualₗᵢ_equiv (p : P) :
         (Ultraweak.continuousDualCongr (M := M) (P := P) (Q := Q)
           (continuousDualEquiv (𝕜 := ℂ) (M := M) (P := P) p)) by rfl,
     LinearIsometryEquiv.apply_symm_apply]
-  exact Ultraweak.coe_continuousDualCongr_apply _
+  exact LinearIsometryEquiv.coe_ofEq_apply _ _
 
 /-- The canonical equivalence between specified preduals preserves the original dual pairings. -/
 @[simp]

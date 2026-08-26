@@ -95,11 +95,6 @@ noncomputable def orderIsoUltraweakClosedIdeal :
     (Ideal.existsUnique_isStarProjection_eq_span_of_isClosed_ultraweak I.1 I.2).choose_spec.1.2.symm
   map_rel_iff' {p q} := p.2.span_singleton_le_span_singleton_iff q.2
 
-@[simp]
-lemma orderIsoUltraweakClosedIdeal_apply_val (p : {p : M // IsStarProjection p}) :
-    (orderIsoUltraweakClosedIdeal (M := M) (P := P) p).1 = Ideal.span {p.1} :=
-  rfl
-
 /-- The complete lattice structure on star projections determined by a specified Banach predual.
 
 This named layer keeps `P` explicit: the predual does not occur in the projection subtype, so an

@@ -59,19 +59,6 @@ end StrongDual
 
 variable {𝕜 E : Type*} [RCLike 𝕜] [NormedAddCommGroup E] [NormedSpace 𝕜 E]
 
-/-- The polar operation on the weak dual reverses inclusion. -/
-theorem WeakDual.polar_antitone : Antitone (WeakDual.polar 𝕜 : Set E → Set (WeakDual 𝕜 E)) :=
-  fun _ _ h _ hf x hx ↦ hf x (h hx)
-
-/-- The polar in the weak dual of a doubly indexed union is the corresponding doubly indexed
-intersection of polars. -/
-theorem WeakDual.polar_iUnion₂ {ι : Sort*} {κ : ι → Sort*}
-    {s : (i : ι) → κ i → Set E} :
-    WeakDual.polar 𝕜 (⋃ i, ⋃ j, s i j) = ⋂ i, ⋂ j, WeakDual.polar 𝕜 (s i j) := by
-  ext f
-  simp only [WeakDual.polar_def, mem_setOf_eq, mem_iUnion, mem_iInter]
-  aesop
-
 namespace KreinSmulian
 
 /-- An abbreviation for the hypothesis of the Krein-Smulian theorem: the intersection of `A`
@@ -113,7 +100,9 @@ lemma separationSeq_induction_step_aux {s t : ℝ} (hs : 0 < s) (ht : s < t)
     intro ⟨G, hG₁, hG₂⟩ ⟨H, hH₁, hH₂⟩
     simp only [Subtype.exists, exists_and_left, exists_prop, ι, T]
     refine ⟨G ∪ H, ?_, ⟨hG₁.union hH₁, union_subset hG₂ hH₂⟩, ?_⟩
-    all_goals exact WeakDual.polar_antitone (by simp)
+    all_goals
+      exact Set.preimage_mono
+        (LinearMap.polar_antitone ((topDualPairing 𝕜 E).flip) (by simp))
   simpa [ι, T, and_assoc] using h_cpct.elim_directed_family_closed T hTc hsT h_dir
 
 /-- Suppose `A : Set (WeakDual 𝕜 E)` satisfies the `KreinSmulianProperty` and its polar
@@ -164,7 +153,8 @@ lemma separation_aux (hA : KreinSmulianProperty A)
   refine fun n ↦ ⟨(separationSeq A hA hA' n).snd.1, (separationSeq A hA hA' n).snd.2.2.1, ?_⟩
   convert (separationSeq A hA hA' n).snd.2.2.2 using 2
   rw [separationSeq_apply_fst_snd_eq_iUnion]
-  exact WeakDual.polar_iUnion₂.symm
+  exact congrArg (fun s : Set (StrongDual 𝕜 E) ↦ WeakDual.toStrongDual ⁻¹' s)
+    (LinearMap.polar_iUnion₂ ((topDualPairing 𝕜 E).flip)).symm
 
 set_option backward.isDefEq.respectTransparency false in
 /-- The sequence obtained in `separation_aux` tends to zero along the cofinite filter

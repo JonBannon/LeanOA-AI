@@ -96,10 +96,6 @@ instance (S : StarSubalgebra ℂ M) :
     ext x
     simp [mem_ultraweakClosure]
 
-theorem isUltraweakClosed_ultraweakClosure (S : StarSubalgebra ℂ M) :
-    IsUltraweakClosed (P := P) (S.ultraweakClosure (P := P)) :=
-  inferInstance
-
 theorem ultraweakClosure_minimal {S T : StarSubalgebra ℂ M}
     (hST : S ≤ T) (hT : T.IsUltraweakClosed (P := P)) : S.ultraweakClosure (P := P) ≤ T := by
   intro x hx
@@ -142,10 +138,6 @@ instance (s : Set M) : IsUltraweakClosed (P := P) (ultraweakAdjoin (P := P) s) :
   change IsUltraweakClosed (P := P)
     ((StarAlgebra.adjoin ℂ s).ultraweakClosure (P := P))
   infer_instance
-
-theorem isUltraweakClosed_ultraweakAdjoin (s : Set M) :
-    IsUltraweakClosed (P := P) (ultraweakAdjoin (P := P) s) :=
-  inferInstance
 
 theorem ultraweakAdjoin_le {s : Set M} {S : StarSubalgebra ℂ M}
     (hs : s ⊆ S) (hS : S.IsUltraweakClosed (P := P)) : ultraweakAdjoin (P := P) s ≤ S :=
