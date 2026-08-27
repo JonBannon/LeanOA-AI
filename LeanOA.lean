@@ -45,8 +45,8 @@ public import LeanOA.Mathlib.Analysis.SpecialFunctions.ContinuousFunctionalCalcu
 public import LeanOA.Mathlib.Data.Real.Archimedean
 public import LeanOA.Mathlib.Misc
 public import LeanOA.Mathlib.Order.Hom.Basic
-public import LeanOA.Mathlib.RingTheory.Idempotents
 public import LeanOA.Mathlib.RingTheory.Annihilator
+public import LeanOA.Mathlib.RingTheory.Idempotents
 public import LeanOA.Mathlib.Topology.Algebra.Module.LinearMap
 public import LeanOA.Mathlib.Topology.Algebra.Module.PolarTopology
 public import LeanOA.Mathlib.Topology.Algebra.Module.Spaces.UniformConvergenceCLM
@@ -63,10 +63,10 @@ public import LeanOA.Ultraweak.Algebra
 public import LeanOA.Ultraweak.Annihilator
 public import LeanOA.Ultraweak.Basic
 public import LeanOA.Ultraweak.Bornology
+public import LeanOA.Ultraweak.CentralSupport
 public import LeanOA.Ultraweak.ContinuousFunctionalCalculus
 public import LeanOA.Ultraweak.ContinuousStar
 public import LeanOA.Ultraweak.Corner
-public import LeanOA.Ultraweak.CentralSupport
 public import LeanOA.Ultraweak.Dual
 public import LeanOA.Ultraweak.Ideal
 public import LeanOA.Ultraweak.IsUnital
@@ -79,8 +79,8 @@ public import LeanOA.Ultraweak.Normal
 public import LeanOA.Ultraweak.NormalCharacterization
 public import LeanOA.Ultraweak.NormalCutoff
 public import LeanOA.Ultraweak.NormalSelection
-public import LeanOA.Ultraweak.OrderClosed
 public import LeanOA.Ultraweak.Opposite
+public import LeanOA.Ultraweak.OrderClosed
 public import LeanOA.Ultraweak.PolarDecomposition
 public import LeanOA.Ultraweak.PredualUniqueness
 public import LeanOA.Ultraweak.ProjectionLattice
