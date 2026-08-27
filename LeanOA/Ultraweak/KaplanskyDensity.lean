@@ -239,9 +239,13 @@ involution and under the transposes of all fixed left and right multiplications.
 This is deliberately a predicate on a chosen submodule, rather than a typeclass: the same
 specified predual can contain several useful invariant test spaces. -/
 structure SakaiInvariantTestSpace (V : Submodule ℂ P) : Prop where
+  /-- The test space is norm-dense in the specified predual. -/
   dense : Dense (V : Set P)
+  /-- The test space is stable under the predual involution. -/
   predualStar_mem : ∀ p : V, predualStar (M := M) (P := P) p.1 ∈ V
+  /-- The test space is stable under the transpose of fixed left multiplication. -/
   predualMulLeft_mem : ∀ (a : M) (p : V), predualMulLeft (P := P) a p.1 ∈ V
+  /-- The test space is stable under the transpose of fixed right multiplication. -/
   predualMulRight_mem : ∀ (a : M) (p : V), predualMulRight (P := P) a p.1 ∈ V
 
 namespace SakaiInvariantTestSpace

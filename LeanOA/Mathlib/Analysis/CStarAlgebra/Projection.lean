@@ -46,6 +46,47 @@ lemma range_mulRight_le_range_mulRight_iff [CStarAlgebra A] [PartialOrder A]
   rw [Ideal.range_mulRight, Ideal.range_mulRight,
     hp.span_singleton_le_span_singleton_iff hq]
 
+/-- Two projections are orthogonal exactly when the first lies below the complement of the
+second. -/
+lemma mul_eq_zero_iff_le_one_sub [CStarAlgebra A] [PartialOrder A] [StarOrderedRing A]
+    (hp : IsStarProjection p) (hq : IsStarProjection q) :
+    p * q = 0 ↔ p ≤ 1 - q := by
+  rw [hp.le_iff_mul_eq_left hq.one_sub, mul_sub, mul_one, sub_eq_self]
+
+/-- If a projection acts as the identity on a positive element, then it acts as the identity on
+every smaller positive element. -/
+lemma mul_eq_self_of_nonneg_of_le_of_mul_eq_self [CStarAlgebra A] [PartialOrder A]
+    [StarOrderedRing A] {a b : A} (hp : IsStarProjection p) (ha : 0 ≤ a) (hab : a ≤ b)
+    (hpb : p * b = b) : p * a = a := by
+  have hqb : (1 - p) * b * (1 - p) = 0 := by
+    rw [sub_mul, one_mul, hpb, sub_self, zero_mul]
+  have hqa_nonneg : 0 ≤ (1 - p) * a * (1 - p) := by
+    simpa only [hp.one_sub.isSelfAdjoint.star_eq] using
+      star_left_conjugate_nonneg ha (1 - p)
+  have hqa_le : (1 - p) * a * (1 - p) ≤ (1 - p) * b * (1 - p) := by
+    simpa only [hp.one_sub.isSelfAdjoint.star_eq] using
+      star_left_conjugate_le_conjugate hab (1 - p)
+  have hqa : (1 - p) * a * (1 - p) = 0 :=
+    le_antisymm (hqa_le.trans_eq hqb) hqa_nonneg
+  have hsqrt_self : IsSelfAdjoint (CFC.sqrt a) :=
+    IsSelfAdjoint.of_nonneg (CFC.sqrt_nonneg a)
+  have hsqrt : CFC.sqrt a * (1 - p) = 0 := by
+    rw [← CStarRing.star_mul_self_eq_zero_iff]
+    calc
+      star (CFC.sqrt a * (1 - p)) * (CFC.sqrt a * (1 - p)) =
+          (1 - p) * (CFC.sqrt a * CFC.sqrt a) * (1 - p) := by
+        rw [star_mul, hp.one_sub.isSelfAdjoint.star_eq, hsqrt_self.star_eq]
+        noncomm_ring
+      _ = (1 - p) * a * (1 - p) := by rw [CFC.sqrt_mul_sqrt_self a ha]
+      _ = 0 := hqa
+  have hqsqrt : (1 - p) * CFC.sqrt a = 0 := by
+    simpa only [star_mul, hp.one_sub.isSelfAdjoint.star_eq, hsqrt_self.star_eq, star_zero] using
+      congr_arg star hsqrt
+  have hqamul : (1 - p) * a = 0 := by
+    rw [← CFC.sqrt_mul_sqrt_self a ha, ← mul_assoc, hqsqrt, zero_mul]
+  rw [sub_mul, one_mul, sub_eq_zero] at hqamul
+  exact hqamul.symm
+
 /-- A projection is determined by the principal left ideal that it generates. -/
 lemma eq_of_span_singleton_eq [Semiring A] [StarMul A]
     (hp : IsStarProjection p) (hq : IsStarProjection q)

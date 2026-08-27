@@ -2,6 +2,7 @@ module
 
 public import LeanOA.Mathlib.Analysis.CStarAlgebra.Projection
 public import LeanOA.Mathlib.Analysis.CStarAlgebra.Basic
+public import LeanOA.Mathlib.Algebra.Star.NonUnitalSubalgebra
 public import LeanOA.Ultraweak.ContinuousStar
 public import LeanOA.Ultraweak.IsUnital
 
@@ -81,21 +82,11 @@ private lemma isClosed_starCore (I : Ideal M)
     rfl] at hpre
   exact hpre
 
-/-- The ambient value of the unit of a star-stable subalgebra is a star projection. -/
-private lemma isStarProjection_coe_unit (N : NonUnitalStarSubalgebra ℂ M) [IsUnital N] :
-    IsStarProjection ((IsUnital.isUnital.choose : N) : M) := by
-  let e : N := IsUnital.isUnital.choose
-  have he (x : N) := IsUnital.isUnital.choose_spec x
-  refine ⟨congr_arg Subtype.val (he e).1, ?_⟩
-  have hstar : star e = e := (he (star e)).2.symm.trans <| by
-    simpa only [star_mul, star_star] using congr_arg star (he (star e)).2
-  exact congr_arg Subtype.val hstar
-
 /-- The unit of the star-stable core acts on the right as the identity on the whole left ideal. -/
 private lemma mul_coe_unit_eq_of_mem (I : Ideal M) [IsUnital (starCore I)]
     {x : M} (hx : x ∈ I) : x * ((IsUnital.isUnital.choose : starCore I) : M) = x := by
   let p : M := (IsUnital.isUnital.choose : starCore I)
-  have hp := isStarProjection_coe_unit (starCore I)
+  have hp := IsUnital.isStarProjection_coe_unit (starCore I)
   let y : starCore I := ⟨star x * x, I.mul_mem_left _ hx, by
     simpa only [star_mul, star_star] using I.mul_mem_left (star x) hx⟩
   have hy := congr_arg Subtype.val (IsUnital.isUnital.choose_spec y).2
@@ -117,7 +108,7 @@ theorem existsUnique_isStarProjection_eq_span_of_isClosed_ultraweak (I : Ideal M
   letI : IsUnital (starCore I) := CStarAlgebra.isUnital_of_isClosed_submodule
     N (starCoreEquiv I) hN
   let p : M := (IsUnital.isUnital.choose : starCore I)
-  have hp : IsStarProjection p := isStarProjection_coe_unit (starCore I)
+  have hp : IsStarProjection p := IsUnital.isStarProjection_coe_unit (starCore I)
   have hIp : I = Ideal.span {p} := le_antisymm
     (fun _ hx ↦ Ideal.mem_span_singleton'.2
       ⟨_, mul_coe_unit_eq_of_mem I hx⟩)
