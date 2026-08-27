@@ -1,0 +1,53 @@
+# Sak-AI Verso status
+
+Last updated: 2026-08-27
+
+## Current state
+
+The Verso Blueprint package in `docs/` builds and generates a multi-page site with all 87 active
+nodes and all 141 statement-dependency edges from the generated legacy LeanBlueprint graph. The
+manifest reports no unknown dependency references and no missing external Lean declarations.
+
+The apparent historical count of 88 came from counting textual `\label` occurrences: one of those
+labels belongs to a fully commented-out proposal about recovering the norm from states. It was
+never an active LeanBlueprint node and has no linked Lean declaration. Verso preserves it as
+future-work prose rather than claiming it as a completed result.
+
+The mathematical chapters now cover C-star and W-star foundations, order and projection lemmas,
+positive functionals, Stonean spectra and real rank zero, normality and uniqueness of the predual,
+Kaplansky density, and the Section 1.10 support/central-support development. Stable labels, theorem
+statements, proof sketches, declaration links, and dependency edges have reached parity.
+
+The legacy LeanBlueprint sources were removed after the parity and public-declaration audits. They
+remain recoverable from Git history. Verso is the sole mathematical-documentation source.
+
+The generated site includes a project overview, mathematical frontier, library/API path,
+design/contribution guide, interactive dependency graph, progress summary, full-text search, and
+index. Generated output is intentionally ignored by Git.
+
+## Validation
+
+From `docs/`:
+
+```sh
+lake build SakAIDocs
+lake exe vbp build
+test -f _out/site/html-multi/index.html
+test -f _out/site/html-multi/-verso-data/blueprint-manifest.json
+test -f _out/site/html-multi/-verso-data/blueprint-html-cache.json
+```
+
+All checks passed on 2026-08-27. The build replays warnings from three pinned upstream Verso or
+SubVerso modules; Sak-AI's own documentation modules elaborate without warnings.
+
+The theorem package also passes `lake build` and `lake lint`. The legacy documentation is no
+longer part of the build or deployment.
+
+## Exact continuation
+
+1. Keep the Pages workflow green: it builds and lints the theorem library, builds doc-gen4 API
+   documentation, builds and checks Verso, and deploys one combined static artifact.
+2. Resume the mathematical frontier in Sakai Section 1.11 using Verso-first blueprint nodes.
+
+Do not create a second theorem-status registry: Verso blocks and `uses` references are the
+documentation source of truth.

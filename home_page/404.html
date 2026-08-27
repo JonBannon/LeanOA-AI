@@ -3,6 +3,12 @@ permalink: /404.html
 layout: default
 ---
 
+<script>
+  if (window.location.pathname.endsWith("/blueprint.pdf")) {
+    window.location.replace(new URL("./", window.location.href).href);
+  }
+</script>
+
 <style type="text/css" media="screen">
   .container {
     margin: 10px auto;

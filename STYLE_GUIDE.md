@@ -1,8 +1,8 @@
 # LeanOA implementation and proof guide
 
-This document records the conventions visible in the repository as of 2026-08-24. It is intended
-to guide further implementation of the blueprint while keeping the code both locally consistent
-and suitable for eventual use in, or upstreaming to, Mathlib.
+This document records the conventions visible in the repository as of 2026-08-27. It is intended
+to guide further implementation of the mathematical roadmap while keeping the code locally
+consistent and suitable for eventual use in, or upstreaming to, Mathlib.
 
 It is descriptive of the best current patterns, not a requirement to preserve every historical
 choice. When this guide and current Mathlib practice differ, prefer current Mathlib practice unless
@@ -10,11 +10,11 @@ doing so would make the surrounding LeanOA API inconsistent.
 
 ## Repository map
 
-- `blueprint/src/` is the source of the mathematical roadmap. Its `\uses`, `\lean`, `\leanok`, and
-  `\mathlibok` annotations describe dependencies and formalization status. Treat the prose proof as
-  mathematical guidance, not as a prescribed Lean proof architecture.
-- `blueprint/print/`, `blueprint/web/`, and `blueprint/lean_decls` are generated artifacts. Change the
-  sources and regenerate them rather than editing generated files directly.
+- `docs/SakAIDocs/` is the primary mathematical and documentation roadmap. Its Verso Blueprint
+  blocks, declaration links, and `uses` references describe statements, formalization status, and
+  dependencies. Treat prose proofs as mathematical guidance, not prescribed Lean architecture.
+- `scripts/build-verso-site.sh` builds and checks the Verso site and can stage it into a combined
+  static-site directory. Generated output under `docs/_out/` is never edited or committed.
 - `LeanOA/Mathlib/` is the staging layer for generally reusable results and missing APIs. Its file
   hierarchy and declaration namespaces mirror the Mathlib locations where those results naturally
   belong.
@@ -22,12 +22,9 @@ doing so would make the surrounding LeanOA API inconsistent.
   Major clusters are `Ultraweak`, `CStarAlgebra`, `CStarModule`, `Lp`, `TendstoZero`, and the locally
   convex/duality files.
 - `LeanOA.lean` is the public umbrella import. A new public module must be reachable from it.
-- `LeanOA/BlueprintImports.lean` contains imports needed for blueprint declaration checking; it is
-  validation plumbing rather than the place for mathematical APIs.
 
-At the time of the initial survey, the library had 58 Lean files and about 7,800 lines. The root
-build and Mathlib-standard linter passed. The one `sorry` present during that survey has since been
-removed. Do not add new `sorry`s.
+At the 2026-08-27 survey, the library had 85 Lean files and about 14,800 lines. The root build and
+Mathlib-standard linter passed, and the source contained no `sorry` or `admit`. Do not add either.
 
 ## File and module conventions
 
@@ -298,31 +295,31 @@ Proof golf is welcome after the statement and API are right. Prefer replacing du
 with a reusable lemma, symmetry, a standard constructor, or a sharper abstraction. Do not golf away a
 mathematically meaningful intermediate statement merely to reduce line count.
 
-## Blueprint workflow
+## Verso Blueprint workflow
 
-For each unfinished blueprint node:
+For each unfinished Verso Blueprint node:
 
-1. Read its incoming `\uses` edges and the surrounding prose, then independently sanity-check the
+1. Read its incoming `uses` edges and surrounding prose, then independently sanity-check the
    statement before designing its Lean API. In particular, do not confuse equality of topologies
    with equality of their continuous linear functionals, even after restricting to a bounded set;
    test topology claims against standard operator-algebra examples such as shift powers.
-2. Search the current repository and Mathlib; blueprint metadata can lag behind the code, and one Lean
-   declaration may cover several prose nodes.
+2. Search Sak-AI, current Mathlib and relevant review history, and current LeanOA. Documentation
+   metadata can lag behind code, and one Lean declaration may cover several prose nodes.
 3. Identify missing general infrastructure before formalizing the final theorem.
 4. Design the intended public statement and namespace first. Check that it composes with existing
    order, topology, CFC, duality, and bundled-map APIs.
 5. Prove small general lemmas in the Mathlib-staging layer, then assemble the domain theorem.
 6. Add application, coercion, simp, extensionality, monotonicity, and norm lemmas needed by downstream
    nodes.
-7. Update `\lean{...}` and `\leanok` only when the named declarations really establish the blueprint
-   statement. Use `\mathlibok` only for declarations already in Mathlib.
-8. Regenerate/check the blueprint outputs and declaration list through the project workflow.
+7. Add a Verso declaration link only when the named declaration really establishes the statement.
+   Because links elaborate against the local package, stale names must fail the docs build.
+8. Rebuild the Verso site and inspect its graph, summary, search/index, and generated manifest.
 9. Build and lint the whole project.
 
-The blueprint currently mixes completed Mathlib facts and completed LeanOA declarations. The
+The roadmap mixes completed Mathlib facts and completed LeanOA declarations. The
 W-star-subalgebra, projection-lattice, Stonean/real-rank-zero, strong/Mackey comparison, normality,
 and predual-uniqueness branches have been formalized and linked to their public declarations. Treat
-the dependency graph as a planning aid, then verify every dependency against actual Lean APIs and
+the generated dependency graph as a planning aid, then verify every dependency against actual Lean APIs and
 the full validation workflow.
 
 ## Mathlib-facing quality bar
@@ -366,5 +363,5 @@ encounters one of these areas, provided the change remains focused and preserves
 includes a deliberate migration.
 
 The target style is therefore: mathematically direct, compact after the right lemmas exist, explicit
-about edge cases, rich enough in API to support the next blueprint node, and organized so reusable
+about edge cases, rich enough in API to support the next roadmap node, and organized so reusable
 pieces already look at home in Mathlib.

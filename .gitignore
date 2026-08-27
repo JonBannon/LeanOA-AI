@@ -1,9 +1,11 @@
 /build
 /lake-packages/*
 .lake/*
-blueprint/src/web.paux
-blueprint/print/
-blueprint/web/
 .venv/
-blueprint/lean_decls
+docs/_out/
+docs/.lake/
+/docbuild/
+/home_page/docs/
+/home_page/_site/
+/home_page/_includes/_upstreaming_dashboard/
 Ignore/

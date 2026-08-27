@@ -7,15 +7,14 @@ usemathjax: true
 ---
 
 Sak-AI is an AI-produced Lean operator-algebra project. Its first long-term target is Sakai's
-*C*-Algebras and *W*-Algebras; the current blueprint continues from predual uniqueness to
-Kaplansky's density theorem (Sakai 1.9.1).
+*C*-Algebras and *W*-Algebras. The primary mathematical documentation is generated from the
+repository's checked Verso Blueprint package.
 
 Useful links:
 
 * [GitHub]({{ site.repository_url }})
 * [Open pull requests]({{ site.repository_url }}/pulls?q=sort%3Aupdated-desc+is%3Apr+is%3Aopen)
-* [Blueprint]({{ '/blueprint/' | relative_url }})
-* [Blueprint as PDF]({{ '/blueprint.pdf' | relative_url }})
-* [Dependency graph]({{ '/blueprint/dep_graph_document.html' | relative_url }})
+* [Verso mathematical documentation]({{ '/' | relative_url }})
+* [Dependency graph]({{ '/Dependency-Graph/' | relative_url }})
 * [API documentation for this repository]({{ '/docs/' | relative_url }})
 * [Upstreaming dashboard]({{ '/upstreaming.html' | relative_url }})

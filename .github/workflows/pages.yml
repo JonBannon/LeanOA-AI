@@ -1,0 +1,136 @@
+name: Build and deploy Sak-AI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  workflow_dispatch:
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  style_lint:
+    name: Lint style
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+
+      - name: Require precise Mathlib imports
+        run: |
+          ! (find LeanOA -name "*.lean" -type f -print0 | xargs -0 grep -E -n '^import Mathlib$')
+
+  build:
+    name: Build library and documentation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Free disk space
+        uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be
+        with:
+          tool-cache: false
+          android: true
+          dotnet: false
+          haskell: false
+          large-packages: false
+          docker-images: false
+          swap-storage: false
+
+      - name: Checkout project
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Build and lint theorem library
+        uses: leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596 # v1
+        with:
+          build: true
+          lint: true
+          mk_all-check: true
+
+      - name: Generate upstreaming dashboard source
+        uses: leanprover-community/upstreaming-dashboard-action@d1a9fcf87a66519bca3a0d3e3d233456b3e8d0d9
+        with:
+          website-directory: home_page
+          project-name: LeanOA
+          branch-name: master
+
+      - name: Build API documentation and dashboard shell
+        uses: leanprover-community/docgen-action@56023ee2a4b3630c1071825be5bafdb43f540bbd
+        with:
+          api-docs: true
+          blueprint: false
+          build-page: true
+          deploy: false
+          homepage: home_page
+          ruby-version: default
+          # The action cache excludes this project's own documentation. A cache
+          # hit can therefore omit generated LeanOA pages while reporting success.
+          use-github-cache: "false"
+
+      - name: Restore nested documentation cache
+        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4.2.3
+        with:
+          path: |
+            docs/.lake/packages
+            docs/.lake/build
+          key: ${{ runner.os }}-sak-ai-verso-v1-${{ hashFiles('docs/lean-toolchain', 'docs/lakefile.toml', 'docs/lake-manifest.json', 'docs/**/*.lean', 'LeanOA/**/*.lean') }}
+          restore-keys: |
+            ${{ runner.os }}-sak-ai-verso-v1-${{ hashFiles('docs/lean-toolchain', 'docs/lakefile.toml', 'docs/lake-manifest.json') }}-
+            ${{ runner.os }}-sak-ai-verso-v1-
+
+      - name: Download Mathlib cache for nested documentation
+        working-directory: docs
+        run: lake exe cache get
+
+      - name: Build, check, and stage Verso site
+        run: ./scripts/build-verso-site.sh home_page/_site
+
+      - name: Verify combined Pages artifact
+        run: |
+          test -f home_page/_site/index.html
+          test -f home_page/_site/Dependency-Graph/index.html
+          test -f home_page/_site/-verso-data/blueprint-manifest.json
+          test -f home_page/_site/-verso-data/blueprint-html-cache.json
+          test -f home_page/_site/upstreaming.html
+          test -f home_page/_site/blueprint/index.html
+          if [ "$GITHUB_EVENT_NAME" = "push" ]; then
+            test -f home_page/_site/docs/index.html
+            test -f home_page/_site/docs/LeanOA.html
+          fi
+
+      - name: Configure GitHub Pages
+        if: github.event_name == 'push'
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6
+
+      - name: Upload Pages artifact
+        if: github.event_name == 'push'
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5
+        with:
+          path: home_page/_site
+
+  deploy:
+    name: Deploy Pages
+    if: github.event_name == 'push'
+    needs:
+      - style_lint
+      - build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128 # v5

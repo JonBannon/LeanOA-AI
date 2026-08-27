@@ -1,0 +1,12 @@
+{
+  "folders": [
+    {
+      "name": "Sak-AI theorem library",
+      "path": "."
+    },
+    {
+      "name": "Sak-AI Verso documentation",
+      "path": "docs"
+    }
+  ]
+}

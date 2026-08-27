@@ -1,0 +1,41 @@
+name = "SakAIDocs"
+precompileModules = false
+defaultTargets = ["SakAIDocs"]
+
+[leanOptions]
+experimental.module = true
+verso.blueprint.foldCodeBlocks = true
+
+# This exact revision is the last Verso Blueprint revision on the Lean
+# v4.32.0-rc1 release line.  Pinning it keeps the documentation toolchain
+# aligned with the theorem library's toolchain.
+[[require]]
+name = "VersoBlueprint"
+git = "https://github.com/leanprover/verso-blueprint"
+rev = "ae77d94f674f90ef7ca2303fdbeed2aba5e8f859"
+
+# Keep the documentation package separate from the theorem package while still
+# checking declaration links against the local working tree.
+[[require]]
+name = "LeanOA"
+path = ".."
+
+# Verso and Mathlib use different transitive pins.  The local Mathlib pins win
+# so its binary cache remains valid and the documentation checks the same
+# environment as the theorem library.
+[[require]]
+name = "proofwidgets"
+git = "https://github.com/leanprover-community/ProofWidgets4"
+rev = "e4952ae2afde0dd2868b313356d1ce00da677bd9"
+
+[[require]]
+name = "plausible"
+git = "https://github.com/leanprover-community/plausible"
+rev = "f3c7bd5061bd81b4480295c524d4f245c8b7e4e2"
+
+[[lean_lib]]
+name = "SakAIDocs"
+
+[[lean_exe]]
+name = "sak-ai-docs"
+root = "SakAIDocsMain"
