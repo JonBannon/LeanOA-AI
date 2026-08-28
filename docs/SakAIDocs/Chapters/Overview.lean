@@ -46,13 +46,17 @@ The connected Section 1.11 targets completed so far are:
 6. the sharp norm bounds give $`e_h(\lambda)=0` for
    $`\lambda\leq-\lVert h\rVert`, $`e_h(\lambda)=1` for
    $`\lVert h\rVert<\lambda`, and the ultraweak endpoint limits in
-   Sakai 1.11.3.
+   Sakai 1.11.3;
+7. lower and upper finite spectral sums bracket $`h`, while their order and
+   norm gaps are controlled by the partition mesh, as in the existence proof
+   of Sakai 1.11.3.
 
-The next bounded checkpoint inside Sakai 1.11.3 is the finite-partition
-estimate: upper and lower spectral sums bracket $`h` and their norm gap is
-controlled by the mesh.  This is the concrete approximation step from which
-the abstract Radon--Stieltjes integral is obtained.  The completed integral
-interface and uniqueness of the resolution remain beyond that checkpoint.
+The next bounded checkpoint inside Sakai 1.11.3 is to choose a refining
+sequence of finite divisions with mesh tending to zero and prove that its
+spectral sums converge in norm to $`h`.  This will provide the approximation
+interface underlying the abstract Radon--Stieltjes notation.  A completed
+integration interface and uniqueness of the resolution remain beyond that
+checkpoint.
 
 # Migration parity
 

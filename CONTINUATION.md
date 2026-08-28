@@ -5,19 +5,19 @@ Last updated: 2026-08-28
 ## Verified repository state
 
 - Branch: `master`.
-- Base commit before the current Verso work: `f4f36c4` (`Buildout of more Sakai`).
-- That commit contains the completed Kaplansky density development and the 18-node Section 1.10
-  chapter in the now-retired LeanBlueprint format.
+- Base commit before the current finite-sum work: `d014439` (`feat: prove spectral family
+  endpoints`).
+- That commit contains the completed development through the endpoint part of Sakai 1.11.3.
 - The theorem package had no uncommitted changes at the start of the current work.
 - Jireh Loreaux's LeanOA and Mathlib are read-only references. The original LeanOA checkout has
   not been modified.
 
 ## Mathematical frontier
 
-Sakai 1.10.3--1.10.7 is complete, and the spectral-resolution development now reaches the endpoint
-part of Sakai 1.11.3: lower spectral projections are constructed, proved monotone and ultraweakly
-continuous from below, satisfy Sakai's increment bounds, and converge to zero and one at the ends
-of the real line.
+Sakai 1.10.3--1.10.7 is complete, and the spectral-resolution development now includes the
+finite-partition estimate in Sakai 1.11.3: lower spectral projections are constructed, proved
+monotone and ultraweakly continuous from below, satisfy Sakai's increment and endpoint formulas,
+and yield lower and upper finite sums whose order and norm gaps are controlled by the mesh.
 
 The implemented public design is:
 
@@ -47,6 +47,8 @@ The implemented public design is:
     strengthening the cut hypothesis from `<` to `≤`.
 13. Prove the endpoint formulas with sharp inequalities and derive their ultraweak limits from
     eventual constancy. Keep the reusable positive-scalar lower-bound criterion in the support API.
+14. Define finite spectral sums directly over `Finset.range`, reuse Mathlib's telescoping identity,
+    and derive the bracketing, order-gap, and norm-error estimates from the existing band theorem.
 
 ## Implementation order
 
@@ -81,12 +83,17 @@ The completed implementation layers are:
    - cutoff recovery, commutation, spectral-band bounds, and the increment estimate of Sakai
      1.11.2;
    - the lower and upper endpoint formulas and their ultraweak limits from Sakai 1.11.3.
+7. Finite spectral-sum layer (completed on 2026-08-28):
+   - unbundled lower and upper sums for a real cut function and a finite number of adjacent bands;
+   - self-adjointness and telescoping of band projections;
+   - bracketing of the original element, the mesh-times-identity order bound, and norm error bounds
+     for both sums.
 
-The next mathematical checkpoint is the finite-partition estimate in Sakai 1.11.3: define the
-upper and lower spectral sums, prove that they bracket the self-adjoint element, and bound their
-norm gap by the mesh. Re-audit the existing Sak-AI API first, then pinned/current Mathlib and the
-read-only original LeanOA before choosing the finite-sum and partition interfaces. Do not begin the
-completed Radon--Stieltjes integral or uniqueness theorem prematurely.
+The next mathematical checkpoint is to choose a refining sequence of finite divisions whose mesh
+tends to zero and prove that its lower and upper spectral sums converge in norm to the original
+self-adjoint element. Re-audit the existing Sak-AI API first, then pinned/current Mathlib and the
+read-only original LeanOA before choosing the refinement interface. Do not begin a completed
+Radon--Stieltjes integration API or the uniqueness theorem prematurely.
 
 Before each substantial proof, search the current Sak-AI tree, pinned Mathlib, current Mathlib
 master/review history, and current LeanOA for an equivalent or more general declaration.
@@ -94,9 +101,9 @@ master/review history, and current LeanOA for an equivalent or more general decl
 ## Documentation continuation
 
 The Verso package preserves all 87 active nodes and 141 statement-dependency edges in the generated
-legacy graph and now has 94 nodes and 155 edges through the endpoint part of Sakai 1.11.3. The exact audit
-and review state is recorded in `VERSO_STATUS.md`. The legacy sources remain recoverable from Git
-history. New mathematical documentation must be authored in Verso first.
+legacy graph and now has 96 nodes and 159 edges through the finite-partition estimate in Sakai
+1.11.3. The exact audit and review state is recorded in `VERSO_STATUS.md`. The legacy sources remain
+recoverable from Git history. New mathematical documentation must be authored in Verso first.
 
 ## Design gate
 

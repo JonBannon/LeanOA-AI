@@ -1,7 +1,7 @@
 import Verso
 import VersoManual
 import VersoBlueprint
-import LeanOA.Ultraweak.SpectralProjection
+import LeanOA.Ultraweak.SpectralSum
 
 open Verso.Genre
 open Verso.Genre.Manual
@@ -210,4 +210,74 @@ scalar $`(\lambda-\lVert h\rVert)1`.  The general support-one criterion then
 shows that its positive part has full support.  Both nets are eventually
 constant, which gives the ultraweak limits without invoking a convergence
 theorem specific to projections.
+:::
+
+:::group "finite-spectral-sums"
+Finite-partition approximation in Sakai 1.11.3.
+:::
+
+# Finite spectral sums
+%%%
+tag := "finite-spectral-sums"
+%%%
+
+:::definition "def:finite_spectral_sums_Sak_1_11_3" (parent := "finite-spectral-sums") (lean := "WStarAlgebra.lowerSpectralSum, WStarAlgebra.upperSpectralSum, WStarAlgebra.isSelfAdjoint_lowerSpectralSum, WStarAlgebra.isSelfAdjoint_upperSpectralSum, WStarAlgebra.sum_spectralProjectionIio_sub") (uses := "def:lower_spectral_projection_Sak_1_11")
+For real cuts $`\lambda_0,\ldots,\lambda_n`, define the lower and upper
+spectral sums
+$`
+  m(\lambda)=\sum_{i<n}\lambda_i
+    \bigl(e_h(\lambda_{i+1})-e_h(\lambda_i)\bigr),
+  \qquad
+  M(\lambda)=\sum_{i<n}\lambda_{i+1}
+    \bigl(e_h(\lambda_{i+1})-e_h(\lambda_i)\bigr).
+`
+Both sums are self-adjoint, and their unweighted band projections telescope:
+$`
+  \sum_{i<n}\bigl(e_h(\lambda_{i+1})-e_h(\lambda_i)\bigr)
+  =e_h(\lambda_n)-e_h(\lambda_0).
+`
+
+The Lean interface takes a function `cut : ℕ → ℝ` and the first `n`
+adjacent intervals.  This keeps the construction compatible with Mathlib's
+ordinary finite sums and avoids introducing a bespoke partition structure.
+:::
+
+:::proof "def:finite_spectral_sums_Sak_1_11_3"
+Self-adjointness is preserved by real scalar multiplication, subtraction,
+and finite sums.  The band identity is Mathlib's telescoping-sum theorem
+applied to the function $`i\mapsto e_h(\lambda_i)`.
+:::
+
+:::proposition "prop:finite_spectral_sum_estimate_Sak_1_11_3" (parent := "finite-spectral-sums") (lean := "WStarAlgebra.lowerSpectralSum_le_mul_spectralProjectionIio_sub, WStarAlgebra.mul_spectralProjectionIio_sub_le_upperSpectralSum, WStarAlgebra.upperSpectralSum_sub_lowerSpectralSum, WStarAlgebra.upperSpectralSum_sub_lowerSpectralSum_le, WStarAlgebra.spectralProjectionIio_sub_eq_one_of_endpoint_bounds, WStarAlgebra.lowerSpectralSum_le_self, WStarAlgebra.self_le_upperSpectralSum, WStarAlgebra.lowerSpectralSum_le_self_and_self_le_upperSpectralSum, WStarAlgebra.upperSpectralSum_sub_lowerSpectralSum_le_smul_one, WStarAlgebra.norm_upperSpectralSum_sub_lowerSpectralSum_le, WStarAlgebra.norm_self_sub_lowerSpectralSum_le, WStarAlgebra.norm_upperSpectralSum_sub_self_le") (uses := "def:finite_spectral_sums_Sak_1_11_3, lem:lower_spectral_projection_increment_bounds_Sak_1_11_2, prop:lower_spectral_projection_endpoints_Sak_1_11_3")
+Suppose the cuts are increasing, satisfy
+$`\lambda_0\leq-\lVert h\rVert` and
+$`\lVert h\rVert<\lambda_n`, and every interval has width at most
+$`\delta`.  Then
+$`
+  m(\lambda)\leq h\leq M(\lambda),
+  \qquad
+  0\leq M(\lambda)-m(\lambda)\leq\delta1.
+`
+Consequently,
+$`
+  \lVert M(\lambda)-m(\lambda)\rVert\leq\delta,
+  \quad
+  \lVert h-m(\lambda)\rVert\leq\delta,
+  \quad
+  \lVert M(\lambda)-h\rVert\leq\delta.
+`
+These are the finite-partition estimates used in the existence part of
+Sakai's Theorem 1.11.3.  The formal statements allow equal adjacent cuts;
+nonnegativity of $`\delta` follows from the other hypotheses and is not
+assumed separately.
+:::
+
+:::proof "prop:finite_spectral_sum_estimate_Sak_1_11_3"
+Apply the spectral-band inequality from Lemma 1.11.2 on every adjacent
+interval and sum.  The middle terms telescope to
+$`h(e_h(\lambda_n)-e_h(\lambda_0))=h` by the endpoint formulas.  Subtracting
+the lower sum from the upper sum weights each nonnegative band projection by
+$`\lambda_{i+1}-\lambda_i\leq\delta`; summing and telescoping again gives the
+order gap $`\delta1`.  Norm monotonicity on nonnegative elements yields the
+three norm estimates.
 :::

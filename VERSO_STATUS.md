@@ -4,11 +4,11 @@ Last updated: 2026-08-28
 
 ## Current state
 
-The Verso Blueprint package in `docs/` builds and generates a multi-page site with 94 active nodes
-and 155 statement-dependency edges. This includes all 87 nodes and 141 edges from the generated
-legacy LeanBlueprint graph plus seven new connected nodes through the endpoint part of Sakai
-1.11.3. The manifest reports
-no unknown dependency references and no missing external Lean declarations.
+The Verso Blueprint package in `docs/` builds and generates a multi-page site with 96 active nodes
+and 159 statement-dependency edges. This includes all 87 nodes and 141 edges from the generated
+legacy LeanBlueprint graph plus nine new connected nodes through the finite-partition estimate in
+Sakai 1.11.3. The manifest reports no unknown dependency references and no missing external Lean
+declarations.
 
 The apparent historical count of 88 came from counting textual `\label` occurrences: one of those
 labels belongs to a fully commented-out proposal about recovering the norm from states. It was
@@ -18,7 +18,7 @@ future-work prose rather than claiming it as a completed result.
 The mathematical chapters now cover C-star and W-star foundations, order and projection lemmas,
 positive functionals, Stonean spectra and real rank zero, normality and uniqueness of the predual,
 Kaplansky density, the Section 1.10 support/central-support development, and lower spectral
-projections through their endpoint behavior in Sakai 1.11.3. Stable labels, theorem statements,
+projections through the finite spectral-sum estimates in Sakai 1.11.3. Stable labels, theorem statements,
 proof sketches, declaration links, and dependency edges cover the completed frontier.
 
 The legacy LeanBlueprint sources were removed after the parity and public-declaration audits. They
@@ -51,9 +51,9 @@ longer part of the build or deployment.
 
 1. Keep the Pages workflow green: it builds and lints the theorem library, builds doc-gen4 API
    documentation, builds and checks Verso, and deploys one combined static artifact.
-2. Continue within Sakai 1.11.3 with the finite-partition spectral-sum estimate using Verso-first
-   blueprint nodes; defer the completed Radon--Stieltjes integral interface and uniqueness theorem
-   until that approximation layer is complete.
+2. Continue within Sakai 1.11.3 by choosing refining finite divisions with mesh tending to zero and
+   proving norm convergence of their spectral sums; defer the completed Radon--Stieltjes integral
+   interface and uniqueness theorem until that approximation layer is complete.
 
 Do not create a second theorem-status registry: Verso blocks and `uses` references are the
 documentation source of truth.

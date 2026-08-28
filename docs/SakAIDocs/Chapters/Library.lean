@@ -8,7 +8,7 @@ import LeanOA.Ultraweak.KaplanskyDensity
 import LeanOA.Ultraweak.Opposite
 import LeanOA.Ultraweak.PredualUniqueness
 import LeanOA.Ultraweak.ProjectionLattice
-import LeanOA.Ultraweak.SpectralProjection
+import LeanOA.Ultraweak.SpectralSum
 import LeanOA.Ultraweak.Support
 
 open Verso.Genre
@@ -100,6 +100,16 @@ The endpoint formulas and their ultraweak consequences are
 {name}`WStarAlgebra.spectralProjectionIio_eq_one_of_norm_lt`,
 {name}`WStarAlgebra.tendsto_spectralProjectionIio_atBot`, and
 {name}`WStarAlgebra.tendsto_spectralProjectionIio_atTop`.
+
+Finite-partition approximation is exposed without a repository-specific
+partition type.  The constructions are {name}`WStarAlgebra.lowerSpectralSum`
+and {name}`WStarAlgebra.upperSpectralSum`; their main interfaces are the
+bracketing theorem
+{name}`WStarAlgebra.lowerSpectralSum_le_self_and_self_le_upperSpectralSum`,
+the order-gap estimate
+{name}`WStarAlgebra.upperSpectralSum_sub_lowerSpectralSum_le_smul_one`, and
+the norm estimate
+{name}`WStarAlgebra.norm_upperSpectralSum_sub_lowerSpectralSum_le`.
 
 # Central ideals and central support
 

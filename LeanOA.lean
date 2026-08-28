@@ -87,6 +87,7 @@ public import LeanOA.Ultraweak.PredualUniqueness
 public import LeanOA.Ultraweak.ProjectionLattice
 public import LeanOA.Ultraweak.SeparatingDual
 public import LeanOA.Ultraweak.SpectralProjection
+public import LeanOA.Ultraweak.SpectralSum
 public import LeanOA.Ultraweak.StarSubalgebra
 public import LeanOA.Ultraweak.Strong
 public import LeanOA.Ultraweak.Support
