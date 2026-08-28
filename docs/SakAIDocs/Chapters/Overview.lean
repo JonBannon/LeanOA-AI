@@ -12,7 +12,7 @@ Sak-AI has two complementary reading paths.
 
 * The *mathematical path* follows Sakai.  The current formal development
   completes Section 1.10 and constructs the lower spectral family through
-  continuity from below (Sakai 1.11.1).
+  the spectral-band increment estimate (Sakai 1.11.2).
 * The *library path* follows reusable Lean concepts: weak topologies and
   preduals, ultraweak continuity, closed ideals, projection lattices, and
   support constructions.  Names and assumptions are chosen for Mathlib
@@ -32,7 +32,7 @@ The deployed site is accompanied by the
 tag := "current-frontier"
 %%%
 
-The first connected Section 1.11 target is complete:
+The first two connected Section 1.11 targets are complete:
 
 1. the scalar cutoff $`b_h(\lambda)=(\lambda 1-h)^+` is developed at the
    C-star-algebra level and shown norm-continuous in $`\lambda`;
@@ -40,11 +40,14 @@ The first connected Section 1.11 target is complete:
    $`e_h(\lambda)=s((\lambda 1-h)^+)` is defined without a retained predual;
 3. the family $`e_h` is monotone;
 4. an increasing directed net $`\lambda_i\to\lambda` gives
-   $`e_h(\lambda_i)\to e_h(\lambda)` ultraweakly (Sakai 1.11.1).
+   $`e_h(\lambda_i)\to e_h(\lambda)` ultraweakly (Sakai 1.11.1);
+5. the cutoff recovery identities give the two-sided spectral-band
+   increment estimate (Sakai 1.11.2).
 
-The next checkpoint is Sakai 1.11.2, the two-sided estimate for the increments
-of $`\lambda e_h(\lambda)-(\lambda 1-h)^+`.  Radon--Stieltjes integration and
-the full spectral-resolution theorem remain beyond that checkpoint.
+The next bounded checkpoint inside Sakai 1.11.3 is the endpoint behavior
+$`e_h(\lambda)=0` below $`-\lVert h\rVert` and
+$`e_h(\lambda)=1` above $`\lVert h\rVert`.  Radon--Stieltjes integration and
+the complete existence-and-uniqueness theorem remain beyond that checkpoint.
 
 # Migration parity
 

@@ -158,6 +158,23 @@ theorem rightAnnihilator_singleton_eq_span (a : M) :
       Ideal.span {MulOpposite.op (1 - (rightSupport a).1)} :=
   (rightSupport_spec a).2
 
+/-- Multiplication on the right by the left support has the same kernel as multiplication on the
+right by the original element. -/
+theorem mul_leftSupport_eq_zero_iff (a b : M) :
+    b * (leftSupport a).1 = 0 ↔ b * a = 0 := by
+  constructor
+  · intro h
+    rw [← leftSupport_mul a, ← mul_assoc, h, zero_mul]
+  · intro h
+    have hb : b ∈ Ideal.leftAnnihilator {a} := by
+      rw [Ideal.mem_leftAnnihilator]
+      intro x hx
+      simpa only [Set.mem_singleton_iff.mp hx] using h
+    rw [leftAnnihilator_singleton_eq_span] at hb
+    obtain ⟨x, hx⟩ := Ideal.mem_span_singleton'.mp hb
+    rw [← hx, mul_assoc, sub_mul, one_mul, (leftSupport a).2.isIdempotentElem.eq,
+      sub_self, mul_zero]
+
 /-- Taking adjoints exchanges left and right support. -/
 @[simp]
 theorem leftSupport_star (a : M) : leftSupport (star a) = rightSupport a := by
@@ -173,6 +190,26 @@ theorem leftSupport_star (a : M) : leftSupport (star a) = rightSupport a := by
 @[simp]
 theorem rightSupport_star (a : M) : rightSupport (star a) = leftSupport a := by
   rw [← leftSupport_star, star_star]
+
+/-- Multiplication on the left by the right support has the same kernel as multiplication on the
+left by the original element. -/
+theorem rightSupport_mul_eq_zero_iff (a b : M) :
+    (rightSupport a).1 * b = 0 ↔ a * b = 0 := by
+  constructor
+  · intro h
+    have hs : star b * (leftSupport (star a)).1 = 0 := by
+      rw [leftSupport_star]
+      simpa only [star_mul, (rightSupport a).2.isSelfAdjoint.star_eq, star_zero] using
+        congr_arg star h
+    have hsa := (mul_leftSupport_eq_zero_iff (star a) (star b)).mp hs
+    simpa only [star_mul, star_star, star_zero] using congr_arg star hsa
+  · intro h
+    have hsa : star b * star a = 0 := by
+      simpa only [star_mul, star_zero] using congr_arg star h
+    have hs := (mul_leftSupport_eq_zero_iff (star a) (star b)).mpr hsa
+    rw [leftSupport_star] at hs
+    simpa only [star_mul, star_star, (rightSupport a).2.isSelfAdjoint.star_eq, star_zero] using
+      congr_arg star hs
 
 /-- Left and right support agree on a self-adjoint element. -/
 theorem IsSelfAdjoint.leftSupport_eq_rightSupport {a : M} (ha : IsSelfAdjoint a) :
@@ -194,6 +231,47 @@ theorem mul_support (a : selfAdjoint M) : a.1 * (support a).1 = a.1 := by
   rw [support, IsSelfAdjoint.leftSupport_eq_rightSupport
     (selfAdjoint.isSelfAdjoint (x := a))]
   exact mul_rightSupport a.1
+
+/-- Multiplication on the right by the support of a self-adjoint element has the same kernel as
+multiplication on the right by that element. -/
+theorem mul_support_eq_zero_iff (a : selfAdjoint M) (b : M) :
+    b * (support a).1 = 0 ↔ b * a.1 = 0 :=
+  mul_leftSupport_eq_zero_iff a.1 b
+
+/-- Multiplication on the left by the support of a self-adjoint element has the same kernel as
+multiplication on the left by that element. -/
+theorem support_mul_eq_zero_iff (a : selfAdjoint M) (b : M) :
+    (support a).1 * b = 0 ↔ a.1 * b = 0 := by
+  rw [support, IsSelfAdjoint.leftSupport_eq_rightSupport a.property]
+  exact rightSupport_mul_eq_zero_iff a.1 b
+
+/-- A self-adjoint element restricted on the right to the support of its positive part equals its
+positive part. -/
+@[simp]
+theorem mul_support_posPart (a : selfAdjoint M) :
+    a.1 * (support ⟨a.1⁺, (CFC.posPart_nonneg a.1).isSelfAdjoint⟩).1 = a.1⁺ := by
+  let aPos : selfAdjoint M := ⟨a.1⁺, (CFC.posPart_nonneg a.1).isSelfAdjoint⟩
+  have hpos : a.1⁺ * (support aPos).1 = a.1⁺ := mul_support aPos
+  have hneg : a.1⁻ * (support aPos).1 = 0 :=
+    (mul_support_eq_zero_iff aPos a.1⁻).2 (CFC.negPart_mul_posPart a.1)
+  calc
+    a.1 * (support aPos).1 = (a.1⁺ - a.1⁻) * (support aPos).1 := by
+      rw [CFC.posPart_sub_negPart a.1 a.property]
+    _ = a.1⁺ := by rw [sub_mul, hpos, hneg, sub_zero]
+
+/-- A self-adjoint element restricted on the left to the support of its positive part equals its
+positive part. -/
+@[simp]
+theorem support_posPart_mul (a : selfAdjoint M) :
+    (support ⟨a.1⁺, (CFC.posPart_nonneg a.1).isSelfAdjoint⟩).1 * a.1 = a.1⁺ := by
+  let aPos : selfAdjoint M := ⟨a.1⁺, (CFC.posPart_nonneg a.1).isSelfAdjoint⟩
+  have hpos : (support aPos).1 * a.1⁺ = a.1⁺ := support_mul aPos
+  have hneg : (support aPos).1 * a.1⁻ = 0 :=
+    (support_mul_eq_zero_iff aPos a.1⁻).2 (CFC.posPart_mul_negPart a.1)
+  calc
+    (support aPos).1 * a.1 = (support aPos).1 * (a.1⁺ - a.1⁻) := by
+      rw [CFC.posPart_sub_negPart a.1 a.property]
+    _ = a.1⁺ := by rw [mul_sub, hpos, hneg, sub_zero]
 
 /-- The support of zero is zero. -/
 @[simp]

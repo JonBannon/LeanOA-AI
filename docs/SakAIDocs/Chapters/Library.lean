@@ -80,6 +80,18 @@ leastness characterization
 suffix distinguishes this half-line cut from a future set-indexed spectral
 projection API.
 
+Calculations can use the left and right support-action simp lemmas
+{name}`WStarAlgebra.spectralProjectionIio_mul_spectralPositivePart` and
+{name}`WStarAlgebra.spectralPositivePart_mul_spectralProjectionIio` without
+unfolding the projection construction.
+
+The scalar-cut recovery and band APIs are
+{name}`WStarAlgebra.sub_mul_spectralProjectionIio`,
+{name}`WStarAlgebra.commute_spectralProjectionIio`, and
+{name}`WStarAlgebra.spectralProjectionIio_band_bounds`.  Sakai's packaged
+increment estimate is
+{name}`WStarAlgebra.spectralProjectionIio_increment_bounds`.
+
 # Central ideals and central support
 
 Ultraweakly closed native two-sided ideals are classified by central

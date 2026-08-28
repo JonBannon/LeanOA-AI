@@ -138,7 +138,7 @@ The construction uses
 {uses "prop:proj_compl_lat_wstar_Sak_1_10_2"}[].
 :::
 
-:::proposition "prop:left_right_support_characterization" (parent := "support-projections") (lean := "WStarAlgebra.leftSupport_mul, WStarAlgebra.mul_rightSupport, WStarAlgebra.leftSupport_le_iff, WStarAlgebra.rightSupport_le_iff, WStarAlgebra.leftAnnihilator_singleton_eq_span, WStarAlgebra.rightAnnihilator_singleton_eq_span")
+:::proposition "prop:left_right_support_characterization" (parent := "support-projections") (lean := "WStarAlgebra.leftSupport_mul, WStarAlgebra.mul_rightSupport, WStarAlgebra.leftSupport_le_iff, WStarAlgebra.rightSupport_le_iff, WStarAlgebra.leftAnnihilator_singleton_eq_span, WStarAlgebra.rightAnnihilator_singleton_eq_span, WStarAlgebra.mul_leftSupport_eq_zero_iff, WStarAlgebra.rightSupport_mul_eq_zero_iff, WStarAlgebra.mul_support_eq_zero_iff, WStarAlgebra.support_mul_eq_zero_iff, WStarAlgebra.mul_support_posPart, WStarAlgebra.support_posPart_mul")
 For every $`a\in M`, $`l(a)a=a` and $`ar(a)=a`.  For every projection
 $`p`,
 $`l(a)\leq p\Longleftrightarrow pa=a` and
@@ -147,6 +147,9 @@ $`r(a)\leq p\Longleftrightarrow ap=a`.
 Equivalently, the singleton annihilators are
 $`\operatorname{Ann}_{\ell}(\{a\})=M(1-l(a))` and
 $`\operatorname{Ann}_{r}(\{a\})=(1-r(a))M`.
+Consequently, multiplication by a support projection has the same zero
+kernel as multiplication by the element it supports, on the appropriate
+side.  For self-adjoint elements this is available on both sides.
 
 This uses {uses "def:left_right_support_Sak_1_10_3"}[],
 {uses "lem:annihilators_ultraweak_closed"}[],

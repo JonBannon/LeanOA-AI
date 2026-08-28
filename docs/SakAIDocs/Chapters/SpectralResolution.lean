@@ -9,9 +9,9 @@ open Informal
 
 #doc (Manual) "Lower spectral projections" =>
 
-This chapter begins Sakai's Section 1.11.  Its first completed checkpoint is
-Lemma 1.11.1: the lower spectral projections of a self-adjoint element are
-monotone and continuous from below in the ultraweak topology.
+This chapter begins Sakai's Section 1.11.  It develops the lower spectral
+projections of a self-adjoint element through Lemma 1.11.2: continuity from
+below and the two-sided estimate for spectral-band increments.
 
 {index}[spectral projection]
 {index}[spectral resolution]
@@ -60,7 +60,7 @@ fixed-element continuity theorem for the continuous functional calculus then
 gives norm continuity.
 :::
 
-:::definition "def:lower_spectral_projection_Sak_1_11" (parent := "lower-spectral-projections") (lean := "WStarAlgebra.spectralProjectionIio, WStarAlgebra.spectralProjectionIio_le_iff") (uses := "def:spectral_positive_part, prop:left_right_support_characterization")
+:::definition "def:lower_spectral_projection_Sak_1_11" (parent := "lower-spectral-projections") (lean := "WStarAlgebra.spectralProjectionIio, WStarAlgebra.spectralProjectionIio_eq_support_posPart, WStarAlgebra.spectralProjectionIio_mul_spectralPositivePart, WStarAlgebra.spectralPositivePart_mul_spectralProjectionIio, WStarAlgebra.spectralProjectionIio_mul_posPart, WStarAlgebra.posPart_mul_spectralProjectionIio, WStarAlgebra.spectralProjectionIio_le_iff") (uses := "def:spectral_positive_part, prop:left_right_support_characterization")
 Let $`M` be a W-star algebra and $`h=h^*\in M`.  The lower spectral projection
 at $`\lambda` is
 $`e_h(\lambda)=s(b_h(\lambda))=s((\lambda 1-h)^+)`.
@@ -69,6 +69,9 @@ It is characterized without retaining a choice of predual: for every
 projection $`p`,
 $`e_h(\lambda)\leq p` if and only if
 $`p b_h(\lambda)=b_h(\lambda)`.
+Moreover, $`e_h(\lambda)` fixes $`b_h(\lambda)` on both the left and the
+right; these identities are exposed as simplification lemmas for subsequent
+spectral-resolution calculations.
 :::
 
 :::proof "def:lower_spectral_projection_Sak_1_11"
@@ -109,4 +112,64 @@ projections.  Reuse the existing theorem that a directed projection supremum
 is also an ambient order supremum, then apply monotone convergence in the
 specified ultraweak topology.  No spectral measure or Radon--Stieltjes
 integration is introduced at this checkpoint.
+:::
+
+:::group "spectral-band-increments"
+Cut recovery, commutation, and the increment estimate of Sakai 1.11.2.
+:::
+
+# Spectral-band increments
+%%%
+tag := "spectral-band-increments"
+%%%
+
+:::proposition "prop:lower_spectral_projection_cut_recovery" (parent := "spectral-band-increments") (lean := "WStarAlgebra.sub_mul_spectralProjectionIio, WStarAlgebra.spectralProjectionIio_mul_sub, WStarAlgebra.commute_sub_spectralProjectionIio, WStarAlgebra.commute_spectralProjectionIio, WStarAlgebra.smul_spectralProjectionIio_sub_spectralPositivePart") (uses := "def:lower_spectral_projection_Sak_1_11, prop:left_right_support_characterization")
+For every real $`\lambda`, the defining cutoff is recovered on either side
+of its support:
+$`
+(\lambda 1-h)e_h(\lambda)
+=e_h(\lambda)(\lambda 1-h)
+=b_h(\lambda).
+`
+In particular, $`h` commutes with $`e_h(\lambda)` and
+$`
+\lambda e_h(\lambda)-b_h(\lambda)=h e_h(\lambda).
+`
+:::
+
+:::proof "prop:lower_spectral_projection_cut_recovery"
+Write $`x=\lambda 1-h=x^+-x^-`.  The support-zero-kernel
+characterization and Mathlib's identities $`x^-x^+=x^+x^-=0` show that
+$`x^-` is killed by $`s(x^+)` on both sides.  The two recovery identities
+follow.  Their equality gives commutation with $`x`, hence with $`h` after
+subtracting the central scalar $`\lambda 1`.  This proof uses no chosen
+predual.
+:::
+
+:::lemma_ "lem:lower_spectral_projection_increment_bounds_Sak_1_11_2" (parent := "spectral-band-increments") (lean := "WStarAlgebra.spectralProjectionIio_band_bounds, WStarAlgebra.spectralProjectionIio_increment_bounds") (uses := "prop:lower_spectral_projection_mono_Sak_1_11, prop:lower_spectral_projection_cut_recovery")
+If $`\lambda\leq\mu` and
+$`p=e_h(\mu)-e_h(\lambda)`, then $`p` is a projection and
+$`
+\lambda p\leq hp\leq\mu p.
+`
+Consequently,
+$`
+\lambda\bigl(e_h(\mu)-e_h(\lambda)\bigr)
+\leq
+\bigl(\mu e_h(\mu)-b_h(\mu)\bigr)
+-\bigl(\lambda e_h(\lambda)-b_h(\lambda)\bigr)
+\leq
+\mu\bigl(e_h(\mu)-e_h(\lambda)\bigr).
+`
+This is Sakai's Lemma 1.11.2.  The formal result strengthens the printed
+strict hypothesis $`\lambda<\mu` to $`\lambda\leq\mu`.
+:::
+
+:::proof "lem:lower_spectral_projection_increment_bounds_Sak_1_11_2"
+Monotonicity makes $`p=e_h(\mu)-e_h(\lambda)` a projection.  On this band,
+the positive part of $`\lambda 1-h` and the negative part of
+$`\mu 1-h` vanish.  The remaining products are nonnegative because the
+functional-calculus parts commute with $`p`.  This proves
+$`\lambda p\leq hp\leq\mu p`.  Replacing each
+$`t e_h(t)-b_h(t)` by $`h e_h(t)` gives the displayed increment estimate.
 :::
