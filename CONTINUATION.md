@@ -14,9 +14,10 @@ Last updated: 2026-08-28
 
 ## Mathematical frontier
 
-Sakai 1.10.3--1.10.7 is complete, and the spectral-resolution development now reaches Sakai
-1.11.1: lower spectral projections are constructed, proved monotone, and proved ultraweakly
-continuous from below.
+Sakai 1.10.3--1.10.7 is complete, and the spectral-resolution development now reaches the endpoint
+part of Sakai 1.11.3: lower spectral projections are constructed, proved monotone and ultraweakly
+continuous from below, satisfy Sakai's increment bounds, and converge to zero and one at the ends
+of the real line.
 
 The implemented public design is:
 
@@ -42,6 +43,10 @@ The implemented public design is:
     API, then prove Sakai 1.10.7 and the reusable iff strengthening.
 11. Define the scalar cutoff `(r • 1 - a)⁺` in a C-star-only module, then define its support as
     `WStarAlgebra.spectralProjectionIio` and prove Sakai 1.11.1 for arbitrary directed nets.
+12. Reuse support and projection-order APIs to prove the spectral-band bounds and Sakai 1.11.2,
+    strengthening the cut hypothesis from `<` to `≤`.
+13. Prove the endpoint formulas with sharp inequalities and derive their ultraweak limits from
+    eventual constancy. Keep the reusable positive-scalar lower-bound criterion in the support API.
 
 ## Implementation order
 
@@ -72,11 +77,16 @@ The completed implementation layers are:
      continuity in the scalar cut;
    - `WStarAlgebra.spectralProjectionIio`, its leastness API, and monotonicity;
    - the least-upper-bound theorem and ultraweak continuity from below for arbitrary nonempty
-     directed preorders, specializing to Sakai 1.11.1.
+     directed preorders, specializing to Sakai 1.11.1;
+   - cutoff recovery, commutation, spectral-band bounds, and the increment estimate of Sakai
+     1.11.2;
+   - the lower and upper endpoint formulas and their ultraweak limits from Sakai 1.11.3.
 
-The next mathematical checkpoint is Sakai 1.11.2: formalize the two-sided estimate for increments
-of `r • e(r) - (r • 1 - h)⁺`. Re-audit current Mathlib before choosing the algebraic helper API;
-do not begin Radon--Stieltjes integration or the full spectral-resolution theorem prematurely.
+The next mathematical checkpoint is the finite-partition estimate in Sakai 1.11.3: define the
+upper and lower spectral sums, prove that they bracket the self-adjoint element, and bound their
+norm gap by the mesh. Re-audit the existing Sak-AI API first, then pinned/current Mathlib and the
+read-only original LeanOA before choosing the finite-sum and partition interfaces. Do not begin the
+completed Radon--Stieltjes integral or uniqueness theorem prematurely.
 
 Before each substantial proof, search the current Sak-AI tree, pinned Mathlib, current Mathlib
 master/review history, and current LeanOA for an equivalent or more general declaration.
@@ -84,7 +94,7 @@ master/review history, and current LeanOA for an equivalent or more general decl
 ## Documentation continuation
 
 The Verso package preserves all 87 active nodes and 141 statement-dependency edges in the generated
-legacy graph and now has 91 nodes and 149 edges after the Sakai 1.11.1 extension. The exact audit
+legacy graph and now has 94 nodes and 155 edges through the endpoint part of Sakai 1.11.3. The exact audit
 and review state is recorded in `VERSO_STATUS.md`. The legacy sources remain recoverable from Git
 history. New mathematical documentation must be authored in Verso first.
 
@@ -119,6 +129,6 @@ lake exe vbp check
 - Original LeanOA checkout: `/Users/jonbannon/LeanRepos/LeanOA` (read-only; do not alter).
 - Current read-only upstream LeanOA comparison used in this run: commit `cb811c10`.
 - Pinned Mathlib: commit `476ab284693e554a6b48c5f5210cb4fb5ae51252`.
-- Mathlib master observed on 2026-08-28: `9f2515783c2252157110d15dbfbbf8dd5795dba8`.
+- Mathlib master observed on 2026-08-28: `8ce5b6b7138056305fda15c8360749f8a6b22c71`.
 - Mathlib PR #42100 was still open at head `7f7138a127bf5c2f91d5b3e30b58499139561672`;
   its clopen-set CFC projections do not replace the W-star half-line support construction.

@@ -54,6 +54,10 @@ The support-projection API begins with {name}`WStarAlgebra.leftSupport` and
 {name}`WStarAlgebra.rightSupport_le_iff`; adjoint transport and the support of
 a bundled self-adjoint element are exposed by
 {name}`WStarAlgebra.leftSupport_star` and {name}`WStarAlgebra.support`.
+The reusable full-support criterion
+{name}`WStarAlgebra.leftSupport_eq_one_of_algebraMap_le` applies to any
+element bounded below by a strictly positive real scalar; it is not tied to
+spectral projections or even to a self-adjoint input type.
 
 The order lemma
 {name}`IsStarProjection.mul_eq_self_of_nonneg_of_le_of_mul_eq_self` lives in
@@ -91,6 +95,11 @@ The scalar-cut recovery and band APIs are
 {name}`WStarAlgebra.spectralProjectionIio_band_bounds`.  Sakai's packaged
 increment estimate is
 {name}`WStarAlgebra.spectralProjectionIio_increment_bounds`.
+The endpoint formulas and their ultraweak consequences are
+{name}`WStarAlgebra.spectralProjectionIio_eq_zero_of_le_neg_norm`,
+{name}`WStarAlgebra.spectralProjectionIio_eq_one_of_norm_lt`,
+{name}`WStarAlgebra.tendsto_spectralProjectionIio_atBot`, and
+{name}`WStarAlgebra.tendsto_spectralProjectionIio_atTop`.
 
 # Central ideals and central support
 

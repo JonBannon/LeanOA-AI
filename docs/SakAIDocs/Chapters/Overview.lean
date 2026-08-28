@@ -12,7 +12,7 @@ Sak-AI has two complementary reading paths.
 
 * The *mathematical path* follows Sakai.  The current formal development
   completes Section 1.10 and constructs the lower spectral family through
-  the spectral-band increment estimate (Sakai 1.11.2).
+  its endpoint behavior in Sakai 1.11.3.
 * The *library path* follows reusable Lean concepts: weak topologies and
   preduals, ultraweak continuity, closed ideals, projection lattices, and
   support constructions.  Names and assumptions are chosen for Mathlib
@@ -32,7 +32,7 @@ The deployed site is accompanied by the
 tag := "current-frontier"
 %%%
 
-The first two connected Section 1.11 targets are complete:
+The connected Section 1.11 targets completed so far are:
 
 1. the scalar cutoff $`b_h(\lambda)=(\lambda 1-h)^+` is developed at the
    C-star-algebra level and shown norm-continuous in $`\lambda`;
@@ -42,12 +42,17 @@ The first two connected Section 1.11 targets are complete:
 4. an increasing directed net $`\lambda_i\to\lambda` gives
    $`e_h(\lambda_i)\to e_h(\lambda)` ultraweakly (Sakai 1.11.1);
 5. the cutoff recovery identities give the two-sided spectral-band
-   increment estimate (Sakai 1.11.2).
+   increment estimate (Sakai 1.11.2);
+6. the sharp norm bounds give $`e_h(\lambda)=0` for
+   $`\lambda\leq-\lVert h\rVert`, $`e_h(\lambda)=1` for
+   $`\lVert h\rVert<\lambda`, and the ultraweak endpoint limits in
+   Sakai 1.11.3.
 
-The next bounded checkpoint inside Sakai 1.11.3 is the endpoint behavior
-$`e_h(\lambda)=0` below $`-\lVert h\rVert` and
-$`e_h(\lambda)=1` above $`\lVert h\rVert`.  Radon--Stieltjes integration and
-the complete existence-and-uniqueness theorem remain beyond that checkpoint.
+The next bounded checkpoint inside Sakai 1.11.3 is the finite-partition
+estimate: upper and lower spectral sums bracket $`h` and their norm gap is
+controlled by the mesh.  This is the concrete approximation step from which
+the abstract Radon--Stieltjes integral is obtained.  The completed integral
+interface and uniqueness of the resolution remain beyond that checkpoint.
 
 # Migration parity
 
@@ -62,7 +67,7 @@ The lower-spectral-projection nodes are new work after that migration
 baseline; they extend rather than replace the 87 historical nodes.
 
 The dependency graph below therefore represents the whole completed Sak-AI
-development through Sakai 1.11.1, including C-star foundations, operator
+development through the endpoint part of Sakai 1.11.3, including C-star foundations, operator
 topologies, positive separation, Stonean spectra and real rank zero,
 normality and predual uniqueness, Kaplansky density, projection lattices, and
 support, central-support, and lower-spectral-projection theory.

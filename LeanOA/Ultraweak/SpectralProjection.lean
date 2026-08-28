@@ -14,9 +14,10 @@ This file begins the spectral-resolution construction for a self-adjoint element
 algebra.  The lower spectral projection at `r` is the support of `(r • 1 - a)⁺`; equivalently,
 it is the projection associated with the open interval `Set.Iio r`.
 
-The main results are continuity from below and the two-sided spectral-band increment estimate.
-These are Sakai, Lemmas 1.11.1 and 1.11.2; continuity is stated for directed nets rather than only
-sequences, and the increment estimate allows equal cuts.
+The main results are continuity from below, the two-sided spectral-band increment estimate, and the
+endpoint behavior of the spectral family.  These are Sakai, Lemmas 1.11.1 and 1.11.2 and the first
+part of Theorem 1.11.3; continuity is stated for directed nets rather than only sequences, and the
+increment estimate allows equal cuts.
 -/
 
 open Filter Set
@@ -243,6 +244,55 @@ theorem spectralProjectionIio_increment_bounds (a : selfAdjoint M) {r s : ℝ} (
     smul_spectralProjectionIio_sub_spectralPositivePart, ← mul_sub]
   exact spectralProjectionIio_band_bounds a hrs
 
+/-- The lower spectral projection vanishes at every cut at or below the negative norm bound.
+
+This is the lower endpoint formula in the construction of Sakai's spectral resolution.  The weak
+inequality sharpens the strict inequality used in the printed argument.
+-/
+theorem spectralProjectionIio_eq_zero_of_le_neg_norm (a : selfAdjoint M) {r : ℝ}
+    (hr : r ≤ -‖a.1‖) :
+    spectralProjectionIio a r = ⟨0, IsStarProjection.zero M⟩ := by
+  have hx : IsSelfAdjoint (algebraMap ℝ M r - a.1) :=
+    (IsSelfAdjoint.algebraMap M (isSelfAdjoint_iff.mpr (star_trivial r))).sub a.property
+  have hx_nonpos : algebraMap ℝ M r - a.1 ≤ 0 := by
+    rw [sub_nonpos]
+    exact (algebraMap_mono M hr).trans (by
+      simpa using a.property.neg_algebraMap_norm_le_self)
+  have hpos : (algebraMap ℝ M r - a.1)⁺ = 0 :=
+    (CFC.posPart_eq_zero_iff _ hx).2 hx_nonpos
+  rw [spectralProjectionIio_eq_support_posPart]
+  apply Subtype.ext
+  change (leftSupport (algebraMap ℝ M r - a.1)⁺).1 = 0
+  rw [hpos, leftSupport_zero]
+
+/-- The lower spectral projection is the identity at every cut strictly above the norm bound.
+
+The strict inequality is sharp: at `r = ‖a‖`, a top spectral value can survive in the kernel of
+`algebraMap ℝ M r - a`.
+-/
+theorem spectralProjectionIio_eq_one_of_norm_lt (a : selfAdjoint M) {r : ℝ}
+    (hr : ‖a.1‖ < r) :
+    spectralProjectionIio a r = ⟨1, IsStarProjection.one M⟩ := by
+  let d : ℝ := r - ‖a.1‖
+  let x : M := algebraMap ℝ M r - a.1
+  have hd : 0 < d := sub_pos.mpr hr
+  have hdx : algebraMap ℝ M d ≤ x := by
+    calc
+      algebraMap ℝ M d = algebraMap ℝ M r - algebraMap ℝ M ‖a.1‖ := by
+        dsimp [d]
+        rw [map_sub]
+      _ ≤ algebraMap ℝ M r - a.1 :=
+        sub_le_sub_left a.property.le_algebraMap_norm_self _
+      _ = x := rfl
+  have hx_nonneg : 0 ≤ x := (algebraMap_nonneg M hd.le).trans hdx
+  have hpos : CStarAlgebra.spectralPositivePart a r = x := by
+    rw [CStarAlgebra.spectralPositivePart_eq_posPart,
+      (CFC.posPart_eq_self x).2 hx_nonneg]
+  apply Subtype.ext
+  change (leftSupport (CStarAlgebra.spectralPositivePart a r)).1 = 1
+  rw [hpos]
+  exact congr_arg Subtype.val (leftSupport_eq_one_of_algebraMap_le hd hdx)
+
 /-- If an increasing directed net of real cuts converges to `r`, the projection at `r` is the
 least upper bound of the corresponding lower spectral projections. -/
 theorem isLUB_range_spectralProjectionIio_of_tendsto
@@ -267,8 +317,25 @@ theorem isLUB_range_spectralProjectionIio_of_tendsto
     rw [heq] at hmul
     exact tendsto_nhds_unique hmul hpos
 
-variable {P : Type*} [NormedAddCommGroup P] [NormedSpace ℂ P] [CompleteSpace P]
-  [Predual ℂ M P]
+variable {P : Type*} [NormedAddCommGroup P] [NormedSpace ℂ P] [Predual ℂ M P]
+
+/-- The lower spectral projections converge ultraweakly to zero as the cut tends to `-∞`. -/
+theorem tendsto_spectralProjectionIio_atBot (a : selfAdjoint M) :
+    Tendsto (fun r ↦ toUltraweak ℂ P (spectralProjectionIio a r).1) atBot
+      (𝓝 (toUltraweak ℂ P 0)) := by
+  apply tendsto_const_nhds.congr'
+  filter_upwards [eventually_le_atBot (-‖a.1‖)] with r hr
+  rw [spectralProjectionIio_eq_zero_of_le_neg_norm a hr]
+
+/-- The lower spectral projections converge ultraweakly to one as the cut tends to `+∞`. -/
+theorem tendsto_spectralProjectionIio_atTop (a : selfAdjoint M) :
+    Tendsto (fun r ↦ toUltraweak ℂ P (spectralProjectionIio a r).1) atTop
+      (𝓝 (toUltraweak ℂ P 1)) := by
+  apply tendsto_const_nhds.congr'
+  filter_upwards [eventually_gt_atTop ‖a.1‖] with r hr
+  rw [spectralProjectionIio_eq_one_of_norm_lt a hr]
+
+variable [CompleteSpace P]
 
 /-- **Continuity from below for lower spectral projections** (Sakai, Lemma 1.11.1).
 

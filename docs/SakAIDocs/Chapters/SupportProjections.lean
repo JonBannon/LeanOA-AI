@@ -166,10 +166,12 @@ algebra.  The universal properties and annihilator identities should be the
 primary API.
 :::
 
-:::lemma_ "lem:support_star_compatibility" (parent := "support-projections") (lean := "WStarAlgebra.leftSupport_star, WStarAlgebra.rightSupport_star, WStarAlgebra.IsSelfAdjoint.leftSupport_eq_rightSupport, WStarAlgebra.support, WStarAlgebra.support_mul, WStarAlgebra.mul_support, WStarAlgebra.leftSupport_zero, WStarAlgebra.rightSupport_zero, WStarAlgebra.leftSupport_one, WStarAlgebra.rightSupport_one, WStarAlgebra.leftSupport_smul, WStarAlgebra.rightSupport_smul, WStarAlgebra.leftSupport_mono_of_nonneg, WStarAlgebra.rightSupport_mono_of_nonneg, IsStarProjection.mul_eq_self_of_nonneg_of_le_of_mul_eq_self")
+:::lemma_ "lem:support_star_compatibility" (parent := "support-projections") (lean := "WStarAlgebra.leftSupport_star, WStarAlgebra.rightSupport_star, WStarAlgebra.IsSelfAdjoint.leftSupport_eq_rightSupport, WStarAlgebra.support, WStarAlgebra.support_mul, WStarAlgebra.mul_support, WStarAlgebra.leftSupport_zero, WStarAlgebra.rightSupport_zero, WStarAlgebra.leftSupport_one, WStarAlgebra.rightSupport_one, WStarAlgebra.leftSupport_smul, WStarAlgebra.rightSupport_smul, WStarAlgebra.leftSupport_mono_of_nonneg, WStarAlgebra.rightSupport_mono_of_nonneg, WStarAlgebra.leftSupport_eq_one_of_algebraMap_le, IsStarProjection.mul_eq_self_of_nonneg_of_le_of_mul_eq_self")
 For every $`a\in M`, $`l(a^*)=r(a)` and $`r(a^*)=l(a)`.  If $`h=h^*`,
 these projections agree.  Their common value $`s(h)` is the support
-projection of $`h`.
+projection of $`h`.  Left support is invariant under multiplication by a
+nonzero scalar and monotone on nonnegative elements.  In particular, if
+$`r>0` and $`r1\leq a`, then $`l(a)=1`.
 
 This uses {uses "prop:left_right_support_characterization"}[].
 :::
@@ -179,9 +181,10 @@ Taking adjoints converts $`pa=a` into $`a^*p=a^*` because $`p` is
 self-adjoint.  Apply the two order characterizations and antisymmetry.  This
 argument is algebraic once the support universal properties are available.
 
-The same node should include supports of zero and one, invariance under a
-nonzero scalar, and monotonicity on nonnegative elements, proved from universal
-properties or continuous functional calculus as appropriate.
+The support-one criterion follows by comparing $`l(r1)` and $`l(a)`:
+scalar invariance identifies the first projection with $`l(1)=1`, while
+monotonicity forces it below $`l(a)`.  This general argument is later reused
+for the upper endpoint of the spectral family.
 :::
 
 :::group "generated-nonunital-algebra"

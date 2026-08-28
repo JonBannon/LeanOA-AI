@@ -10,8 +10,9 @@ open Informal
 #doc (Manual) "Lower spectral projections" =>
 
 This chapter begins Sakai's Section 1.11.  It develops the lower spectral
-projections of a self-adjoint element through Lemma 1.11.2: continuity from
-below and the two-sided estimate for spectral-band increments.
+projections of a self-adjoint element through the endpoint part of Theorem
+1.11.3: continuity from below, the two-sided estimate for spectral-band
+increments, and convergence to zero and one at the two ends of the real line.
 
 {index}[spectral projection]
 {index}[spectral resolution]
@@ -172,4 +173,41 @@ $`\mu 1-h` vanish.  The remaining products are nonnegative because the
 functional-calculus parts commute with $`p`.  This proves
 $`\lambda p\leq hp\leq\mu p`.  Replacing each
 $`t e_h(t)-b_h(t)` by $`h e_h(t)` gives the displayed increment estimate.
+:::
+
+:::group "spectral-family-endpoints"
+The endpoint behavior in Sakai 1.11.3.
+:::
+
+# Endpoint behavior
+%%%
+tag := "spectral-family-endpoints"
+%%%
+
+:::proposition "prop:lower_spectral_projection_endpoints_Sak_1_11_3" (parent := "spectral-family-endpoints") (lean := "WStarAlgebra.spectralProjectionIio_eq_zero_of_le_neg_norm, WStarAlgebra.spectralProjectionIio_eq_one_of_norm_lt, WStarAlgebra.tendsto_spectralProjectionIio_atBot, WStarAlgebra.tendsto_spectralProjectionIio_atTop") (uses := "def:lower_spectral_projection_Sak_1_11, lem:support_star_compatibility")
+For a self-adjoint $`h` in a W-star algebra,
+$`
+  e_h(\lambda)=0 \quad\text{if }\lambda\leq-\lVert h\rVert,
+  \qquad
+  e_h(\lambda)=1 \quad\text{if }\lVert h\rVert<\lambda.
+`
+Consequently, for any specified predual,
+$`e_h(\lambda)` converges ultraweakly to $`0` as $`\lambda\to-\infty`
+and to $`1` as $`\lambda\to+\infty`.
+
+The lower bound is stated with a weak inequality, strengthening the strict
+version used in Sakai's proof.  The strict upper inequality is essential in
+general: at $`\lambda=\lVert h\rVert`, a top spectral value can remain in the
+kernel of $`\lambda1-h`.
+:::
+
+:::proof "prop:lower_spectral_projection_endpoints_Sak_1_11_3"
+Mathlib's order bounds for a self-adjoint element give
+$`-\lVert h\rVert1\leq h\leq\lVert h\rVert1`.  Below the lower endpoint,
+$`\lambda1-h\leq0`, so its positive part and hence its support vanish.
+Above the upper endpoint, $`\lambda1-h` is bounded below by the positive
+scalar $`(\lambda-\lVert h\rVert)1`.  The general support-one criterion then
+shows that its positive part has full support.  Both nets are eventually
+constant, which gives the ultraweak limits without invoking a convergence
+theorem specific to projections.
 :::

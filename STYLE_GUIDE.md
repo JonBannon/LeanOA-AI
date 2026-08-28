@@ -86,11 +86,19 @@ General reusable facts should go in the corresponding `LeanOA/Mathlib/...` file 
 which Mathlib would place them. Domain-specific assembly belongs in the ordinary `LeanOA/...` tree.
 Before adding a helper:
 
-1. Search Mathlib and LeanOA for the fact and nearby APIs.
+1. Search the existing Sak-AI code first, then pinned and current Mathlib, and finally the read-only
+   original LeanOA repository for the fact and nearby APIs. Reuse an existing local declaration just
+   as deliberately as an upstream one; code already proved in this repository is part of the API,
+   not raw material to re-prove at a later checkpoint.
 2. Decide whether the missing result is genuinely general.
 3. If general, state it without LeanOA-specific types or excess hypotheses and put it in the mirrored
    Mathlib location.
 4. If it is only proof scaffolding, keep it private or local to the domain module.
+
+Introduce a competing declaration only when its statement or design is demonstrably better for
+downstream reuse—for example, because it has the right natural generality, removes an unnecessary
+hypothesis, or exposes a composable interface. In that case, refactor existing consumers toward the
+better API instead of maintaining parallel proofs of the same fact.
 
 Use `_root_.` only when deliberately adding a declaration to a namespace while currently inside a
 different namespace. Use `private` for implementation details that should not constrain later API
@@ -303,8 +311,10 @@ For each unfinished Verso Blueprint node:
    statement before designing its Lean API. In particular, do not confuse equality of topologies
    with equality of their continuous linear functionals, even after restricting to a bounded set;
    test topology claims against standard operator-algebra examples such as shift powers.
-2. Search Sak-AI, current Mathlib and relevant review history, and current LeanOA. Documentation
-   metadata can lag behind code, and one Lean declaration may cover several prose nodes.
+2. Search, in order, the existing Sak-AI API, pinned and current Mathlib with relevant review history,
+   and the read-only original LeanOA. Documentation metadata can lag behind code, and one Lean
+   declaration may cover several prose nodes. Do not re-prove a fact merely because it was developed
+   in an earlier Sak-AI checkpoint rather than upstream.
 3. Identify missing general infrastructure before formalizing the final theorem.
 4. Design the intended public statement and namespace first. Check that it composes with existing
    order, topology, CFC, duality, and bundled-map APIs.
