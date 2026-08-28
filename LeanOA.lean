@@ -7,6 +7,7 @@ public import LeanOA.CStarAlgebra.Extreme
 public import LeanOA.CStarAlgebra.KaplanskyDensity
 public import LeanOA.CStarAlgebra.PositiveLinearFunctional
 public import LeanOA.CStarAlgebra.RealRankZero
+public import LeanOA.CStarAlgebra.Spectral
 public import LeanOA.CStarModule.Standard
 public import LeanOA.ComplexOrder
 public import LeanOA.ExtremallyDisconnected
@@ -85,6 +86,7 @@ public import LeanOA.Ultraweak.PolarDecomposition
 public import LeanOA.Ultraweak.PredualUniqueness
 public import LeanOA.Ultraweak.ProjectionLattice
 public import LeanOA.Ultraweak.SeparatingDual
+public import LeanOA.Ultraweak.SpectralProjection
 public import LeanOA.Ultraweak.StarSubalgebra
 public import LeanOA.Ultraweak.Strong
 public import LeanOA.Ultraweak.Support

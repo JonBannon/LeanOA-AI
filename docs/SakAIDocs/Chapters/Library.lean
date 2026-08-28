@@ -8,6 +8,7 @@ import LeanOA.Ultraweak.KaplanskyDensity
 import LeanOA.Ultraweak.Opposite
 import LeanOA.Ultraweak.PredualUniqueness
 import LeanOA.Ultraweak.ProjectionLattice
+import LeanOA.Ultraweak.SpectralProjection
 import LeanOA.Ultraweak.Support
 
 open Verso.Genre
@@ -61,6 +62,24 @@ fact that a projection fixing a positive upper bound fixes every smaller
 positive element, and is used to prove support monotonicity without any
 W-star-specific argument.
 
+# Lower spectral projections
+
+The positive cutoff
+{name}`CStarAlgebra.spectralPositivePart` is deliberately defined at the
+C-star-algebra level.  Its identification with positive part and its
+fixed-element norm continuity are
+{name}`CStarAlgebra.spectralPositivePart_eq_posPart` and
+{name}`CStarAlgebra.continuous_spectralPositivePart`.
+
+The W-star layer begins only when support is taken:
+{name}`WStarAlgebra.spectralProjectionIio`.  Its primary interfaces are the
+leastness characterization
+{name}`WStarAlgebra.spectralProjectionIio_le_iff`, monotonicity
+{name}`WStarAlgebra.spectralProjectionIio_mono`, and directed-net continuity
+{name}`WStarAlgebra.tendsto_spectralProjectionIio_of_monotone`.  The `Iio`
+suffix distinguishes this half-line cut from a future set-indexed spectral
+projection API.
+
 # Central ideals and central support
 
 Ultraweakly closed native two-sided ideals are classified by central
@@ -108,12 +127,14 @@ annihilators belong in a ring-theoretic staging module; topology-specific
 closedness belongs in the ultraweak layer; projection lemmas that need only a
 unital C-star algebra belong with the general C-star algebra projection API.
 
-# Section 1.10 declaration coverage
+# Declaration coverage
 
 The Verso cutover included a declaration-level audit of the completed Section
 1.10 work.  Every named public declaration introduced in the annihilator,
 opposite-transport, nonunital-closure, support, two-sided-ideal, and
 central-support modules is attached to its mathematical Blueprint node or
-named on this API path.  The two new general projection lemmas are covered as
-well.  Thus the site records the reusable helper API in addition to the 87
-headline mathematical nodes inherited from the former graph.
+named on this API path.  The two general projection lemmas are covered as
+well.  New Section 1.11 declarations are linked from the
+lower-spectral-projection chapter and this API path.  Thus the site records
+the reusable helper API in addition to the 87 headline mathematical nodes
+inherited from the former graph.

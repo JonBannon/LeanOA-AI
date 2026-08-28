@@ -96,9 +96,11 @@ ultraweak closedness.  Apply the left-ideal theorem there and transport its
 unique projection back.
 :::
 
-:::proposition "prop:proj_compl_lat_wstar_Sak_1_10_2" (parent := "closed-one-sided-ideals") (lean := "IsStarProjection.completeLatticeOfPredual, IsStarProjection.instCompleteLatticeSubtypeOfWStarAlgebra") (uses := "prop:left_ideals_in_wstar_proj_Sak_1_10_1, lem:proj_sub_pos_iff_comm_eq_self, lem:star_left_mul_right_mul_sig_cts_Sak_1_7_8")
+:::proposition "prop:proj_compl_lat_wstar_Sak_1_10_2" (parent := "closed-one-sided-ideals") (lean := "IsStarProjection.completeLatticeOfPredual, IsStarProjection.instCompleteLatticeSubtypeOfWStarAlgebra, IsStarProjection.isLUB_coe_of_isLUB, IsStarProjection.tendsto_toUltraweak_of_isLUB") (uses := "prop:left_ideals_in_wstar_proj_Sak_1_10_1, lem:proj_sub_pos_iff_comm_eq_self, lem:star_left_mul_right_mul_sig_cts_Sak_1_7_8")
 The subtype of projections of a W-star algebra is a complete lattice for the
-ambient order.
+ambient order.  A least upper bound of a nonempty directed family in this
+projection lattice is also its least upper bound in the ambient C-star
+algebra, and the canonical net converges to it ultraweakly.
 :::
 
 :::proof "prop:proj_compl_lat_wstar_Sak_1_10_2"
@@ -108,4 +110,9 @@ again closed, so the projection corresponding to their intersection is the
 infimum.  All infima give the complete lattice.  Although the construction
 uses a specified predual, uniqueness of order-theoretic infima makes the
 resulting operations independent of that choice.
+
+For a directed family, ultraweak compactness produces an ambient least upper
+bound which is again a projection.  Uniqueness identifies it with the lattice
+supremum, and monotone convergence for the ultraweak order gives convergence
+of the canonical net.
 :::

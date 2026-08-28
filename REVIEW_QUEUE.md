@@ -95,7 +95,8 @@ proposal or remain a recorded opportunity.
   `TwoSidedIdeal`.
 - Mathlib PR #42095 may supply closed-ideal continuous-functional-calculus closure used after
   Section 1.10.
-- Mathlib PR #42100 may become relevant to Sakai Section 1.11 spectral projections.
+- Mathlib PR #42100 remains relevant to future compatibility of spectral-projection naming, but
+  its clopen-set construction does not replace Sakai's W-star half-line support projections.
 
 These are current open work, not dependencies or accepted API precedent.
 
@@ -109,4 +110,22 @@ of Mathlib pull-request titles and bodies likewise found no overlapping central-
 
 PRs #42093, #42095, and #42100 remain open. They concern topological closure of two-sided ideals,
 closed-ideal CFC, and clopen spectral projections respectively; they do not replace the completed
-Section 1.10 API, but #42100 should be reviewed before selecting the Section 1.11 spectral target.
+Section 1.10 API. The #42100 review used for the Section 1.11.1 target is recorded below.
+
+## Overlap audit for the Sakai 1.11.1 checkpoint
+
+The 2026-08-28 comparison used pinned Mathlib commit
+`476ab284693e554a6b48c5f5210cb4fb5ae51252`, Mathlib master commit
+`9f2515783c2252157110d15dbfbbf8dd5795dba8`, and the read-only LeanOA checkout at
+`cb811c1006ae78a0ff1d175253200e1859843370`. No existing W-star lower-spectral-projection or
+continuity-from-below declaration was found.
+
+Mathlib PR #42100 was open at head `7f7138a127bf5c2f91d5b3e30b58499139561672`. It constructs
+continuous-functional-calculus projections from indicators of clopen subsets of the quasispectrum.
+The half-line `Set.Iio r` need not be clopen on the spectrum, so that API does not supply Sakai's
+projection `s((r • 1 - h)⁺)`. To avoid claiming a general set-indexed interface or colliding with
+future upstream naming, Sak-AI uses `WStarAlgebra.spectralProjectionIio`.
+
+The cutoff `CStarAlgebra.spectralPositivePart` and its norm-continuity theorem are isolated in a
+C-star-only module; the W-star module adds only support, projection-order, and ultraweak-convergence
+arguments. This split is the current portability decision and needs no human design gate.

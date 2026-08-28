@@ -1,6 +1,6 @@
 # Sak-AI mathematical continuation
 
-Last updated: 2026-08-27
+Last updated: 2026-08-28
 
 ## Verified repository state
 
@@ -14,8 +14,9 @@ Last updated: 2026-08-27
 
 ## Mathematical frontier
 
-Sakai 1.10.3--1.10.7 is complete: support projections, the generated nonunital ultraweak algebra,
-ultraweakly closed two-sided ideals, central support, and orthogonality of central supports.
+Sakai 1.10.3--1.10.7 is complete, and the spectral-resolution development now reaches Sakai
+1.11.1: lower spectral projections are constructed, proved monotone, and proved ultraweakly
+continuous from below.
 
 The implemented public design is:
 
@@ -39,6 +40,8 @@ The implemented public design is:
    monotonicity, idempotence, and fixed-point lemmas.
 10. Put the projection identity `p * q = 0 ↔ p ≤ 1 - q` in the general unital C-star projection
     API, then prove Sakai 1.10.7 and the reusable iff strengthening.
+11. Define the scalar cutoff `(r • 1 - a)⁺` in a C-star-only module, then define its support as
+    `WStarAlgebra.spectralProjectionIio` and prove Sakai 1.11.1 for arbitrary directed nets.
 
 ## Implementation order
 
@@ -64,24 +67,26 @@ The completed implementation layers are:
    - Sakai 1.10.5;
    - central-projection/closed-two-sided-ideal order isomorphism;
    - central support and Sakai 1.10.7.
+6. Lower spectral projection layer (completed on 2026-08-28):
+   - `CStarAlgebra.spectralPositivePart`, its positive-part identity, nonnegativity, and norm
+     continuity in the scalar cut;
+   - `WStarAlgebra.spectralProjectionIio`, its leastness API, and monotonicity;
+   - the least-upper-bound theorem and ultraweak continuity from below for arbitrary nonempty
+     directed preorders, specializing to Sakai 1.11.1.
 
-The next mathematical task is to select a concrete endpoint in Sakai Section 1.11 and build its
-Verso-first blueprint. Start by comparing Sakai's spectral-family construction with current
-Mathlib's CFC/quasispectrum infrastructure and the active spectral-projection review work; do not
-add a parallel spectral object when an upstream one is suitable.
+The next mathematical checkpoint is Sakai 1.11.2: formalize the two-sided estimate for increments
+of `r • e(r) - (r • 1 - h)⁺`. Re-audit current Mathlib before choosing the algebraic helper API;
+do not begin Radon--Stieltjes integration or the full spectral-resolution theorem prematurely.
 
 Before each substantial proof, search the current Sak-AI tree, pinned Mathlib, current Mathlib
 master/review history, and current LeanOA for an equivalent or more general declaration.
 
 ## Documentation continuation
 
-The new Verso package has reached parity with all 87 active nodes and 141 statement-dependency
-edges in the generated legacy graph; the exact audit and review state is recorded in
-`VERSO_STATUS.md`. The extra textual legacy label is inside a fully commented-out future proposal
-and was never an active graph node. A declaration-level audit also confirms that every named public
-declaration added by the Section 1.10 development is linked or mentioned in Verso. The legacy
-sources have therefore been retired and remain recoverable from Git history. New mathematical
-documentation must be authored in Verso first.
+The Verso package preserves all 87 active nodes and 141 statement-dependency edges in the generated
+legacy graph and now has 91 nodes and 149 edges after the Sakai 1.11.1 extension. The exact audit
+and review state is recorded in `VERSO_STATUS.md`. The legacy sources remain recoverable from Git
+history. New mathematical documentation must be authored in Verso first.
 
 ## Design gate
 
@@ -112,6 +117,8 @@ lake exe vbp check
 
 - Sakai scan: `/Users/jonbannon/Desktop/ClaudeMath/SakaiBook_1971.pdf` (read-only).
 - Original LeanOA checkout: `/Users/jonbannon/LeanRepos/LeanOA` (read-only; do not alter).
-- Current read-only upstream LeanOA comparison used in this run: commit `dd09e90`.
+- Current read-only upstream LeanOA comparison used in this run: commit `cb811c10`.
 - Pinned Mathlib: commit `476ab284693e554a6b48c5f5210cb4fb5ae51252`.
-- Mathlib master observed on 2026-08-27: `39c86ed8eb69c9ef854f1f2de1b7b7bd171fef15`.
+- Mathlib master observed on 2026-08-28: `9f2515783c2252157110d15dbfbbf8dd5795dba8`.
+- Mathlib PR #42100 was still open at head `7f7138a127bf5c2f91d5b3e30b58499139561672`;
+  its clopen-set CFC projections do not replace the W-star half-line support construction.

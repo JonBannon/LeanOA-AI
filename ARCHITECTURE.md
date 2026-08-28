@@ -1,6 +1,6 @@
 # Sak-AI architecture and design decisions
 
-Last updated: 2026-08-27
+Last updated: 2026-08-28
 
 ## Theorem library
 
@@ -48,6 +48,17 @@ CI builds the Verso site at the GitHub Pages root and preserves doc-gen4 API doc
 Public declarations use the weakest natural assumptions that create a recognizable reusable API.
 Foundational representation choices, instance strategies, and proposed dependency refactors enter
 the human review queue rather than being settled through a large local workaround.
+
+## Spectral cutoffs and projections
+
+For a fixed self-adjoint element, the scalar cutoff `(r • 1 - a)⁺` and its norm continuity live
+in `LeanOA.CStarAlgebra.Spectral`; neither the declarations nor their import boundary depend on a
+predual. Taking its support, proving projection-order properties, and proving ultraweak convergence
+live in `LeanOA.Ultraweak.SpectralProjection`.
+
+The lower projection is named `WStarAlgebra.spectralProjectionIio` rather than the unqualified
+`spectralProjection`. The suffix records the half-line represented by the cutoff and reserves the
+unqualified name for a future set-indexed spectral-measure interface compatible with Mathlib.
 
 ## Central projections and closed two-sided ideals
 
