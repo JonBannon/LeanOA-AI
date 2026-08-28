@@ -13,7 +13,6 @@ import SakAIDocs.Chapters.Normality
 import SakAIDocs.Chapters.KaplanskyDensity
 import SakAIDocs.Chapters.SupportProjections
 import SakAIDocs.Chapters.Library
-import SakAIDocs.Chapters.Design
 
 open Verso.Genre
 open Verso.Genre.Manual
@@ -50,8 +49,6 @@ guide the Lean API.
 {include 0 SakAIDocs.Chapters.SupportProjections}
 
 {include 0 SakAIDocs.Chapters.Library}
-
-{include 0 SakAIDocs.Chapters.Design}
 
 {blueprint_graph (direction := LR)}
 

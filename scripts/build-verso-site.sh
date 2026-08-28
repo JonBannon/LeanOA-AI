@@ -4,12 +4,16 @@ set -euo pipefail
 
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 site_dir="${1:-}"
+verso_site="$repo_root/docs/_out/site/html-multi"
 
 cd "$repo_root/docs"
+# Verso updates an existing output tree in place. Remove only its generated
+# multi-page directory so chapters deleted from the source cannot survive as
+# orphaned public pages in local previews or restored CI workspaces.
+rm -rf "$verso_site"
 lake exe vbp build
 lake exe vbp check
 
-verso_site="$repo_root/docs/_out/site/html-multi"
 test -f "$verso_site/index.html"
 test -f "$verso_site/-verso-data/blueprint-manifest.json"
 test -f "$verso_site/-verso-data/blueprint-html-cache.json"

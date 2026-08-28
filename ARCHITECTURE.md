@@ -23,10 +23,15 @@ The package pins Verso Blueprint commit `ae77d94f674f90ef7ca2303fdbeed2aba5e8f85
 revision on its Lean `v4.32.0-rc1` line before that upstream branch moved to the stable compiler.
 `proofwidgets` and `plausible` are pinned explicitly to the revisions used by the parent Mathlib.
 
-The site has five long-term surfaces: project overview, mathematical reading path, library/API
-path, formalization graph and summary, and design/contribution guidance. Search and the index are
-provided by Verso. Dependency data comes from `uses` references in the mathematical exposition;
-there is no separately maintained theorem-status database.
+The public site has four long-term surfaces: project overview, mathematical reading path,
+library/API path, and formalization graph and summary. Search and the index are provided by Verso.
+Development instructions and contribution policy stay in the repository-level agent-facing files,
+not in the public reading path. Dependency data comes from `uses` references in the mathematical
+exposition; there is no separately maintained theorem-status database.
+
+While the formalization program remains incomplete, the project overview retains a public
+`Current frontier` subsection. Update it when a milestone is completed or the next target changes;
+remove it only when the overall program is finished.
 
 ## Documentation source of truth
 

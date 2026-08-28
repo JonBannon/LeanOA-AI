@@ -46,8 +46,15 @@ was already open as a single folder, run **Lean 4: Restart File** after opening 
 ## Authoring layout
 
 - `SakAIDocs/Blueprint.lean` assembles the book and generated global views.
-- `SakAIDocs/Chapters/` contains the mathematical, library, and design reading paths.
+- `SakAIDocs/Chapters/` contains the public mathematical and library reading paths.
 - `SakAIDocsMain.lean` is the site generator entry point.
+
+Development instructions and design-review policy are intentionally kept out of the public site.
+They live in `../ARCHITECTURE.md`, `../STYLE_GUIDE.md`, and `../REVIEW_QUEUE.md` for the development
+agent and human reviewers.
+
+Keep the public `Current frontier` subsection in the project overview up to date until the
+formalization program is complete.
 
 All 87 active legacy LeanBlueprint nodes and 141 statement-dependency edges moved to Verso, and a
 second audit connected every named public declaration introduced by the Section 1.10 development.

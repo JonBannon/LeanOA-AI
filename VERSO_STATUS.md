@@ -21,9 +21,10 @@ statements, proof sketches, declaration links, and dependency edges have reached
 The legacy LeanBlueprint sources were removed after the parity and public-declaration audits. They
 remain recoverable from Git history. Verso is the sole mathematical-documentation source.
 
-The generated site includes a project overview, mathematical frontier, library/API path,
-design/contribution guide, interactive dependency graph, progress summary, full-text search, and
-index. Generated output is intentionally ignored by Git.
+The generated site includes a project overview with the current mathematical frontier, a
+library/API path, interactive dependency graph, progress summary, full-text search, and index.
+Agent-facing design and contribution instructions remain in the repository rather than the public
+site. Generated output is intentionally ignored by Git.
 
 ## Validation
 
