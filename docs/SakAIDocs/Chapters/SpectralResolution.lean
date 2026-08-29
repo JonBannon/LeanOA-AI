@@ -1,7 +1,7 @@
 import Verso
 import VersoManual
 import VersoBlueprint
-import LeanOA.Ultraweak.SpectralSum
+import LeanOA.Ultraweak.SpectralApproximation
 
 open Verso.Genre
 open Verso.Genre.Manual
@@ -10,9 +10,9 @@ open Informal
 #doc (Manual) "Lower spectral projections" =>
 
 This chapter begins Sakai's Section 1.11.  It develops the lower spectral
-projections of a self-adjoint element through the endpoint part of Theorem
-1.11.3: continuity from below, the two-sided estimate for spectral-band
-increments, and convergence to zero and one at the two ends of the real line.
+projections of a self-adjoint element through norm convergence of the finite
+spectral sums in Theorem 1.11.3: continuity from below, spectral-band and
+endpoint estimates, and approximation along nested dyadic divisions.
 
 {index}[spectral projection]
 {index}[spectral resolution]
@@ -280,4 +280,59 @@ the lower sum from the upper sum weights each nonnegative band projection by
 $`\lambda_{i+1}-\lambda_i\leq\delta`; summing and telescoping again gives the
 order gap $`\delta1`.  Norm monotonicity on nonnegative elements yields the
 three norm estimates.
+:::
+
+:::definition "def:dyadic_spectral_divisions_Sak_1_11_3" (parent := "finite-spectral-sums") (lean := "WStarAlgebra.dyadicSpectralMesh, WStarAlgebra.dyadicSpectralCut, WStarAlgebra.dyadicSpectralMesh_pos, WStarAlgebra.dyadicSpectralCut_monotone, WStarAlgebra.dyadicSpectralCut_zero, WStarAlgebra.dyadicSpectralCut_bandCount, WStarAlgebra.dyadicSpectralCut_succ_sub, WStarAlgebra.dyadicSpectralMesh_succ, WStarAlgebra.dyadicSpectralCut_refines, WStarAlgebra.tendsto_dyadicSpectralMesh") (uses := "def:finite_spectral_sums_Sak_1_11_3")
+For $`k\in\mathbb N`, divide
+$`[-\lVert h\rVert-1,\lVert h\rVert+1]` into $`2^k` equal bands.  Thus
+$`
+  \delta_k=\frac{2\lVert h\rVert+2}{2^k},
+  \qquad
+  \lambda_{k,i}=-\lVert h\rVert-1+i\delta_k.
+`
+These divisions have fixed endpoints, their cuts are increasing, and every
+band has width $`\delta_k`.  The division at stage $`k+1` refines the one at
+stage $`k`: its even-indexed cuts are exactly the old cuts.  Moreover,
+$`\delta_k\to0`.
+
+The grid definitions and their arithmetic properties only assume a
+seminormed additive star group.  They are not tied to W-star algebras.
+:::
+
+:::proof "def:dyadic_spectral_divisions_Sak_1_11_3"
+The endpoint and refinement identities are elementary computations with
+$`2^{k+1}=2\cdot2^k`.  Positivity of the mesh gives monotonicity of the cuts,
+and the geometric sequence $`(2\lVert h\rVert+2)/2^k` tends to zero.
+:::
+
+:::proposition "prop:finite_spectral_sum_convergence_Sak_1_11_3" (parent := "finite-spectral-sums") (lean := "WStarAlgebra.tendsto_lowerSpectralSum, WStarAlgebra.tendsto_upperSpectralSum, WStarAlgebra.tendsto_lowerSpectralSum_dyadic, WStarAlgebra.tendsto_upperSpectralSum_dyadic") (uses := "prop:finite_spectral_sum_estimate_Sak_1_11_3, def:dyadic_spectral_divisions_Sak_1_11_3")
+Let a filtered family of finite divisions eventually contain the spectral
+interval of $`h`, and suppose its mesh bounds tend to zero.  Then both its
+lower and upper spectral sums converge in norm to $`h`.
+
+In particular, for the canonical dyadic divisions above,
+$`
+  m_k\longrightarrow h,
+  \qquad
+  M_k\longrightarrow h
+`
+in norm.  Hence Sakai's finite spectral sums give a concrete norm
+approximation of $`h` along a genuinely nested sequence of divisions.
+
+The formal convergence theorem is stated for an arbitrary filter, not only
+for sequences.  It retains the unbundled cut, band-count, and mesh interface
+of the finite estimates.
+:::
+
+:::proof "prop:finite_spectral_sum_convergence_Sak_1_11_3"
+The finite-partition estimate gives
+$`
+  \lVert h-m_k\rVert\leq\delta_k,
+  \qquad
+  \lVert M_k-h\rVert\leq\delta_k.
+`
+For a general filtered family, the squeeze theorem therefore reduces both
+norm limits to convergence of the mesh bounds.  The dyadic statement follows
+by substituting the divisions above, whose endpoints contain
+$`[-\lVert h\rVert,\lVert h\rVert]` and whose meshes tend to zero.
 :::

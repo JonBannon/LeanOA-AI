@@ -4,8 +4,10 @@ Sak-AI is an AI-produced Lean operator-algebra project for private verification 
 first long-term target is the development of Sakai's *C*-Algebras and *W*-Algebras*, followed by
 the volumes of Takesaki. The current Lean library includes uniqueness of Banach preduals, Sakai's
 Kaplansky density theorem, the Section 1.10 development through central-support orthogonality,
-and lower spectral projections through the finite spectral-sum estimates in Sakai 1.11.3. Norm
-convergence along refining finite divisions is the next mathematical frontier.
+and lower spectral projections through norm convergence of the finite sums in Sakai 1.11.3. The
+convergence theorem applies both to arbitrary mesh-zero filtered families and to an explicit
+nested sequence of dyadic divisions. Packaging this limit as Sakai's spectral-integral
+representation is the next mathematical frontier.
 
 - [Sak-AI documentation site](https://jonbannon.github.io/Sak-AI/)
 - [API documentation](https://jonbannon.github.io/Sak-AI/docs/)

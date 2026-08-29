@@ -8,7 +8,7 @@ import LeanOA.Ultraweak.KaplanskyDensity
 import LeanOA.Ultraweak.Opposite
 import LeanOA.Ultraweak.PredualUniqueness
 import LeanOA.Ultraweak.ProjectionLattice
-import LeanOA.Ultraweak.SpectralSum
+import LeanOA.Ultraweak.SpectralApproximation
 import LeanOA.Ultraweak.Support
 
 open Verso.Genre
@@ -110,6 +110,18 @@ the order-gap estimate
 {name}`WStarAlgebra.upperSpectralSum_sub_lowerSpectralSum_le_smul_one`, and
 the norm estimate
 {name}`WStarAlgebra.norm_upperSpectralSum_sub_lowerSpectralSum_le`.
+
+Norm convergence for an arbitrary filtered family of divisions with
+mesh tending to zero is exposed by
+{name}`WStarAlgebra.tendsto_lowerSpectralSum` and
+{name}`WStarAlgebra.tendsto_upperSpectralSum`.  The concrete nested witness
+uses {name}`WStarAlgebra.dyadicSpectralCut` and
+{name}`WStarAlgebra.dyadicSpectralMesh`; refinement and convergence are
+recorded by {name}`WStarAlgebra.dyadicSpectralCut_refines`,
+{name}`WStarAlgebra.tendsto_lowerSpectralSum_dyadic`, and
+{name}`WStarAlgebra.tendsto_upperSpectralSum_dyadic`.  The dyadic-grid
+arithmetic is stated for seminormed additive star groups, independently of
+the W-star application.
 
 # Central ideals and central support
 

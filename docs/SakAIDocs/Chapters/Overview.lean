@@ -12,7 +12,7 @@ Sak-AI has two complementary reading paths.
 
 * The *mathematical path* follows Sakai.  The current formal development
   completes Section 1.10 and constructs the lower spectral family through
-  its endpoint behavior in Sakai 1.11.3.
+  norm convergence of its finite sums in Sakai 1.11.3.
 * The *library path* follows reusable Lean concepts: weak topologies and
   preduals, ultraweak continuity, closed ideals, projection lattices, and
   support constructions.  Names and assumptions are chosen for Mathlib
@@ -49,14 +49,15 @@ The connected Section 1.11 targets completed so far are:
    Sakai 1.11.3;
 7. lower and upper finite spectral sums bracket $`h`, while their order and
    norm gaps are controlled by the partition mesh, as in the existence proof
-   of Sakai 1.11.3.
+   of Sakai 1.11.3;
+8. for any filtered family of spectral divisions whose mesh tends to zero,
+   both finite sums converge in norm to $`h`; in particular this holds for
+   an explicit nested sequence of uniform dyadic divisions.
 
-The next bounded checkpoint inside Sakai 1.11.3 is to choose a refining
-sequence of finite divisions with mesh tending to zero and prove that its
-spectral sums converge in norm to $`h`.  This will provide the approximation
-interface underlying the abstract Radon--Stieltjes notation.  A completed
-integration interface and uniqueness of the resolution remain beyond that
-checkpoint.
+The next bounded checkpoint inside Sakai 1.11.3 is to package this norm-limit
+construction as the spectral-integral representation of $`h`, after auditing
+Mathlib's current integration and spectral-measure interfaces.  Uniqueness of
+the resolution remains beyond that checkpoint.
 
 # Migration parity
 
@@ -71,7 +72,8 @@ The lower-spectral-projection nodes are new work after that migration
 baseline; they extend rather than replace the 87 historical nodes.
 
 The dependency graph below therefore represents the whole completed Sak-AI
-development through the endpoint part of Sakai 1.11.3, including C-star foundations, operator
+development through norm convergence of the finite spectral sums in Sakai
+1.11.3, including C-star foundations, operator
 topologies, positive separation, Stonean spectra and real rank zero,
 normality and predual uniqueness, Kaplansky density, projection lattices, and
 support, central-support, and lower-spectral-projection theory.
