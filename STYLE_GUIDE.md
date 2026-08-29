@@ -305,6 +305,20 @@ mathematically meaningful intermediate statement merely to reduce line count.
 
 ## Verso Blueprint workflow
 
+### Mathematical typography
+
+In human-facing mathematical prose and headings, use the conventional notation C*-algebra and
+W*-algebra.  In Verso source, write these as ``$`C^*`$-algebra`` and
+``$`W^*`$-algebra``.  Reserve `CStarAlgebra`, `WStarAlgebra`, and related camel-case forms for exact
+Lean identifiers and API discussion.  The plain-text spellings "C-star" and "W-star" may be used
+where mathematical markup is unavailable or where they are deliberately included as search terms.
+
+The current Verso source consistently predates this convention and uses "C-star" and "W-star".
+Do not convert only one of the two terms or make scattered cosmetic replacements.  A future
+documentation-only typography pass should migrate both terms systematically; until then, new or
+substantially revised mathematical prose should follow the conventional notation above while Lean
+names remain unchanged.
+
 For each unfinished Verso Blueprint node:
 
 1. Read its incoming `uses` edges and surrounding prose, then independently sanity-check the
