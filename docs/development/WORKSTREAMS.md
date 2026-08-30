@@ -83,3 +83,38 @@ owns architecture/integration. Verso review follows as soon as an agent slot ope
   sum changes
 - **Status:** COMPLETE; no correctness blockers, requested the two endpoint-tag bridges and
   identified the exact current-Mathlib signature migration for the order-interval norm lemma
+
+## Spectral-integral interface scratch transaction
+
+This bounded transaction starts at `397e006`. It compares, in disposable worktrees, a generic
+tagged-partition convergence predicate with a spectral-family-specific predicate. Experimental
+definitions remain outside public imports and Verso; the lead will integrate only a decision record
+and any independently justified coordination updates.
+
+### Generic tagged-partition prototype
+
+- **Owner:** `spectral_integral_generic`
+- **Scope:** Candidate A and its eight required stress tests
+- **Owned files:** scratch files and private worker report in its isolated worktree
+- **Status:** ACTIVE
+
+### Spectral-family-specific prototype
+
+- **Owner:** `spectral_integral_specific`
+- **Scope:** Candidate B, weighted spectral sums, identity comparison, and stress tests
+- **Owned files:** scratch files and private worker report in its isolated worktree
+- **Status:** ACTIVE
+
+### Independent prototype review
+
+- **Owner:** `spectral_integral_review`
+- **Scope:** compare both candidates and perform only targeted Mathlib/original-LeanOA review
+- **Owned files:** private review report in its isolated worktree
+- **Status:** ACTIVE after prototypes are available
+
+### Lead architecture and integration
+
+- **Owner:** lead agent
+- **Scope:** contracts, cross-prototype equivalence test, D002 decision, coordination updates, and
+  validation
+- **Status:** ACTIVE
