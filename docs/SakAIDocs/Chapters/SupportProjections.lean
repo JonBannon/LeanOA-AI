@@ -138,7 +138,7 @@ The construction uses
 {uses "prop:proj_compl_lat_wstar_Sak_1_10_2"}[].
 :::
 
-:::proposition "prop:left_right_support_characterization" (parent := "support-projections") (lean := "WStarAlgebra.leftSupport_mul, WStarAlgebra.mul_rightSupport, WStarAlgebra.leftSupport_le_iff, WStarAlgebra.rightSupport_le_iff, WStarAlgebra.leftAnnihilator_singleton_eq_span, WStarAlgebra.rightAnnihilator_singleton_eq_span, WStarAlgebra.mul_leftSupport_eq_zero_iff, WStarAlgebra.rightSupport_mul_eq_zero_iff, WStarAlgebra.mul_support_eq_zero_iff, WStarAlgebra.support_mul_eq_zero_iff, WStarAlgebra.mul_support_posPart, WStarAlgebra.support_posPart_mul")
+:::proposition "prop:left_right_support_characterization" (parent := "support-projections") (lean := "WStarAlgebra.leftSupport_mul, WStarAlgebra.mul_rightSupport, WStarAlgebra.leftSupport_le_iff, WStarAlgebra.rightSupport_le_iff, WStarAlgebra.support_le_iff, WStarAlgebra.leftAnnihilator_singleton_eq_span, WStarAlgebra.rightAnnihilator_singleton_eq_span, WStarAlgebra.mul_leftSupport_eq_zero_iff, WStarAlgebra.rightSupport_mul_eq_zero_iff, WStarAlgebra.mul_support_eq_zero_iff, WStarAlgebra.support_mul_eq_zero_iff, WStarAlgebra.mul_support_posPart, WStarAlgebra.support_posPart_mul")
 For every $`a\in M`, $`l(a)a=a` and $`ar(a)=a`.  For every projection
 $`p`,
 $`l(a)\leq p\Longleftrightarrow pa=a` and
@@ -166,7 +166,7 @@ algebra.  The universal properties and annihilator identities should be the
 primary API.
 :::
 
-:::lemma_ "lem:support_star_compatibility" (parent := "support-projections") (lean := "WStarAlgebra.leftSupport_star, WStarAlgebra.rightSupport_star, WStarAlgebra.IsSelfAdjoint.leftSupport_eq_rightSupport, WStarAlgebra.support, WStarAlgebra.support_mul, WStarAlgebra.mul_support, WStarAlgebra.leftSupport_zero, WStarAlgebra.rightSupport_zero, WStarAlgebra.leftSupport_one, WStarAlgebra.rightSupport_one, WStarAlgebra.leftSupport_smul, WStarAlgebra.rightSupport_smul, WStarAlgebra.leftSupport_mono_of_nonneg, WStarAlgebra.rightSupport_mono_of_nonneg, WStarAlgebra.leftSupport_eq_one_of_algebraMap_le, IsStarProjection.mul_eq_self_of_nonneg_of_le_of_mul_eq_self")
+:::lemma_ "lem:support_star_compatibility" (parent := "support-projections") (lean := "WStarAlgebra.leftSupport_star, WStarAlgebra.rightSupport_star, WStarAlgebra.IsSelfAdjoint.leftSupport_eq_rightSupport, WStarAlgebra.support, WStarAlgebra.support_mul, WStarAlgebra.mul_support, WStarAlgebra.leftSupport_zero, WStarAlgebra.rightSupport_zero, WStarAlgebra.leftSupport_one, WStarAlgebra.rightSupport_one, WStarAlgebra.leftSupport_coe_isStarProjection, WStarAlgebra.rightSupport_coe_isStarProjection, WStarAlgebra.support_coe_isStarProjection, WStarAlgebra.leftSupport_smul, WStarAlgebra.rightSupport_smul, WStarAlgebra.leftSupport_mono_of_nonneg, WStarAlgebra.rightSupport_mono_of_nonneg, WStarAlgebra.le_support_of_smul_le, WStarAlgebra.leftSupport_eq_one_of_algebraMap_le, IsStarProjection.mul_eq_self_of_nonneg_of_le_of_mul_eq_self")
 For every $`a\in M`, $`l(a^*)=r(a)` and $`r(a^*)=l(a)`.  If $`h=h^*`,
 these projections agree.  Their common value $`s(h)` is the support
 projection of $`h`.  Left support is invariant under multiplication by a

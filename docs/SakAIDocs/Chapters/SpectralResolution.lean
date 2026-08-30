@@ -4,6 +4,7 @@ import VersoBlueprint
 import LeanOA.Ultraweak.SpectralApproximation
 import LeanOA.Ultraweak.SpectralBand
 import LeanOA.Ultraweak.TaggedSpectralSum
+import LeanOA.Ultraweak.ProjectionDecomposition
 import LeanOA.Ultraweak.TruncatedSpectralSum
 
 open Verso.Genre
@@ -457,4 +458,43 @@ part is $`1`-Lipschitz, so the gap between those sums is bounded by the
 ordinary upper/lower spectral-sum gap.  The established mesh estimate gives
 the displayed norm bound, filter squeezing gives norm convergence, and the
 continuous norm-to-ultraweak map gives the specified-ultraweak limit.
+:::
+
+:::proposition "prop:fixed_projection_ultraweak_decomposition" (parent := "finite-spectral-sums") (lean := "Ultraweak.tendsto_parts_of_tendsto_sub, Ultraweak.posPart_negPart_eq_of_tendsto_sub_of_isStarProjection") (uses := "lem:pos_sa_sigma_closed_Sak_1_7_1, lem:star_left_mul_right_mul_sig_cts_Sak_1_7_8")
+Let $`p` be a projection and let $`u_i,v_i` be nets in a $`C^*`-algebra
+with a specified complete predual.  Suppose
+$`
+  u_i-v_i\longrightarrow y
+`
+ultraweakly, both $`u_i` and $`v_i` are eventually nonnegative, and
+$`p(u_i-v_i)=u_i` eventually.  Then the two pieces converge separately and
+$`
+  u_i\longrightarrow py,
+  \qquad
+  v_i\longrightarrow py-y,
+  \qquad
+  y^+=py,
+  \qquad
+  y^-=py-y.
+`
+
+This is the fixed-projection analytic step compressed into Sakai's
+uniqueness proof.  It uses separate ultraweak continuity of multiplication,
+ultraweak closedness of the positive cone, and Mathlib's existing positive-
+and negative-part uniqueness theorem.  It does not assume that positive part
+is ultraweakly continuous.
+
+For an arbitrary competing resolution, the remaining source-facing step is
+to derive these nets, with arbitrary cuts inserted and asymptotic endpoint
+terms retained, from Sakai's abstract ultraweak Radon--Stieltjes
+representation.  Thus this proposition does not yet assert support recovery
+or uniqueness of the competing resolution.
+:::
+
+:::proof "prop:fixed_projection_ultraweak_decomposition"
+Fixed left multiplication sends the total limit to $`py`.  The extraction
+identity therefore forces $`u_i\to py`, and subtraction gives
+$`v_i\to py-y`.  Closedness of the positive cone makes both limits
+nonnegative.  Idempotence and self-adjointness of $`p` make their product
+zero, so positive/negative-part uniqueness identifies the two limits.
 :::

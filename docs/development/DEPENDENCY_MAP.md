@@ -38,9 +38,11 @@ partial-interval estimate + truncated-affine weighted-sum convergence
   ↓
 CFC bridge: weighted sums converge to cfc (fun lambda => (r - lambda)^+) a
   ↓
-[RED] source-faithful ultraweak decomposition for an arbitrary competing resolution
+fixed-projection ultraweak decomposition from a total difference limit [GREEN]
   ↓
-[RED] support recovery and uniqueness
+[RED] division-independent Radon--Stieltjes representation and cut-refinement bridge
+  ↓
+conditional support recovery and uniqueness [kernel-checked scratch]
   ↓
 [RED] general PVM and measurable functional calculus
 ```
@@ -95,10 +97,15 @@ downstream builds rather than folded into unrelated spectral work.
 The truncated-affine transaction adds one theorem-only node below the existing tagged-sum layer.
 It proves a partial-interval estimate, a bandwise estimate for the CFC positive part even when the
 cutoff lies inside a band, and sharp norm and specified-ultraweak convergence to the existing
-`spectralPositivePart`. It introduces no resolution or integral object. Scratch work shows that
-projection-valuedness plus monotonicity controls finite truncated-affine sums, but Sakai's actual
-ultraweak representation still needs a fixed-projection decomposition argument before support and
-uniqueness can move out of RED.
+`spectralPositivePart`. It introduces no resolution or integral object.
+
+The fixed-projection transaction adds a reusable leaf at ordered $C^*$-algebra generality. From
+the ultraweak limit of `u_i-v_i` and one eventual fixed-element extraction identity it derives the
+individual limits; for a star projection and eventually positive pieces it identifies those
+limits with positive and negative parts. Finite cutoff algebra and the subsequent support and
+pointwise uniqueness chain are kernel-checked in scratch. The sole missing dependency edge is now
+the source representation/refinement bridge that constructs the inserted-cut nets under Sakai's
+actual hypotheses. No lower-family, resolution, integral, or PVM object was added.
 
 ## Cartography fields for a major concept
 

@@ -23,14 +23,19 @@ in their workstream.
   but passing to the target through `Filter.Tendsto.cfc` requires norm moment convergence, which is
   stronger than Sakai's ultraweak representation. Support recovery additionally needs lower
   bounds, an upper-support identity, and continuity from below; support is not continuous under
-  norm limits.
+  norm limits. The fixed-projection transaction now kernel-checks the exact finite cutoff algebra,
+  the total-moment-only positive/negative decomposition, both support inequalities, the `Iio` LUB
+  recovery, and pointwise/family uniqueness under explicit inserted-cut approximation data. The
+  only missing edge from Sakai's clauses is a division-independent representation/refinement
+  theorem that constructs those data.
 - **Decision so far:** publish the canonical theorem layer only. Publish neither experimental
-  integral predicate nor a lower-family, resolution, or PVM structure. The architecture remains
-  OPEN / RED beyond the CFC bridge, with the required hypotheses now sharply separated.
-- **Next bounded action:** scratch-test Sakai's exact ultraweak hypotheses by splitting the
-  truncated-affine approximants at a fixed projection `e' r`, allowing an arbitrary cut `r` to be
-  inserted. Prove the two fixed-projection limit identities needed for support recovery without
-  assuming norm convergence, exact finite endpoints, or the desired support formula.
+  integral predicate nor a lower-family, resolution, or PVM structure. Publish the general
+  fixed-projection decomposition and coherent support helpers under D004. The architecture remains
+  OPEN / RED precisely at the source representation/refinement boundary.
+- **Next bounded action:** design and scratch-test a directed finite-division semantics for the
+  ultraweak Radon--Stieltjes representation. Prove cofinality after inserting any prescribed finite
+  set of cuts and derive the translated total moment plus varying endpoint-residual nets consumed
+  by the checked support-recovery theorem.
 
 ## IQ-002 — spectral helper generality
 

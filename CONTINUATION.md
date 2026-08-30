@@ -11,6 +11,9 @@ Last updated: 2026-08-30
   sums without changing the lower spectral projection or choosing a spectral-measure object.
 - The truncated-affine recovery transaction adds a theorem-only CFC bridge and leaves the
   arbitrary-resolution, PVM, and operator-valued integral boundaries explicitly RED.
+- The fixed-projection transaction adds the general ultraweak positive/negative decomposition and
+  support helper API. The full competing-resolution chain is kernel-checked conditionally; the
+  source representation-to-refinement bridge remains RED.
 - The theorem package had no uncommitted changes at the start of the orchestration work.
 - Jireh Loreaux's LeanOA and Mathlib are read-only references. The original LeanOA checkout has
   not been modified.
@@ -31,6 +34,15 @@ strictly inside a partition band, the corresponding weighted tagged sum is withi
 `CStarAlgebra.spectralPositivePart a r`, hence converges in norm and in every specified ultraweak
 topology to the existing Mathlib-CFC value $\operatorname{cfc}(x\mapsto(r-x)^+)(a)$. No new
 continuous calculus, spectral integral, lower-family structure, or PVM was introduced.
+
+The fixed-projection analytic step in Sakai's uniqueness paragraph is now public at the weakest
+natural level. An eventual identity `p * (u_i-v_i)=u_i` separates the specified-ultraweak limits;
+when `p` is a star projection and the two pieces are eventually nonnegative, their limits are the
+Mathlib positive and negative parts. The source-accurate finite cutoff algebra, both support
+inequalities, continuity-from-below recovery, and uniqueness are kernel-checked in scratch under
+explicit inserted-cut approximation data. They are not yet the source theorem because Sakai's
+abstract ultraweak Radon--Stieltjes representation has not been shown to supply those data
+independently of the chosen division.
 
 The implemented public design is:
 
@@ -73,6 +85,11 @@ The implemented public design is:
 18. Prove a reusable partial-interval estimate and sharp truncated-affine mesh estimate without
     requiring the cutoff to be a partition point; target the existing CFC positive part and derive
     filter-general norm and specified-ultraweak convergence.
+19. Isolate the fixed-projection limit argument at ordered $C^*$-algebra generality, derive the two
+    individual limits from one extraction identity, and identify them as positive/negative parts
+    using ultraweak order closure. Add the symmetric projection-support simp API and the reusable
+    positive-scalar lower-bound criterion. Keep competing-resolution recovery conditional until
+    the source representation/refinement bridge is formalized.
 
 ## Implementation order
 
@@ -136,13 +153,23 @@ The completed implementation layers are:
    - a sharp mesh bound for arbitrary in-band truncated-affine tags;
    - filter-general norm convergence, specified-ultraweak convergence, and a dyadic corollary to
      the existing CFC-native `spectralPositivePart`.
+12. Fixed-projection ultraweak decomposition layer (completed on 2026-08-30):
+   - fixed-element extraction separates the limits of two pieces from the ultraweak limit of their
+     difference;
+   - a star projection plus eventual positivity identifies the limits with positive and negative
+     parts, without asserting ultraweak continuity of positive part;
+   - projection supports simplify canonically, and a strictly positive scalar projection lower
+     bound implies inclusion in support;
+   - source-faithful finite and conditional support/uniqueness scratch theorems isolate the sole
+     remaining bridge without publishing a spectral-resolution structure.
 
-The next bounded architecture transaction is a source-faithful scratch test of the fixed-projection
-ultraweak decomposition behind Sakai's uniqueness proof. Starting from asymptotic endpoint limits
-and ultraweak identity-moment representation, allow an arbitrary cut `r` to be inserted and prove
-the upper-support identity and strictly-below positive lower bounds. Do not replace these hypotheses
-by exact finite endpoints or norm convergence, and do not publish a lower-family, resolution,
-integral, or PVM structure until support recovery succeeds noncircularly.
+The next bounded architecture transaction is the division-independent ultraweak
+Radon--Stieltjes/refinement bridge behind Sakai 1.11.3. Define or predicate only enough finite-
+division semantics to prove that imposing any prescribed cuts `s < r` gives a cofinal subsystem
+with the same identity-moment limit, and derive the translated total and varying endpoint-residual
+nets used by the already checked support proof. Do not replace asymptotic endpoints by exact finite
+endpoints or ultraweak convergence by norm convergence. Do not publish a lower-family, resolution,
+integral, or PVM structure unless this source-facing test determines a stable interface.
 
 Before each substantial proof, search the current Sak-AI tree, pinned Mathlib, current Mathlib
 master/review history, and current LeanOA for an equivalent or more general declaration.
@@ -150,8 +177,8 @@ master/review history, and current LeanOA for an equivalent or more general decl
 ## Documentation continuation
 
 The Verso package preserves all 87 active nodes and 141 statement-dependency edges in the generated
-legacy graph and extends them to 102 nodes and 173 edges through canonical truncated-affine
-recovery in Sakai 1.11.3. The exact manifest counts and audit state are recorded in
+legacy graph and extends them to 103 nodes and 175 edges through the fixed-projection ultraweak
+decomposition used in Sakai 1.11.3. The exact manifest counts and audit state are recorded in
 `VERSO_STATUS.md`. The legacy
 sources remain recoverable from Git history. New mathematical documentation must be authored in
 Verso first.

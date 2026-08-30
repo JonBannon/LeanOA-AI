@@ -45,3 +45,9 @@ main branch only through reviewed commits.
 
 The orchestration documents track work ownership and architecture only. Mathematical status and
 dependency truth remain in Verso Blueprint blocks and `uses` references.
+
+At the current Sakai 1.11.3 frontier, fixed-projection ultraweak decomposition is a reusable
+downstream theorem layer. The remaining RED boundary is the semantics of an arbitrary competing
+resolution's ultraweak Radon--Stieltjes representation, especially cofinal stability under
+inserting prescribed cuts. Conditional support and uniqueness scratch theorems do not authorize a
+public resolution, integral, or PVM abstraction before that bridge is fixed.

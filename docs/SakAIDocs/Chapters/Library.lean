@@ -7,6 +7,7 @@ import LeanOA.Ultraweak.CentralSupport
 import LeanOA.Ultraweak.KaplanskyDensity
 import LeanOA.Ultraweak.Opposite
 import LeanOA.Ultraweak.PredualUniqueness
+import LeanOA.Ultraweak.ProjectionDecomposition
 import LeanOA.Ultraweak.ProjectionLattice
 import LeanOA.Ultraweak.SpectralApproximation
 import LeanOA.Ultraweak.SpectralBand
@@ -36,6 +37,15 @@ interfaces.  Predual uniqueness is exposed through
 {name}`Predual.equiv` and related equivalences rather
 than through a Sakai-numbered wrapper.
 
+The fixed-element extraction lemma
+{name}`Ultraweak.tendsto_parts_of_tendsto_sub` separates the limits of two
+pieces from the ultraweak limit of their difference.  When the extractor is
+a star projection and the pieces are eventually nonnegative,
+{name}`Ultraweak.posPart_negPart_eq_of_tendsto_sub_of_isStarProjection`
+identifies those limits with Mathlib's positive and negative parts.  This
+general $`C^*`$-level API does not assert an arbitrary spectral-resolution
+theorem.
+
 # Projection and ideal interfaces
 
 The complete lattice instance for star projections is
@@ -54,9 +64,14 @@ Ultraweak closedness is a separate layer, beginning with
 The support-projection API begins with {name}`WStarAlgebra.leftSupport` and
 {name}`WStarAlgebra.rightSupport`.  Their leastness characterizations are
 {name}`WStarAlgebra.leftSupport_le_iff` and
-{name}`WStarAlgebra.rightSupport_le_iff`; adjoint transport and the support of
+{name}`WStarAlgebra.rightSupport_le_iff`; the self-adjoint specialization is
+{name}`WStarAlgebra.support_le_iff`.  Adjoint transport and the support of
 a bundled self-adjoint element are exposed by
 {name}`WStarAlgebra.leftSupport_star` and {name}`WStarAlgebra.support`.
+The support of a projection itself simplifies through
+{name}`WStarAlgebra.support_coe_isStarProjection`, and
+{name}`WStarAlgebra.le_support_of_smul_le` turns a strictly positive scalar
+lower bound on a projection into support inclusion.
 The reusable full-support criterion
 {name}`WStarAlgebra.leftSupport_eq_one_of_algebraMap_le` applies to any
 element bounded below by a strictly positive real scalar; it is not tied to

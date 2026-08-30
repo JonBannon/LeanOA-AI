@@ -62,15 +62,21 @@ The connected Section 1.11 targets completed so far are:
     $`b_h(r)=\operatorname{cfc}_h(x\mapsto(r-x)^+)`, in norm and in every
     specified ultraweak topology, without requiring $`r` to be a partition
     cut.
+11. a fixed projection which extracts the positive finite piece from an
+    ultraweakly convergent difference forces the two pieces to converge to
+    the Mathlib positive and negative parts of the limit; this supplies the
+    analytic decomposition used in the uniqueness paragraph of Sakai
+    1.11.3.
 
-The next bounded checkpoint inside Sakai 1.11.3 is to extract the minimum
-laws for an arbitrary competing lower spectral resolution that reproduce the
-truncated-affine theorem and allow support recovery at each cutoff.  Only
-after that source-facing test is passed should the project choose an
-ultraweak Radon--Stieltjes integral interface.  Ordinary norm-valued
-vector-measure integration does not by itself model this topology, and the
-canonical convergence theorem alone does not prove uniqueness of a competing
-resolution.
+The next bounded checkpoint inside Sakai 1.11.3 is now sharply isolated: give
+the abstract ultraweak Radon--Stieltjes representation a division-independent
+Lean meaning and prove that its refinement filter remains cofinal after any
+prescribed cuts $`s<r` are inserted.  The kernel-checked finite calculation
+retains the necessary left-endpoint residual, and the kernel-checked limit
+argument then gives both support inequalities and uniqueness.  Those two
+pieces are not yet a formalization of the source theorem until this
+representation-to-approximants bridge is proved.  Ordinary norm-valued
+vector-measure integration does not by itself model the required topology.
 
 # Migration parity
 
@@ -85,8 +91,9 @@ The lower-spectral-projection nodes are new work after that migration
 baseline; they extend rather than replace the 87 historical nodes.
 
 The dependency graph below therefore represents the whole completed Sak-AI
-development through canonical truncated-affine recovery from arbitrary
-tagged spectral sums in Sakai 1.11.3, including $`C^*`$-algebra foundations, operator
+development through canonical truncated-affine recovery and the general
+fixed-projection ultraweak decomposition used in Sakai 1.11.3, including
+$`C^*`$-algebra foundations, operator
 topologies, positive separation, Stonean spectra and real rank zero,
 normality and predual uniqueness, Kaplansky density, projection lattices, and
 support, central-support, and lower-spectral-projection theory.

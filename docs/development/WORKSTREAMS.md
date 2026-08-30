@@ -196,7 +196,9 @@ PVM abstraction independently.
 - **Scope:** exact source audit, insertion of `r`, finite band/projection identities, hypothesis
   provenance
 - **Owned files:** isolated scratch Lean and private worker report
-- **Status:** PLANNED
+- **Status:** COMPLETE at scratch commit `6e349da`; the source/finite report is integrated at
+  `017eff6` and the consolidated eight-column hypothesis ledger at `6b62428`. The finite proof
+  retains the left-endpoint residual and uses the strict `Iio`/`Ico` atom convention.
 
 ### Fixed-projection ultraweak/order infrastructure
 
@@ -204,7 +206,10 @@ PVM abstraction independently.
 - **Scope:** fixed multiplication through specified-ultraweak limits, closed order, reusable
   topology facts, Mathlib overlap
 - **Owned files:** isolated scratch/report and at most one reviewed general production proposal
-- **Status:** PLANNED
+- **Status:** COMPLETE at worker commit `c637cb7`; the audit report and `support_le_iff` are
+  integrated. Existing separate multiplication and closed-order APIs were reused rather than
+  wrapped. Architecture review accepted the stronger total-only decomposition for production in
+  `Ultraweak.ProjectionDecomposition`.
 
 ### Competing-family support recovery
 
@@ -212,11 +217,16 @@ PVM abstraction independently.
 - **Scope:** both support inequalities, continuity-from-below, endpoint convention, and uniqueness
   under explicit source-faithful hypotheses
 - **Owned files:** isolated scratch Lean and private worker report
-- **Status:** PLANNED
+- **Status:** COMPLETE at scratch commit `b25d751`; the report is integrated at `017eff6`.
+  Both support inequalities, the `Iio` LUB step, support equality, and pointwise/family uniqueness
+  kernel-check conditional on explicit inserted-cut approximation data.
 
 ### Lead architecture and integration
 
 - **Owner:** lead agent
 - **Scope:** source-fidelity review, contracts, dependency-aware proof integration, hypothesis
   ledger, public API decision, Verso only for production mathematics, full validation
-- **Status:** ACTIVE
+- **Status:** COMPLETE; D004 accepts the generic decomposition and support helpers, rejects a
+  premature resolution/PVM/integral structure, and identifies the exact remaining
+  Radon--Stieltjes/refinement bridge. The 3,114-job theorem build, `lake lint`, and the Verso
+  build/check pass; the generated graph has 103 nodes and 175 edges with 492 manifest entries.

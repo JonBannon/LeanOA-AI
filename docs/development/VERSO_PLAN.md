@@ -17,9 +17,11 @@ declaration links. Keep development guidance in repository documents, not the pu
 - Preserve the mathematical path, library/API path, graph, summary, search, and index.
 
 The spectral theorem stack now has a public presentation through spectral-band calculus, tagged
-spectral sums, and truncated-affine weighted convergence to the existing CFC positive part. The
-frontier explicitly separates those stronger norm and derived ultraweak limits from the still-
-missing source-faithful Radon--Stieltjes representation for an arbitrary resolution.
+spectral sums, truncated-affine weighted convergence to the existing CFC positive part, and the
+general fixed-projection ultraweak decomposition used by Sakai's uniqueness argument. The frontier
+states explicitly that the arbitrary-resolution support and uniqueness chain is only conditionally
+kernel-checked: the source-faithful, refinement-stable Radon--Stieltjes representation remains
+missing.
 
 ## Work that must wait
 
