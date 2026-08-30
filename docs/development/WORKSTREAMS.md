@@ -128,3 +128,41 @@ and any independently justified coordination updates.
   validation
 - **Status:** COMPLETE; D002 records the decision to publish neither candidate, and `lake build`
   (3112 jobs) plus `lake lint` pass on the integration branch
+
+## Truncated-affine recovery transaction
+
+This bounded transaction starts at `d4db7b0`. It treats Mathlib CFC as the canonical continuous
+calculus, seeks theorem-level truncated-affine recovery, and tests only scratch lower-family
+interfaces compatible with a future PVM. No stream may publish a general integral, PVM, or
+term-dependent spectral-resolution typeclass.
+
+### Canonical truncated-affine theorem
+
+- **Owner:** `truncated_affine_canonical`
+- **Scope:** pinned CFC audit needed by the proof, partial-interval estimate, canonical norm and
+  specified-ultraweak convergence, CFC target identification
+- **Owned files:** isolated scratch/report files and at most one proposed theorem-level production
+  module
+- **Status:** PLANNED
+
+### Arbitrary competing resolution
+
+- **Owner:** `competing_resolution`
+- **Scope:** explicit-hypothesis replay for `e'`, minimum assumption ledger, circularity audit
+- **Owned files:** isolated scratch files and private worker report
+- **Status:** PLANNED
+
+### Support recovery and CFC/PVM audit
+
+- **Owner:** `support_cfc_pvm`
+- **Scope:** support theorem and endpoint convention, pinned/current CFC architecture, future-PVM
+  refactorability and ultraweak-transfer analysis
+- **Owned files:** isolated scratch files and private worker report
+- **Status:** PLANNED
+
+### Lead architecture and integration
+
+- **Owner:** lead agent
+- **Scope:** contracts, source fidelity, proof review, minimality/generalization review, D003,
+  assumption and compatibility reports, coordination updates, full validation
+- **Status:** ACTIVE
