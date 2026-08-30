@@ -84,6 +84,7 @@ public import LeanOA.Ultraweak.Opposite
 public import LeanOA.Ultraweak.OrderClosed
 public import LeanOA.Ultraweak.PolarDecomposition
 public import LeanOA.Ultraweak.PredualUniqueness
+public import LeanOA.Ultraweak.ProjectionDecomposition
 public import LeanOA.Ultraweak.ProjectionLattice
 public import LeanOA.Ultraweak.SeparatingDual
 public import LeanOA.Ultraweak.SpectralApproximation

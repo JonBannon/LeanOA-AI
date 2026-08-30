@@ -238,6 +238,26 @@ theorem support_le_iff (a : selfAdjoint M) (p : {p : M // IsStarProjection p}) :
     support a ≤ p ↔ p.1 * a.1 = a.1 :=
   leftSupport_le_iff a.1 p
 
+/-- A projection is the left support of its underlying element. -/
+@[simp]
+theorem leftSupport_coe_isStarProjection (p : {p : M // IsStarProjection p}) :
+    leftSupport p.1 = p := by
+  apply le_antisymm
+  · exact (leftSupport_le_iff p.1 p).2 p.2.isIdempotentElem.eq
+  · exact (p.2.le_iff_mul_eq_right (leftSupport p.1).2).2 (leftSupport_mul p.1)
+
+/-- A projection is the right support of its underlying element. -/
+@[simp]
+theorem rightSupport_coe_isStarProjection (p : {p : M // IsStarProjection p}) :
+    rightSupport p.1 = p := by
+  rw [← leftSupport_star, p.2.isSelfAdjoint.star_eq, leftSupport_coe_isStarProjection]
+
+/-- A projection is the support of its underlying self-adjoint element. -/
+@[simp]
+theorem support_coe_isStarProjection (p : {p : M // IsStarProjection p}) :
+    support ⟨p.1, p.2.isSelfAdjoint⟩ = p :=
+  leftSupport_coe_isStarProjection p
+
 /-- Multiplication on the right by the support of a self-adjoint element has the same kernel as
 multiplication on the right by that element. -/
 theorem mul_support_eq_zero_iff (a : selfAdjoint M) (b : M) :
@@ -341,6 +361,20 @@ theorem rightSupport_mono_of_nonneg {a b : M} (ha : 0 ≤ a) (hab : a ≤ b) :
   rw [← IsSelfAdjoint.leftSupport_eq_rightSupport (IsSelfAdjoint.of_nonneg ha),
     ← IsSelfAdjoint.leftSupport_eq_rightSupport (IsSelfAdjoint.of_nonneg (ha.trans hab))]
   exact leftSupport_mono_of_nonneg ha hab
+
+/-- If a self-adjoint element dominates a strictly positive real multiple of a projection, its
+support dominates that projection. -/
+theorem le_support_of_smul_le
+    (a : selfAdjoint M) (p : {p : M // IsStarProjection p}) {c : ℝ}
+    (hc : 0 < c) (hpa : c • p.1 ≤ a.1) : p ≤ support a := by
+  change p ≤ leftSupport a.1
+  calc
+    p = leftSupport (c • p.1) := by
+      rw [RCLike.real_smul_eq_coe_smul (K := ℂ), leftSupport_smul,
+        leftSupport_coe_isStarProjection]
+      exact Complex.ofReal_ne_zero.mpr hc.ne'
+    _ ≤ leftSupport a.1 :=
+      leftSupport_mono_of_nonneg (smul_nonneg hc.le p.2.nonneg) hpa
 
 /-- An element bounded below by a strictly positive real scalar has full left support. -/
 theorem leftSupport_eq_one_of_algebraMap_le {a : M} {r : ℝ} (hr : 0 < r)
