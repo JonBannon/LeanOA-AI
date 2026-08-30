@@ -182,3 +182,41 @@ term-dependent spectral-resolution typeclass.
 - **Status:** COMPLETE; the theorem layer, named CFC bridge, umbrella import, Verso node, D003, and
   required reports are integrated. Lower-family, resolution, PVM, and integral structures remain
   RED and unpublished. Focused/full Lean validation, lint, and the Verso build/check pass.
+
+## Fixed-projection spectral-uniqueness transaction
+
+This bounded transaction starts at `162271a`. It reconstructs and tests the fixed-projection
+ultraweak proof in the uniqueness clause of Sakai 1.11.3. Mathlib CFC remains canonical, every
+competing-family hypothesis stays explicit, and no stream may publish a resolution, integral, or
+PVM abstraction independently.
+
+### Sakai source and finite cutoff decomposition
+
+- **Owner:** `uniqueness_source_finite`
+- **Scope:** exact source audit, insertion of `r`, finite band/projection identities, hypothesis
+  provenance
+- **Owned files:** isolated scratch Lean and private worker report
+- **Status:** PLANNED
+
+### Fixed-projection ultraweak/order infrastructure
+
+- **Owner:** `fixed_projection_ultraweak`
+- **Scope:** fixed multiplication through specified-ultraweak limits, closed order, reusable
+  topology facts, Mathlib overlap
+- **Owned files:** isolated scratch/report and at most one reviewed general production proposal
+- **Status:** PLANNED
+
+### Competing-family support recovery
+
+- **Owner:** `competing_support_recovery`
+- **Scope:** both support inequalities, continuity-from-below, endpoint convention, and uniqueness
+  under explicit source-faithful hypotheses
+- **Owned files:** isolated scratch Lean and private worker report
+- **Status:** PLANNED
+
+### Lead architecture and integration
+
+- **Owner:** lead agent
+- **Scope:** source-fidelity review, contracts, dependency-aware proof integration, hypothesis
+  ledger, public API decision, Verso only for production mathematics, full validation
+- **Status:** ACTIVE
