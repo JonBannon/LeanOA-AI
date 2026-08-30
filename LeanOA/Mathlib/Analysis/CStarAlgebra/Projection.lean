@@ -53,6 +53,19 @@ lemma mul_eq_zero_iff_le_one_sub [CStarAlgebra A] [PartialOrder A] [StarOrderedR
     p * q = 0 ↔ p ≤ 1 - q := by
   rw [hp.le_iff_mul_eq_left hq.one_sub, mul_sub, mul_one, sub_eq_self]
 
+/-- Differences of nested star projections supported on disjoint order intervals are
+orthogonal. -/
+lemma sub_mul_sub_eq_zero_of_le [NonUnitalCStarAlgebra A] [PartialOrder A] [StarOrderedRing A]
+    {q r s : A} (hp : IsStarProjection p) (hq : IsStarProjection q)
+    (hr : IsStarProjection r) (hs : IsStarProjection s)
+    (hpq : p ≤ q) (hqr : q ≤ r) (hrs : r ≤ s) :
+    (q - p) * (s - r) = 0 := by
+  have hmul {x y : A} (hx : IsStarProjection x) (hy : IsStarProjection y)
+      (hxy : x ≤ y) : x * y = x :=
+    (hx.le_iff_mul_eq_left hy).mp hxy
+  rw [mul_sub, sub_mul, sub_mul, hmul hq hs (hqr.trans hrs), hmul hq hr hqr,
+    hmul hp hs (hpq.trans (hqr.trans hrs)), hmul hp hr (hpq.trans hqr), sub_self]
+
 /-- If a projection acts as the identity on a positive element, then it acts as the identity on
 every smaller positive element. -/
 lemma mul_eq_self_of_nonneg_of_le_of_mul_eq_self [CStarAlgebra A] [PartialOrder A]

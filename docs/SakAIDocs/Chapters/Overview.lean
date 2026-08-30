@@ -52,12 +52,16 @@ The connected Section 1.11 targets completed so far are:
    of Sakai 1.11.3;
 8. for any filtered family of spectral divisions whose mesh tends to zero,
    both finite sums converge in norm to $`h`; in particular this holds for
-   an explicit nested sequence of uniform dyadic divisions.
+   an explicit nested sequence of uniform dyadic divisions;
+9. arbitrary tags chosen inside those spectral bands give self-adjoint sums
+   between the lower and upper sums, with the same mesh error bound and norm
+   convergence.
 
-The next bounded checkpoint inside Sakai 1.11.3 is to package this norm-limit
-construction as the spectral-integral representation of $`h`, after auditing
-Mathlib's current integration and spectral-measure interfaces.  Uniqueness of
-the resolution remains beyond that checkpoint.
+The next bounded checkpoint inside Sakai 1.11.3 is to choose the smallest
+faithful interface for its ultraweak Radon--Stieltjes integral and package the
+tagged-sum limit as the spectral-integral representation of $`h`.  Ordinary
+norm-valued vector-measure integration does not by itself model this topology.
+Uniqueness of the resolution remains beyond that checkpoint.
 
 # Migration parity
 
@@ -72,8 +76,8 @@ The lower-spectral-projection nodes are new work after that migration
 baseline; they extend rather than replace the 87 historical nodes.
 
 The dependency graph below therefore represents the whole completed Sak-AI
-development through norm convergence of the finite spectral sums in Sakai
-1.11.3, including C-star foundations, operator
+development through norm convergence of arbitrary tagged spectral sums in
+Sakai 1.11.3, including $`C^*`$-algebra foundations, operator
 topologies, positive separation, Stonean spectra and real rank zero,
 normality and predual uniqueness, Kaplansky density, projection lattices, and
 support, central-support, and lower-spectral-projection theory.

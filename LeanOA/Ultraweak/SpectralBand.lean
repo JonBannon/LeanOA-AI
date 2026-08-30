@@ -5,7 +5,7 @@ public import LeanOA.Ultraweak.SpectralProjection
 @[expose] public section
 
 /-!
-# Spectral bands in a W-star algebra
+# Spectral bands in a W*-algebra
 
 This file records a small theorem-level API for differences of lower spectral projections.  An
 ordered difference
@@ -73,7 +73,7 @@ theorem spectralProjectionIio_sub_add_sub (a : selfAdjoint M) (r s t : ℝ) :
     ((spectralProjectionIio a s).1 - (spectralProjectionIio a r).1) +
         ((spectralProjectionIio a t).1 - (spectralProjectionIio a s).1) =
       (spectralProjectionIio a t).1 - (spectralProjectionIio a r).1 := by
-  abel
+  rw [add_comm, sub_add_sub_cancel]
 
 /-- Spectral bands on ordered disjoint intervals are orthogonal.  The reverse product also
 vanishes by `commute_spectralProjectionIio_sub_spectralProjectionIio_sub`. -/
@@ -81,12 +81,9 @@ theorem spectralProjectionIio_sub_mul_spectralProjectionIio_sub_eq_zero
     (a : selfAdjoint M) {r s t u : ℝ} (hrs : r ≤ s) (hst : s ≤ t) (htu : t ≤ u) :
     ((spectralProjectionIio a s).1 - (spectralProjectionIio a r).1) *
         ((spectralProjectionIio a u).1 - (spectralProjectionIio a t).1) = 0 := by
-  have hmul {x y : ℝ} (hxy : x ≤ y) :
-      (spectralProjectionIio a x).1 * (spectralProjectionIio a y).1 =
-        (spectralProjectionIio a x).1 :=
-    ((spectralProjectionIio a x).2.le_iff_mul_eq_left
-      (spectralProjectionIio a y).2).mp (spectralProjectionIio_mono a hxy)
-  rw [mul_sub, sub_mul, sub_mul, hmul (hst.trans htu), hmul hst,
-    hmul (hrs.trans (hst.trans htu)), hmul (hrs.trans hst), sub_self]
+  exact (spectralProjectionIio a r).2.sub_mul_sub_eq_zero_of_le
+    (spectralProjectionIio a s).2 (spectralProjectionIio a t).2
+    (spectralProjectionIio a u).2 (spectralProjectionIio_mono a hrs)
+    (spectralProjectionIio_mono a hst) (spectralProjectionIio_mono a htu)
 
 end WStarAlgebra

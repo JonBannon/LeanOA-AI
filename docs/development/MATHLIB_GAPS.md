@@ -20,6 +20,11 @@ This is an API-reconnaissance log, not a commitment to upstream every helper.
   `TwoSidedIdeal` representation question.
 - Generic weak-bilinear transport and compatibility lemmas should be compared to current Mathlib
   before further local expansion.
+- Current Mathlib master contains `IsSelfAdjoint.norm_le_max_of_le_of_le`, but it is not an exact
+  drop-in replacement for the pinned local declaration in `LeanOA/CFC.lean`: upstream assumes the
+  middle element is self-adjoint, while the local signature derives that fact from a self-adjoint
+  lower bound. On the next Mathlib update, remove the local duplicate and make the middle
+  self-adjointness explicit at consumers such as tagged spectral sums.
 
 ## Major infrastructure question
 
@@ -27,6 +32,18 @@ This is an API-reconnaissance log, not a commitment to upstream every helper.
   has been identified. Audit pinned and current Mathlib before introducing one. A scalar/vector
   Bochner integral is not automatically the right codomain for W*-algebra-valued spectral
   integration.
+
+The completed audit in `reports/MATHLIB_SPECTRAL_AUDIT.md` distinguishes the layers precisely:
+`VectorMeasure` can express topology-parametric additivity, but its integral uses norm variation;
+current `Archive/RiemannStieltjes.lean` is likewise norm-topological and is neither pinned nor a
+general PVM. The current shortest route is therefore theorem-level ultraweak tagged-sum limits,
+not a local operator-valued measure.
+
+## First-wave general helper
+
+- `IsStarProjection.sub_mul_sub_eq_zero_of_le` is a plausible Mathlib contribution: it is stated
+  for nonunital $C^*$-algebras and says that differences from two ordered disjoint intervals in a
+  chain of four projections are orthogonal. No equivalent was found in pinned or current Mathlib.
 
 ## External work already monitored
 

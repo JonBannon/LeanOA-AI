@@ -1,6 +1,6 @@
 # D001 — defer the set-indexed spectral-resolution interface
 
-Status: Proposed / RED guardrail
+Status: Accepted guardrail; permanent integral API remains RED
 
 Affected streams: architecture, Mathlib reconnaissance, spectral theorem clusters, Verso
 
@@ -37,4 +37,8 @@ No public declaration may currently claim a general spectral measure or integral
 
 ## Follow-up
 
-Resolve IQ-001 after the Mathlib audit and first theorem-cluster integration.
+The Mathlib audit and first theorem-cluster integration confirmed the guardrail. Arbitrary tagged
+sums now converge in norm and in every specified ultraweak topology without a measure object.
+Before choosing a public integral definition, scratch-test a generic topology-explicit tagged-limit
+predicate against a spectral-family-specific proposition and prove them equivalent for the identity
+integrand. Keep uniqueness of Sakai's resolution as a separate source clause.

@@ -1,25 +1,28 @@
 # Sak-AI mathematical continuation
 
-Last updated: 2026-08-28
+Last updated: 2026-08-30
 
 ## Verified repository state
 
 - Branch: `master`.
-- Base commit before the current norm-convergence work: `9ef9cf4` (`feat: add finite spectral sum
-  estimates`).
-- That commit contains the completed development through the finite-partition estimates in Sakai
-  1.11.3.
-- The theorem package had no uncommitted changes at the start of the current work.
+- Parallel orchestration began from `92db74d`; worker worktrees were cut from coordination commit
+  `463d37e`.
+- The first parallel spectral wave adds theorem-level band calculus and arbitrary tagged spectral
+  sums without changing the lower spectral projection or choosing a spectral-measure object.
+- The theorem package had no uncommitted changes at the start of the orchestration work.
 - Jireh Loreaux's LeanOA and Mathlib are read-only references. The original LeanOA checkout has
   not been modified.
 
 ## Mathematical frontier
 
 Sakai 1.10.3--1.10.7 is complete, and the spectral-resolution development now includes norm
-convergence of the finite spectral sums in Sakai 1.11.3: lower spectral projections are
+convergence of arbitrary tagged finite spectral sums in Sakai 1.11.3: lower spectral projections are
 constructed, proved monotone and ultraweakly continuous from below, satisfy Sakai's increment and
 endpoint formulas, and yield lower and upper finite sums converging in norm along arbitrary
-mesh-zero filtered families and an explicit nested sequence of dyadic divisions.
+mesh-zero filtered families and an explicit nested sequence of dyadic divisions. Spectral-band
+differences now have a reusable projection/commutation/additivity/orthogonality API. Arbitrary tags
+inside the bands give sums between the lower and upper sums, with the same mesh estimate, norm
+limit, and an explicit limit in every specified ultraweak topology.
 
 The implemented public design is:
 
@@ -54,6 +57,11 @@ The implemented public design is:
 15. Derive convergence for arbitrary filtered families directly from the finite norm-error API;
     give a concrete dyadic family whose elementary grid lemmas only require a seminormed additive
     star group, and prove its divisions refine on the nose.
+16. Extract ordered-disjoint projection-difference orthogonality at nonunital $C^*$-algebra
+    generality, then expose the spectral-band specialization without bundling a spectral family.
+17. Define arbitrary tagged spectral sums, bridge their endpoint tags back to the existing lower
+    and upper sums, prove sandwich/error/convergence theorems, and pass the norm limit through the
+    canonical map to every specified ultraweak topology.
 
 ## Implementation order
 
@@ -101,12 +109,24 @@ The completed implementation layers are:
      at seminormed additive star-group generality;
    - norm convergence of the concrete dyadic lower and upper sums to the original self-adjoint
      element.
+9. Spectral-band theorem layer (completed on 2026-08-30):
+   - ordered differences are projections;
+   - bands commute with the element, lower projections, and one another;
+   - adjacent additivity and orthogonality of ordered disjoint bands;
+   - the underlying four-projection fact at nonunital $C^*$-algebra generality.
+10. Tagged spectral-sum layer (completed on 2026-08-30):
+   - endpoint-tag bridges to the established lower and upper sums;
+   - self-adjointness, the lower/upper sandwich, and sharp gap/mesh estimates;
+   - filter-general and dyadic norm convergence;
+   - a named theorem passing the filter-general limit to every specified ultraweak topology.
 
-The next mathematical checkpoint is to package the norm-limit construction as Sakai's
-spectral-integral representation of a self-adjoint element. Re-audit the existing Sak-AI API,
-pinned/current Mathlib, and the read-only original LeanOA, paying particular attention to current
-measure, integration, and spectral-measure interfaces before choosing any new abstraction.
-Uniqueness of the resolution remains beyond that checkpoint.
+The next bounded architecture transaction is to scratch-test two proposition-level formulations
+of Sakai's ultraweak Radon--Stieltjes limit: a topology-explicit generic tagged-partition filter and
+a spectral-family-specific `HasSpectralIntegral` predicate. Prove them equivalent for the identity
+integrand using the landed tagged-sum theorem, but make no public definition before review. The
+Mathlib audit found no general PVM and showed that existing vector-measure integration is
+norm/variation based, so it must not be substituted for Sakai's $\sigma(M,M_*)$ integral.
+Uniqueness of the resolution remains a separate source clause beyond that checkpoint.
 
 Before each substantial proof, search the current Sak-AI tree, pinned Mathlib, current Mathlib
 master/review history, and current LeanOA for an equivalent or more general declaration.
@@ -114,7 +134,7 @@ master/review history, and current LeanOA for an equivalent or more general decl
 ## Documentation continuation
 
 The Verso package preserves all 87 active nodes and 141 statement-dependency edges in the generated
-legacy graph and extends them through norm convergence of the finite spectral sums in Sakai
+legacy graph and extends them through norm convergence of arbitrary tagged spectral sums in Sakai
 1.11.3. The exact manifest counts and audit state are recorded in `VERSO_STATUS.md`. The legacy
 sources remain recoverable from Git history. New mathematical documentation must be authored in
 Verso first.

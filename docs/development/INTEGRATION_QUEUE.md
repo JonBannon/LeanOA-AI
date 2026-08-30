@@ -11,17 +11,24 @@ in their workstream.
   without constructing a parallel measure theory beside Mathlib?
 - **Constraints:** preserve `spectralProjectionIio` half-line semantics; do not claim a general
   set-indexed projection-valued measure prematurely; keep finite sums usable as rewrite tools.
-- **Next evidence:** pinned/current Mathlib audit and concrete signatures required by the existence
-  and later uniqueness proofs.
+- **Evidence obtained:** `reports/MATHLIB_SPECTRAL_AUDIT.md` shows that Mathlib's vector-measure
+  integral is norm/variation based, neither pinned nor current Mathlib has a general PVM, and the
+  current archived Riemann--Stieltjes API is norm-topological.
+- **Next bounded action:** scratch-test a topology-explicit generic tagged-filter predicate against
+  a spectral-family-specific `HasSpectralIntegral` proposition; prove equivalence for the identity
+  integrand and make no public definition until review.
 
 ## IQ-002 — spectral helper generality
 
-- **Status:** OPEN / YELLOW
+- **Status:** RESOLVED for the first wave
 - **Affected streams:** spectral bands and tagged sums
 - **Question:** Which interval-projection and tagged-sum facts are naturally generic for any
   monotone projection family, and which should remain specialized to `spectralProjectionIio`?
 - **Default:** prove generic theorem-level facts where the assumptions stay recognizable; do not
   introduce a generic bundled spectral-family structure merely to share one proof.
+- **Decision:** extract only the four-projection orthogonality fact to the nonunital Mathlib-staging
+  layer. Keep spectral-band and tagged-sum declarations specialized to `spectralProjectionIio`,
+  with named bridges showing that the existing lower and upper sums are endpoint-tag cases.
 
 ## IQ-003 — `TwoSidedIdeal` representation
 

@@ -30,6 +30,10 @@ lowerSpectralSum / upperSpectralSum
   ↓
 mesh estimates and dyadic norm convergence
   ↓
+spectral-band calculus + arbitrary tagged sums
+  ↓
+norm convergence + named ultraweak convergence bridge
+  ↓
 [RED] spectral-resolution / integral representation
 ```
 
@@ -62,6 +66,16 @@ largest syntactic junctions. Semantically important junctions also include `Ultr
 `SpectralProjection` and `SpectralSum` as a narrow high-payoff chain.
 
 Changes at these nodes receive architecture review even when the local proof is routine.
+
+The first parallel wave exposed one reusable leaf below the projection junction:
+`IsStarProjection.sub_mul_sub_eq_zero_of_le` is nonunital and independent of spectral theory. The
+spectral-band and tagged-sum modules remain downstream theorem layers, so the wave did not widen the
+foundational junction surface.
+
+An import audit with `lake shake --keep-public --explain` also found broad historical removable
+imports around foundational-looking modules. No imports were changed during this transaction:
+those modules are junction nodes, and cleanup should be performed in bounded batches with full
+downstream builds rather than folded into unrelated spectral work.
 
 ## Cartography fields for a major concept
 

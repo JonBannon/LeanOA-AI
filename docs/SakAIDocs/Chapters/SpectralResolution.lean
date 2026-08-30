@@ -2,6 +2,8 @@ import Verso
 import VersoManual
 import VersoBlueprint
 import LeanOA.Ultraweak.SpectralApproximation
+import LeanOA.Ultraweak.SpectralBand
+import LeanOA.Ultraweak.TaggedSpectralSum
 
 open Verso.Genre
 open Verso.Genre.Manual
@@ -175,6 +177,30 @@ $`\lambda p\leq hp\leq\mu p`.  Replacing each
 $`t e_h(t)-b_h(t)` by $`h e_h(t)` gives the displayed increment estimate.
 :::
 
+:::proposition "prop:spectral_band_calculus" (parent := "spectral-band-increments") (lean := "IsStarProjection.sub_mul_sub_eq_zero_of_le, WStarAlgebra.isStarProjection_spectralProjectionIio_sub, WStarAlgebra.commute_spectralProjectionIio_spectralProjectionIio, WStarAlgebra.commute_spectralProjectionIio_sub, WStarAlgebra.commute_spectralProjectionIio_sub_spectralProjectionIio, WStarAlgebra.commute_spectralProjectionIio_sub_spectralProjectionIio_sub, WStarAlgebra.spectralProjectionIio_sub_add_sub, WStarAlgebra.spectralProjectionIio_sub_mul_spectralProjectionIio_sub_eq_zero") (uses := "prop:lower_spectral_projection_mono_Sak_1_11, prop:lower_spectral_projection_cut_recovery")
+For $`r\leq s`, put $`p_{r,s}=e_h(s)-e_h(r)`.  Then $`p_{r,s}` is a
+projection.  Spectral bands commute with $`h`, with every lower spectral
+projection, and with one another.  They are finitely additive on adjacent
+intervals:
+$`
+  p_{r,s}+p_{s,t}=p_{r,t}.
+`
+If $`r\leq s\leq t\leq u`, then the disjoint ordered bands are orthogonal:
+$`
+  p_{r,s}p_{t,u}=p_{t,u}p_{r,s}=0.
+`
+:::
+
+:::proof "prop:spectral_band_calculus"
+Monotonicity of $`e_h` turns each ordered difference into a projection.
+Comparable projections commute, and subtraction preserves commutation, which
+gives all stated commutation relations.  Adjacent additivity is cancellation
+in the ambient additive group.  Orthogonality is the general nonunital
+$`C^*`$-algebra fact that if four projections satisfy
+$`p\leq q\leq r\leq s`, then $`(q-p)(s-r)=0`; commutation gives the reverse
+product.
+:::
+
 :::group "spectral-family-endpoints"
 The endpoint behavior in Sakai 1.11.3.
 :::
@@ -335,4 +361,53 @@ For a general filtered family, the squeeze theorem therefore reduces both
 norm limits to convergence of the mesh bounds.  The dyadic statement follows
 by substituting the divisions above, whose endpoints contain
 $`[-\lVert h\rVert,\lVert h\rVert]` and whose meshes tend to zero.
+:::
+
+:::definition "def:tagged_spectral_sums" (parent := "finite-spectral-sums") (lean := "WStarAlgebra.taggedSpectralSum, WStarAlgebra.taggedSpectralSum_eq_lowerSpectralSum, WStarAlgebra.taggedSpectralSum_eq_upperSpectralSum, WStarAlgebra.isSelfAdjoint_taggedSpectralSum, WStarAlgebra.lowerSpectralSum_le_taggedSpectralSum, WStarAlgebra.taggedSpectralSum_le_upperSpectralSum, WStarAlgebra.lowerSpectralSum_le_taggedSpectralSum_and_taggedSpectralSum_le_upperSpectralSum") (uses := "def:finite_spectral_sums_Sak_1_11_3, prop:spectral_band_calculus")
+Choose a tag $`\xi_i\in[\lambda_i,\lambda_{i+1}]` in every selected band and
+define
+$`
+  T(\lambda,\xi)=\sum_{i<n}\xi_i
+    \bigl(e_h(\lambda_{i+1})-e_h(\lambda_i)\bigr).
+`
+The tagged sum is self-adjoint and lies between the lower and upper sums:
+$`
+  m(\lambda)\leq T(\lambda,\xi)\leq M(\lambda).
+`
+The one-sided Lean interfaces state cut monotonicity separately; the combined
+interface derives it from tag containment.
+:::
+
+:::proof "def:tagged_spectral_sums"
+Each band projection is nonnegative.  Multiplying it by
+$`\lambda_i\leq\xi_i\leq\lambda_{i+1}` and summing gives the sandwich.
+Self-adjointness follows term by term.
+:::
+
+:::proposition "prop:tagged_spectral_sum_convergence" (parent := "finite-spectral-sums") (lean := "WStarAlgebra.norm_taggedSpectralSum_sub_self_le_norm_upperSpectralSum_sub_lowerSpectralSum, WStarAlgebra.norm_taggedSpectralSum_sub_self_le, WStarAlgebra.tendsto_taggedSpectralSum, WStarAlgebra.tendsto_taggedSpectralSum_ultraweak, WStarAlgebra.tendsto_taggedSpectralSum_dyadic") (uses := "def:tagged_spectral_sums, prop:finite_spectral_sum_estimate_Sak_1_11_3, def:dyadic_spectral_divisions_Sak_1_11_3")
+If the endpoint cuts contain the spectral interval of $`h` and the mesh is at
+most $`\delta`, then every admissible tagged sum satisfies
+$`
+  \lVert T(\lambda,\xi)-h\rVert
+  \leq \lVert M(\lambda)-m(\lambda)\rVert
+  \leq\delta.
+`
+Consequently, tagged sums converge in norm to $`h` along every filtered
+family whose mesh tends to zero.  This applies in particular to arbitrary
+admissible tags on the canonical dyadic divisions.  Passing through the
+canonical continuous map from the norm topology gives the same limit in
+every specified ultraweak topology.
+
+This result supplies the partition-independent approximation needed for a
+spectral-integral formulation.  It does *not* define an operator-valued
+measure or identify the limit with Sakai's ultraweak Radon--Stieltjes integral;
+that interface remains the current architectural frontier.
+:::
+
+:::proof "prop:tagged_spectral_sum_convergence"
+Both $`T(\lambda,\xi)` and $`h` lie in the order interval
+$`[m(\lambda),M(\lambda)]`.  The general norm estimate for a self-adjoint
+element in an order interval bounds their difference by the norm of the gap.
+The finite-partition estimate bounds that gap by the mesh, and the filter
+squeeze theorem proves convergence.
 :::

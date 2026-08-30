@@ -16,6 +16,10 @@ declaration links. Keep development guidance in repository documents, not the pu
   not perform scattered replacements.
 - Preserve the mathematical path, library/API path, graph, summary, search, and index.
 
+The first spectral parallel wave now has a three-node public presentation: spectral-band calculus,
+tagged spectral sums, and tagged-sum convergence. The last node explicitly separates its stronger
+norm and derived ultraweak limits from the still-missing Radon--Stieltjes integral interface.
+
 ## Work that must wait
 
 - Do not document a set-indexed spectral measure or spectral integral as formalized until IQ-001 is

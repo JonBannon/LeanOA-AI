@@ -9,7 +9,9 @@ import LeanOA.Ultraweak.Opposite
 import LeanOA.Ultraweak.PredualUniqueness
 import LeanOA.Ultraweak.ProjectionLattice
 import LeanOA.Ultraweak.SpectralApproximation
+import LeanOA.Ultraweak.SpectralBand
 import LeanOA.Ultraweak.Support
+import LeanOA.Ultraweak.TaggedSpectralSum
 
 open Verso.Genre
 open Verso.Genre.Manual
@@ -65,6 +67,12 @@ the general C-star-algebra projection layer.  It expresses the hereditary
 fact that a projection fixing a positive upper bound fixes every smaller
 positive element, and is used to prove support monotonicity without any
 W-star-specific argument.
+
+The ordered-difference identity
+{name}`IsStarProjection.sub_mul_sub_eq_zero_of_le` is stated for nonunital
+$`C^*`$-algebras.  It says that $`p\leq q\leq r\leq s` makes the projection
+differences $`q-p` and $`s-r` orthogonal, and contains no spectral or
+$`W^*`$-algebra assumptions.
 
 # Lower spectral projections
 
@@ -122,6 +130,28 @@ recorded by {name}`WStarAlgebra.dyadicSpectralCut_refines`,
 {name}`WStarAlgebra.tendsto_upperSpectralSum_dyadic`.  The dyadic-grid
 arithmetic is stated for seminormed additive star groups, independently of
 the W-star application.
+
+The theorem-level spectral-band API avoids introducing a bundled spectral
+family.  Ordered differences are projections by
+{name}`WStarAlgebra.isStarProjection_spectralProjectionIio_sub`; commutation,
+adjacent additivity, and disjoint-band orthogonality are exposed by
+{name}`WStarAlgebra.commute_spectralProjectionIio_sub_spectralProjectionIio_sub`,
+{name}`WStarAlgebra.spectralProjectionIio_sub_add_sub`, and
+{name}`WStarAlgebra.spectralProjectionIio_sub_mul_spectralProjectionIio_sub_eq_zero`.
+
+Arbitrary tagged sums are {name}`WStarAlgebra.taggedSpectralSum`; the endpoint
+specializations are the canonical bridges
+{name}`WStarAlgebra.taggedSpectralSum_eq_lowerSpectralSum` and
+{name}`WStarAlgebra.taggedSpectralSum_eq_upperSpectralSum`.  The main analytic
+interfaces are the lower/upper sandwich
+{name}`WStarAlgebra.lowerSpectralSum_le_taggedSpectralSum_and_taggedSpectralSum_le_upperSpectralSum`,
+the mesh estimate {name}`WStarAlgebra.norm_taggedSpectralSum_sub_self_le`, and
+filter-general convergence {name}`WStarAlgebra.tendsto_taggedSpectralSum`.
+The named topology bridge is
+{name}`WStarAlgebra.tendsto_taggedSpectralSum_ultraweak`.
+The dyadic specialization is
+{name}`WStarAlgebra.tendsto_taggedSpectralSum_dyadic`.  These declarations do
+not define a spectral measure or integral.
 
 # Central ideals and central support
 

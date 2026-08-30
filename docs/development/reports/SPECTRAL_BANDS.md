@@ -75,10 +75,11 @@ only Mathlib's projection-order multiplication characterizations and ring arithm
 spectral or $W^*$-algebra content.  No equivalent declaration was found in pinned or current
 Mathlib.
 
-Recommendation: integration should consider extracting this as a small declaration in
-`LeanOA/Mathlib/Analysis/CStarAlgebra/Projection.lean`, likely in the `IsStarProjection` namespace,
-then shorten the spectral theorem to an application.  This is a natural answer to IQ-002, but the
-shared staging file was deliberately not edited under this workstream contract.
+Integration extracted this as
+`IsStarProjection.sub_mul_sub_eq_zero_of_le` in
+`LeanOA/Mathlib/Analysis/CStarAlgebra/Projection.lean`, at nonunital $C^*$-algebra generality, and
+shortened the spectral theorem to an application. This resolves the first-wave part of IQ-002
+without introducing a bundled projection family.
 
 ## Validation
 
@@ -91,3 +92,6 @@ lake build LeanOA.Ultraweak.SpectralBand
 The build completed all 3069 jobs, including the new module.  The owned Lean source contains no
 proof placeholders.  Public umbrella import and whole-repository lint/build remain integration
 tasks because this workstream was expressly forbidden to edit `LeanOA.lean`.
+
+The lead subsequently rebuilt the generalized projection helper together with
+`LeanOA.Ultraweak.SpectralBand`; the refactored module also succeeds.

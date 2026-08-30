@@ -1,7 +1,7 @@
 # Workstreams
 
-All active streams are governed by `SAKAI_DESIGN_CONTRACT.md`. The baseline is `92db74d` on
-`master`; worktree and branch names are filled in when launched.
+All streams are governed by `SAKAI_DESIGN_CONTRACT.md`. Reconnaissance began at `92db74d`; the
+parallel implementation worktrees were cut from coordination baseline `463d37e` on `master`.
 
 ## Candidate theorem clusters
 
@@ -33,35 +33,53 @@ owns architecture/integration. Verso review follows as soon as an agent slot ope
 - **Scope:** coordination layer, design enforcement, IQ-001, review, integration, full validation
 - **Owned files:** `docs/development/`, umbrella/import changes during integration
 - **Forbidden:** silently settling the human-gated ideal representation or inventing a PVM API
-- **Status:** ACTIVE
+- **Status:** COMPLETE; focused/full Lean validation, lint, the stable Verso build, and the manifest
+  check all pass
 
 ### Mathlib spectral/integration reconnaissance
 
-- **Owner:** first-wave worker
+- **Owner:** `mathlib_spectral_audit`
 - **Scope:** pinned/current Mathlib search, existing Sak-AI overlap, exact options for integral
   packaging; update only its report in its worktree
 - **Dependencies:** read-only theorem library and design records
-- **Status:** READY
+- **Worktree/branch:** `/private/tmp/sakai-agent-mathlib-463d37e`, `agent/mathlib-spectral`
+- **Status:** COMPLETE and integrated as `4cf9ded`; found no suitable PVM/integral replacement and
+  recommended the theorem-level ultraweak limit bridge
 
 ### Spectral-band theorem cluster
 
-- **Owner:** first-wave worker
+- **Owner:** `spectral_bands`
 - **Scope:** bounded projection, order, commutation, and orthogonality facts derived from the existing
   `spectralProjectionIio`; prefer generic existing Mathlib lemmas and no new foundational structure
 - **Owned modules:** one new spectral-band module plus a worker report
-- **Status:** READY
+- **Worktree/branch:** `/private/tmp/sakai-agent-bands-463d37e`, `agent/spectral-bands`
+- **Status:** COMPLETE; worker commit `d50aa7a` integrated as `c9e18f8`, then architecture extracted
+  the generic nonunital projection lemma and revalidated the focused module
 
 ### Tagged spectral-sum theorem cluster
 
-- **Owner:** first-wave worker
+- **Owner:** `tagged_spectral_sums`
 - **Scope:** tagged sums with tags inside adjacent cuts, bracketing/error estimates, and convergence
   consequences where possible; no integral or measure definition
 - **Owned modules:** one new tagged-sum module plus a worker report
-- **Status:** READY
+- **Worktree/branch:** `/private/tmp/sakai-agent-tagged-463d37e`,
+  `agent/tagged-spectral-sums`
+- **Status:** COMPLETE proposal integrated by the lead; endpoint-tag bridges and the named
+  ultraweak convergence corollary were added during integration review
 
-### Verso exposition audit
+### Verso spectral-frontier audit
 
-- **Owner:** second-wave worker
+- **Owner:** `verso_spectral_audit`
 - **Scope:** declaration-link and typography audit; document only integrated results
-- **Owned modules:** `docs/SakAIDocs/` and an audit report
-- **Status:** QUEUED pending an agent slot and integration-ready Lean declarations
+- **Owned modules:** read-only public Verso audit and
+  `docs/development/reports/VERSO_SPECTRAL_AUDIT.md`
+- **Status:** COMPLETE; recommended and checked the three-node mathematical presentation, direct
+  declaration imports, current-frontier update, and measured-count validation
+
+### Independent integration review
+
+- **Owner:** `integration_review`
+- **Scope:** read-only mathematical/API review of the general projection, spectral-band, and tagged
+  sum changes
+- **Status:** COMPLETE; no correctness blockers, requested the two endpoint-tag bridges and
+  identified the exact current-Mathlib signature migration for the order-interval norm lemma
