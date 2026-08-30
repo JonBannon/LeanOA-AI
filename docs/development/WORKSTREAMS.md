@@ -230,3 +230,42 @@ PVM abstraction independently.
   premature resolution/PVM/integral structure, and identifies the exact remaining
   Radon--Stieltjes/refinement bridge. The 3,114-job theorem build, `lake lint`, and the Verso
   build/check pass; the generated graph has 103 nodes and 175 edges with 492 manifest entries.
+
+## Radon--Stieltjes refinement-bridge transaction
+
+This bounded transaction starts at `0e5a794`. It audits existing Riemann--Stieltjes formalizations
+before local implementation, then tests the smallest refinement-directed semantics capable of
+closing Sakai 1.11.3 under asymptotic endpoints and ultraweak convergence. Mathlib CFC remains
+canonical. No stream may publish a PVM, general integral, or competing resolution independently.
+
+### External Riemann--Stieltjes audit
+
+- **Owner:** `rs_external_audit`
+- **Scope:** PNT+, `teorth/analysis`, pinned/current Mathlib, original LeanOA, provenance, and exact
+  reuse classification
+- **Owned files:** one isolated external-audit report
+- **Status:** PLANNED
+
+### Division/refinement/cofinality
+
+- **Owner:** `rs_refinement`
+- **Scope:** generic finite divisions, refinement, finite prescribed cuts, common refinement,
+  cofinality, and generic limit restriction
+- **Owned files:** isolated scratch/report and at most one reviewed generic production proposal
+- **Status:** PLANNED
+
+### Source-faithful Radon--Stieltjes bridge
+
+- **Owner:** `rs_bridge`
+- **Scope:** moment sums, asymptotic endpoint residuals, representation filter, inserted-cut
+  translated limit, and compatibility with the existing conditional support proof
+- **Owned files:** isolated scratch/report; no public integral/resolution structure
+- **Status:** PLANNED
+
+### Lead architecture, uniqueness integration, and Verso
+
+- **Owner:** lead agent
+- **Scope:** external-reuse decision, shared API ownership, integration of the conditional support
+  proof, completion of Sakai 1.11.3 if source hypotheses close, public API judgment, Verso, and full
+  validation
+- **Status:** ACTIVE
