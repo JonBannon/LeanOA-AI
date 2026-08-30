@@ -34,9 +34,15 @@ spectral-band calculus + arbitrary tagged sums
   ↓
 norm convergence + named ultraweak convergence bridge
   ↓
-[NEXT] partial-interval estimate + truncated-affine weighted-sum convergence
+partial-interval estimate + truncated-affine weighted-sum convergence
   ↓
-[RED] arbitrary competing spectral resolution and integral representation
+CFC bridge: weighted sums converge to cfc (fun lambda => (r - lambda)^+) a
+  ↓
+[RED] source-faithful ultraweak decomposition for an arbitrary competing resolution
+  ↓
+[RED] support recovery and uniqueness
+  ↓
+[RED] general PVM and measurable functional calculus
 ```
 
 ```text
@@ -81,10 +87,18 @@ therefore a concrete theorem about the continuous weight `(lambda_0 - lambda)^+`
 definition. This keeps future weighted-sum theorem work downstream of the GREEN projection API
 while the family-parametric resolution object remains RED; no weighted-sum public layer is implied.
 
-An import audit with `lake shake --keep-public --explain` also found broad historical removable
-imports around foundational-looking modules. No imports were changed during this transaction:
+An earlier import audit with `lake shake --keep-public --explain` found broad historical removable
+imports around foundational-looking modules. No imports were changed during that audit:
 those modules are junction nodes, and cleanup should be performed in bounded batches with full
 downstream builds rather than folded into unrelated spectral work.
+
+The truncated-affine transaction adds one theorem-only node below the existing tagged-sum layer.
+It proves a partial-interval estimate, a bandwise estimate for the CFC positive part even when the
+cutoff lies inside a band, and sharp norm and specified-ultraweak convergence to the existing
+`spectralPositivePart`. It introduces no resolution or integral object. Scratch work shows that
+projection-valuedness plus monotonicity controls finite truncated-affine sums, but Sakai's actual
+ultraweak representation still needs a fixed-projection decomposition argument before support and
+uniqueness can move out of RED.
 
 ## Cartography fields for a major concept
 

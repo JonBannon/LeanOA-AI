@@ -6,6 +6,7 @@ Accepted bounded decision; canonical theorem layer is public, lower-family/PVM/i
 architecture remains RED.
 
 Evidence: canonical production module at `80bc2d82cab51ecfd96f551c7d0746eb8a18eae3`,
+named CFC bridge and umbrella integration at `5a2f037`,
 competing-family scratch result at `de8e2bb`, and support/CFC/PVM audit at
 `f5daad067c64d5d05895a809cbfd7dc3266eb862`.
 
@@ -27,9 +28,10 @@ integral or resolution structure is introduced.
 
 Mathlib CFC remains Sak-AI's canonical and only continuous functional calculus.
 `CStarAlgebra.spectralPositivePart` is a semantic wrapper around `cfc`, and
-`spectralPositivePart_eq_posPart` is the bridge to the literal translated positive part.  A future
-PVM/integral API must prove agreement with CFC on continuous functions; it must not create a second
-continuous calculus or add PVM fields to the CFC class.
+`spectralPositivePart_eq_cfc` and `spectralPositivePart_eq_posPart` are the named bridges to the
+generic CFC value and literal translated positive part. A future PVM/integral API must prove
+agreement with CFC on continuous functions; it must not create a second continuous calculus or add
+PVM fields to the CFC class.
 
 The local CFC transfer staging may be replaced by current Mathlib's transfer module at a future
 dependency update.  That is a compatibility migration, not an architectural change.
@@ -147,7 +149,8 @@ this separation of responsibilities.
 
 ## Public API decision
 
-Publish only the canonical theorem layer at `80bc2d8`.
+Publish only the canonical theorem layer at `80bc2d8`, its named CFC bridge, and its umbrella import
+at `5a2f037`.
 
 Defer all of the following:
 

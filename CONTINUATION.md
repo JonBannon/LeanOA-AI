@@ -9,6 +9,8 @@ Last updated: 2026-08-30
   `463d37e`.
 - The first parallel spectral wave adds theorem-level band calculus and arbitrary tagged spectral
   sums without changing the lower spectral projection or choosing a spectral-measure object.
+- The truncated-affine recovery transaction adds a theorem-only CFC bridge and leaves the
+  arbitrary-resolution, PVM, and operator-valued integral boundaries explicitly RED.
 - The theorem package had no uncommitted changes at the start of the orchestration work.
 - Jireh Loreaux's LeanOA and Mathlib are read-only references. The original LeanOA checkout has
   not been modified.
@@ -23,6 +25,12 @@ mesh-zero filtered families and an explicit nested sequence of dyadic divisions.
 differences now have a reusable projection/commutation/additivity/orthogonality API. Arbitrary tags
 inside the bands give sums between the lower and upper sums, with the same mesh estimate, norm
 limit, and an explicit limit in every specified ultraweak topology.
+
+Truncated-affine weights are now covered as well. For every cutoff $r$, including one lying
+strictly inside a partition band, the corresponding weighted tagged sum is within the mesh of
+`CStarAlgebra.spectralPositivePart a r`, hence converges in norm and in every specified ultraweak
+topology to the existing Mathlib-CFC value $\operatorname{cfc}(x\mapsto(r-x)^+)(a)$. No new
+continuous calculus, spectral integral, lower-family structure, or PVM was introduced.
 
 The implemented public design is:
 
@@ -62,6 +70,9 @@ The implemented public design is:
 17. Define arbitrary tagged spectral sums, bridge their endpoint tags back to the existing lower
     and upper sums, prove sandwich/error/convergence theorems, and pass the norm limit through the
     canonical map to every specified ultraweak topology.
+18. Prove a reusable partial-interval estimate and sharp truncated-affine mesh estimate without
+    requiring the cutoff to be a partition point; target the existing CFC positive part and derive
+    filter-general norm and specified-ultraweak convergence.
 
 ## Implementation order
 
@@ -119,14 +130,19 @@ The completed implementation layers are:
    - self-adjointness, the lower/upper sandwich, and sharp gap/mesh estimates;
    - filter-general and dyadic norm convergence;
    - a named theorem passing the filter-general limit to every specified ultraweak topology.
+11. Truncated-affine theorem layer (completed on 2026-08-30):
+   - a partial-interval tagged estimate requiring no spectral endpoint exhaustion;
+   - bandwise lower and upper bounds for `(r-a)⁺`, including the band crossing `r`;
+   - a sharp mesh bound for arbitrary in-band truncated-affine tags;
+   - filter-general norm convergence, specified-ultraweak convergence, and a dyadic corollary to
+     the existing CFC-native `spectralPositivePart`.
 
-The next bounded architecture transaction is to scratch-test two proposition-level formulations
-of Sakai's ultraweak Radon--Stieltjes limit: a topology-explicit generic tagged-partition filter and
-a spectral-family-specific `HasSpectralIntegral` predicate. Prove them equivalent for the identity
-integrand using the landed tagged-sum theorem, but make no public definition before review. The
-Mathlib audit found no general PVM and showed that existing vector-measure integration is
-norm/variation based, so it must not be substituted for Sakai's $\sigma(M,M_*)$ integral.
-Uniqueness of the resolution remains a separate source clause beyond that checkpoint.
+The next bounded architecture transaction is a source-faithful scratch test of the fixed-projection
+ultraweak decomposition behind Sakai's uniqueness proof. Starting from asymptotic endpoint limits
+and ultraweak identity-moment representation, allow an arbitrary cut `r` to be inserted and prove
+the upper-support identity and strictly-below positive lower bounds. Do not replace these hypotheses
+by exact finite endpoints or norm convergence, and do not publish a lower-family, resolution,
+integral, or PVM structure until support recovery succeeds noncircularly.
 
 Before each substantial proof, search the current Sak-AI tree, pinned Mathlib, current Mathlib
 master/review history, and current LeanOA for an equivalent or more general declaration.
@@ -134,8 +150,9 @@ master/review history, and current LeanOA for an equivalent or more general decl
 ## Documentation continuation
 
 The Verso package preserves all 87 active nodes and 141 statement-dependency edges in the generated
-legacy graph and extends them through norm convergence of arbitrary tagged spectral sums in Sakai
-1.11.3. The exact manifest counts and audit state are recorded in `VERSO_STATUS.md`. The legacy
+legacy graph and extends them to 102 nodes and 173 edges through canonical truncated-affine
+recovery in Sakai 1.11.3. The exact manifest counts and audit state are recorded in
+`VERSO_STATUS.md`. The legacy
 sources remain recoverable from Git history. New mathematical documentation must be authored in
 Verso first.
 
@@ -170,6 +187,6 @@ lake exe vbp check
 - Original LeanOA checkout: `/Users/jonbannon/LeanRepos/LeanOA` (read-only; do not alter).
 - Current read-only upstream LeanOA comparison used in this run: commit `cb811c10`.
 - Pinned Mathlib: commit `476ab284693e554a6b48c5f5210cb4fb5ae51252`.
-- Mathlib master observed on 2026-08-28: `8ce5b6b7138056305fda15c8360749f8a6b22c71`.
+- Mathlib master observed on 2026-08-30: `e62ea4d7200989bad96e0cc05b349c1a5c9800c8`.
 - Mathlib PR #42100 was still open at head `7f7138a127bf5c2f91d5b3e30b58499139561672`;
   its clopen-set CFC projections do not replace the W-star half-line support construction.

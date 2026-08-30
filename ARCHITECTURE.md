@@ -1,6 +1,6 @@
 # Sak-AI architecture and design decisions
 
-Last updated: 2026-08-28
+Last updated: 2026-08-30
 
 ## Theorem library
 
@@ -68,6 +68,21 @@ live in `LeanOA.Ultraweak.SpectralProjection`.
 The lower projection is named `WStarAlgebra.spectralProjectionIio` rather than the unqualified
 `spectralProjection`. The suffix records the half-line represented by the cutoff and reserves the
 unqualified name for a future set-indexed spectral-measure interface compatible with Mathlib.
+
+## Continuous calculus and a future PVM
+
+Mathlib's `ContinuousFunctionalCalculus` is Sak-AI's canonical continuous calculus.
+`CStarAlgebra.spectralPositivePart` is a source-facing name for its truncated-affine `cfc` value,
+with named bridges to both `cfc` and positive-part notation. Sak-AI does not maintain a parallel
+continuous functional calculus.
+
+A future projection-valued measure and measurable spectral calculus form an additional layer. For
+the spectral PVM of a self-adjoint element, restriction to strict lower half-lines should reproduce
+`spectralProjectionIio`, and spectral integration should agree with Mathlib `cfc` on continuous
+functions. PVM data, ultraweak representation, and measurable calculus do not become fields of the
+CFC class. Until source-faithful support recovery for an arbitrary competing resolution is proved,
+the lower-family, resolution, PVM, and operator-valued integral interfaces remain architecture-
+owned RED boundaries; see `docs/development/DECISIONS/D003-spectral-resolution-cfc-pvm-architecture.md`.
 
 ## Central projections and closed two-sided ideals
 

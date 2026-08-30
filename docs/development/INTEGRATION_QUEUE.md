@@ -17,13 +17,20 @@ in their workstream.
   generic and spectral-specific predicates equivalent for every real integrand, not just the
   identity. Atom counterexamples rule out unrestricted mesh-only semantics for discontinuous
   weights, and the canonical-specific predicate cannot state Sakai's arbitrary competing
-  resolution `e'`.
-- **Decision so far:** publish neither experimental predicate. The question remains OPEN / RED;
-  this is a source-driven deferral, not acceptance of a canonical-family integral.
-- **Next bounded action:** prove a partial-interval tagged norm estimate and aligned weighted-sum
-  convergence for `(lambda_0 - lambda)^+` to the existing spectral positive part. Then extract the
-  minimum explicit laws needed to state the corresponding theorem for an arbitrary competing
-  resolution.
+  resolution `e'`. The truncated-affine transaction now adds a sharp canonical theorem with an
+  interior cutoff and the exact existing CFC target. An arbitrary monotone projection family also
+  satisfies the corresponding finite positive-part identity under exact endpoint normalization,
+  but passing to the target through `Filter.Tendsto.cfc` requires norm moment convergence, which is
+  stronger than Sakai's ultraweak representation. Support recovery additionally needs lower
+  bounds, an upper-support identity, and continuity from below; support is not continuous under
+  norm limits.
+- **Decision so far:** publish the canonical theorem layer only. Publish neither experimental
+  integral predicate nor a lower-family, resolution, or PVM structure. The architecture remains
+  OPEN / RED beyond the CFC bridge, with the required hypotheses now sharply separated.
+- **Next bounded action:** scratch-test Sakai's exact ultraweak hypotheses by splitting the
+  truncated-affine approximants at a fixed projection `e' r`, allowing an arbitrary cut `r` to be
+  inserted. Prove the two fixed-projection limit identities needed for support recovery without
+  assuming norm convergence, exact finite endpoints, or the desired support formula.
 
 ## IQ-002 — spectral helper generality
 

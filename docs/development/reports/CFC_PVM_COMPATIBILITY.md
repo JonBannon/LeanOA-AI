@@ -9,6 +9,7 @@ This report records the compatibility conclusion of the truncated-affine transac
 on the following kernel-checked and source-audited evidence:
 
 - the canonical production theorem layer at `80bc2d82cab51ecfd96f551c7d0746eb8a18eae3`;
+- its named CFC bridge and umbrella integration at `5a2f037`;
 - the competing-family scratch result at `de8e2bb`;
 - the support/CFC/PVM scratch audit at `f5daad067c64d5d05895a809cbfd7dc3266eb862`;
 - pinned Mathlib `476ab284693e554a6b48c5f5210cb4fb5ae51252`;
@@ -35,10 +36,11 @@ CStarAlgebra.spectralPositivePart a r
   = (algebraMap ℝ M r - a.1)⁺.
 ```
 
-The first equality is definitional and the second is
+The first equality is exposed by the non-`simp` theorem
+`CStarAlgebra.spectralPositivePart_eq_cfc`; the second is
 `CStarAlgebra.spectralPositivePart_eq_posPart`, proved with Mathlib's composition and positive-part
-API.  Positivity, order comparison, continuous dependence on the scalar cut, and the identification
-of finite positive/negative parts remain CFC facts.  Sak-AI does not define a competing continuous
+API. Positivity, order comparison, continuous dependence on the scalar cut, and the identification
+of finite positive/negative parts remain CFC facts. Sak-AI does not define a competing continuous
 calculus.
 
 The production module `LeanOA.Ultraweak.TruncatedSpectralSum` keeps the target visibly equal to this
@@ -126,7 +128,8 @@ must not be installed as a field whose only purpose is to make the two calculi a
 The following public theorem families should keep their statements and, where practical, their
 names even if their implementations are later refactored through a PVM:
 
-- `CStarAlgebra.spectralPositivePart_eq_posPart`, nonnegativity, and cut continuity;
+- `CStarAlgebra.spectralPositivePart_eq_cfc`, `spectralPositivePart_eq_posPart`, nonnegativity, and
+  cut continuity;
 - `spectralProjectionIio_eq_support_posPart` and the left/right support multiplication rules;
 - monotonicity, endpoint behavior, continuity from below, commutation, and the
   `spectralProjectionIio_le_iff` universal property;

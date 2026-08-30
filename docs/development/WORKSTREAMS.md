@@ -143,14 +143,23 @@ term-dependent spectral-resolution typeclass.
   specified-ultraweak convergence, CFC target identification
 - **Owned files:** isolated scratch/report files and at most one proposed theorem-level production
   module
-- **Status:** PLANNED
+- **Worktree/branch:** `/private/tmp/sakai-truncated-affine-canonical-b20209b`,
+  `agent/truncated-affine-canonical`
+- **Status:** COMPLETE at worker commit `18ddb9a`; production module integrated as `80bc2d8`.
+  The sharp mesh theorem permits the cutoff to lie inside a band and targets the existing CFC
+  positive part. The Verso follow-up was integrated as `2d43874`. No new structure was introduced.
 
 ### Arbitrary competing resolution
 
 - **Owner:** `competing_resolution`
 - **Scope:** explicit-hypothesis replay for `e'`, minimum assumption ledger, circularity audit
 - **Owned files:** isolated scratch files and private worker report
-- **Status:** PLANNED
+- **Worktree/branch:** `/private/tmp/sakai-competing-resolution-b20209b`,
+  `agent/competing-resolution`
+- **Status:** COMPLETE scratch result at local commit `de8e2bb`; not integrated or pushed. The
+  finite algebraic theorem generalized, but the norm-convergent moment and exact endpoint route is
+  stronger than Sakai's ultraweak hypotheses and does not recover support. Its consolidated
+  assumption-ledger follow-up was integrated as `9dcf1f5`.
 
 ### Support recovery and CFC/PVM audit
 
@@ -158,11 +167,18 @@ term-dependent spectral-resolution typeclass.
 - **Scope:** support theorem and endpoint convention, pinned/current CFC architecture, future-PVM
   refactorability and ultraweak-transfer analysis
 - **Owned files:** isolated scratch files and private worker report
-- **Status:** PLANNED
+- **Worktree/branch:** `/private/tmp/sakai-support-cfc-pvm-b20209b`,
+  `agent/support-cfc-pvm`
+- **Status:** COMPLETE scratch/audit result at local commit `f5daad0`; not integrated or pushed.
+  It fixed the strict `Iio` endpoint convention, isolated the order/continuity hypotheses needed
+  for support recovery, and confirmed that support cannot be passed through norm limits. Its D003
+  and compatibility-report follow-up was integrated as `9781e55`.
 
 ### Lead architecture and integration
 
 - **Owner:** lead agent
 - **Scope:** contracts, source fidelity, proof review, minimality/generalization review, D003,
   assumption and compatibility reports, coordination updates, full validation
-- **Status:** ACTIVE
+- **Status:** COMPLETE; the theorem layer, named CFC bridge, umbrella import, Verso node, D003, and
+  required reports are integrated. Lower-family, resolution, PVM, and integral structures remain
+  RED and unpublished. Focused/full Lean validation, lint, and the Verso build/check pass.

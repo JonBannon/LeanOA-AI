@@ -16,9 +16,10 @@ declaration links. Keep development guidance in repository documents, not the pu
   not perform scattered replacements.
 - Preserve the mathematical path, library/API path, graph, summary, search, and index.
 
-The first spectral parallel wave now has a three-node public presentation: spectral-band calculus,
-tagged spectral sums, and tagged-sum convergence. The last node explicitly separates its stronger
-norm and derived ultraweak limits from the still-missing Radon--Stieltjes integral interface.
+The spectral theorem stack now has a public presentation through spectral-band calculus, tagged
+spectral sums, and truncated-affine weighted convergence to the existing CFC positive part. The
+frontier explicitly separates those stronger norm and derived ultraweak limits from the still-
+missing source-faithful Radon--Stieltjes representation for an arbitrary resolution.
 
 ## Work that must wait
 

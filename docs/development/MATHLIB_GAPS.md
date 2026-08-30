@@ -66,6 +66,29 @@ norm-to-ultraweak map rather than adding a local integration hierarchy.
   for nonunital $C^*$-algebras and says that differences from two ordered disjoint intervals in a
   chain of four projections are orthogonal. No equivalent was found in pinned or current Mathlib.
 
+## CFC audit for truncated-affine recovery
+
+At pinned Mathlib commit `476ab284`, the public unital CFC is already algebra-and-predicate based:
+`ContinuousFunctionalCalculus R A p` supplies the bundled `cfcHom`, while ordinary clients use
+`cfc`. Composition, uniqueness, restriction/range, order, and the positive-part identity are all
+part of that architecture. Sak-AI's `CStarAlgebra.spectralPositivePart` is therefore intentionally
+only a source-facing name for `cfc (fun x : ℝ => (r - x)⁺) a`; its equality with
+`(algebraMap ℝ A r - a)⁺` reuses Mathlib's `CFC.posPart_def`, composition, subtraction, constants,
+and the identity function.
+
+The new truncated-affine theorem needs no local continuous calculus. Its canonical band estimates
+identify finite spectral sums directly with the existing `spectralPositivePart`, and its
+ultraweak statement merely transports the already-proved norm limit through `toUltraweak`.
+The topology defining CFC and the topology of spectral-sum convergence remain separate.
+
+Current Mathlib commit `e62ea4d7200989bad96e0cc05b349c1a5c9800c8` contains an upstream
+`ContinuousFunctionalCalculus/Transfer.lean` substantially matching Sak-AI's pinned staging layer,
+as well as interval-norm helpers relevant to the existing local order API. These are future
+dependency-update migration candidates, not usable at the pinned revision. During that update,
+check the current nonunital transfer namespace spelling before deleting local staging. Neither the
+pinned nor audited current tree supplies a general projection-valued measure or an operator-valued
+spectral integral.
+
 ## External work already monitored
 
 Root `REVIEW_QUEUE.md` records the authoritative status of Mathlib PRs #42093, #42095, and #42100

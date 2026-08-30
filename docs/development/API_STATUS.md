@@ -1,6 +1,6 @@
 # Shared API status
 
-Status reflects integration review through the spectral-integral scratch experiment (2026-08-30),
+Status reflects integration review through the truncated-affine recovery transaction (2026-08-30),
 not a promise of permanent immutability.
 
 ## GREEN — stable downstream surfaces
@@ -12,7 +12,7 @@ not a promise of permanent immutability.
 | Projection lattice and support | `ProjectionLattice`, `Support`, `Corner` | Completed Section 1.10 and current spectral construction consume these interfaces. |
 | Ideals and central support | `Annihilator`, `Ideal`, `TwoSidedIdeal`, `CentralSupport`, `Opposite` | Completed, documented native-object API. The alternative upstream representation remains a separate review question. |
 | Lower spectral projections | `CStarAlgebra.Spectral`, `Ultraweak.SpectralProjection` | Half-line semantics and naming are intentionally fixed; current finite sums depend on them. |
-| Finite spectral sums, bands, and convergence | `Ultraweak.SpectralSum`, `Ultraweak.SpectralApproximation`, `Ultraweak.SpectralBand`, `Ultraweak.TaggedSpectralSum` | Checked theorem-level frontier, including arbitrary tagged sums and explicit norm-to-ultraweak convergence. These modules deliberately commit to no spectral-measure representation. |
+| Finite spectral sums, bands, and convergence | `Ultraweak.SpectralSum`, `Ultraweak.SpectralApproximation`, `Ultraweak.SpectralBand`, `Ultraweak.TaggedSpectralSum`, `Ultraweak.TruncatedSpectralSum` | Checked theorem-level frontier, including arbitrary tagged sums, sharp truncated-affine mesh estimates with an unaligned cutoff, and explicit norm-to-ultraweak convergence to the existing CFC target. These modules deliberately commit to no spectral-measure representation. |
 | Verso package architecture | `docs/SakAIDocs`, `scripts/build-verso-site.sh` | Sole documentation source with verified migration parity and checked declaration links. |
 
 ## YELLOW — evolving, consume cautiously
@@ -27,7 +27,7 @@ not a promise of permanent immutability.
 
 | Area | Owner | Reason / downstream pressure | Stabilization criterion |
 | --- | --- | --- | --- |
-| Arbitrary lower spectral resolution and its relationship to a set-indexed projection-valued measure | lead architecture | D002 shows that a canonical-family predicate cannot express Sakai's competing resolution `e'`, while a generic tagged-limit wrapper supplies none of the required resolution laws. Whether the minimum lower-family interface should extend to a PVM remains unresolved. | The truncated-affine consumer identifies the minimum family laws; a reviewed design then checks support recovery and reconciles those laws with pinned/current Mathlib. |
-| Operator-valued spectral integral | lead architecture | D002's two candidates are equivalent for every integrand, unrestricted mesh-only tags fail at atoms, and choosing either would overstate the available semantics. | Kernel-checked truncated-affine convergence and a source-faithful arbitrary-resolution formulation become evidence for a new reviewed decision; source equivalence, resolution laws, and support recovery must also be checked before stabilization. |
+| Arbitrary lower spectral resolution and its relationship to a set-indexed projection-valued measure | lead architecture | The canonical truncated-affine theorem now identifies the exact CFC target, and a scratch arbitrary-family theorem works under exact finite endpoints plus norm moment convergence. Those hypotheses are stronger than Sakai's ultraweak representation and do not recover unsampled family values. | A source-faithful fixed-projection ultraweak decomposition, continuity-from-below argument, and insertion-at-the-cut theorem recover support without assuming it. A future PVM must then induce the accepted intrinsic laws by lower-half-line restriction. |
+| Operator-valued spectral integral | lead architecture | D002's candidates remain inadequate; the new CFC-compatible theorem does not supply an ultraweak integral for an arbitrary family, and support is not continuous under norm or ultraweak limits. | Source-faithful resolution laws and support recovery must be kernel-checked before any integral or measurable-calculus interface is stabilized. |
 | Alternative `TwoSidedIdeal` representation or instance refactor | human review + architecture | `REVIEW_QUEUE.md` records two materially different designs. | Human decision or upstream Mathlib resolution. |
 | Foundational predual/representation instance redesign | human review + architecture | Junction API with broad downstream dependence and explicit anti-definitional-equality constraints. | A documented migration with compatibility proof and downstream validation. |
