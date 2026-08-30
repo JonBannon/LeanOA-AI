@@ -122,7 +122,7 @@ theorem spectralProjectionIio_le_iff (a : selfAdjoint M) (r : ℝ)
     (p : {p : M // IsStarProjection p}) :
     spectralProjectionIio a r ≤ p ↔
       p.1 * CStarAlgebra.spectralPositivePart a r = CStarAlgebra.spectralPositivePart a r :=
-  leftSupport_le_iff _ _
+  support_le_iff _ _
 
 /-- Lower spectral projections are monotone in the cut. -/
 theorem spectralProjectionIio_mono (a : selfAdjoint M) :

@@ -232,6 +232,12 @@ theorem mul_support (a : selfAdjoint M) : a.1 * (support a).1 = a.1 := by
     (selfAdjoint.isSelfAdjoint (x := a))]
   exact mul_rightSupport a.1
 
+/-- The support is the least projection which acts as a left identity on its self-adjoint
+element. -/
+theorem support_le_iff (a : selfAdjoint M) (p : {p : M // IsStarProjection p}) :
+    support a ≤ p ↔ p.1 * a.1 = a.1 :=
+  leftSupport_le_iff a.1 p
+
 /-- Multiplication on the right by the support of a self-adjoint element has the same kernel as
 multiplication on the right by that element. -/
 theorem mul_support_eq_zero_iff (a : selfAdjoint M) (b : M) :
