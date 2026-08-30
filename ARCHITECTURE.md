@@ -49,6 +49,15 @@ Public declarations use the weakest natural assumptions that create a recognizab
 Foundational representation choices, instance strategies, and proposed dependency refactors enter
 the human review queue rather than being settled through a large local workaround.
 
+## Parallel development
+
+Operational multi-agent coordination lives in `docs/development/`.  Its design contract summarizes
+this file, `STYLE_GUIDE.md`, `CONTINUATION.md`, `REVIEW_QUEUE.md`, and `VERSO_STATUS.md`; it does not
+replace them.  Parallel streams may implement bounded mathematics behind stable interfaces, while
+shared foundational API changes remain integration-owned.  Coordination records track ownership and
+architecture only: Verso Blueprint blocks and `uses` references remain the sole mathematical-status
+and theorem-dependency source.
+
 ## Spectral cutoffs and projections
 
 For a fixed self-adjoint element, the scalar cutoff `(r • 1 - a)⁺` and its norm continuity live
