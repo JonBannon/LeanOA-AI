@@ -4,6 +4,7 @@ import VersoBlueprint
 import LeanOA.Ultraweak.SpectralApproximation
 import LeanOA.Ultraweak.SpectralBand
 import LeanOA.Ultraweak.TaggedSpectralSum
+import LeanOA.Ultraweak.TruncatedSpectralSum
 
 open Verso.Genre
 open Verso.Genre.Manual
@@ -41,7 +42,7 @@ Positive scalar cutoffs and their support projections.
 tag := "lower-spectral-projections"
 %%%
 
-:::definition "def:spectral_positive_part" (parent := "lower-spectral-projections") (lean := "CStarAlgebra.spectralPositivePart, CStarAlgebra.spectralPositivePart_eq_posPart, CStarAlgebra.spectralPositivePart_nonneg, CStarAlgebra.continuous_spectralPositivePart") (uses := "cor:spec_sa_homeo_spec_cstar")
+:::definition "def:spectral_positive_part" (parent := "lower-spectral-projections") (lean := "CStarAlgebra.spectralPositivePart, CStarAlgebra.spectralPositivePart_eq_cfc, CStarAlgebra.spectralPositivePart_eq_posPart, CStarAlgebra.spectralPositivePart_nonneg, CStarAlgebra.continuous_spectralPositivePart") (uses := "cor:spec_sa_homeo_spec_cstar")
 Let $`A` be a unital C-star algebra and let $`h=h^*\in A`.  For
 $`\lambda\in\mathbb R`, define
 $`b_h(\lambda)=\operatorname{cfc}_h(x\mapsto(\lambda-x)^+)`.  Then
@@ -410,4 +411,50 @@ $`[m(\lambda),M(\lambda)]`.  The general norm estimate for a self-adjoint
 element in an order interval bounds their difference by the norm of the gap.
 The finite-partition estimate bounds that gap by the mesh, and the filter
 squeeze theorem proves convergence.
+:::
+
+:::proposition "prop:truncated_affine_spectral_sum_convergence" (parent := "finite-spectral-sums") (lean := "WStarAlgebra.norm_taggedSpectralSum_sub_mul_spectralProjectionIio_sub_le, WStarAlgebra.spectralPositivePart_mul_spectralProjectionIio_sub_bounds, WStarAlgebra.truncated_affine_endpoint_sums_bound_spectralPositivePart, WStarAlgebra.truncated_affine_endpoint_sums_bound_taggedSpectralSum, WStarAlgebra.truncated_affine_endpoint_sum_gap_le, WStarAlgebra.norm_truncated_affine_taggedSpectralSum_sub_spectralPositivePart_le, WStarAlgebra.tendsto_truncated_affine_taggedSpectralSum, WStarAlgebra.tendsto_truncated_affine_taggedSpectralSum_ultraweak, WStarAlgebra.tendsto_truncated_affine_taggedSpectralSum_dyadic") (uses := "def:spectral_positive_part, prop:lower_spectral_projection_cut_recovery, prop:finite_spectral_sum_estimate_Sak_1_11_3, prop:tagged_spectral_sum_convergence")
+Fix $`r\in\mathbb R` and weight each admissible tag by the truncated affine
+function $`x\mapsto(r-x)^+`.  Thus
+$`
+  T_r(\lambda,\xi)
+  =\sum_{i<n}(r-\xi_i)^+
+    \bigl(e_h(\lambda_{i+1})-e_h(\lambda_i)\bigr).
+`
+If the endpoint cuts contain the spectral interval of $`h` and the mesh is
+at most $`\delta`, then
+$`
+  \left\lVert T_r(\lambda,\xi)-b_h(r)\right\rVert\leq\delta,
+  \qquad
+  b_h(r)=\operatorname{cfc}_h(x\mapsto(r-x)^+)=(r1-h)^+.
+`
+No hypothesis requires $`r` to be a partition cut, or even to lie between
+the two endpoint cuts.
+
+Consequently these weighted sums converge in norm to $`b_h(r)` along every
+filtered family whose mesh tends to zero.  They have the same limit in every
+specified ultraweak topology, and the result applies in particular to
+arbitrary admissible tags on the canonical dyadic divisions.
+
+The reusable partial-interval estimate behind this result also needs no
+spectral endpoint hypotheses: an ordinary tagged sum approximates
+$`h(e_h(\lambda_n)-e_h(\lambda_0))` with error at most the mesh.  These are
+concrete theorems about the canonical family; they do not define a spectral
+integral or quantify over a competing resolution.
+:::
+
+:::proof "prop:truncated_affine_spectral_sum_convergence"
+On the band $`p_{q,s}=e_h(s)-e_h(q)`, the cutoff may lie below, above, or
+inside the band.  In all three cases the formal band theorem proves
+$`
+  (r-s)^+p_{q,s}\leq b_h(r)p_{q,s}\leq(r-q)^+p_{q,s}.
+`
+In the crossing case $`q\leq r\leq s`, the proof uses the already-existing
+projection $`e_h(r)` to isolate the lower part of the band; it does not alter
+the input division.  Summing over the bands and using the endpoint formulas
+places $`b_h(r)` between the two endpoint-weighted sums.  The scalar positive
+part is $`1`-Lipschitz, so the gap between those sums is bounded by the
+ordinary upper/lower spectral-sum gap.  The established mesh estimate gives
+the displayed norm bound, filter squeezing gives norm convergence, and the
+continuous norm-to-ultraweak map gives the specified-ultraweak limit.
 :::

@@ -12,6 +12,7 @@ import LeanOA.Ultraweak.SpectralApproximation
 import LeanOA.Ultraweak.SpectralBand
 import LeanOA.Ultraweak.Support
 import LeanOA.Ultraweak.TaggedSpectralSum
+import LeanOA.Ultraweak.TruncatedSpectralSum
 
 open Verso.Genre
 open Verso.Genre.Manual
@@ -78,8 +79,9 @@ $`W^*`$-algebra assumptions.
 
 The positive cutoff
 {name}`CStarAlgebra.spectralPositivePart` is deliberately defined at the
-C-star-algebra level.  Its identification with positive part and its
-fixed-element norm continuity are
+$`C^*`$-algebra level.  Its named continuous-functional-calculus bridge,
+identification with positive part, and fixed-element norm continuity are
+{name}`CStarAlgebra.spectralPositivePart_eq_cfc`,
 {name}`CStarAlgebra.spectralPositivePart_eq_posPart` and
 {name}`CStarAlgebra.continuous_spectralPositivePart`.
 
@@ -152,6 +154,20 @@ The named topology bridge is
 The dyadic specialization is
 {name}`WStarAlgebra.tendsto_taggedSpectralSum_dyadic`.  These declarations do
 not define a spectral measure or integral.
+
+Truncated-affine recovery remains theorem-level and reuses the same finite
+sums.  The single-band interface
+{name}`WStarAlgebra.spectralPositivePart_mul_spectralProjectionIio_sub_bounds`
+handles a cutoff lying inside a band.  Its finite consequence is the sharp
+mesh estimate
+{name}`WStarAlgebra.norm_truncated_affine_taggedSpectralSum_sub_spectralPositivePart_le`.
+Filter-general norm and specified-ultraweak convergence are
+{name}`WStarAlgebra.tendsto_truncated_affine_taggedSpectralSum` and
+{name}`WStarAlgebra.tendsto_truncated_affine_taggedSpectralSum_ultraweak`;
+the concrete dyadic specialization is
+{name}`WStarAlgebra.tendsto_truncated_affine_taggedSpectralSum_dyadic`.
+The target is the existing Mathlib-CFC object
+{name}`CStarAlgebra.spectralPositivePart`, not a new integral operation.
 
 # Central ideals and central support
 

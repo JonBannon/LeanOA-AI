@@ -12,7 +12,8 @@ Sak-AI has two complementary reading paths.
 
 * The *mathematical path* follows Sakai.  The current formal development
   completes Section 1.10 and constructs the lower spectral family through
-  norm convergence of its finite sums in Sakai 1.11.3.
+  norm convergence of its finite sums and the canonical truncated-affine
+  recovery theorem in Sakai 1.11.3.
 * The *library path* follows reusable Lean concepts: weak topologies and
   preduals, ultraweak continuity, closed ideals, projection lattices, and
   support constructions.  Names and assumptions are chosen for Mathlib
@@ -55,13 +56,21 @@ The connected Section 1.11 targets completed so far are:
    an explicit nested sequence of uniform dyadic divisions;
 9. arbitrary tags chosen inside those spectral bands give self-adjoint sums
    between the lower and upper sums, with the same mesh error bound and norm
-   convergence.
+   convergence;
+10. weighting those tags by $`x\mapsto(r-x)^+` gives a sharp mesh
+    approximation to
+    $`b_h(r)=\operatorname{cfc}_h(x\mapsto(r-x)^+)`, in norm and in every
+    specified ultraweak topology, without requiring $`r` to be a partition
+    cut.
 
-The next bounded checkpoint inside Sakai 1.11.3 is to choose the smallest
-faithful interface for its ultraweak Radon--Stieltjes integral and package the
-tagged-sum limit as the spectral-integral representation of $`h`.  Ordinary
-norm-valued vector-measure integration does not by itself model this topology.
-Uniqueness of the resolution remains beyond that checkpoint.
+The next bounded checkpoint inside Sakai 1.11.3 is to extract the minimum
+laws for an arbitrary competing lower spectral resolution that reproduce the
+truncated-affine theorem and allow support recovery at each cutoff.  Only
+after that source-facing test is passed should the project choose an
+ultraweak Radon--Stieltjes integral interface.  Ordinary norm-valued
+vector-measure integration does not by itself model this topology, and the
+canonical convergence theorem alone does not prove uniqueness of a competing
+resolution.
 
 # Migration parity
 
@@ -76,8 +85,8 @@ The lower-spectral-projection nodes are new work after that migration
 baseline; they extend rather than replace the 87 historical nodes.
 
 The dependency graph below therefore represents the whole completed Sak-AI
-development through norm convergence of arbitrary tagged spectral sums in
-Sakai 1.11.3, including $`C^*`$-algebra foundations, operator
+development through canonical truncated-affine recovery from arbitrary
+tagged spectral sums in Sakai 1.11.3, including $`C^*`$-algebra foundations, operator
 topologies, positive separation, Stonean spectra and real rank zero,
 normality and predual uniqueness, Kaplansky density, projection lattices, and
 support, central-support, and lower-spectral-projection theory.
