@@ -94,6 +94,7 @@ public import LeanOA.Ultraweak.StarSubalgebra
 public import LeanOA.Ultraweak.Strong
 public import LeanOA.Ultraweak.Support
 public import LeanOA.Ultraweak.TaggedSpectralSum
+public import LeanOA.Ultraweak.TruncatedSpectralSum
 public import LeanOA.Ultraweak.TwoSidedIdeal
 public import LeanOA.Ultraweak.Uniformity
 public import LeanOA.Ultraweak.WStarAlgebra

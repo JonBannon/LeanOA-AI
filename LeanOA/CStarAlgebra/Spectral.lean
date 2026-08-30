@@ -29,6 +29,12 @@ transparent.  It agrees with `(algebraMap ℝ A r - a)⁺` by
 noncomputable def spectralPositivePart (a : selfAdjoint A) (r : ℝ) : A :=
   cfc (fun x : ℝ ↦ (r - x)⁺) a.1
 
+/-- `spectralPositivePart` is the existing Mathlib continuous-functional-calculus value for the
+truncated-affine scalar function. This named bridge avoids making clients unfold the source-facing
+definition when interoperating with the generic CFC API. -/
+theorem spectralPositivePart_eq_cfc (a : selfAdjoint A) (r : ℝ) :
+    spectralPositivePart a r = cfc (fun x : ℝ ↦ (r - x)⁺) a.1 := rfl
+
 /-- The functional-calculus description of `spectralPositivePart` agrees with the positive part
 of the scalar translate of `a`. -/
 theorem spectralPositivePart_eq_posPart (a : selfAdjoint A) (r : ℝ) :
