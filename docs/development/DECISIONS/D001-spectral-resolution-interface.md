@@ -39,6 +39,9 @@ No public declaration may currently claim a general spectral measure or integral
 
 The Mathlib audit and first theorem-cluster integration confirmed the guardrail. Arbitrary tagged
 sums now converge in norm and in every specified ultraweak topology without a measure object.
-Before choosing a public integral definition, scratch-test a generic topology-explicit tagged-limit
-predicate against a spectral-family-specific proposition and prove them equivalent for the identity
-integrand. Keep uniqueness of Sakai's resolution as a separate source clause.
+
+D002 completed the proposed scratch test. The generic and spectral-specific predicates are
+kernel-equivalent for every real integrand, unrestricted mesh-only tags fail for discontinuous
+weights at atoms, and the canonical-specific predicate cannot express Sakai's arbitrary competing
+resolution. Neither predicate became public. The guardrail therefore remains active while the next
+bounded work proves the concrete truncated-affine weighted-sum theorem used by the source.

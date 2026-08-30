@@ -34,7 +34,9 @@ spectral-band calculus + arbitrary tagged sums
   ↓
 norm convergence + named ultraweak convergence bridge
   ↓
-[RED] spectral-resolution / integral representation
+[NEXT] partial-interval estimate + truncated-affine weighted-sum convergence
+  ↓
+[RED] arbitrary competing spectral resolution and integral representation
 ```
 
 ```text
@@ -71,6 +73,13 @@ The first parallel wave exposed one reusable leaf below the projection junction:
 `IsStarProjection.sub_mul_sub_eq_zero_of_le` is nonunital and independent of spectral theory. The
 spectral-band and tagged-sum modules remain downstream theorem layers, so the wave did not widen the
 foundational junction surface.
+
+The D002 scratch experiment adds no public node. Its two proposed integral predicates are
+kernel-equivalent for every real integrand after specializing the generic evaluator, and both lack
+the arbitrary-resolution semantics used by Sakai's uniqueness proof. The next dependency edge is
+therefore a concrete theorem about the continuous weight `(lambda_0 - lambda)^+`, not an integral
+definition. This keeps future weighted-sum theorem work downstream of the GREEN projection API
+while the family-parametric resolution object remains RED; no weighted-sum public layer is implied.
 
 An import audit with `lake shake --keep-public --explain` also found broad historical removable
 imports around foundational-looking modules. No imports were changed during this transaction:

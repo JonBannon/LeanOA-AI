@@ -96,25 +96,35 @@ and any independently justified coordination updates.
 - **Owner:** `spectral_integral_generic`
 - **Scope:** Candidate A and its eight required stress tests
 - **Owned files:** scratch files and private worker report in its isolated worktree
-- **Status:** ACTIVE
+- **Worktree/branch:** `/private/tmp/sakai-spectral-integral-generic-af7e794`,
+  `agent/spectral-integral-generic`
+- **Status:** COMPLETE at local commit `0ee56d4`; kernel checks pass, no placeholders, not integrated
+  or pushed
 
 ### Spectral-family-specific prototype
 
 - **Owner:** `spectral_integral_specific`
 - **Scope:** Candidate B, weighted spectral sums, identity comparison, and stress tests
 - **Owned files:** scratch files and private worker report in its isolated worktree
-- **Status:** ACTIVE
+- **Worktree/branch:** `/private/tmp/sakai-spectral-integral-specific-af7e794`,
+  `agent/spectral-integral-specific`
+- **Status:** COMPLETE at local commit `30f266a`; kernel checks pass, no placeholders, not integrated
+  or pushed
 
 ### Independent prototype review
 
 - **Owner:** `spectral_integral_review`
 - **Scope:** compare both candidates and perform only targeted Mathlib/original-LeanOA review
-- **Owned files:** private review report in its isolated worktree
-- **Status:** ACTIVE after prototypes are available
+- **Owned files:** private comparison proof and review report in its isolated worktree
+- **Worktree/branch:** `/private/tmp/sakai-spectral-integral-review-af7e794`,
+  `agent/spectral-integral-review`
+- **Status:** COMPLETE at local commit `0bf4f0c`; proved all-integrands equivalence and recommended
+  Outcome 3, with no public candidate and no push
 
 ### Lead architecture and integration
 
 - **Owner:** lead agent
 - **Scope:** contracts, cross-prototype equivalence test, D002 decision, coordination updates, and
   validation
-- **Status:** ACTIVE
+- **Status:** COMPLETE; D002 records the decision to publish neither candidate, and `lake build`
+  (3112 jobs) plus `lake lint` pass on the integration branch

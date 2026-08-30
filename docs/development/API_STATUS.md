@@ -1,7 +1,7 @@
 # Shared API status
 
-Status reflects integration review through the first spectral parallel wave (2026-08-30), not a
-promise of permanent immutability.
+Status reflects integration review through the spectral-integral scratch experiment (2026-08-30),
+not a promise of permanent immutability.
 
 ## GREEN — stable downstream surfaces
 
@@ -27,7 +27,7 @@ promise of permanent immutability.
 
 | Area | Owner | Reason / downstream pressure | Stabilization criterion |
 | --- | --- | --- | --- |
-| Set-indexed spectral resolution / projection-valued measure | lead architecture | The next frontier needs integral notation, but the correct relationship to Mathlib measure APIs is not yet established. | Pinned/current Mathlib audit, concrete consumer requirements, and a reviewed decision record. |
-| Operator-valued spectral integral | lead architecture | Choosing Bochner integration, an operator-valued measure, or a Riemann–Stieltjes completion now would be expensive to reverse. | A minimal canonical representation theorem can be stated without a competing measure theory. |
+| Arbitrary lower spectral resolution and its relationship to a set-indexed projection-valued measure | lead architecture | D002 shows that a canonical-family predicate cannot express Sakai's competing resolution `e'`, while a generic tagged-limit wrapper supplies none of the required resolution laws. Whether the minimum lower-family interface should extend to a PVM remains unresolved. | The truncated-affine consumer identifies the minimum family laws; a reviewed design then checks support recovery and reconciles those laws with pinned/current Mathlib. |
+| Operator-valued spectral integral | lead architecture | D002's two candidates are equivalent for every integrand, unrestricted mesh-only tags fail at atoms, and choosing either would overstate the available semantics. | Kernel-checked truncated-affine convergence and a source-faithful arbitrary-resolution formulation become evidence for a new reviewed decision; source equivalence, resolution laws, and support recovery must also be checked before stabilization. |
 | Alternative `TwoSidedIdeal` representation or instance refactor | human review + architecture | `REVIEW_QUEUE.md` records two materially different designs. | Human decision or upstream Mathlib resolution. |
 | Foundational predual/representation instance redesign | human review + architecture | Junction API with broad downstream dependence and explicit anti-definitional-equality constraints. | A documented migration with compatibility proof and downstream validation. |

@@ -13,10 +13,17 @@ in their workstream.
   set-indexed projection-valued measure prematurely; keep finite sums usable as rewrite tools.
 - **Evidence obtained:** `reports/MATHLIB_SPECTRAL_AUDIT.md` shows that Mathlib's vector-measure
   integral is norm/variation based, neither pinned nor current Mathlib has a general PVM, and the
-  current archived Riemann--Stieltjes API is norm-topological.
-- **Next bounded action:** scratch-test a topology-explicit generic tagged-filter predicate against
-  a spectral-family-specific `HasSpectralIntegral` proposition; prove equivalence for the identity
-  integrand and make no public definition until review.
+  current archived Riemann--Stieltjes API is norm-topological. D002's scratch comparison proves the
+  generic and spectral-specific predicates equivalent for every real integrand, not just the
+  identity. Atom counterexamples rule out unrestricted mesh-only semantics for discontinuous
+  weights, and the canonical-specific predicate cannot state Sakai's arbitrary competing
+  resolution `e'`.
+- **Decision so far:** publish neither experimental predicate. The question remains OPEN / RED;
+  this is a source-driven deferral, not acceptance of a canonical-family integral.
+- **Next bounded action:** prove a partial-interval tagged norm estimate and aligned weighted-sum
+  convergence for `(lambda_0 - lambda)^+` to the existing spectral positive part. Then extract the
+  minimum explicit laws needed to state the corresponding theorem for an arbitrary competing
+  resolution.
 
 ## IQ-002 — spectral helper generality
 
