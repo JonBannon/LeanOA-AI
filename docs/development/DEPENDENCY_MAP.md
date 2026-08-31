@@ -138,19 +138,32 @@ Its arbitrary-filter theorem gives exact strong left continuity and specializes 
 nonmonotone sequence statement. This production GREEN edge is independent of the scratch
 Radon--Stieltjes candidate and leaves the LEVEL C boundary unchanged.
 
-The scoped next section has a separate dependency chain:
+Section 1.12 has a separate dependency chain. Its first production checkpoint is
+`6d24a2feb704cae6e4bedc00d6bc9f17c601f310`:
 
 ```text
-Mathlib CFC.abs + general projection/annihilation lemmas
+Mathlib CFC.abs + projection/idempotence API
   ↓
-support(abs a) / one-sided-support bridges
+CFC.abs_mul_eq_zero_iff / CFC.mul_abs_eq_zero_iff
+IsStarProjection.mul_star_mul_self(_assoc) / mul_star_self
   ↓
-regularized contractions + ultraweak compact closed ball
+WStarAlgebra.support_abs / support_abs_star
+  ↓
+checked regularizer in scratch + existing ultraweak compact closed ball
   ↓
 element polar decomposition (Sakai 1.12.1)
 ```
 
-No edge from the §1.11 integral/PVM boundary enters this chain.
+The general $C^*$-layer and regularizer branch have been reviewed: the former is public and stable,
+and the exact Sakai regularizer is kernel-checked in scratch. The latter gives contractive
+regularizers
+`aReg n`, `aReg n * h n = a`, `h n -> CFC.abs a`, and consequently
+`aReg n * CFC.abs a -> a` in norm. Its next edge reuses `Ultraweak.isCompact_closedBall`, mapped
+filter cluster points, and continuous multiplication by the fixed element `CFC.abs a`; it does not
+require joint ultraweak continuity or a new compactness layer. The support bridge is now reviewed:
+it identifies the two absolute-value supports with `rightSupport a` and `leftSupport a` without
+unfolding or replacing the existing support construction. The WS-1--WS-3 inputs are therefore
+ready for WS-4 existence work. No edge from the §1.11 integral/PVM boundary enters this chain.
 
 ## Cartography fields for a major concept
 

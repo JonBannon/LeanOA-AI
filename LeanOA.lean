@@ -61,6 +61,7 @@ public import LeanOA.Notation
 public import LeanOA.PositiveContinuousLinearMap
 public import LeanOA.TendstoZero.Defs
 public import LeanOA.TendstoZero.StrongDual
+public import LeanOA.Ultraweak.AbsSupport
 public import LeanOA.Ultraweak.Algebra
 public import LeanOA.Ultraweak.Annihilator
 public import LeanOA.Ultraweak.Basic

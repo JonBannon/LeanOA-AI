@@ -85,10 +85,17 @@ intrinsic topology in which to state them.
 
 Pinned Mathlib has the required canonical `CFC.abs`, sqrt/rpow/inverse/order APIs but no element
 polar-decomposition theorem and no `IsPartialIsometry` predicate. Current Mathlib audited at
-`be865aa50cc0364be66c3941a6dc0c845a2c2ceb` has the same gap. General absolute-value
-annihilation lemmas and consequences of `IsStarProjection (star u * u)` are plausible upstream
-candidates. The W-star existence theorem itself belongs in Sak-AI unless Mathlib first acquires a
-compatible W-star support/compactness layer.
+`567908cf509fb0bab796e5401edf35b4492ae48f` has the same gap. The audit found no duplicate polar
+calculus in Sak-AI or the read-only original LeanOA either. Sak-AI now supplies the general
+absolute-value annihilation lemmas `CFC.abs_mul_eq_zero_iff` and `CFC.mul_abs_eq_zero_iff`, plus
+the consequences `IsStarProjection.mul_star_mul_self`, `mul_star_mul_self_assoc`, and
+`mul_star_self`; these remain plausible upstream candidates. The proof-local regularizer needs no
+new Mathlib abstraction: canonical sqrt/rpow/order results prove contractivity and norm
+convergence, while Sak-AI's existing specified-predual closed-ball compactness supplies the later
+ultraweak cluster point. The reviewed W-star bridge `WStarAlgebra.support_abs` / `support_abs_star`
+then reuses Sak-AI's existing support universal properties; no equivalent appears in the audited
+trees, and no new Mathlib object is needed. The W-star existence theorem itself belongs in Sak-AI
+unless Mathlib first acquires a compatible W-star support/compactness layer.
 
 ## Radon--Stieltjes refinement audit
 

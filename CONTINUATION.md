@@ -27,6 +27,12 @@ Last updated: 2026-08-31
   converging to a cut from below give convergence of the lower spectral projections in the
   intrinsic strong topology, with no monotonicity hypothesis. General projection-LUB strong
   convergence and filter-level left continuity are now public.
+- The first Section 1.12 production checkpoint is
+  `6d24a2feb704cae6e4bedc00d6bc9f17c601f310`. It adds the general nonunital $C^*$-algebra
+  absolute-value annihilator and partial-isometry consequences, while the exact Sakai regularizer
+  and its norm limits are kernel-checked in scratch. No duplicate polar calculus, partial-isometry
+  predicate, or compactness layer was introduced. The subsequent narrow W-star support bridge has
+  also passed focused validation and independent review.
 - The theorem package had no uncommitted changes at the start of the orchestration work.
 - Jireh Loreaux's LeanOA and Mathlib are read-only references. The original LeanOA checkout has
   not been modified.
@@ -61,6 +67,17 @@ convergence of the corresponding left-endpoint identity moments, the full pointw
 uniqueness assembly checks. This is not yet the source theorem because Sakai states an abstract
 strong-topology Radon--Stieltjes integral but does not define its Moore--Smith, tag, refinement, or
 improper-endpoint semantics. No source-reviewed predicate has therefore been accepted.
+
+The independent Section 1.12 chain has now entered production. `CFC.abs_mul_eq_zero_iff` and
+`CFC.mul_abs_eq_zero_iff` identify the two one-sided annihilators needed to compare absolute-value
+supports. From `IsStarProjection (star u * u)`, the general projection API now provides both
+association forms of the fixing identity and the final star projection. In scratch, Sakai's
+regularizers are contractive, satisfy `aReg n * h n = a`, and give
+`aReg n * CFC.abs a -> a` in norm. The next compactness step reuses
+`Ultraweak.isCompact_closedBall`, mapped-filter cluster points, and continuous multiplication by a
+fixed element. The reviewed `WStarAlgebra.support_abs` and `support_abs_star` now identify the
+initial and final source supports without a normality or explicit-predual hypothesis. WS-4
+existence is therefore the next dependency.
 
 The implemented public design is:
 
@@ -118,6 +135,13 @@ The implemented public design is:
     domination plus ultraweak convergence upgrades projection nets to strong convergence, directed
     LUBs converge strongly, and a nested-projection seminorm squeeze proves exact filter-level left
     continuity and Sakai's nonmonotone sequential Lemma 1.11.1.
+22. Keep Mathlib `CFC.abs` canonical and add only the general nonunital $C^*$-algebra bridges:
+    exact one-sided annihilator equivalences and the fixing/final-projection consequences of
+    `IsStarProjection (star u * u)`. Keep Sakai's regularizer proof-local until the element-polar
+    existence theorem gives it a production consumer.
+23. Put the CFC-to-W-star bridge in a narrow downstream module: rewrite support of `CFC.abs a` to
+    `rightSupport a` and support of `CFC.abs (star a)` to `leftSupport a`, without importing CFC
+    back into foundational `Ultraweak.Support` or adding a normality assumption.
 
 ## Implementation order
 
@@ -207,15 +231,27 @@ The completed implementation layers are:
    - nested-projection strong-seminorm monotonicity;
    - filter-general strong left continuity of lower spectral projections;
    - the exact nonmonotone sequential statement of Sakai Lemma 1.11.1.
+15. Section 1.12 first production wave (begun at checkpoint
+    `6d24a2feb704cae6e4bedc00d6bc9f17c601f310`, reviewed on 2026-08-31):
+    - `CFC.abs_mul_eq_zero_iff` and `CFC.mul_abs_eq_zero_iff` at nonunital $C^*$-algebra
+      generality;
+    - `IsStarProjection.mul_star_mul_self`, `mul_star_mul_self_assoc`, and `mul_star_self`;
+    - the exact regularized contractions, product identity, and norm limits of Sakai 1.12.1 checked
+      in `Scratch/SakaiElementPolarRegularizer.lean`;
+    - an audited handoff to the existing ultraweak compact closed ball and fixed-right-
+      multiplication continuity, with no assumption of joint ultraweak continuity;
+    - the independently reviewed W-star rewrites `WStarAlgebra.support_abs` and
+      `support_abs_star`, downstream of the existing support API and the accepted annihilator
+      equivalence.
 
 The source audit has closed the 1.11.3 review question with LEVEL C rather than an accepted
 definition. Do not promote `atTop ⊓ comap divisionMesh (nhds 0)` as Sakai's meaning. Canonical
 Lemma 1.11.1 is now source-formalized. Section 1.12 contains the single element
 polar-decomposition theorem 1.12.1 and is scoped as an independent, unblocked
-CFC/support/ultraweak-compactness chain. The natural next bounded transaction runs the general
-C-star partial-isometry/absolute-value API and the proof-local regularizer scratch test in parallel;
-the W-star support bridge starts once the exact annihilator signatures are frozen. Revisit a public
-PVM/integral interface only when coherent mathematics or new primary evidence fixes it.
+CFC/support/ultraweak-compactness chain. The general C-star, proof-local regularizer, and W-star
+support branches are now complete and reviewed. The next bounded transaction is the element-polar-
+decomposition existence contract (WS-4). Packaging remains sequential after existence. Revisit a
+public PVM/integral interface only when coherent mathematics or new primary evidence fixes it.
 
 Before each substantial proof, search the current Sak-AI tree, pinned Mathlib, current Mathlib
 master/review history, and current LeanOA for an equivalent or more general declaration.
@@ -261,6 +297,6 @@ lake exe vbp check
 - Current read-only upstream LeanOA comparison used in this run: commit `cb811c10`.
 - Pinned Mathlib: commit `476ab284693e554a6b48c5f5210cb4fb5ae51252`.
 - Mathlib master audited for Section 1.12 on 2026-08-31:
-  `be865aa50cc0364be66c3941a6dc0c845a2c2ceb`.
+  `567908cf509fb0bab796e5401edf35b4492ae48f`.
 - Mathlib PR #42100 was still open at head `7f7138a127bf5c2f91d5b3e30b58499139561672`;
   its clopen-set CFC projections do not replace the W-star half-line support construction.

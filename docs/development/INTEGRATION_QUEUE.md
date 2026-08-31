@@ -72,13 +72,21 @@ in their workstream.
 
 ## IQ-005 — element polar-decomposition packaging
 
-- **Status:** SCOPED / YELLOW; no foundational decision presently blocks work
+- **Status:** ACTIVE / YELLOW; foundational wave reviewed
 - **Affected streams:** general C-star API, support, CFC regularizer, ultraweak compactness, Verso
 - **Question:** Which reusable helper surface is needed before packaging Sakai 1.12.1?
-- **Decision so far:** keep Mathlib `CFC.abs` canonical; express partial-isometry semantics through
-  `IsStarProjection (star u * u)` initially; use a distinct future
-  `Ultraweak.ElementPolarDecomposition` module so the existing functional-polar-decomposition
-  module remains unambiguous. Do not add a `polarPart` object until a consumer needs one.
-- **Next bounded action:** run the general C-star contract and the source-regularizer scratch
-  contract in parallel. Start the W-star support bridge as soon as the C-star absolute-value
-  annihilator signatures are frozen. Keep existence and packaging sequential and isolated.
+- **Decision so far:** keep Mathlib `CFC.abs` canonical. The stable annihilator bridges are
+  `CFC.abs_mul_eq_zero_iff` and `CFC.mul_abs_eq_zero_iff`; the stable partial-isometry consequences
+  are `IsStarProjection.mul_star_mul_self`, `mul_star_mul_self_assoc`, and `mul_star_self`. Continue
+  to express partial-isometry semantics through `IsStarProjection (star u * u)` initially; use a
+  distinct future `Ultraweak.ElementPolarDecomposition` module so the existing functional-polar-
+  decomposition module remains unambiguous. Do not add a `polarPart` object until a consumer needs
+  one.
+- **Evidence:** checkpoint `6d24a2feb704cae6e4bedc00d6bc9f17c601f310` accepts the general
+  $C^*$-API and a source-faithful scratch regularizer. The latter is contractive, satisfies the
+  exact product identity, and converges after multiplication by `CFC.abs a`; the cluster-point
+  handoff reuses the existing ultraweak compact closed ball and fixed-right-multiplication API.
+  The independently reviewed bridge `WStarAlgebra.support_abs` / `support_abs_star` supplies the
+  exact initial/final support orientations without a new support object or normality assumption.
+- **Next bounded action:** begin WS-4 existence using only these accepted inputs. Keep packaging
+  sequential and isolated after existence.

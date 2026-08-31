@@ -2,8 +2,7 @@
 
 WORKSTREAM: Section 1.12 W-star support bridge
 
-BASE COMMIT: assigned integration baseline after the WS-1 annihilation interface is frozen;
-replace this line with the exact commit before dispatch
+BASE COMMIT: `6d24a2feb704cae6e4bedc00d6bc9f17c601f310`
 
 OBJECTIVE: Identify the support of Mathlib's absolute value with Sak-AI's existing one-sided
 supports, in the exact orientations required by Sakai 1.12.1.

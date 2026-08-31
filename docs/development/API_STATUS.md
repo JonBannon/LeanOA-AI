@@ -1,7 +1,8 @@
 # Shared API status
 
-Status reflects integration review through the source-faithful Sakai 1.11.1 transaction
-(2026-08-31), not a promise of permanent immutability.
+Status reflects integration review through the first Sakai 1.12 production wave (2026-08-31),
+whose WS-1/WS-3 checkpoint is `6d24a2feb704cae6e4bedc00d6bc9f17c601f310`. This is not a
+promise of permanent immutability.
 
 ## GREEN — stable downstream surfaces
 
@@ -14,6 +15,7 @@ Status reflects integration review through the source-faithful Sakai 1.11.1 tran
 | Ideals and central support | `Annihilator`, `Ideal`, `TwoSidedIdeal`, `CentralSupport`, `Opposite` | Completed, documented native-object API. The alternative upstream representation remains a separate review question. |
 | Lower spectral projections | `CStarAlgebra.Spectral`, `Ultraweak.SpectralProjection`, `Ultraweak.SpectralProjectionStrong` | Half-line semantics and naming are intentionally fixed. Sakai 1.11.1 is source-formalized in `s(M,M_*)` without an extra monotonicity hypothesis; current finite sums depend on the same projection object. |
 | Finite spectral sums, bands, and convergence | `Ultraweak.SpectralSum`, `Ultraweak.SpectralApproximation`, `Ultraweak.SpectralBand`, `Ultraweak.TaggedSpectralSum`, `Ultraweak.TruncatedSpectralSum` | Checked theorem-level frontier, including arbitrary tagged sums, sharp truncated-affine mesh estimates with an unaligned cutoff, and explicit norm-to-ultraweak convergence to the existing CFC target. These modules deliberately commit to no spectral-measure representation. |
+| Polar-decomposition foundations | `Mathlib.Analysis.CStarAlgebra.Abs`, `Mathlib.Analysis.CStarAlgebra.Projection`, `Ultraweak.AbsSupport` | `CFC.abs_mul_eq_zero_iff` and `CFC.mul_abs_eq_zero_iff` are the stable nonunital $C^*$-annihilator bridges. `IsStarProjection.mul_star_mul_self`, `mul_star_mul_self_assoc`, and `mul_star_self` are the stable partial-isometry consequences. `WStarAlgebra.support_abs` is the canonical simp rewrite and `WStarAlgebra.support_abs_star` is the named starred rewrite; they use the existing support object and add no normality or explicit-predual assumption. |
 | Verso package architecture | `docs/SakAIDocs`, `scripts/build-verso-site.sh` | Sole documentation source with verified migration parity and checked declaration links. |
 
 ## YELLOW — evolving, consume cautiously

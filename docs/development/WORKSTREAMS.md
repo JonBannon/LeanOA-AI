@@ -336,20 +336,24 @@ source semantics from implementation convenience or add an axiom/placeholder.
 - **Section 1.12 cartography:** COMPLETE. The section contains only Theorem 1.12.1 and is YELLOW but
   unblocked, with no dependency on the RED integral/PVM boundary.
 
-## Next Section 1.12 wave
+## Sakai 1.12 first production wave
 
-Ready-to-run contracts, in dependency order:
-
-1. `contracts/POLAR_DECOMPOSITION_CSTAR_API.md`;
-2. `contracts/POLAR_DECOMPOSITION_SUPPORT_BRIDGE.md`;
-3. `contracts/POLAR_DECOMPOSITION_REGULARIZER.md`;
-4. `contracts/POLAR_DECOMPOSITION_EXISTENCE.md`;
-5. `contracts/POLAR_DECOMPOSITION_PACKAGING.md`.
-
-The recommended next bounded transaction launches contract 1 and the scratch-only contract 3 in
-parallel. Contract 2 starts after contract 1 freezes the two absolute-value annihilator
-signatures; it need not wait for contract 1's independent partial-isometry branch. Contract 4 waits
-for accepted outputs from contracts 1–3. Contract 5 is strictly sequential after contract 4 because
-both own `LeanOA/Ultraweak/ElementPolarDecomposition.lean`. While contracts 1 and 3 run in
-parallel, contract 3 uses only their common baseline and must not import in-flight declarations
-from contract 1.
+- **WS-1, general $C^*$-API:** COMPLETE and accepted at checkpoint
+  `6d24a2feb704cae6e4bedc00d6bc9f17c601f310`. The stable surface is
+  `CFC.abs_mul_eq_zero_iff`, `CFC.mul_abs_eq_zero_iff`,
+  `IsStarProjection.mul_star_mul_self`, `mul_star_mul_self_assoc`, and `mul_star_self`. It adds no
+  competing absolute value or partial-isometry predicate.
+- **WS-3, Sakai regularizer:** GREEN in `Scratch/SakaiElementPolarRegularizer.lean` at the same
+  checkpoint. The exact regularizer is contractive, satisfies `aReg n * h n = a`, and gives
+  `aReg n * CFC.abs a -> a` in norm. The compactness handoff reuses
+  `Ultraweak.isCompact_closedBall`, mapped-filter cluster points, and fixed-right-multiplication
+  continuity; no new compactness layer or joint-continuity claim is needed.
+- **WS-2, absolute-value support bridge:** COMPLETE and independently reviewed GREEN from baseline
+  `6d24a2f`. `WStarAlgebra.support_abs` and `support_abs_star` form the entire production surface;
+  they reuse WS-1 and the existing support API, assume neither normality nor explicit predual data,
+  and add no extra kernel corollary. The former is the canonical simp normal form; the latter is a
+  named composite rewrite rather than a redundant simp lemma.
+- **WS-4, existence:** READY now that WS-2 review is complete. Consume only the accepted WS-1 and
+  WS-2 surfaces plus the proof-local WS-3 route.
+- **WS-5, packaging:** WAITING and strictly sequential after WS-4; it shares the future element
+  polar-decomposition module with existence work.
