@@ -75,7 +75,7 @@ cut-set projection. For every fixed finite cut set `c`, the map `d ↦ d ∪ c` 
 identity under `hsource`; hence it tends from `source` to itself. The proof uses:
 
 - `d ∪ {r}` for the fixed-projection split;
-- `d ∪ {s,r}` for the source-faithful lower residual at each `s < r`.
+- `d ∪ {s,r}` for the residual-retaining lower comparison at each `s < r`.
 
 The bare-refinement corollary is
 `competing_eq_spectralProjectionIio_of_finset_atTop_candidate`.

@@ -24,6 +24,13 @@ chain under its explicit left-endpoint moment hypothesis. The public frontier mu
 that Sakai's source theorem is incomplete: source-equivalence of that candidate with the book's
 abstract Radon--Stieltjes integral remains OPEN / RED.
 
+The source-certification audit further establishes that the printed topology is `s(M,M_*)`, not
+the ultraweak topology. It classifies the overall integral semantics LEVEL C because the division,
+refinement, tag, and improper-endpoint conventions are not defined and were not uniform in the
+period literature. Verso should present the existing ultraweak result as a proved consequence and
+the candidate uniqueness theorem as a clarified scratch analogue, never as the exact source
+theorem.
+
 ## Work that must wait
 
 - Do not document a set-indexed spectral measure or spectral integral as formalized until IQ-001 is

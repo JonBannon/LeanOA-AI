@@ -158,7 +158,8 @@ term-dependent spectral-resolution typeclass.
   `agent/competing-resolution`
 - **Status:** COMPLETE scratch result at local commit `de8e2bb`; not integrated or pushed. The
   finite algebraic theorem generalized, but the norm-convergent moment and exact endpoint route is
-  stronger than Sakai's ultraweak hypotheses and does not recover support. Its consolidated
+  stronger than Sakai's actual strong-topology/asymptotic-endpoint hypotheses and does not recover
+  support. Its consolidated
   assumption-ledger follow-up was integrated as `9dcf1f5`.
 
 ### Support recovery and CFC/PVM audit
@@ -185,8 +186,9 @@ term-dependent spectral-resolution typeclass.
 
 ## Fixed-projection spectral-uniqueness transaction
 
-This bounded transaction starts at `162271a`. It reconstructs and tests the fixed-projection
-ultraweak proof in the uniqueness clause of Sakai 1.11.3. Mathlib CFC remains canonical, every
+This bounded transaction starts at `162271a`. It reconstructs and tests an ultraweak
+topology-forgotten version of the fixed-projection proof in the uniqueness clause of Sakai 1.11.3.
+The source topology was later corrected to strong `s(M,M_*)`. Mathlib CFC remains canonical, every
 competing-family hypothesis stays explicit, and no stream may publish a resolution, integral, or
 PVM abstraction independently.
 
@@ -215,7 +217,7 @@ PVM abstraction independently.
 
 - **Owner:** `competing_support_recovery`
 - **Scope:** both support inequalities, continuity-from-below, endpoint convention, and uniqueness
-  under explicit source-faithful hypotheses
+  under explicit topology-forgotten approximation hypotheses
 - **Owned files:** isolated scratch Lean and private worker report
 - **Status:** COMPLETE at scratch commit `b25d751`; the report is integrated at `017eff6`.
   Both support inequalities, the `Iio` LUB step, support equality, and pointwise/family uniqueness
@@ -234,9 +236,10 @@ PVM abstraction independently.
 ## Radon--Stieltjes refinement-bridge transaction
 
 This bounded transaction starts at `0e5a794`. It audits existing Riemann--Stieltjes formalizations
-before local implementation, then tests the smallest refinement-directed semantics capable of
-closing Sakai 1.11.3 under asymptotic endpoints and ultraweak convergence. Mathlib CFC remains
-canonical. No stream may publish a PVM, general integral, or competing resolution independently.
+before local implementation, then tests a refinement-directed semantics capable of closing a
+clarified ultraweak analogue under asymptotic endpoints. The source was later confirmed to use the
+strong `s(M,M_*)` topology. Mathlib CFC remains canonical. No stream may publish a PVM, general
+integral, or competing resolution independently.
 
 ### External Riemann--Stieltjes audit
 
@@ -258,7 +261,7 @@ canonical. No stream may publish a PVM, general integral, or competing resolutio
   richer-filter eventual-identity insertion, while `f7bd0bd` supplies the sorted finite-cut and
   asymptotic-endpoint adapter. No production proposal was accepted.
 
-### Source-faithful Radon--Stieltjes bridge
+### Candidate Radon--Stieltjes bridge
 
 - **Owner:** `rs_bridge`
 - **Scope:** moment sums, asymptotic endpoint residuals, representation filter, inserted-cut
@@ -280,3 +283,42 @@ canonical. No stream may publish a PVM, general integral, or competing resolutio
   uniqueness under the explicit candidate moment limit. Nothing became public or entered Verso;
   the full theorem build, lint, scratch checks, Verso/blueprint build and check, manifest checks,
   and placeholder scan all pass.
+
+## Abstract Radon--Stieltjes source-certification transaction
+
+This bounded transaction starts at `5a05cbf`. It audits Sakai internally and traces the historical
+terminology before deciding whether the checked candidate may be promoted. No stream may infer
+source semantics from implementation convenience or add an axiom/placeholder.
+
+### Sakai internal source audit
+
+- **Owner:** `sakai_internal_audit`
+- **Scope:** all of Sakai, the local theorem, notation, index, cross-references, bibliography, and
+  division/endpoint evidence
+- **Status:** COMPLETE. Direct high-resolution inspection corrects the topology to strong
+  `s(M,M_*)`; the book gives finite ordered cuts, endpoint sums, gap control, and the `Iio`/`Ico`
+  convention, but no net/filter, refinement order, arbitrary-tag, or improper-limit definition.
+
+### Historical terminology audit
+
+- **Owner:** `historical_rs_audit`
+- **Scope:** authoritative pre-1971 definitions, exact pages, terminology, topology, partitions,
+  tags, refinement, endpoints, and citation strength
+- **Status:** COMPLETE. Hille--Phillips is the closest bibliographic/contextual model, but is not
+  cited in Section 1.11; other period sources use materially different Radon, Stieltjes, and
+  Radon--Stieltjes constructions. Recommendation: LEVEL C.
+
+### Lean topology bridge
+
+- **Owner:** lead agent
+- **Scope:** test only the implication justified independently of the ambiguous division semantics
+- **Status:** COMPLETE in `Scratch/SakaiStrongRadonStieltjesBridge.lean`. Strong convergence of the
+  same net implies the existing ultraweak candidate hypotheses, and hence the checked pointwise
+  uniqueness result. This is not a source-equivalence theorem.
+
+### Lead classification and production decision
+
+- **Owner:** lead agent
+- **Status:** LEVEL C — GENUINE AMBIGUITY. Sakai 1.11.3 remains NOT SOURCE-FORMALIZED. No
+  representation predicate, arbitrary resolution, integral, PVM, or conditional uniqueness
+  theorem is promoted. Active documentation is corrected; the clarified candidate stays scratch.

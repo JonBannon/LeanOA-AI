@@ -41,13 +41,15 @@ The connected Section 1.11 targets completed so far are:
    $`e_h(\lambda)=s((\lambda 1-h)^+)` is defined without a retained predual;
 3. the family $`e_h` is monotone;
 4. an increasing directed net $`\lambda_i\to\lambda` gives
-   $`e_h(\lambda_i)\to e_h(\lambda)` ultraweakly (Sakai 1.11.1);
+   $`e_h(\lambda_i)\to e_h(\lambda)` ultraweakly.  This is the proved
+   consequence of Sakai 1.11.1; the printed theorem states convergence in
+   the stronger $`s(M,M_*)` topology;
 5. the cutoff recovery identities give the two-sided spectral-band
    increment estimate (Sakai 1.11.2);
 6. the sharp norm bounds give $`e_h(\lambda)=0` for
    $`\lambda\leq-\lVert h\rVert`, $`e_h(\lambda)=1` for
-   $`\lVert h\rVert<\lambda`, and the ultraweak endpoint limits in
-   Sakai 1.11.3;
+   $`\lVert h\rVert<\lambda`.  These eventual equalities imply the endpoint
+   limits in every topology, including Sakai's $`s(M,M_*)` topology;
 7. lower and upper finite spectral sums bracket $`h`, while their order and
    norm gaps are controlled by the partition mesh, as in the existence proof
    of Sakai 1.11.3;
@@ -68,15 +70,17 @@ The connected Section 1.11 targets completed so far are:
     analytic decomposition used in the uniqueness paragraph of Sakai
     1.11.3.
 
-The next bounded checkpoint inside Sakai 1.11.3 is now sharply isolated: give
-the abstract ultraweak Radon--Stieltjes representation a division-independent
-Lean meaning and prove that its refinement filter remains cofinal after any
-prescribed cuts $`s<r` are inserted.  The kernel-checked finite calculation
-retains the necessary left-endpoint residual, and the kernel-checked limit
-argument then gives both support inequalities and uniqueness.  Those two
-pieces are not yet a formalization of the source theorem until this
-representation-to-approximants bridge is proved.  Ordinary norm-valued
-vector-measure integration does not by itself model the required topology.
+The source audit found an important correction and a genuine ambiguity.
+Sakai prints the strong $`s(M,M_*)` topology, not the ultraweak
+$`\sigma(M,M_*)` topology, in both the continuity and abstract
+Radon--Stieltjes clauses.  The book does not define the integral's directed
+division, tag, refinement, or improper-endpoint semantics, and period sources
+use materially different meanings.  Sak-AI therefore does not claim that
+Theorem 1.11.3 is source-formalized.  In scratch, convergence of the same
+finite-cut net in $`s(M,M_*)` is kernel-checked to imply the ultraweak
+hypotheses of the complete conditional uniqueness argument.  This preserves
+the useful modern analogue without asserting that its refinement-plus-mesh
+filter is Sakai's undefined integral.
 
 # Migration parity
 

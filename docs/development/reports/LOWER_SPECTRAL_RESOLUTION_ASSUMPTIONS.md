@@ -2,6 +2,11 @@
 
 Status: **integration ledger; no structure or new public axiom is authorized by this report**
 
+> **Source correction (2026-08-30).** Sakai's printed topology is strong `s(M,M_*)`, not
+> ultraweak `σ(M,M_*)`. The ultraweak support machinery catalogued here remains a checked
+> consequence route after forgetting a same-net strong limit. It is not the literal source
+> representation.
+
 ## Evidence boundary
 
 This ledger consolidates three independent, kernel-checked experiments:
@@ -15,7 +20,8 @@ It separates four questions which must not be conflated:
 1. what the canonical family already proves from its CFC/support construction;
 2. what any monotone projection family proves at the finite algebraic level;
 3. what follows by the stronger, non-source-faithful norm representation route;
-4. what support recovery actually requires under Sakai's ultraweak hypotheses.
+4. what the checked ultraweak support recovery requires after forgetting Sakai's stronger
+   topological hypotheses.
 
 In the final column:
 
@@ -60,8 +66,8 @@ In the final column:
 | `[strong norm route]` CFC is continuous in the operator argument on that bound | sends `(r • 1-Sₖ)` to `(r • 1-a)` under positive part | **yes**, pinned `Filter.Tendsto.cfc` | no | no | no | library theorem | no |
 | `[strong norm route]` truncated sums converge to `spectralPositivePart a r` | `tendsto_weightedSum_truncatedAffine` | target is CFC-native | no | no | follows from the stronger norm representation | **yes** | no |
 | `[strong norm route]` norm result passes to specified ultraweak topology | ultraweak corollary in `de8e2bb` | does not change CFC topology | no | no | no | `continuous_toUltraweak` | no |
-| `[source]` `e(λ)` tends ultraweakly to `0` and `1` at the two infinities | Sakai resolution axiom; required to control expanding intervals | no | **yes**, as endpoint limits | **yes**, from continuity of a PVM on exhausting sets | no | no | candidate intrinsic law, with exact topology/convention reviewed |
-| `[source]` identity moments represent `a` in the ultraweak topology | Sakai's abstract Radon--Stieltjes clause | no | no | future spectral-integral/CFC compatibility can supply it | **yes** | no | candidate relation clause; exact division-independent formulation remains RED |
+| `[source]` `e(λ)` tends to `0` and `1` at the two infinities | Sakai resolution axiom; topology unqualified in this display, with surrounding clauses strong | no | **yes**, as endpoint limits | **yes**, from continuity of a PVM on exhausting sets | no | no | candidate intrinsic law; strong implies the checked ultraweak consequence |
+| `[source]` identity moments represent `a` in the strong topology | Sakai's abstract Radon--Stieltjes clause | no | no | future spectral-integral/CFC compatibility can supply it | **yes** | no | no candidate earned public status; division semantics are LEVEL C |
 | `[source]` representation is stable when an arbitrary cut `r` is inserted | needed to split the moment into below- and above-`r` pieces | no | no | natural for a genuine PVM integral | **yes** | should follow from the eventual integral/approximation API | **no as a separate axiom if derivable; otherwise defer** |
 | `[support]` target `x_r = cfc (fun t ↦ (r-t)⁺) a` is nonnegative | support criterion in `f5daad0` | **yes** | no | no | no | CFC theorem | no |
 | `[support]` `(e r).1 * x_r = x_r` | upper-support half of `support_eq_family_at_of_below` | no | no | not from a bare PVM | **yes** | expected consequence of representation/localization | **no; prove it** |
@@ -115,12 +121,12 @@ fully CFC-native convergence proof: `Filter.Tendsto.cfc` transports the translat
 through positive part. This is mathematically correct and useful for a compactly supported PVM
 whose norm approximation theorem is already known.
 
-It is not a formalization of Sakai's uniqueness hypothesis. Sakai gives ultraweak representation
-and asymptotic endpoints. In particular:
+It is not a formalization of Sakai's uniqueness hypothesis. Sakai gives strong-topology
+representation and asymptotic endpoints. In particular:
 
-- ultraweak endpoint convergence does not give exact finite endpoint values;
-- ultraweak moment convergence cannot be fed to norm-topological `Filter.Tendsto.cfc`;
-- positive part is not asserted to be ultraweakly continuous.
+- even strong endpoint convergence does not give exact finite endpoint values;
+- strong or ultraweak moment convergence cannot be fed to norm-topological `Filter.Tendsto.cfc`;
+- positive part is not asserted to be continuous in either topology here.
 
 Neither exact finite normalization nor norm moment convergence may enter a public
 `IsSpectralResolutionOf e a` relation while claiming source equivalence.
@@ -160,7 +166,7 @@ intrinsic lower family
   endpoint limits at ±∞
 
 resolution of a
-  source-faithful, division-independent ultraweak representation/compatibility
+  source-faithful, division-independent strong representation/compatibility
   from which upper-support and positive lower-bound theorems are derived
 ```
 
@@ -169,7 +175,8 @@ A future PVM should induce the intrinsic layer by `e(r)=E(Iio r)`. Its spectral 
 prove the resolution relation and agree with `cfc` on continuous functions. The finite algebra,
 canonical estimate, and support-recovery criterion should then survive unchanged.
 
-The next bounded theorem is not another structure definition. It is the fixed-projection
-ultraweak decomposition: starting from Sakai's actual moment representation, retain enough order
-information after inserting `r` to prove the upper-support identity and the strictly-below positive
-lower bounds required by `support_eq_family_at_of_below`.
+The next bounded theorem identified by this earlier audit was the fixed-projection ultraweak
+decomposition: after forgetting a same-net strong moment limit, retain enough order information
+after inserting `r` to prove the upper-support identity and the strictly-below positive lower
+bounds required by `support_eq_family_at_of_below`. That conditional theorem is now checked; the
+source's division semantics remain unresolved.

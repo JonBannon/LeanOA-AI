@@ -2,6 +2,11 @@
 
 Status: **kernel-checked scratch result; source semantics still explicit; no production API**
 
+> **Source correction (2026-08-30).** The source topology below was initially misread. Sakai
+> prints strong `s(M,M_*)`, not ultraweak `σ(M,M_*)`. The checked bridge remains useful after
+> forgetting a same-net strong limit to the ultraweak topology, but it does not identify the
+> source's undefined division semantics.
+
 Workstream: `rs_bridge`
 
 Baseline: `1cd3a6552cb3866d1f7cbfc01a06c27e174355a5`
@@ -36,7 +41,7 @@ the abstract relation
 a = ∫ λ de(λ)
 ```
 
-in the `σ(M, M_*)` topology.  The proof translates it to
+in the `s(M, M_*)` topology. The proof translates it to
 
 ```text
 r1 - a = ∫ (r - λ) de(λ)
@@ -44,9 +49,9 @@ r1 - a = ∫ (r - λ) de(λ)
 
 and splits at `r`.  The book does not give, at that point, a formal Moore--Smith index type,
 refinement order, tag convention, or finite endpoint convention for the Radon--Stieltjes symbol.
-It also does not restate a topology beside each endpoint arrow.  The scratch theorem makes the
-topology the specified ultraweak topology used by the representation and records this as an
-interpretive choice, not as a source-proved equivalence.
+It also does not restate a topology beside each endpoint arrow. The scratch theorem deliberately
+uses the specified ultraweak topology as a weaker downstream interface; this is an implementation
+choice and not a source-proved equivalence.
 
 The half-open convention remains the one verified in the finite/source lane:
 

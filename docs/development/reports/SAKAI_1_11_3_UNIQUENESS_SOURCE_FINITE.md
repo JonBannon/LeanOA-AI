@@ -2,6 +2,12 @@
 
 Status: **worker evidence; scratch Lean only; no public spectral-family or integral API**
 
+> **Source correction (2026-08-30).** The glyph on printed pages 26--27 is Latin `s`, not
+> Greek `σ`. Sakai states both clause 2 and the integral in his strong `s(M,M_*)` topology.
+> Earlier ultraweak readings in this report have been corrected below. The finite algebra remains
+> valid, and its ultraweak limit layer is a consequence route after forgetting a same-net strong
+> limit; it is not the literal source topology.
+
 ## Source location and method
 
 The source is Sakai, *C\*-Algebras and W\*-Algebras* (1971), Section 1.11,
@@ -22,10 +28,10 @@ For a self-adjoint `x` in a W\*-algebra `M`, Sakai calls a real-indexed system o
 
 1. `λ ≤ μ` implies `e(λ) ≤ e(μ)`.
 2. If `λ_n` is monotone increasing, `λ_n ≤ λ`, and `λ_n → λ`, then
-   `e(λ_n) → e(λ)` in the `σ(M,M_*)` topology.
+   `e(λ_n) → e(λ)` in the `s(M,M_*)` topology.
 3. `e(λ) → 1` as `λ → +∞` and `e(λ) → 0` as `λ → -∞`.
 4. `x` is represented by the abstract Radon--Stieltjes integral
-   `∫_{-∞}^{∞} λ de(λ)`, taken with respect to the `σ(M,M_*)` topology.  For the canonical family,
+   `∫_{-∞}^{∞} λ de(λ)`, taken with respect to the `s(M,M_*)` topology. For the canonical family,
    Sakai also localizes that integral to the norm-bounded interval used in the existence proof.
 
 The theorem says that such a resolution exists and is unique.  In the uniqueness paragraph Sakai
@@ -33,10 +39,10 @@ assumes that `e'` is another system of projections satisfying clauses 1--3 and t
 representation of `x`.  He does **not** assume exact values `e'(L)=0`, `e'(R)=1` at finite cuts, nor
 norm convergence of moment sums.
 
-Clause 3 does not repeat a topology after each displayed limit.  The surrounding theorem uses the
-`σ(M,M_*)` topology in clause 2 and for the integral, so the natural formal reading is the same
-ultraweak topology (or its equivalent order-limit content for monotone projections).  This should
-be made explicit, rather than silently chosen, in any eventual source theorem.
+Clause 3 does not repeat a topology after each displayed limit. Clause 2 and the integral both use
+`s(M,M_*)`, so a source-facing formal statement should use the strong topology there as well (or
+prove the exact topological interpretation from an accepted integral convention). It must not
+silently weaken the source to ultraweak convergence.
 
 ## Source uniqueness calculation
 
@@ -192,9 +198,9 @@ This is `smul_band_le_belowTranslatedSum`.  Its expanded form is
 (r-s) • e(s) - (r-s) • e(cut 0) ≤ u.
 ```
 
-The residual cannot be deleted at the finite level.  Sakai's endpoint condition
-`e(L) → 0` as `L → -∞`, plus ultraweak closedness of the order relation, is exactly what must
-remove it in the limit.  A theorem asserting `(r-s)e(s)≤u` for a general finite left endpoint
+The residual cannot be deleted at the finite level. Sakai's endpoint condition
+`e(L) → 0` as `L → -∞` in the source topology implies the ultraweak endpoint limit used by the
+checked order-closure argument. A theorem asserting `(r-s)e(s)≤u` for a general finite left endpoint
 would silently assume the stronger condition `e(cut 0)=0` and would not be source-faithful.
 
 ## Assumption ledger for the finite results
@@ -203,10 +209,10 @@ would silently assume the stronger condition `e(cut 0)=0` and would not be sourc
 | --- | --- | ---: | ---: | ---: | ---: | ---: |
 | each `e(r)` is a projection | explicit: “system of projections” | yes | yes | no | yes | no |
 | monotonicity | clause 1 | yes | yes | no | yes from `Iio` inclusion | no |
-| one-sided sequential ultraweak continuity | clause 2 | no, finite only | yes | no | yes | `e(r)=sup_{s<r}e(s)` should follow |
+| one-sided sequential strong continuity | clause 2 | no, finite only | yes | no | yes | strong implies the ultraweak continuity used to derive `e(r)=sup_{s<r}e(s)` |
 | endpoint limits | clause 3 | no, residual retained | yes | no | yes | finite exact endpoints do **not** follow |
 | self-adjoint `x` | theorem input | no | no | yes | no | no |
-| ultraweak identity-moment representation | clause 4 | no | no | yes | supplied by future spectral integral | no |
+| strong-topology identity-moment representation | clause 4 | no | no | yes | supplied by a future source-faithful spectral integral | no |
 | monotone finite division | source approximants | yes | no | no | no | division data |
 | insertion `cut k=r` | implicit refinement in uniqueness proof | yes | no | no | compatible with any PVM | finite construction |
 | exact finite endpoint values | not assumed by competing source family | no | no | no | only after separate localization | must not be added |
@@ -222,9 +228,10 @@ would silently assume the stronger condition `e(cut 0)=0` and would not be sourc
 The finite algebra closes without stronger hypotheses.  The remaining work is topological/order
 work, not another finite identity:
 
-1. choose a source-faithful directed family of finite divisions whose endpoints tend to both
+1. identify a source-faithful directed family of finite divisions whose endpoints tend to both
    infinities and which contains the fixed cut `r` (and, for the lower bound, `s`);
-2. show its moment sums tend ultraweakly to `x` and hence the translated sums tend to `r1-x`;
+2. show its moment sums tend strongly to `x`, then forget that same-net limit to ultraweak
+   convergence so the translated sums tend to `r1-x` in the checked topology;
 3. use fixed left/right multiplication to pass `e(r)w=u` to the limit;
 4. retain positivity of `u` and `v` through ultraweak limits, then identify the limit's positive
    part without assuming positive-part continuity;

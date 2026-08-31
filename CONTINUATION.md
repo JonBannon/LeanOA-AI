@@ -18,6 +18,11 @@ Last updated: 2026-08-30
   refinement-plus-mesh filter with asymptotic endpoints, and complete pointwise/family uniqueness
   under an explicit left-endpoint moment limit. Source equivalence with Sakai's undefined abstract
   integral remains RED, so no candidate declaration is public or documented as complete.
+- The source-certification transaction corrects a prior reading: Sakai prints the strong
+  `s(M,M_*)` topology in Lemma 1.11.1 and Theorem 1.11.3, not the ultraweak `σ(M,M_*)` topology.
+  A full internal and period-literature audit classifies the undefined integral semantics LEVEL C.
+  The same-net strong-to-ultraweak implication is kernel-checked in scratch; it does not identify
+  Sakai's division/filter semantics.
 - The theorem package had no uncommitted changes at the start of the orchestration work.
 - Jireh Loreaux's LeanOA and Mathlib are read-only references. The original LeanOA checkout has
   not been modified.
@@ -26,7 +31,8 @@ Last updated: 2026-08-30
 
 Sakai 1.10.3--1.10.7 is complete, and the spectral-resolution development now includes norm
 convergence of arbitrary tagged finite spectral sums in Sakai 1.11.3: lower spectral projections are
-constructed, proved monotone and ultraweakly continuous from below, satisfy Sakai's increment and
+constructed, proved monotone and ultraweakly continuous from below (the proved consequence of
+Sakai's stronger `s(M,M_*)` clause), satisfy Sakai's increment and
 endpoint formulas, and yield lower and upper finite sums converging in norm along arbitrary
 mesh-zero filtered families and an explicit nested sequence of dyadic divisions. Spectral-band
 differences now have a reusable projection/commutation/additivity/orthogonality API. Arbitrary tags
@@ -47,9 +53,9 @@ inequalities, continuity-from-below recovery, and uniqueness are kernel-checked 
 concrete nontrivial filter now combines finite-cut inclusion refinement with shrinking maximum
 adjacent mesh; its extrema escape and inserting any fixed cuts is eventually the identity. Under
 convergence of the corresponding left-endpoint identity moments, the full pointwise and family
-uniqueness assembly checks. This is not yet the source theorem because Sakai does not define his
-abstract ultraweak Radon--Stieltjes integral by that Moore--Smith filter, and the canonical family
-has not been packaged against a source-reviewed predicate.
+uniqueness assembly checks. This is not yet the source theorem because Sakai states an abstract
+strong-topology Radon--Stieltjes integral but does not define its Moore--Smith, tag, refinement, or
+improper-endpoint semantics. No source-reviewed predicate has therefore been accepted.
 
 The implemented public design is:
 
@@ -74,7 +80,8 @@ The implemented public design is:
 10. Put the projection identity `p * q = 0 ↔ p ≤ 1 - q` in the general unital C-star projection
     API, then prove Sakai 1.10.7 and the reusable iff strengthening.
 11. Define the scalar cutoff `(r • 1 - a)⁺` in a C-star-only module, then define its support as
-    `WStarAlgebra.spectralProjectionIio` and prove Sakai 1.11.1 for arbitrary directed nets.
+    `WStarAlgebra.spectralProjectionIio` and prove the ultraweak consequence of Sakai 1.11.1 for
+    arbitrary directed nets.
 12. Reuse support and projection-order APIs to prove the spectral-band bounds and Sakai 1.11.2,
     strengthening the cut hypothesis from `<` to `≤`.
 13. Prove the endpoint formulas with sharp inequalities and derive their ultraweak limits from
@@ -132,10 +139,11 @@ The completed implementation layers are:
      continuity in the scalar cut;
    - `WStarAlgebra.spectralProjectionIio`, its leastness API, and monotonicity;
    - the least-upper-bound theorem and ultraweak continuity from below for arbitrary nonempty
-     directed preorders, specializing to Sakai 1.11.1;
+     directed preorders, giving a weaker consequence of Sakai's strong-topology Lemma 1.11.1;
    - cutoff recovery, commutation, spectral-band bounds, and the increment estimate of Sakai
      1.11.2;
-   - the lower and upper endpoint formulas and their ultraweak limits from Sakai 1.11.3.
+   - the lower and upper endpoint formulas; their eventual constancy yields limits in any topology,
+     including Sakai's strong topology, while named production limit theorems are ultraweak.
 7. Finite spectral-sum layer (completed on 2026-08-28):
    - unbundled lower and upper sums for a real cut function and a finite number of adjacent bands;
    - self-adjointness and telescoping of band projections;
@@ -185,15 +193,12 @@ The completed implementation layers are:
    - complete pointwise and family uniqueness under the explicit candidate moment limit;
    - no public interface, because source equivalence remains unreviewed.
 
-The next bounded architecture transaction remains Theorem 1.11.3, but its technical refinement
-bridge is complete. Review whether convergence of the checked left-endpoint moment sums along
-`atTop ⊓ comap divisionMesh (nhds 0)` is the intended formal meaning of Sakai's abstract
-ultraweak Radon--Stieltjes integral. If accepted, introduce only the smallest proposition-level
-predicate, instantiate the canonical lower family from the existing spectral-sum convergence
-theorems, promote the proof at an appropriate abstraction boundary, and package all source clauses.
-If not accepted, record the authoritative tag/division semantics and prove its equivalence to the
-checked candidate or generalize the index type. Do not move to Section 1.12 or publish a PVM/general
-integral merely to bypass this source-fidelity decision.
+The source audit has closed the review question with LEVEL C rather than an accepted definition.
+Do not promote `atTop ⊓ comap divisionMesh (nhds 0)` as Sakai's meaning. The natural next bounded
+transaction is to prove and promote the canonical strong-topology continuity required by Lemma
+1.11.1, then scope Section 1.12 using the canonical spectral family. Subsequent development may
+proceed where it depends only on proved canonical conclusions. Revisit a public PVM/integral
+interface only when coherent mathematics or new primary evidence fixes it.
 
 Before each substantial proof, search the current Sak-AI tree, pinned Mathlib, current Mathlib
 master/review history, and current LeanOA for an equivalent or more general declaration.

@@ -144,9 +144,10 @@ Suppose finite approximants `S i` converge specified-ultraweakly to `x`.
 - If a compressed expression is needed, fixed-left followed by fixed-right continuity gives
   `p * S i * p → p * x * p`.
 
-The outstanding work is therefore not fixed-multiplication or order topology.  It is the
-source-faithful finite partition decomposition that produces the two displayed identities under
-Sakai's actual ultraweak representation hypotheses.
+The outstanding work is therefore not fixed-multiplication or order topology. It is the checked
+finite partition decomposition that produces the two displayed identities under
+the ultraweak consequence of Sakai's actual strong-topology representation hypothesis. The
+source's division semantics remain separately unresolved.
 
 ## Mathlib overlap and upstream assessment
 

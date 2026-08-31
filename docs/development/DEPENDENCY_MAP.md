@@ -44,7 +44,9 @@ fixed-projection ultraweak decomposition from a total difference limit [GREEN]
   ↓
 [scratch] prescribed-cut moment transport + complete support recovery and uniqueness
   ↓
-[RED] source-equivalence review and canonical packaging of Sakai's abstract integral clause
+[scratch] same-net strong convergence implies the checked ultraweak candidate
+  ↓
+[RED / LEVEL C] Sakai's undefined division/refinement/improper-integral semantics
   ↓
 [RED] general PVM and measurable functional calculus
 ```
@@ -117,6 +119,14 @@ convergence along any such refinement-directed source, the complete finite split
 pointwise identification, and family uniqueness chain kernel-checks. The sole remaining RED edge is
 semantic: Sakai does not define his abstract Radon--Stieltjes integral by this Moore--Smith filter,
 so the candidate cannot become the source theorem or public API before source-equivalence review.
+
+The subsequent source-certification audit corrects the topology coordinate: Sakai explicitly uses
+the stronger `s(M,M_*)` topology. Existing `Ultraweak.Strong` infrastructure proves in scratch that
+strong convergence of the same candidate net implies the already checked ultraweak uniqueness
+hypotheses. The audit nevertheless classifies the overall source semantics LEVEL C because neither
+Sakai nor a uniform period convention fixes the net/filter, refinement, tags, or improper endpoint
+limit. The source-equivalence edge therefore remains RED by evidence, not by missing proof
+engineering.
 
 ## Cartography fields for a major concept
 

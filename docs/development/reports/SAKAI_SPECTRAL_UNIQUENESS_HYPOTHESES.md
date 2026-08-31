@@ -3,6 +3,11 @@
 Status: **consolidated development ledger; no public lower-family, resolution, PVM, or integral
 abstraction is authorized by this report**
 
+> **Source correction (2026-08-30).** Direct visual comparison with Sakai's notation definitions
+> shows that Theorem 1.11.3 uses Latin `s(M,M_*)`, the strong topology, not Greek
+> `σ(M,M_*)`. Rows below distinguish the literal strong source hypotheses from the checked
+> ultraweak consequence used by the conditional uniqueness proof.
+
 ## Evidence boundary
 
 This ledger separates the hypotheses printed or used implicitly in Sakai, Theorem 1.11.3 from
@@ -40,13 +45,13 @@ moment representation of an operator.
 | `M` is a W\*-algebra and `a=a*` | Theorem 1.11.3 opening, p. 26 | **SOURCE INPUT** for the represented operator and support | no | yes | no | no | Production `selfAdjoint M`, `WStarAlgebra M` |
 | `e : ℝ →` star projections | “system of projections,” p. 26 | **SOURCE INPUT**; **FINITE CHECKED** | yes | no | yes, from projection-valuedness | no | Scratch codomain `ℝ → {p // IsStarProjection p}`; production star-projection subtype |
 | `λ ≤ μ → e λ ≤ e μ` | Clause 1, p. 26 | **SOURCE INPUT**; **FINITE CHECKED** for every band/localization theorem | yes | no | yes, from `Iio λ ⊆ Iio μ` | no | Explicit `Monotone e`; finite scratch `isStarProjection_band` and multiplication lemmas |
-| Sequential continuity from below | Clause 2, p. 26: increasing `λₙ→λ` gives ultraweak `e(λₙ)→e(λ)` | **SOURCE INPUT**; **LIMIT CHECKED** | yes | no | yes, by PVM continuity from below | no | Scratch `isLUB_image_Iio_of_monotone_of_continuousBelow` at `b25d751` |
+| Sequential continuity from below | Clause 2, p. 26: increasing `λₙ→λ` gives strong `e(λₙ)→e(λ)` in `s(M,M_*)` | **SOURCE INPUT**; its same-net ultraweak consequence feeds the **LIMIT CHECKED** proof | yes | no | yes, by PVM continuity from below | no | Strong-to-ultraweak scratch bridge plus `isLUB_image_Iio_of_monotone_of_continuousBelow` |
 | `IsLUB (e '' Iio r) (e r)` | Used as `e(r-0)=e(r)`, p. 27 | **LIMIT CHECKED** consequence of clause 2 | no; theorem form of continuity | no | yes | yes | Scratch `isLUB_image_Iio_of_tendsto_below`, `isLUB_image_Iio_of_monotone_of_continuousBelow` |
 | `e(λ)→0` as `λ→-∞` | Clause 3, p. 26; topology not repeated in print | **SOURCE INPUT**; needed to remove the finite left residual | yes, after making topology explicit | no | yes, from exhausting empty lower half-lines | no | No competing-family production API; canonical `tendsto_spectralProjectionIio_atBot` only |
 | `e(λ)→1` as `λ→+∞` | Clause 3, p. 26; topology not repeated in print | **SOURCE INPUT**; needed when translating the total moment to `r1-a` | yes, after making topology explicit | no | yes, from exhausting all of `ℝ` | no | No competing-family production API; canonical `tendsto_spectralProjectionIio_atTop` only |
-| Endpoint limits are ultraweak/order limits | Clause 3 is unqualified; clauses 2 and 4 use `σ(M,M_*)` | **SOURCE CLARIFICATION REQUIRED** before a public predicate | candidate intrinsic law | no | yes | no | No competing-family declaration; do not silently choose norm topology |
+| Endpoint-limit topology | Clause 3 is unqualified; the surrounding clauses 2 and 4 use `s(M,M_*)` | **SOURCE CLARIFICATION REQUIRED** for the unqualified display; strong is the coherent local reading | candidate intrinsic law | no | yes | no | No competing-family declaration; the checked ultraweak limit is only a consequence |
 | `a = ∫ λ de(λ)` | Clause 4, pp. 26--27 | **SOURCE INPUT**; central relation to `a` | no | yes | only for a spectral PVM with compatibility | no | **MISSING BRIDGE**: no operator-valued Radon--Stieltjes semantics or stable relation predicate |
-| The representation uses the `σ(M,M_*)` topology | Text immediately following clause 4, p. 26 | **SOURCE INPUT** | no | yes | spectral-PVM integration theorem | no | Specified-ultraweak topology exists; the source integral does not |
+| The representation uses the `s(M,M_*)` topology | Text immediately following clause 4, p. 26 | **SOURCE INPUT** | no | yes | spectral-PVM integration theorem | no | Specified strong topology exists; the source integral semantics do not |
 | Integral linearity gives `r1-a = ∫(r-λ)de(λ)` | First line of uniqueness paragraph, p. 27 | **SOURCE INPUT**, implicit integral law | no | yes | spectral-integral linearity | yes from a genuine integral | **MISSING BRIDGE**; support scratch instead assumes total translated-moment convergence |
 | Arbitrary `r` may be inserted into/refine every division | Integral is split at arbitrary `λ₀`, p. 27 | **SOURCE INPUT**, implicit refinement invariance | no | yes | yes for simple-integral refinements | should be derived | Finite `insertCut`, `band_at_insertCut_add_succ`, `sum_band_insertCut`; cofinal/refinement theorem **missing** |
 | A second arbitrary `s<r` may also be inserted | Implicit in proving support of the lower weighted integral | Needed for the positive lower bound; **FINITE CHECKED**, source-to-net bridge missing | no | yes | yes | should be derived | Finite `smul_band_le_belowTranslatedSum`; no RS/refinement bridge |
@@ -74,7 +79,7 @@ moment representation of an operator.
 | Finite lower bound retains `(r-s)(e(s)-e(left))` | Implicit support argument below `s<r` | **FINITE CHECKED** and indispensable | no | no | yes | yes | `smul_band_le_belowTranslatedSum` |
 | Expanded residual `(r-s)e(s)-(r-s)e(left)≤u` | Same source step before `left→-∞` | **FINITE CHECKED** | no | no | yes | yes | `smul_projection_sub_residual_le_belowTranslatedSum` |
 | Exact finite `e(left)=0`, `e(right)=1` | **Not** assumed for the competitor | **FORBIDDEN STRENGTHENING** | no | no | not from bare PVM/end limits | no | Deliberately absent from both finite and support scratch interfaces |
-| Norm convergence of competing moment sums | **Not** in Sakai; representation is ultraweak | **FORBIDDEN STRENGTHENING** | no | no | not automatic | no | Deliberately absent; Mathlib norm-CFC continuity is not used |
+| Norm convergence of competing moment sums | **Not** in Sakai; representation is strong-topological | **FORBIDDEN STRENGTHENING** | no | no | not automatic | no | Deliberately absent; Mathlib norm-CFC continuity is not used |
 | A chosen inserted-cut total net satisfies `uᵢ-vᵢ→r1-a` ultraweakly | Intended finite meaning of representation plus endpoints | **MISSING BRIDGE** from clause 4; explicit hypothesis in support scratch | no | yes | spectral-PVM simple-integration theorem | should be derived | Hypothesis `hmoment` in `tendsto_split_of_fixedProjection_moment` and support theorems |
 | The approximation filter is nontrivial | Needed for uniqueness/order of limits | Technical **LIMIT INPUT** | no | no | no | approximation data | `[NeBot l]` in support scratch; standard Mathlib requirement |
 | Fixed left/right/two-sided multiplication preserves ultraweak limits | Used to extract below/above limits | **PRODUCTION** and **LIMIT CHECKED** | no | no | no | general topology | `Ultraweak.mulLeftL`, `mulRightL`, separate multiplication continuity; audit `c637cb7` |
@@ -131,14 +136,14 @@ interfaces are already production mathematics. The finite arrows have kernel-che
 Sakai's abstract formula
 
 ```text
-a = ∫ λ de(λ)  in the σ(M,M_*) topology
+a = ∫ λ de(λ)  in the s(M,M_*) topology
 ```
 
 has not yet been given a Lean semantics. Consequently, Sak-AI has not proved from clause 4 that
 there is one directed/cofinal family of finite divisions which:
 
 1. has endpoints tending to `-∞` and `+∞`;
-2. represents `a` by identity-weighted sums ultraweakly;
+2. represents `a` by identity-weighted sums strongly, hence by the same sums ultraweakly;
 3. remains cofinal and has the same limit after inserting any fixed `r` and `s<r`;
 4. yields translated sums `uᵢ-vᵢ→r1-a` despite nonexact finite endpoint projections;
 5. supplies the varying residual nets

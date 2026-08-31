@@ -130,7 +130,7 @@ noncomputable def aboveNet
     (canonicalIndex (addCuts {r} d) r)
     (bandCount (addCuts {r} d) - canonicalIndex (addCuts {r} d) r)
 
-/-- The source-faithful lower comparison, evaluated after prescribing both `s` and `r`. -/
+/-- The residual-retaining lower comparison, evaluated after prescribing both `s` and `r`. -/
 noncomputable def lowerNet
     (e : ℝ → StarProjection M) (r s : ℝ) (d : Finset ℝ) : M :=
   (r - s) • (e s).1 -

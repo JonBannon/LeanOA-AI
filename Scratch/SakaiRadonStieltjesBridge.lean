@@ -4,7 +4,7 @@ import LeanOA.Ultraweak.ProjectionDecomposition
 # Scratch test: the Radon--Stieltjes refinement bridge in Sakai 1.11.3
 
 This file gives an explicit, proposition-level bridge from the three analytic inputs left implicit
-by Sakai's notation `a = ∫ λ de(λ)`:
+by one explicit ultraweak candidate reading of Sakai's notation `a = ∫ λ de(λ)`:
 
 * left-endpoint identity moment sums converge ultraweakly to `a`;
 * their left and right endpoint projections converge ultraweakly to `0` and `1`;
@@ -13,7 +13,8 @@ by Sakai's notation `a = ∫ λ de(λ)`:
 The bridge proves, rather than assumes, convergence of the translated sums to `r • 1 - a`.  It
 also proves convergence of the varying left-residual lower bounds used in the support argument.
 It deliberately defines no division, resolution, PVM, or integral object.  In particular, the
-choice of a source-faithful division filter remains visible as an input.
+choice of a division filter remains visible as an input. A later source audit established that
+Sakai's literal topology is strong and his division semantics are LEVEL C ambiguous.
 -/
 
 open Finset Filter
@@ -163,10 +164,10 @@ theorem tendsto_projection_sub_leftEndpointResidual_of_cofinal
         toUltraweak ℂ P ((r - s) • e (cut (refine j) 0))) lJ
       (nhds (toUltraweak ℂ P ((r - s) • e s) - toUltraweak ℂ P 0)))
 
-/-- The two analytic outputs required by the conditional support proof, packaged with the exact
-source-facing assumptions.  Prescribed-cut position equations are deliberately not hypotheses
+/-- The two analytic outputs required by the conditional support proof, packaged with explicit
+ultraweak candidate assumptions. Prescribed-cut position equations are deliberately not hypotheses
 here: they belong to the finite positivity/localization layer, while this theorem records only
-what cofinality and Sakai's moment/endpoint limits imply. -/
+what cofinality and the assumed moment/endpoint limits imply. -/
 theorem tendsto_translated_and_lowerResidual_of_cofinal
     {lD : Filter D} {lJ : Filter J}
     (e : ℝ → M) (a : M) (cut : D → ℕ → ℝ) (bands : D → ℕ)
@@ -191,12 +192,13 @@ theorem tendsto_translated_and_lowerResidual_of_cofinal
     tendsto_projection_sub_leftEndpointResidual_of_cofinal
       (P := P) e cut refine hrefine hleft r s⟩
 
-/-- Source-facing endpoint formulation.  The competing family has ultraweak limits `0` and `1`
+/-- Ultraweak-candidate endpoint formulation. The competing family has ultraweak limits `0` and `1`
 at `-∞` and `+∞`, while the chosen divisions have endpoints escaping in the corresponding
 directions.  Composition derives the endpoint-projection nets used by the smaller bridge above.
 
-This keeps separate the source's family-level endpoint clause and the division system's endpoint
-escape condition; neither exact finite endpoint projection is assumed. -/
+This keeps separate a topology-forgotten consequence of the source's family-level endpoint clause
+and the division system's endpoint escape condition; neither exact finite endpoint projection is
+assumed. It does not identify the division system with Sakai's undefined integral. -/
 theorem tendsto_translated_and_lowerResidual_of_cofinal_of_endpoint_escape
     {lD : Filter D} {lJ : Filter J}
     (e : ℝ → M) (a : M) (cut : D → ℕ → ℝ) (bands : D → ℕ)

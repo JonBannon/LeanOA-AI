@@ -99,6 +99,10 @@ ultraweak Radon--Stieltjes integral has been defined. That caveat must remain: n
 tagged sums is stronger convergence of approximants, but it is not by itself a definition or
 source-equivalence proof for Sakai's spectral integral.
 
+Later source correction: Sakai's literal topology is strong `s(M,M_*)`, not ultraweak. The
+ultraweak limit remains a valid consequence, and the caveat is stronger: neither the source
+topology nor its undefined division semantics may be attributed to this theorem.
+
 ## Library path versus mathematical graph
 
 The three mathematical assertions above belong in the graph because they form a genuine
@@ -113,9 +117,9 @@ path. Both `Library.lean` and `SpectralResolution.lean` must directly import
 checked; sibling chapter imports do not make names visible.
 
 The Overview should add one completed-frontier bullet for arbitrary admissible tags and retain the
-next frontier as choosing a faithful ultraweak Radon--Stieltjes interface. Its statement that
-ordinary norm-valued vector-measure integration does not automatically model this topology is an
-important anti-overclaim.
+next frontier as documenting the LEVEL C source ambiguity and, separately, proving the canonical
+strong-topology conclusion. Its statement that ordinary norm-valued vector-measure integration
+does not automatically model the required interface is an important anti-overclaim.
 
 ## Typography audit
 

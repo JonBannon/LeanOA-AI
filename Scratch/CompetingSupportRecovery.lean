@@ -223,7 +223,7 @@ theorem isLUB_image_Iio_of_monotone_of_continuousBelow
   · exact hcont f r hf_mono hf_tendsto
 
 /-- A vanishing left-endpoint projection gives the varying lower-bound limit used in the
-source-faithful support argument. -/
+conditional support argument. -/
 theorem tendsto_real_smul_sub_of_tendsto_zero
     {l : Filter I} (c : ℝ) (x : M) {z : I → M}
     (hz : Tendsto (fun i ↦ toUltraweak ℂ P (z i)) l

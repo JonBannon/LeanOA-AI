@@ -59,12 +59,12 @@ longer part of the build or deployment.
 
 1. Keep the Pages workflow green: it builds and lints the theorem library, builds doc-gen4 API
    documentation, builds and checks Verso, and deploys one combined static artifact.
-2. Continue within Sakai 1.11.3 by reviewing whether the checked refinement-plus-mesh,
-   left-endpoint moment predicate is the faithful meaning of the source's abstract ultraweak
-   Radon--Stieltjes integral. If accepted, instantiate the canonical family and package the source
-   theorem; otherwise record the authoritative tagged/division semantics and bridge it to the
-   filter-parametric proof. No resolution, integral, or PVM structure becomes public before that
-   source-facing test fixes a stable interface.
+2. Record the completed source audit faithfully: Sakai uses `s(M,M_*)`, while the integral's
+   division/refinement semantics are LEVEL C ambiguous. Do not present the checked
+   refinement-plus-mesh candidate as the source definition. The next public documentation slice
+   should add the canonical strong-topology conclusion when it is proved, then move into Section
+   1.12 where only established canonical conclusions are required. No resolution, integral, or PVM
+   structure becomes public before a genuine mathematical interface fixes it.
 
 Do not create a second theorem-status registry: Verso blocks and `uses` references are the
 documentation source of truth.

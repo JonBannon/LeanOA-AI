@@ -17,7 +17,8 @@ left/right multiplication identities; which facts use projection-valuedness, mon
 continuity from below, endpoint limits, or representation of `a`.
 
 Forbidden: publishing `LowerSpectralFamily`, `IsSpectralResolutionOf`, a PVM, an integral, or a
-term-dependent typeclass; replacing ultraweak hypotheses by norm convergence or exact endpoints;
+term-dependent typeclass; replacing the source's strong-topology hypotheses by norm convergence or
+exact endpoints (the ultraweak lane is only a checked consequence);
 editing Verso or shared coordination files; pushing.
 
 Commit the isolated result and report exact validation and any source ambiguity.

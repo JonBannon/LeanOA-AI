@@ -5,10 +5,10 @@ in their workstream.
 
 ## IQ-001 — spectral-resolution and integral interface
 
-- **Status:** OPEN / RED
+- **Status:** DEFERRED / RED — LEVEL C source ambiguity
 - **Affected streams:** architecture, Mathlib reconnaissance, spectral bands, tagged sums, Verso
-- **Question:** What is the smallest canonical public object that faithfully packages Sakai 1.11.3
-  without constructing a parallel measure theory beside Mathlib?
+- **Question:** What future coherent PVM/integral construction, or new primary evidence, can fix a
+  public representation object without assigning semantics to Sakai's undefined phrase by fiat?
 - **Constraints:** preserve `spectralProjectionIio` half-line semantics; do not claim a general
   set-indexed projection-valued measure prematurely; keep finite sums usable as rewrite tools.
 - **Evidence obtained:** `reports/MATHLIB_SPECTRAL_AUDIT.md` shows that Mathlib's vector-measure
@@ -21,7 +21,8 @@ in their workstream.
   interior cutoff and the exact existing CFC target. An arbitrary monotone projection family also
   satisfies the corresponding finite positive-part identity under exact endpoint normalization,
   but passing to the target through `Filter.Tendsto.cfc` requires norm moment convergence, which is
-  stronger than Sakai's ultraweak representation. Support recovery additionally needs lower
+  stronger than the topology-forgotten ultraweak representation used by the checked conditional
+  argument. Support recovery additionally needs lower
   bounds, an upper-support identity, and continuity from below; support is not continuous under
   norm limits. The fixed-projection transaction now kernel-checks the exact finite cutoff algebra,
   the total-moment-only positive/negative decomposition, both support inequalities, the `Iio` LUB
@@ -29,18 +30,19 @@ in their workstream.
   refinement transaction now proves the generic prescribed-cut restriction, a nontrivial concrete
   finite-cut filter combining inclusion refinement with shrinking adjacent mesh, asymptotic
   endpoint escape, and the full finite-set-to-support-to-family-uniqueness assembly. The remaining
-  edge from Sakai's clauses is no longer proof engineering: it is source review of whether the
-  chosen left-endpoint moment limit is exactly the book's undefined abstract Radon--Stieltjes
-  integral, followed by the canonical-family instantiation of that accepted predicate.
+  source audit then established that the printed topology is the stronger `s(M,M_*)` topology, not
+  `σ(M,M_*)`. It also found no source or uniform period convention fixing the undefined integral's
+  division/refinement/improper-limit semantics. The same-net strong-to-ultraweak implication is
+  kernel-checked, but the overall source relation is LEVEL C / UNCLEAR.
 - **Decision so far:** publish the canonical theorem layer only. Publish neither experimental
   integral predicate nor a lower-family, resolution, or PVM structure. Publish the general
   fixed-projection decomposition and coherent support helpers under D004. The architecture remains
-  OPEN / RED precisely at source-equivalence review. The concrete filter and uniqueness theorem
+  OPEN / RED at a documented historical ambiguity. The concrete filter and uniqueness theorem
   remain scratch-only and are labeled `TRANSLATED_CANDIDATE`, not `SOURCE_EQUIVALENCE_CHECKED`.
-- **Next bounded action:** review and either accept the explicit refinement-plus-mesh,
-  left-endpoint moment predicate as Sakai's abstract integral semantics or supply an authoritative
-  alternative and prove equivalence. Then instantiate the canonical lower family using the
-  existing spectral-sum convergence layer and package all clauses of Theorem 1.11.3 together.
+- **Next bounded action:** do not manufacture source equivalence. Correct the canonical continuity
+  layer to Sakai's strong topology, then proceed into Section 1.12 using the canonical spectral
+  family where later arguments need only its proved conclusions. Revisit a public representation
+  predicate when a coherent PVM/integral construction or new primary evidence fixes its semantics.
 
 ## IQ-002 — spectral helper generality
 

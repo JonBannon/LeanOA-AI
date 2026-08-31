@@ -2,6 +2,11 @@
 
 Status: architectural evidence only; no foundational decision is made here.
 
+> **Source correction (2026-08-30).** This earlier implementation audit misread Latin `s` as
+> Greek `σ` in Sakai's scan. Theorem 1.11.3 states the strong `s(M,M_*)` topology. The named
+> ultraweak limits recommended here remain valid consequences of norm convergence, but they are
+> not the exact source topology and do not certify the undefined integral semantics.
+
 Workstream: `MATHLIB_SPECTRAL_AUDIT`
 
 Questions addressed: `IQ-001`, `IQ-002`
@@ -12,24 +17,24 @@ Audit date: 2026-08-30
 
 The shortest honest route from Sak-AI's present finite spectral sums to the integral clause of
 Sakai 1.11.3 is **not** to introduce an operator-valued measure immediately.  The existing Sak-AI
-estimates already prove norm convergence, hence ultraweak convergence, of lower and upper sums for
-the identity integrand.  A small theorem-level interface can expose that limit in the exact
-`σ(M, M_*)` topology used by Sakai, without prematurely choosing a projection-valued-measure or
-integration foundation.
+estimates already prove norm convergence, hence both strong and ultraweak convergence, of lower
+and upper sums for the identity integrand. A small theorem-level interface may expose useful
+limits without prematurely choosing a projection-valued-measure or integration foundation. Sakai's
+exact integral semantics require more than naming the ultraweak consequence.
 
 Mathlib's `MeasureTheory.VectorMeasure` has an important but limited fit:
 
 - its *measure structure* is topology-parametric, so in principle it can state countable additivity
   in Sak-AI's `Ultraweak` topology;
 - its *integration API* is normed and defined through total variation, so it does not provide the
-  ultraweak Radon--Stieltjes integral required here;
+  strong-topology Radon--Stieltjes integral required by the source;
 - a general spectral projection family is not norm-countably additive and need not have bounded
   norm variation (infinitely many nonzero orthogonal projection jumps already obstruct this).
 
 Neither the pinned Mathlib nor the audited current Mathlib master contains a projection-valued
 measure or spectral-measure abstraction that removes this gap.  Current Mathlib does contain an
 archived norm-topological Riemann--Stieltjes interface, but it is absent from the pinned revision,
-is explicitly archived, and still does not model Sakai's ultraweak integrator.
+is explicitly archived, and still does not model Sakai's strong-topology integrator.
 
 ## Revisions and evidence boundary
 
@@ -50,7 +55,7 @@ Theorem 1.11.3 describes
 
 `x = ∫ λ de(λ)`
 
-as an abstract Radon--Stieltjes integral with respect to the `σ(M, M_*)` topology.  Its uniqueness
+as an abstract Radon--Stieltjes integral with respect to the `s(M, M_*)` topology. Its uniqueness
 argument uses `(λ₀ 1 - x)⁺` and support.  Consequently, replacing this with a norm-valued vector
 measure or merely displaying integral notation would not be a faithful translation.
 
@@ -59,9 +64,9 @@ At the audited baseline, the source theorem compares as follows:
 | Sakai 1.11.3 clause | Sak-AI status |
 | --- | --- |
 | `e(λ)` is a projection-valued increasing family | represented by `spectralProjectionIio` and monotonicity |
-| continuity from below | kernel-proved in the ultraweak topology |
-| limits zero and one at the two endpoints | kernel-proved in the ultraweak topology, with stronger finite cutoff lemmas |
-| `x = ∫ λ de(λ)` in the `σ(M,M_*)` Radon--Stieltjes sense | lower/upper sums and norm convergence are proved; the exact integral-level statement/interface is not yet present |
+| continuity from below | its weaker ultraweak consequence is kernel-proved; the source strong conclusion is not yet public |
+| limits zero and one at the two endpoints | exact finite cutoff lemmas imply these limits in any topology; named production limits are ultraweak |
+| `x = ∫ λ de(λ)` in the `s(M,M_*)` Radon--Stieltjes sense | lower/upper sums and norm convergence are proved for the canonical family; the exact integral-level statement/interface is unresolved |
 | uniqueness of the resolution | not yet formalized as the source clause |
 
 ## Existing Sak-AI frontier
@@ -275,7 +280,7 @@ No current-master delta makes an immediate dependency update the shortest route.
 
 | Route | What it honestly supplies | Main mismatch/blocker | Reversibility |
 | --- | --- | --- | --- |
-| Existing finite sums, with named ultraweak limit theorem | Sakai's identity-integrand formula as a `σ(M,M_*)` limit | Does not yet supply a set-indexed PVM or general bounded-Borel calculus | High: theorem-only, no permanent object |
+| Existing finite sums, with named ultraweak limit theorem | A useful topology-forgotten consequence of canonical norm convergence | Does not identify Sakai's strong abstract integral or supply a set-indexed PVM | High: theorem-only, no permanent object |
 | Local topology-parametric `HasRadonStieltjesIntegral` predicate | Reusable proposition-level tagged-sum semantics in a chosen topology | Signature/partition conventions are a foundational choice; genericity must be justified | Medium-high if value-only; still requires review |
 | Pinned `BoxIntegral.HasIntegral` | General tagged sums in a mature framework | Norm topology and box-additive-map interface, not ultraweak | Medium; an adapter risks encoding the wrong notion |
 | Current archived `HasStieltjesIntegral` | Convenient norm Riemann--Stieltjes notation and API precedent | Not pinned, archived, norm-topological, no PVM | Medium-low as a dependency; high as read-only design evidence |
@@ -332,9 +337,9 @@ This report recommends the following direction without deciding a permanent inte
 2. Add a named theorem-level corollary whose conclusion is `Tendsto` in
    `σ(M, P)_𝕜`, obtained from the stronger norm estimate through
    `continuous_toUltraweak` or `Ultraweak.toUltraweakL`.
-3. Document that theorem as the formal limit semantics of the identity-integrand clause in Sakai
-   1.11.3.  Do **not** yet introduce integral notation, claim a PVM, or mark the whole source theorem
-   complete: the source's uniqueness clause remains separate.
+3. Document that theorem only as an ultraweak consequence of the canonical norm limit. Do **not**
+   call it the formal semantics of Sakai's identity-integrand clause, introduce integral notation,
+   claim a PVM, or mark the source theorem complete.
 4. Preserve a later bridge theorem from this tagged-sum formulation to whichever PVM/integral
    object is eventually selected.
 
@@ -346,7 +351,7 @@ extension, integrator representation, or notation.
 After the tagged-sum cluster lands, open one bounded design transaction with this output only:
 
 > Specify and test, in scratch modules, two candidate proposition-level signatures for the
-> `σ(M,M_*)` Radon--Stieltjes limit: (a) an adapter around a generic tagged-partition filter, and
+> topology-parametric Radon--Stieltjes limit: (a) an adapter around a generic tagged-partition filter, and
 > (b) a spectral-family-specific `HasSpectralIntegral` predicate.  Prove both candidates equivalent
 > for the identity integrand using the landed norm estimates, list the minimum laws needed for a
 > future bridge to a PVM, and make no public definition until review chooses between them.
@@ -389,7 +394,7 @@ extension, or a dedicated PVM.
 
 ### Statement-fidelity risk
 
-- calling a norm/variation vector-measure integral Sakai's `σ(M,M_*)` integral;
+- calling a norm/variation vector-measure integral Sakai's `s(M,M_*)` integral;
 - proving only a preferred dyadic sequence while stating unrestricted Radon--Stieltjes semantics;
 - treating an additive operator-valued measure as though PVM laws were automatic;
 - marking 1.11.3 complete before the uniqueness clause is represented.

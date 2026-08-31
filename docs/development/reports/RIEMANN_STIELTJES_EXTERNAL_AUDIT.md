@@ -92,8 +92,8 @@ prove the wrong uniqueness statement while remaining internally valid Lean.
 ## Source-equivalence boundary for the directed index
 
 Sakai does **not** define the phrase “abstract Radon--Stieltjes integral” in Theorem 1.11.3 as a
-net over partitions ordered by refinement.  On printed pages 26--27 (PDF pages 38--39), he says
-only that the integral is abstract and is taken with respect to the `σ(M,M_*)` topology.  The
+net over partitions ordered by refinement. On printed pages 26--27 (PDF pages 38--39), he says
+only that the integral is abstract and is taken with respect to the `s(M,M_*)` topology. The
 existence proof then takes `ε > 0` and a finite division of
 `[-‖x‖-ε, ‖x‖+ε]` with every adjacent gap less than `ε`, sandwiches `x` between lower and upper
 sums, bounds their difference by `ε`, and lets `ε → 0`.  The uniqueness proof splits the

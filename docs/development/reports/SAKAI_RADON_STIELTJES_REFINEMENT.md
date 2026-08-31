@@ -1,10 +1,15 @@
 # Sakai 1.11.3: Radon--Stieltjes refinement bridge
 
-Status: **kernel-checked conditional uniqueness; source semantics still OPEN; Sakai 1.11.3 NOT YET
-FORMALIZED**
+Status: **kernel-checked conditional uniqueness; source semantics LEVEL C; Sakai 1.11.3 NOT
+SOURCE-FORMALIZED**
+
+> **Source correction (2026-08-30).** A later full-book visual audit established that Sakai uses
+> strong `s(M,M_*)`, not ultraweak `σ(M,M_*)`. The candidate and all of its ultraweak
+> consequences remain kernel-checked, but the candidate is only a topology-forgotten clarified
+> analogue. The later audit classifies the overall source semantics LEVEL C.
 
 This report integrates the external audit, finite-cut/refinement work, finite-cut enumeration, and
-the abstract ultraweak moment/endpoint bridge.  It deliberately does not turn a convenient
+the candidate ultraweak moment/endpoint bridge. It deliberately does not turn a convenient
 `Finset ℝ` model into Sakai's definition by assertion.
 
 ## A. Baseline and evidence
@@ -181,9 +186,9 @@ limits without a separate mesh-monotonicity assumption on the insertion map.
 In Theorem 1.11.3, printed pages 26--27, Sakai requires:
 
 1. an increasing real-indexed projection family `e`;
-2. one-sided increasing ultraweak continuity;
+2. one-sided increasing strong-topology continuity;
 3. limits `e(t) → 0` at `-∞` and `e(t) → 1` at `+∞`; and
-4. `a = ∫ λ de(λ)` as an abstract Radon--Stieltjes integral in `σ(M,M_*)`.
+4. `a = ∫ λ de(λ)` as an abstract Radon--Stieltjes integral in `s(M,M_*)`.
 
 For existence he uses finite divisions with adjacent gaps below `ε` and lets `ε → 0`.  For
 uniqueness he splits the abstract integral at an arbitrary `r`.  He does not give a Moore--Smith
@@ -303,7 +308,8 @@ refinement-plus-mesh filter.
 
 These declarations are `PROOF_CHECKED` under their explicit hypotheses and
 `TRANSLATED_CANDIDATE`; they are not `SOURCE_EQUIVALENCE_CHECKED`. They remain scratch-only until
-the representation predicate itself passes source review.
+new mathematical evidence fixes a genuine representation predicate. The completed source review
+classified the historical phrase LEVEL C.
 
 ## I. Sakai Theorem 1.11.3
 
@@ -312,8 +318,9 @@ NOT YET FORMALIZED
 ```
 
 The remaining blocker is precise and lies before the now-complete conditional support argument: no
-source-reviewed Lean predicate has yet been certified to mean Sakai's phrase “abstract
-Radon--Stieltjes integral with respect to the `σ(M,M_*)` topology.”
+source-reviewed Lean predicate has been certified to mean Sakai's phrase “abstract
+Radon--Stieltjes integral with respect to the `s(M,M_*)` topology.” The subsequent source audit
+classifies the missing division/refinement semantics LEVEL C.
 
 In particular, bare `Finset ℝ` atTop is **not** source-equivalent merely because it solves
 prescribed cuts.  It forces every fixed finite cut set to appear eventually and makes the extrema
@@ -322,7 +329,7 @@ may refine to `S ∪ {R}` with `R` arbitrarily far above `max S`, producing an a
 gap. Bare refinement and the usual mesh filter are therefore not known equivalent and are
 generally incomparable without extra estimates. This mismatch must not be hidden.
 
-### Exact next missing statement
+### Candidate statement whose source status was tested
 
 The proposed richer filter and all of its technical obligations are now kernel-checked:
 
@@ -337,9 +344,8 @@ Tendsto rightEndpoint stieltjesFilter atTop
 Tendsto divisionMesh stieltjesFilter (nhds 0)
 ```
 
-The exact remaining statement is semantic rather than combinatorial. A human/source-reviewed
-translation must certify, by definition or equivalence, that Sakai's clause is the left-endpoint
-moment limit
+The semantic question was whether Sakai's clause could be certified as the left-endpoint moment
+limit
 
 ```lean
 HasSakaiRadonStieltjesRepresentation e a ↔
@@ -350,19 +356,10 @@ HasSakaiRadonStieltjesRepresentation e a ↔
     (nhds (toUltraweak ℂ P a)).
 ```
 
-Here the left side is a provisional name, not an API that already exists. Two honest closure routes
-are available:
-
-1. accept the displayed richer-filter right side as the definition only after human/source review
-   of its refinement, mesh, endpoint, and left-endpoint-sum quantifiers; or
-2. if an authoritative formal abstract Radon--Stieltjes predicate appears, prove the displayed
-   equivalence to it.
-
-The audit found no existing predicate capable of route 2. After that semantic choice, the canonical
-lower family must also be connected to the accepted predicate using the existing spectral-sum
-convergence theorems, so that Sakai's existence clauses and the checked candidate uniqueness are
-presented as one source theorem. Until those steps are statement-checked, Gate 1 remains open and
-Theorem 1.11.3 remains incomplete.
+Here the left side is a provisional name, not an API that exists. The later audit did not certify
+the equivalence: Sakai's topology is strong and the historical division/improper-limit convention
+is genuinely ambiguous. The candidate therefore remains scratch, Gate 1 remains RED, and Theorem
+1.11.3 remains incomplete without an invented definition.
 
 ## J. External reuse and provenance
 
@@ -423,9 +420,10 @@ infrastructure questions:
 5. under that explicit candidate moment semantics, the full pointwise support recovery and
    two-family uniqueness arguments kernel-check.
 
-The next natural Sakai target remains Theorem 1.11.3 itself.  Work should not advance to Section
-1.12 until the richer filter/source-equivalence gate is resolved or consciously deferred by human
-review.
+The source-certification transaction has now consciously and explicitly deferred this LEVEL C
+historical ambiguity. Work may proceed to Section 1.12 where it consumes only proved canonical
+spectral-family conclusions. The candidate should be revisited only if new source evidence or a
+coherent PVM/integral construction fixes the missing interface.
 
 ## O. Acceptance gates and assessment
 

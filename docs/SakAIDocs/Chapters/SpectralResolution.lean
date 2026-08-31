@@ -104,9 +104,12 @@ Then $`e_h(\lambda)` is the least upper bound of the projections
 $`e_h(\lambda_i)`, and
 $`e_h(\lambda_i)\to e_h(\lambda)` ultraweakly.
 
-Taking $`I=\mathbb N` gives Sakai's Lemma 1.11.1 for every increasing
-sequence $`\lambda_n<\lambda` with $`\lambda_n\to\lambda`; the strict
-inequality is not needed by the formal theorem.
+Taking $`I=\mathbb N` gives the ultraweak consequence of Sakai's Lemma
+1.11.1 for every increasing sequence
+$`\lambda_n<\lambda` with $`\lambda_n\to\lambda`; the strict inequality is
+not needed by the formal theorem.  Sakai's printed lemma states convergence
+in the stronger $`s(M,M_*)` topology, so that exact source conclusion remains
+to be promoted.
 :::
 
 :::proof "lem:lower_spectral_projection_continuity_Sak_1_11_1"
@@ -116,7 +119,8 @@ therefore identifies $`e_h(\lambda)` as the least upper bound of the net of
 projections.  Reuse the existing theorem that a directed projection supremum
 is also an ambient order supremum, then apply monotone convergence in the
 specified ultraweak topology.  No spectral measure or Radon--Stieltjes
-integration is introduced at this checkpoint.
+integration is introduced at this checkpoint.  This proof establishes a
+weaker consequence of the source's strong-topology statement.
 :::
 
 :::group "spectral-band-increments"
@@ -402,8 +406,9 @@ every specified ultraweak topology.
 
 This result supplies the partition-independent approximation needed for a
 spectral-integral formulation.  It does *not* define an operator-valued
-measure or identify the limit with Sakai's ultraweak Radon--Stieltjes integral;
-that interface remains the current architectural frontier.
+measure or identify the limit with Sakai's abstract Radon--Stieltjes integral,
+which the source states in the stronger $`s(M,M_*)` topology without defining
+its division semantics; that interface remains an architectural frontier.
 :::
 
 :::proof "prop:tagged_spectral_sum_convergence"
@@ -484,11 +489,12 @@ ultraweak closedness of the positive cone, and Mathlib's existing positive-
 and negative-part uniqueness theorem.  It does not assume that positive part
 is ultraweakly continuous.
 
-For an arbitrary competing resolution, the remaining source-facing step is
-to derive these nets, with arbitrary cuts inserted and asymptotic endpoint
-terms retained, from Sakai's abstract ultraweak Radon--Stieltjes
-representation.  Thus this proposition does not yet assert support recovery
-or uniqueness of the competing resolution.
+For an arbitrary competing resolution, a source-facing proof would have to
+derive these nets, with arbitrary cuts inserted and asymptotic endpoint terms
+retained, from Sakai's abstract strong-topology Radon--Stieltjes
+representation.  Sakai does not define the associated division/refinement
+semantics.  Thus this proposition does not yet assert source-certified support
+recovery or uniqueness of the competing resolution.
 :::
 
 :::proof "prop:fixed_projection_ultraweak_decomposition"

@@ -33,11 +33,12 @@ This is an API-reconnaissance log, not a commitment to upstream every helper.
   Bochner integral is not automatically the right codomain for W*-algebra-valued spectral
   integration.
 
-The completed audit in `reports/MATHLIB_SPECTRAL_AUDIT.md` distinguishes the layers precisely:
+The completed audit in `reports/MATHLIB_SPECTRAL_AUDIT.md` distinguishes the implementation layers
+precisely (its original identification of Sakai's topology has since been corrected):
 `VectorMeasure` can express topology-parametric additivity, but its integral uses norm variation;
 current `Archive/RiemannStieltjes.lean` is likewise norm-topological and is neither pinned nor a
-general PVM. The current shortest route is therefore theorem-level ultraweak tagged-sum limits,
-not a local operator-valued measure.
+general PVM. The existing theorem-level ultraweak tagged-sum limits remain useful consequences;
+Sakai's printed source topology is the stronger `s(M,M_*)` topology.
 
 ## Spectral-integral interface experiment
 
@@ -77,8 +78,9 @@ and for a checked nontrivial refinement-plus-mesh candidate filter.
 No audited library supplies the missing semantic object. PNT+'s implemented filter is scalar,
 fixed-interval, and mesh-only; teorth's scalar Darboux development has placeholders; current
 Mathlib's archived Riemann--Stieltjes API and the ICERM work are fixed-box and norm-topological.
-Accordingly the remaining gap is not another generic cofinality theorem. It is a source-reviewed
-operator-valued ultraweak representation predicate matching Sakai's abstract integral clause.
+Accordingly the remaining gap is not another generic cofinality theorem. Sakai's source clause is
+strong-topological, while its operator-valued division/refinement and improper-limit semantics are
+LEVEL C ambiguous. No source-certified representation predicate is currently justified.
 
 ## CFC audit for truncated-affine recovery
 

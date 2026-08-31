@@ -246,9 +246,9 @@ CFC class with $W^*$-specific or term-dependent fields.
 The competing-family experiment proves a useful finite algebraic fact: for a monotone
 projection-valued family with exact finite endpoints, the truncated-affine weighted sum is the
 positive part of the corresponding affine identity-weighted step operator.  Norm convergence of
-those step operators then yields convergence to the same CFC target.  This is strong compatibility
-evidence, but its exact endpoints and norm convergence are stronger than Sakai's ultraweak source
-hypotheses.
+those step operators then yields convergence to the same CFC target. This is strong compatibility
+evidence, but its exact endpoints and norm convergence are stronger than Sakai's strong-topology
+source hypotheses and do not settle his undefined integral semantics.
 
 The support experiment proves a topology-free sufficient criterion: the target is fixed by `e r`,
 each `e s` for `s < r` is dominated by the support through a strictly positive scalar lower bound,

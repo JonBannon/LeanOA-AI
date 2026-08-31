@@ -47,7 +47,10 @@ The orchestration documents track work ownership and architecture only. Mathemat
 dependency truth remain in Verso Blueprint blocks and `uses` references.
 
 At the current Sakai 1.11.3 frontier, fixed-projection ultraweak decomposition is a reusable
-downstream theorem layer. The remaining RED boundary is the semantics of an arbitrary competing
-resolution's ultraweak Radon--Stieltjes representation, especially cofinal stability under
-inserting prescribed cuts. Conditional support and uniqueness scratch theorems do not authorize a
-public resolution, integral, or PVM abstraction before that bridge is fixed.
+downstream theorem layer. The source audit establishes that Sakai states the representation in his
+strong `s(M,M_*)` topology, not the ultraweak topology, but leaves the integral's directed-division,
+tag, refinement, and improper-endpoint semantics undefined. A scratch theorem checks the safe
+topology-forgetting implication from strong convergence of the *same* finite-cut net to the
+existing ultraweak conditional uniqueness chain. This does not certify that Sakai meant that net.
+The resulting LEVEL C boundary does not authorize a public resolution, integral, or PVM
+abstraction.

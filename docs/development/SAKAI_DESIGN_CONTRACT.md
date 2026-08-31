@@ -38,20 +38,27 @@ record unless the human maintainer decides otherwise.
    symmetric cases through existing equivalences, `star`, `flip`, or complements when natural.
 8. Do not create parallel permanent foundations for local convenience. Shared representation,
    instance, topology, and foundational API choices require architecture/integration review.
-9. Never add `sorry` or `admit`. Run Lean after substantive edits, `lake build` and `lake lint` for
-   integration, and the documentation checks when Verso changes.
-10. `LeanOA.lean` is the public umbrella. New public modules must be reachable from it.
-11. Verso in `docs/` is the sole mathematical-documentation and theorem-status source. Do not create
-    a second theorem-status ledger. `uses` edges and checked declaration links carry mathematical
-    dependency and completion information.
-12. Development policy stays out of the public mathematical reading path. Keep the public
-    `Current frontier` section until the overall program is complete.
-13. Generated documentation output is untracked and must not be edited or committed.
-14. Human-facing prose uses $C^*$-algebra and $W^*$-algebra typography in new or substantially
-    revised passages. Exact Lean identifiers retain their spelling. Any legacy typography migration
-    must be systematic rather than scattered.
-15. A locally compiling result is not integration-ready unless its statement is mathematically
-    faithful, its abstraction fits the project, and it does not duplicate or leak unstable APIs.
+9. Sak-AI introduces no custom mathematical axioms or proof placeholders. Never add `axiom`,
+   `sorry`, `admit`, opaque declarations used as unproved assumptions, or equivalent mechanisms to
+   fill a mathematical or source-semantics gap. Explicit theorem hypotheses are permitted only
+   when they are genuinely part of the stated mathematics; they must not replace a proof from the
+   weaker hypotheses claimed by the source. Standard Lean/Mathlib foundations are not custom
+   Sak-AI axioms. Run textual placeholder/axiom scans at integration, and use `#print axioms` on
+   principal new theorems when it helps audit their dependency chain.
+10. Run Lean after substantive edits, `lake build` and `lake lint` for integration, and the
+   documentation checks when Verso changes.
+11. `LeanOA.lean` is the public umbrella. New public modules must be reachable from it.
+12. Verso in `docs/` is the sole mathematical-documentation and theorem-status source. Do not create
+   a second theorem-status ledger. `uses` edges and checked declaration links carry mathematical
+   dependency and completion information.
+13. Development policy stays out of the public mathematical reading path. Keep the public
+   `Current frontier` section until the overall program is complete.
+14. Generated documentation output is untracked and must not be edited or committed.
+15. Human-facing prose uses $C^*$-algebra and $W^*$-algebra typography in new or substantially
+   revised passages. Exact Lean identifiers retain their spelling. Any legacy typography migration
+   must be systematic rather than scattered.
+16. A locally compiling result is not integration-ready unless its statement is mathematically
+   faithful, its abstraction fits the project, and it does not duplicate or leak unstable APIs.
 
 ## Parallel-work rule
 

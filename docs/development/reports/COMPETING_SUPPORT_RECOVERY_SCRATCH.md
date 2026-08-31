@@ -3,6 +3,10 @@
 Status: kernel-checked theorem-level scratch result; no production API, resolution predicate,
 integral, PVM, umbrella import, or Verso change is proposed from this branch
 
+> **Source correction (2026-08-30).** Sakai's clauses use the strong `s(M,M_*)` topology, not
+> ultraweak `σ(M,M_*)`. This report's scratch interface is still a valid ultraweak consequence
+> after forgetting a same-net strong limit, but it is not itself a source-faithful interface.
+
 ## Scope and source
 
 The source is Sakai, Theorem 1.11.3, especially the uniqueness paragraph on printed page 27
@@ -10,9 +14,9 @@ The source is Sakai, Theorem 1.11.3, especially the uniqueness paragraph on prin
 `e'` is assumed to satisfy:
 
 1. projection-valuedness and monotonicity;
-2. sequential ultraweak continuity from below;
-3. ultraweak endpoint limits `0` and `1`;
-4. the abstract ultraweak Radon--Stieltjes representation
+2. sequential strong-topology continuity from below;
+3. endpoint limits `0` and `1` (the display does not repeat the topology);
+4. the abstract strong-topology Radon--Stieltjes representation
    `x = integral lambda d e'(lambda)`.
 
 Sakai fixes `lambda_0`, splits the integral for `lambda_0 1 - x` below and above `lambda_0`,
@@ -29,7 +33,7 @@ support ((lambda_0 1 - x)^+)
 The scratch file is `Scratch/CompetingSupportRecovery.lean`.  It expands the implicit
 fixed-projection and order argument without defining an integral.
 
-## Source-faithful approximation interface tested
+## Topology-forgotten approximation interface tested
 
 Fix a cut `r`, put `p = e r`, and let `u_i` and `v_i` be finite below-cut and above-cut
 translated sums after inserting `r` into each division.  The principal theorem assumes only:

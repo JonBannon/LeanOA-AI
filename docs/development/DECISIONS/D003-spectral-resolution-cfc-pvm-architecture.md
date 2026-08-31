@@ -10,6 +10,10 @@ named CFC bridge and umbrella integration at `5a2f037`,
 competing-family scratch result at `de8e2bb`, and support/CFC/PVM audit at
 `f5daad067c64d5d05895a809cbfd7dc3266eb862`.
 
+**Source correction (2026-08-30).** Sakai's printed continuity and abstract-integral topology is
+`s(M,M_*)`, not `σ(M,M_*)`. References below to ultraweak convergence describe the still-valid
+modern consequence used by the conditional support proof, not the literal source hypothesis.
+
 ## Canonical truncated-affine theorem
 
 Publish the theorem-only module `LeanOA.Ultraweak.TruncatedSpectralSum`.  Its target is the existing
@@ -60,8 +64,8 @@ The competing-family scratch theorem uses norm convergence of identity-weighted 
 but are stronger than Sakai's source assumptions and are not accepted as the definition of a
 resolution.
 
-A source-faithful relation must eventually encode or derive the ultraweak Radon--Stieltjes
-representation of `a` independently of one privileged sequence of divisions.  It must be stable
+A source-faithful relation would have to encode Sakai's strong-topology Radon--Stieltjes
+representation of `a` independently of one privileged sequence of divisions. It must be stable
 under insertion of an arbitrary cut and strong enough to derive the positive/negative decomposition
 needed for support recovery.  It must not assume the desired truncated-affine limit or support
 identity.
@@ -105,9 +109,10 @@ The endpoint convention is fixed: `e r = E (Iio r)`, bands are `Ico r s`, and an
 
 ## Competing-resolution uniqueness
 
-Sakai's arbitrary competing-resolution uniqueness theorem is not proved and remains RED.  The
+Sakai's arbitrary competing-resolution uniqueness theorem is not proved and remains RED. The
 finite scratch identity and its norm-limit corollary do not close the source theorem because Sakai
-uses ultraweak endpoints and an ultraweak representation, not exact endpoints and norm convergence.
+uses strong-topology continuity and representation with asymptotic endpoints, not exact endpoints
+and norm convergence; moreover, his integral's division semantics are undefined.
 The family can also be unconstrained at an unsampled cut unless approximation is stable under cut
 insertion and continuity from below is used.
 

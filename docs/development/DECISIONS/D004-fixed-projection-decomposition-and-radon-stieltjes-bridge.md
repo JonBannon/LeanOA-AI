@@ -11,12 +11,18 @@ Evidence: Sakai/finite audit `6e349da`, fixed-projection audit `c637cb7`, condit
 support-recovery scratch `b25d751`, integrated reports `017eff6`, and consolidated hypothesis
 ledger `6b62428`.
 
+**Source correction (2026-08-30).** A full-page visual audit established that Sakai prints
+`s(M,M_*)`, his strong topology, in both clause 2 and the integral clause. Earlier readings of the
+letter as `σ` were wrong. The division/refinement semantics remain undefined, so D004's public API
+decision survives, but every occurrence below of an ultraweak approximation describes the checked
+topology-forgotten proof route rather than Sakai's literal topology.
+
 ## Source boundary
 
 Sakai, Theorem 1.11.3, printed pages 26--27 (PDF pages 38--39), assumes a monotone real-indexed
-projection family, sequential ultraweak continuity from below, endpoint limits to zero and one,
-and an abstract Radon--Stieltjes representation of the self-adjoint element in the ultraweak
-topology. It does not assume exact endpoint projections for each finite division or norm
+projection family, sequential strong-topology continuity from below, endpoint limits to zero and
+one, and an abstract Radon--Stieltjes representation of the self-adjoint element in the
+`s(M,M_*)` topology. It does not assume exact endpoint projections for each finite division or norm
 convergence of moment sums.
 
 The printed uniqueness argument implicitly uses more than one chosen approximating net: it uses
@@ -83,11 +89,12 @@ freeze the missing representation semantics instead of resolving it.
 
 ## Exact remaining blocker
 
-The missing theorem must turn Sakai's abstract ultraweak Radon--Stieltjes representation into a
-division-independent directed approximation system and prove that the subsystem containing any
-prescribed finite set of cuts remains cofinal and has the same limit. It must also combine the two
-endpoint limits with the identity-moment limit to obtain the translated total limit while retaining
-the finite left-endpoint residual.
+The missing semantic bridge would have to turn Sakai's abstract strong-topology
+Radon--Stieltjes representation into a division-independent directed approximation system and
+prove that the subsystem containing any prescribed finite set of cuts remains cofinal and has the
+same limit. The source audit found no definition that licenses such a theorem. If a future
+source-faithful interpretation supplies it, strong convergence of that same net may first be
+forgotten to ultraweak convergence and the checked downstream machinery reused.
 
 This is a representation/refinement bridge. It is not a missing theorem about fixed
 multiplication, ultraweak order closure, positive and negative parts, supports, or Mathlib CFC.
@@ -111,7 +118,8 @@ order, support, and CFC conclusions then remain unchanged.
 
 ## Next bounded target
 
-Design and kernel-test the smallest division/refinement indexing layer that gives Sakai's abstract
-ultraweak Radon--Stieltjes representation a division-independent meaning. Its acceptance test is
-cofinal stability under insertion of arbitrary prescribed cuts and derivation of the exact
-inserted-cut approximants consumed by the already checked support-recovery proof.
+Do not assign Sakai's phrase a definition by fiat. Preserve the checked refinement-plus-mesh
+candidate as a clarified modern analogue, use the strong-to-ultraweak bridge when the same net is
+assumed strong-convergent, and proceed to the next Sakai material that depends only on the canonical
+spectral-family conclusions. Reopen this decision only if new primary evidence or a coherent PVM
+construction fixes a genuine public integral interface.
