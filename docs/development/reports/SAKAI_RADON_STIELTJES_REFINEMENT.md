@@ -31,11 +31,11 @@ The conclusions below are supported by these isolated or integrated evidence com
 | Refinement-plus-mesh source candidate | `f431754` (integrated) | `Scratch/RadonStieltjesMeshFilter.lean`; nontrivial refinement/mesh filter, endpoint escape, and prescribed-cut invariance |
 | Source/finite split | `6e349da6425e77fc20e439bd4e0d2cfefded9ef7` | finite inserted-cut algebra, positivity, localization, and residual lower bound |
 | Conditional support recovery | `b25d751b0d838d753d195704ca5270f7a0cb0204` | support recovery and uniqueness under explicit approximation hypotheses |
-| Complete candidate assembly | `9ec05eb` plus the current integration follow-up | `Scratch/SakaiRadonStieltjesFinsetCandidate.lean`; pointwise and family uniqueness under explicit candidate moment semantics |
+| Complete candidate assembly | `9ec05eb`, generalized/specialized in `5b719f1` | `Scratch/SakaiRadonStieltjesFinsetCandidate.lean`; pointwise and family uniqueness under explicit candidate moment semantics |
 | Production fixed-projection layer | `979f14da3bc1d8f45ba8c12e8dbc6c606170ecb1` | reusable ultraweak decomposition and support infrastructure |
 
-No initial build was rerun merely to write this report.  The focused worker validations are
-recorded in Section P; integration-wide validation remains a lead-integration gate.
+The initial baseline `lake build` passed with 3,114 jobs before implementation. Focused and final
+integration validation are recorded in Section P.
 
 ## B. External Riemann--Stieltjes audit
 
@@ -441,7 +441,7 @@ review.
 | 7 — scratch-to-production support bridge | **PASS CONDITIONALLY** | complete finite-set-to-support assembly under explicit candidate moment semantics; source instantiation awaits Gate 1 |
 | 8 — uniqueness | **PASS FOR CANDIDATE / SOURCE OPEN** | pointwise and two-family uniqueness are kernel-checked under candidate semantics; Sakai uniqueness is not source-equivalence checked |
 | 9 — architecture | **PASS** | no duplicate CFC, PVM, resolution, or general integral; no production API added |
-| 10 — validation | **PARTIAL** | focused scratch/build checks pass; full integrated Lean/lint/Verso/blueprint validation still required by lead |
+| 10 — validation | **PASS** | all scratch files, 3,114-job theorem build, lint, 3,474-job docs build, Verso build/check, manifests, placeholders, and diff checks pass |
 
 Transaction assessment:
 
@@ -469,28 +469,65 @@ It is not a `SOURCE THEOREM` result.
 
 ## P. Version control and validation
 
-Focused validation reported by the worker streams:
+Integrated transaction commits after source baseline `0e5a794`:
 
 ```text
-lake env lean Scratch/DivisionRefinementCofinality.lean     PASS
-lake env lean Scratch/FiniteCutEnumeration.lean             PASS
-lake build LeanOA.Ultraweak.ProjectionDecomposition         PASS (3,047 jobs in bridge worktree)
-lake env lean Scratch/SakaiRadonStieltjesBridge.lean         PASS, warning-free
-git diff --check                                             PASS in each worker
-placeholder/axiom scans of the three scratch files           PASS
+1cd3a65  chore: start Radon Stieltjes refinement transaction
+948b7c4  test: verify prescribed-cut cofinality
+9ce196c  docs: audit external Riemann Stieltjes APIs
+f7bd0bd  test: verify finite cut enumeration
+8ced075  test: verify Radon Stieltjes cofinal bridge
+5c33276  test: restore checked spectral uniqueness lanes
+8642b25  docs: record Radon Stieltjes refinement gates
+9ec05eb  test: integrate finite-set Sakai candidate
+f431754  test: verify Radon Stieltjes mesh filter
+5b719f1  test: complete conditional Sakai uniqueness bridge
 ```
 
-The external-audit and this integration lane modify reports only.  The worker branches/worktrees
-were:
+The final focused scratch lane compiled the dependency modules into the ignored Lake build tree and
+then checked the complete consumer:
+
+```text
+lake env lean Scratch/DivisionRefinementCofinality.lean       PASS
+lake env lean Scratch/FiniteCutEnumeration.lean               PASS
+lake env lean Scratch/RadonStieltjesMeshFilter.lean           PASS
+lake env lean Scratch/SakaiRadonStieltjesBridge.lean           PASS
+lake env lean Scratch/SakaiUniquenessFinite.lean               PASS
+lake env lean Scratch/CompetingSupportRecovery.lean           PASS
+lake env lean Scratch/SakaiRadonStieltjesFinsetCandidate.lean  PASS
+```
+
+Full integration validation:
+
+```text
+lake build                    PASS (3,114 jobs)
+lake lint                     PASS (`LeanOA`)
+cd docs && lake build SakAIDocs
+                              PASS (3,474 jobs)
+cd docs && lake exe vbp build PASS
+cd docs && lake exe vbp check PASS (`ok: true`, zero errors, 492 manifest/cache entries)
+./scripts/build-verso-site.sh PASS
+required site/manifest/cache files
+                              PASS
+repository-wide Lean `sorry` / `admit` / declaration-level `axiom` scan
+                              PASS (no matches)
+git diff --check              PASS
+```
+
+The docs build emits only the previously known pinned dependency warnings from SubVerso,
+VersoManual, and generated VersoBlueprint JSON instances; Sak-AI documentation elaborates and the
+blueprint check reports no errors.
+
+Worker branches/worktrees included:
 
 ```text
 agent/rs-external-audit  /private/tmp/sakai-rs-external-1cd3a65
 agent/rs-refinement      /private/tmp/sakai-rs-refinement-1cd3a65
 agent/rs-bridge          /private/tmp/sakai-rs-bridge-1cd3a65
+agent/rs-integration     /private/tmp/sakai-rs-integration-5c33276
+agent/rs-mesh-filter     /private/tmp/sakai-rs-mesh-filter-8642b25
 ```
 
-No worker pushed.  No dependency, production Lean module, umbrella import, Verso source, blueprint,
-or shared coordination file was changed by this report.  Because Gate 1 remains open and no
-production theorem was added, the report does not mark a Verso node complete.  A lead integration
-run must still perform the full repository build, lint, Verso build/check, blueprint validation,
-placeholder scan, and final clean-tree/commit audit.
+No worker or lead pushed. No dependency, production Lean module, umbrella import, Verso source, or
+blueprint node changed. Because Gate 1 remains open, the public documentation correctly does not
+mark Sakai 1.11.3 complete.

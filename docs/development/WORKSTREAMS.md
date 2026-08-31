@@ -275,7 +275,8 @@ canonical. No stream may publish a PVM, general integral, or competing resolutio
 - **Scope:** external-reuse decision, shared API ownership, integration of the conditional support
   proof, completion of Sakai 1.11.3 if source hypotheses close, public API judgment, Verso, and full
   validation
-- **Status:** CONDITIONAL PROOF COMPLETE / SOURCE REVIEW ACTIVE; `9ec05eb` plus its integration
-  follow-up assemble finite indices, support recovery, pointwise identification, and family
+- **Status:** CONDITIONAL PROOF COMPLETE / SOURCE REVIEW ACTIVE; `9ec05eb` and `5b719f1` assemble
+  finite indices, support recovery, pointwise identification, and family
   uniqueness under the explicit candidate moment limit. Nothing became public or entered Verso;
-  full validation is the remaining engineering gate.
+  the full theorem build, lint, scratch checks, Verso/blueprint build and check, manifest checks,
+  and placeholder scan all pass.
