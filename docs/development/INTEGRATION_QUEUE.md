@@ -39,10 +39,11 @@ in their workstream.
   fixed-projection decomposition and coherent support helpers under D004. The architecture remains
   OPEN / RED at a documented historical ambiguity. The concrete filter and uniqueness theorem
   remain scratch-only and are labeled `TRANSLATED_CANDIDATE`, not `SOURCE_EQUIVALENCE_CHECKED`.
-- **Next bounded action:** do not manufacture source equivalence. Correct the canonical continuity
-  layer to Sakai's strong topology, then proceed into Section 1.12 using the canonical spectral
-  family where later arguments need only its proved conclusions. Revisit a public representation
-  predicate when a coherent PVM/integral construction or new primary evidence fixes its semantics.
+- **Next bounded action:** do not manufacture source equivalence. The canonical continuity layer is
+  now corrected and source-formalized in Sakai's strong topology. Proceed into Section 1.12 through
+  the independent CFC-absolute-value/support/compactness chain. Revisit a public representation
+  predicate only when a coherent PVM/integral construction or new primary evidence fixes its
+  semantics.
 
 ## IQ-002 — spectral helper generality
 
@@ -68,3 +69,16 @@ in their workstream.
 - **Status:** RESOLVED
 - **Decision:** coordination files may track ownership, interface stability, and architectural
   dependencies, but Verso remains the only theorem-status/dependency registry.
+
+## IQ-005 — element polar-decomposition packaging
+
+- **Status:** SCOPED / YELLOW; no foundational decision presently blocks work
+- **Affected streams:** general C-star API, support, CFC regularizer, ultraweak compactness, Verso
+- **Question:** Which reusable helper surface is needed before packaging Sakai 1.12.1?
+- **Decision so far:** keep Mathlib `CFC.abs` canonical; express partial-isometry semantics through
+  `IsStarProjection (star u * u)` initially; use a distinct future
+  `Ultraweak.ElementPolarDecomposition` module so the existing functional-polar-decomposition
+  module remains unambiguous. Do not add a `polarPart` object until a consumer needs one.
+- **Next bounded action:** run the general C-star contract and the source-regularizer scratch
+  contract in parallel. Start the W-star support bridge as soon as the C-star absolute-value
+  annihilator signatures are frozen. Keep existence and packaging sequential and isolated.

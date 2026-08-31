@@ -3,6 +3,7 @@ import VersoManual
 import VersoBlueprint
 import LeanOA.Ultraweak.SpectralApproximation
 import LeanOA.Ultraweak.SpectralBand
+import LeanOA.Ultraweak.SpectralProjectionStrong
 import LeanOA.Ultraweak.TaggedSpectralSum
 import LeanOA.Ultraweak.ProjectionDecomposition
 import LeanOA.Ultraweak.TruncatedSpectralSum
@@ -97,30 +98,34 @@ continuous functional calculus.  The resulting positive elements are ordered,
 so monotonicity of support projections gives the conclusion.
 :::
 
-:::lemma_ "lem:lower_spectral_projection_continuity_Sak_1_11_1" (parent := "lower-spectral-projections") (lean := "WStarAlgebra.isLUB_range_spectralProjectionIio_of_tendsto, WStarAlgebra.tendsto_spectralProjectionIio_of_monotone") (uses := "def:spectral_positive_part, prop:lower_spectral_projection_mono_Sak_1_11, prop:proj_compl_lat_wstar_Sak_1_10_2")
-Let $`I` be a nonempty directed preorder and let
-$`\lambda_i` be an increasing net of real numbers converging to $`\lambda`.
-Then $`e_h(\lambda)` is the least upper bound of the projections
-$`e_h(\lambda_i)`, and
-$`e_h(\lambda_i)\to e_h(\lambda)` ultraweakly.
+:::lemma_ "lem:lower_spectral_projection_continuity_Sak_1_11_1" (parent := "lower-spectral-projections") (lean := "WStarAlgebra.tendsto_spectralProjectionIio_strong, WStarAlgebra.tendsto_spectralProjectionIio_strong_of_tendsto_of_eventually_le, WStarAlgebra.continuousWithinAt_spectralProjectionIio_strong, WStarAlgebra.tendsto_spectralProjectionIio_strong_of_monotone, Ultraweak.Strong.tendsto_of_tendsto_toUltraweak_of_eventually_le, Ultraweak.Strong.seminorm_sub_le_of_le") (uses := "def:spectral_positive_part, prop:lower_spectral_projection_mono_Sak_1_11, prop:proj_compl_lat_wstar_Sak_1_10_2, def:strong_top")
+Let $`(\lambda_n)` be a real sequence such that
+$`\lambda_n\leq\lambda` for every $`n` and
+$`\lambda_n\to\lambda`.  Then
+$`e_h(\lambda_n)\to e_h(\lambda)` in the intrinsic strong topology
+$`s(M,M_*)`.  No monotonicity hypothesis on the sequence is required.
 
-Taking $`I=\mathbb N` gives the ultraweak consequence of Sakai's Lemma
-1.11.1 for every increasing sequence
-$`\lambda_n<\lambda` with $`\lambda_n\to\lambda`; the strict inequality is
-not needed by the formal theorem.  Sakai's printed lemma states convergence
-in the stronger $`s(M,M_*)` topology, so that exact source conclusion remains
-to be promoted.
+This is Sakai's Lemma 1.11.1 with its exact source topology and hypotheses.
+The formal API is filter-general: any family of cuts converging to
+$`\lambda` and eventually bounded above by $`\lambda` has the same strong
+limit.  Equivalently, the lower spectral projection family is strongly
+continuous from the left at every real cut.
 :::
 
 :::proof "lem:lower_spectral_projection_continuity_Sak_1_11_1"
-Norm continuity of $`b_h` shows that any projection fixing every
-$`b_h(\lambda_i)` also fixes $`b_h(\lambda)`.  The support universal property
-therefore identifies $`e_h(\lambda)` as the least upper bound of the net of
-projections.  Reuse the existing theorem that a directed projection supremum
-is also an ambient order supremum, then apply monotone convergence in the
-specified ultraweak topology.  No spectral measure or Radon--Stieltjes
-integration is introduced at this checkpoint.  This proof establishes a
-weaker consequence of the source's strong-topology statement.
+First, a net of projections eventually dominated by its ultraweak projection
+limit converges strongly: for $`p_i\leq p`, the square of each defining
+strong seminorm of $`p_i-p` is the positive functional evaluated at
+$`p-p_i`.  Applying this upgrade to the existing ultraweak monotone spectral
+theorem, which is itself proved from the least-upper-bound result, gives strong
+convergence for increasing lower spectral projections.
+
+For the sequence in the source, choose an auxiliary strictly increasing
+sequence $`\mu_k\to\lambda`.  Given one strong seminorm and one tolerance,
+choose $`k` so that $`e_h(\mu_k)` is close to $`e_h(\lambda)`.  Eventually
+$`\mu_k\leq\lambda_n\leq\lambda`; monotonicity of the spectral projections
+and of the seminorm on nested projection differences gives the required
+squeeze.  No spectral measure or Radon--Stieltjes integral is used.
 :::
 
 :::group "spectral-band-increments"

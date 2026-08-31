@@ -54,3 +54,15 @@ topology-forgetting implication from strong convergence of the *same* finite-cut
 existing ultraweak conditional uniqueness chain. This does not certify that Sakai meant that net.
 The resulting LEVEL C boundary does not authorize a public resolution, integral, or PVM
 abstraction.
+
+The exact canonical continuity theorem now lives in two downstream bridge modules:
+`Ultraweak.StrongProjection` connects the existing projection lattice to the existing intrinsic
+strong topology, and `Ultraweak.SpectralProjectionStrong` specializes that API to the lower
+spectral family. This dependency direction is deliberate: neither foundational module imports the
+other merely to host a bridge theorem. Sakai 1.11.1 is GREEN; the unrelated 1.11.3 integral
+semantics remain RED.
+
+Section 1.12 is scoped as an independent CFC/support/ultraweak-compactness chain. Future element
+polar decomposition should use Mathlib `CFC.abs`, avoid a duplicate partial-isometry predicate
+until needed, and live in a distinctly named module rather than the existing functional
+`Ultraweak.PolarDecomposition` module.

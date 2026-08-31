@@ -25,8 +25,11 @@ LeanOA CFC/order/projection staging
 CStarAlgebra.spectralPositivePart
   ↓
 WStarAlgebra.spectralProjectionIio
-  ↓
-lowerSpectralSum / upperSpectralSum
+  ├─→ projection LUB + intrinsic strong seminorm squeeze
+  │     ↓
+  │   exact strong left continuity (Sakai 1.11.1) [GREEN]
+  │
+  └─→ lowerSpectralSum / upperSpectralSum
   ↓
 mesh estimates and dyadic norm convergence
   ↓
@@ -77,7 +80,8 @@ Direct local-import counts identify `Ultraweak.Basic` and the weak-bilinear stag
 largest syntactic junctions. Semantically important junctions also include `Ultraweak.Dual`,
 `Ultraweak.WStarAlgebra`, `Ultraweak.Multiplication`, `Ultraweak.ProjectionLattice`,
 `PositiveContinuousLinearMap`, and the CFC order staging layer. The spectral frontier adds
-`SpectralProjection` and `SpectralSum` as a narrow high-payoff chain.
+`SpectralProjection`, the downstream `StrongProjection`/`SpectralProjectionStrong` bridge, and
+`SpectralSum` as a narrow high-payoff chain.
 
 Changes at these nodes receive architecture review even when the local proof is routine.
 
@@ -127,6 +131,26 @@ hypotheses. The audit nevertheless classifies the overall source semantics LEVEL
 Sakai nor a uniform period convention fixes the net/filter, refinement, tags, or improper endpoint
 limit. The source-equivalence edge therefore remains RED by evidence, not by missing proof
 engineering.
+
+The source-faithful 1.11.1 transaction adds no competing topology. The generic projection theorem
+lives downstream of both `Strong` and `ProjectionLattice`; the spectral bridge is downstream again.
+Its arbitrary-filter theorem gives exact strong left continuity and specializes to Sakai's
+nonmonotone sequence statement. This production GREEN edge is independent of the scratch
+Radon--Stieltjes candidate and leaves the LEVEL C boundary unchanged.
+
+The scoped next section has a separate dependency chain:
+
+```text
+Mathlib CFC.abs + general projection/annihilation lemmas
+  ↓
+support(abs a) / one-sided-support bridges
+  ↓
+regularized contractions + ultraweak compact closed ball
+  ↓
+element polar decomposition (Sakai 1.12.1)
+```
+
+No edge from the §1.11 integral/PVM boundary enters this chain.
 
 ## Cartography fields for a major concept
 

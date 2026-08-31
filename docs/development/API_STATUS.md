@@ -1,18 +1,18 @@
 # Shared API status
 
-Status reflects integration review through the Radon--Stieltjes refinement transaction
-(2026-08-30), not a promise of permanent immutability.
+Status reflects integration review through the source-faithful Sakai 1.11.1 transaction
+(2026-08-31), not a promise of permanent immutability.
 
 ## GREEN — stable downstream surfaces
 
 | Area | Principal modules | Why stable / consumers |
 | --- | --- | --- |
 | Weak-duality and specified-predual bridges | `IsWeak`, `Ultraweak.Basic`, `Ultraweak.Dual`, `Ultraweak.WStarAlgebra` | Named maps and compatibility interfaces underpin most ultraweak work. Changes require deliberate migration, but current clients may depend on them. |
-| Ultraweak algebra operations | `Ultraweak.Algebra`, `ContinuousStar`, `Multiplication`, `Strong` | Established topology-facing operation API used by normality, density, ideals, and support. |
+| Ultraweak and intrinsic strong topology | `Ultraweak.Algebra`, `ContinuousStar`, `Multiplication`, `Strong`, `StrongProjection` | Established topology-facing API. Projection domination plus ultraweak convergence now has a reusable strong upgrade, and directed projection LUBs converge strongly. |
 | Fixed-projection ultraweak decomposition | `Ultraweak.ProjectionDecomposition` | General ordered-C-star theorem layer: a fixed extraction identity separates an ultraweak difference limit and identifies positive/negative parts under eventual positivity. It introduces no spectral-family abstraction. |
 | Projection lattice and support | `ProjectionLattice`, `Support`, `Corner` | Completed Section 1.10 and current spectral construction consume these interfaces. Support leastness, projection simp lemmas, and the positive-scalar projection lower-bound criterion are stable consumers of the same support object. |
 | Ideals and central support | `Annihilator`, `Ideal`, `TwoSidedIdeal`, `CentralSupport`, `Opposite` | Completed, documented native-object API. The alternative upstream representation remains a separate review question. |
-| Lower spectral projections | `CStarAlgebra.Spectral`, `Ultraweak.SpectralProjection` | Half-line semantics and naming are intentionally fixed; current finite sums depend on them. |
+| Lower spectral projections | `CStarAlgebra.Spectral`, `Ultraweak.SpectralProjection`, `Ultraweak.SpectralProjectionStrong` | Half-line semantics and naming are intentionally fixed. Sakai 1.11.1 is source-formalized in `s(M,M_*)` without an extra monotonicity hypothesis; current finite sums depend on the same projection object. |
 | Finite spectral sums, bands, and convergence | `Ultraweak.SpectralSum`, `Ultraweak.SpectralApproximation`, `Ultraweak.SpectralBand`, `Ultraweak.TaggedSpectralSum`, `Ultraweak.TruncatedSpectralSum` | Checked theorem-level frontier, including arbitrary tagged sums, sharp truncated-affine mesh estimates with an unaligned cutoff, and explicit norm-to-ultraweak convergence to the existing CFC target. These modules deliberately commit to no spectral-measure representation. |
 | Verso package architecture | `docs/SakAIDocs`, `scripts/build-verso-site.sh` | Sole documentation source with verified migration parity and checked declaration links. |
 

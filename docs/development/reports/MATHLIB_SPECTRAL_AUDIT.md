@@ -7,6 +7,10 @@ Status: architectural evidence only; no foundational decision is made here.
 > ultraweak limits recommended here remain valid consequences of norm convergence, but they are
 > not the exact source topology and do not certify the undefined integral semantics.
 
+> **Completion update (2026-08-31).** The exact strong, nonmonotone continuity statement is now
+> public as `WStarAlgebra.tendsto_spectralProjectionIio_strong`. The integral/PVM conclusions of
+> this report are unchanged.
+
 Workstream: `MATHLIB_SPECTRAL_AUDIT`
 
 Questions addressed: `IQ-001`, `IQ-002`
@@ -64,7 +68,7 @@ At the audited baseline, the source theorem compares as follows:
 | Sakai 1.11.3 clause | Sak-AI status |
 | --- | --- |
 | `e(λ)` is a projection-valued increasing family | represented by `spectralProjectionIio` and monotonicity |
-| continuity from below | its weaker ultraweak consequence is kernel-proved; the source strong conclusion is not yet public |
+| continuity from below | at this report's baseline only the weaker ultraweak consequence was public; the exact strong conclusion was added on 2026-08-31 |
 | limits zero and one at the two endpoints | exact finite cutoff lemmas imply these limits in any topology; named production limits are ultraweak |
 | `x = ∫ λ de(λ)` in the `s(M,M_*)` Radon--Stieltjes sense | lower/upper sums and norm convergence are proved for the canonical family; the exact integral-level statement/interface is unresolved |
 | uniqueness of the resolution | not yet formalized as the source clause |

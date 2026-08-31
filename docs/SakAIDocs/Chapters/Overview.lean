@@ -40,10 +40,13 @@ The connected Section 1.11 targets completed so far are:
 2. the lower spectral projection
    $`e_h(\lambda)=s((\lambda 1-h)^+)` is defined without a retained predual;
 3. the family $`e_h` is monotone;
-4. an increasing directed net $`\lambda_i\to\lambda` gives
-   $`e_h(\lambda_i)\to e_h(\lambda)` ultraweakly.  This is the proved
-   consequence of Sakai 1.11.1; the printed theorem states convergence in
-   the stronger $`s(M,M_*)` topology;
+4. whenever $`\lambda_n\leq\lambda` for every $`n` and
+   $`\lambda_n\to\lambda`, the projections
+   $`e_h(\lambda_n)` converge to $`e_h(\lambda)` in the intrinsic strong
+   topology $`s(M,M_*)`, with no monotonicity assumption.  This is the exact
+   statement of Sakai 1.11.1; a filter-general left-continuity theorem and a
+   reusable strong-convergence theorem for directed projection suprema are
+   also available;
 5. the cutoff recovery identities give the two-sided spectral-band
    increment estimate (Sakai 1.11.2);
 6. the sharp norm bounds give $`e_h(\lambda)=0` for
@@ -81,6 +84,11 @@ finite-cut net in $`s(M,M_*)` is kernel-checked to imply the ultraweak
 hypotheses of the complete conditional uniqueness argument.  This preserves
 the useful modern analogue without asserting that its refinement-plus-mesh
 filter is Sakai's undefined integral.
+
+The next coherent checkpoint is Sakai 1.12.1, the element polar-decomposition
+theorem.  Its source proof uses Mathlib's continuous-functional-calculus
+absolute value, the existing support API, and ultraweak compactness of the
+closed unit ball; it does not depend on the unresolved integral semantics.
 
 # Migration parity
 

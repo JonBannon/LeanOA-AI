@@ -1,6 +1,6 @@
 # Sak-AI architecture and design decisions
 
-Last updated: 2026-08-30
+Last updated: 2026-08-31
 
 ## Theorem library
 
@@ -64,6 +64,14 @@ For a fixed self-adjoint element, the scalar cutoff `(r • 1 - a)⁺` and its n
 in `LeanOA.CStarAlgebra.Spectral`; neither the declarations nor their import boundary depend on a
 predual. Taking its support, proving projection-order properties, and proving ultraweak convergence
 live in `LeanOA.Ultraweak.SpectralProjection`.
+
+The intrinsic strong-topology bridge is deliberately downstream. General projection results live
+in `LeanOA.Ultraweak.StrongProjection`, which imports both the established strong topology and the
+projection lattice without reversing either foundational dependency. Exact strong left continuity
+of the canonical lower spectral family lives in
+`LeanOA.Ultraweak.SpectralProjectionStrong`. In particular, Sakai 1.11.1 is represented with no
+extra monotonicity assumption; the older directed monotone theorem remains an ultraweak
+consequence rather than the source theorem itself.
 
 The lower projection is named `WStarAlgebra.spectralProjectionIio` rather than the unqualified
 `spectralProjection`. The suffix records the half-line represented by the cutoff and reserves the

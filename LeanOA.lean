@@ -90,9 +90,11 @@ public import LeanOA.Ultraweak.SeparatingDual
 public import LeanOA.Ultraweak.SpectralApproximation
 public import LeanOA.Ultraweak.SpectralBand
 public import LeanOA.Ultraweak.SpectralProjection
+public import LeanOA.Ultraweak.SpectralProjectionStrong
 public import LeanOA.Ultraweak.SpectralSum
 public import LeanOA.Ultraweak.StarSubalgebra
 public import LeanOA.Ultraweak.Strong
+public import LeanOA.Ultraweak.StrongProjection
 public import LeanOA.Ultraweak.Support
 public import LeanOA.Ultraweak.TaggedSpectralSum
 public import LeanOA.Ultraweak.TruncatedSpectralSum

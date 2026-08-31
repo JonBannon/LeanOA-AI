@@ -24,12 +24,15 @@ chain under its explicit left-endpoint moment hypothesis. The public frontier mu
 that Sakai's source theorem is incomplete: source-equivalence of that candidate with the book's
 abstract Radon--Stieltjes integral remains OPEN / RED.
 
-The source-certification audit further establishes that the printed topology is `s(M,M_*)`, not
-the ultraweak topology. It classifies the overall integral semantics LEVEL C because the division,
-refinement, tag, and improper-endpoint conventions are not defined and were not uniform in the
-period literature. Verso should present the existing ultraweak result as a proved consequence and
-the candidate uniqueness theorem as a clarified scratch analogue, never as the exact source
-theorem.
+The source-certification audit established that the printed topology is `s(M,M_*)`, not the
+ultraweak topology. The exact nonmonotone Lemma 1.11.1 is now kernel-proved and Verso presents it as
+such. The overall integral semantics remain LEVEL C because the division, refinement, tag, and
+improper-endpoint conventions are not defined and were not uniform in the period literature. Verso
+must continue to present the candidate uniqueness theorem only as a clarified scratch analogue,
+never as the exact source theorem.
+
+The next public theorem node should be Sakai 1.12.1 after its element polar decomposition is
+kernel-proved. The scope report is agent-facing and does not itself become a public theorem node.
 
 ## Work that must wait
 

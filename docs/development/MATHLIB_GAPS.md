@@ -67,6 +67,29 @@ norm-to-ultraweak map rather than adding a local integration hierarchy.
   for nonunital $C^*$-algebras and says that differences from two ordered disjoint intervals in a
   chain of four projections are orthogonal. No equivalent was found in pinned or current Mathlib.
 
+## Intrinsic strong topology and projections
+
+Pinned Mathlib (`476ab284...`), the audited current Mathlib tree, and original LeanOA contain no
+equivalent of Sak-AI's predual-indexed `Ultraweak.Strong` topology or the projection convergence
+API added for Sakai 1.11.1. The general new results are plausible upstream candidates:
+
+- eventual domination by a limiting projection upgrades ultraweak convergence to strong
+  convergence;
+- strong seminorm distance is monotone along nested projection intervals;
+- the canonical net of a directed projection family converges strongly to its LUB.
+
+They remain in a downstream Sak-AI bridge module because Mathlib currently has no matching
+intrinsic topology in which to state them.
+
+## Section 1.12 polar decomposition
+
+Pinned Mathlib has the required canonical `CFC.abs`, sqrt/rpow/inverse/order APIs but no element
+polar-decomposition theorem and no `IsPartialIsometry` predicate. Current Mathlib audited at
+`be865aa50cc0364be66c3941a6dc0c845a2c2ceb` has the same gap. General absolute-value
+annihilation lemmas and consequences of `IsStarProjection (star u * u)` are plausible upstream
+candidates. The W-star existence theorem itself belongs in Sak-AI unless Mathlib first acquires a
+compatible W-star support/compactness layer.
+
 ## Radon--Stieltjes refinement audit
 
 The exact audit in `reports/RIEMANN_STIELTJES_EXTERNAL_AUDIT.md` confirms that pinned Mathlib already

@@ -11,6 +11,7 @@ import LeanOA.Ultraweak.ProjectionDecomposition
 import LeanOA.Ultraweak.ProjectionLattice
 import LeanOA.Ultraweak.SpectralApproximation
 import LeanOA.Ultraweak.SpectralBand
+import LeanOA.Ultraweak.SpectralProjectionStrong
 import LeanOA.Ultraweak.Support
 import LeanOA.Ultraweak.TaggedSpectralSum
 import LeanOA.Ultraweak.TruncatedSpectralSum
@@ -104,8 +105,12 @@ The W-star layer begins only when support is taken:
 {name}`WStarAlgebra.spectralProjectionIio`.  Its primary interfaces are the
 leastness characterization
 {name}`WStarAlgebra.spectralProjectionIio_le_iff`, monotonicity
-{name}`WStarAlgebra.spectralProjectionIio_mono`, and directed-net continuity
-{name}`WStarAlgebra.tendsto_spectralProjectionIio_of_monotone`.  The `Iio`
+{name}`WStarAlgebra.spectralProjectionIio_mono`, ultraweak directed-net continuity
+{name}`WStarAlgebra.tendsto_spectralProjectionIio_of_monotone`, and intrinsic
+strong left continuity
+{name}`WStarAlgebra.continuousWithinAt_spectralProjectionIio_strong`.  The exact
+sequential source theorem, which does not assume monotonicity, is
+{name}`WStarAlgebra.tendsto_spectralProjectionIio_strong`.  The `Iio`
 suffix distinguishes this half-line cut from a future set-indexed spectral
 projection API.
 

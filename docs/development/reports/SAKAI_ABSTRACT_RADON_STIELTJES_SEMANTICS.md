@@ -175,7 +175,7 @@ explicit hypothesis. The new strong-to-ultraweak scratch bridge proves exactly t
 which is independent of the unresolved historical index semantics. Nothing downstream is
 re-proved.
 
-The ambiguity need not freeze the book. Development may proceed to Section 1.12 wherever it uses
-the canonical lower spectral family and its proved conclusions rather than a source-level abstract
-integral predicate. A natural preceding bounded task is to promote the canonical strong-topology
-continuity statement corresponding exactly to Sakai 1.11.1.
+The ambiguity need not freeze the book. The canonical strong-topology continuity statement
+corresponding exactly to Sakai 1.11.1 was subsequently promoted on 2026-08-31. Development may
+proceed to Section 1.12 wherever it uses proved canonical conclusions rather than a source-level
+abstract integral predicate.

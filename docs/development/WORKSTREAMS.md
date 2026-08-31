@@ -230,8 +230,9 @@ PVM abstraction independently.
   ledger, public API decision, Verso only for production mathematics, full validation
 - **Status:** COMPLETE; D004 accepts the generic decomposition and support helpers, rejects a
   premature resolution/PVM/integral structure, and identifies the exact remaining
-  Radon--Stieltjes/refinement bridge. The 3,114-job theorem build, `lake lint`, and the Verso
-  build/check pass; the generated graph has 103 nodes and 175 edges with 492 manifest entries.
+  Radon--Stieltjes/refinement bridge. The 3,116-job theorem build, `lake lint`, and the Verso
+  build/check pass; after the 1.11.1 source-faithful update the generated graph has 103 nodes and
+  176 edges with 496 manifest entries.
 
 ## Radon--Stieltjes refinement-bridge transaction
 
@@ -322,3 +323,33 @@ source semantics from implementation convenience or add an axiom/placeholder.
 - **Status:** LEVEL C — GENUINE AMBIGUITY. Sakai 1.11.3 remains NOT SOURCE-FORMALIZED. No
   representation predicate, arbitrary resolution, integral, PVM, or conditional uniqueness
   theorem is promoted. Active documentation is corrected; the clarified candidate stays scratch.
+
+## Sakai 1.11.1 strong-topology transaction
+
+- **Baseline:** `17682f5a1ff90bc01fa95ddcd969817fa3be038c`
+- **Source reconstruction:** COMPLETE. Printed Lemma 1.11.1 assumes only `λₙ ≤ λ` and
+  `λₙ → λ`; it does not assume monotonicity and concludes in `s(M,M_*)`.
+- **Topology audit:** COMPLETE. Existing `Ultraweak.Strong` is the exact intrinsic topology;
+  pinned/current Mathlib and original LeanOA have no competing implementation.
+- **Production proof:** COMPLETE. General projection convergence lives in `StrongProjection`; exact
+  filter-general and sequential spectral continuity live in `SpectralProjectionStrong`.
+- **Section 1.12 cartography:** COMPLETE. The section contains only Theorem 1.12.1 and is YELLOW but
+  unblocked, with no dependency on the RED integral/PVM boundary.
+
+## Next Section 1.12 wave
+
+Ready-to-run contracts, in dependency order:
+
+1. `contracts/POLAR_DECOMPOSITION_CSTAR_API.md`;
+2. `contracts/POLAR_DECOMPOSITION_SUPPORT_BRIDGE.md`;
+3. `contracts/POLAR_DECOMPOSITION_REGULARIZER.md`;
+4. `contracts/POLAR_DECOMPOSITION_EXISTENCE.md`;
+5. `contracts/POLAR_DECOMPOSITION_PACKAGING.md`.
+
+The recommended next bounded transaction launches contract 1 and the scratch-only contract 3 in
+parallel. Contract 2 starts after contract 1 freezes the two absolute-value annihilator
+signatures; it need not wait for contract 1's independent partial-isometry branch. Contract 4 waits
+for accepted outputs from contracts 1–3. Contract 5 is strictly sequential after contract 4 because
+both own `LeanOA/Ultraweak/ElementPolarDecomposition.lean`. While contracts 1 and 3 run in
+parallel, contract 3 uses only their common baseline and must not import in-flight declarations
+from contract 1.

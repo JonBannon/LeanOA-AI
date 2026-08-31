@@ -1,6 +1,6 @@
 # Sak-AI mathematical continuation
 
-Last updated: 2026-08-30
+Last updated: 2026-08-31
 
 ## Verified repository state
 
@@ -23,16 +23,21 @@ Last updated: 2026-08-30
   A full internal and period-literature audit classifies the undefined integral semantics LEVEL C.
   The same-net strong-to-ultraweak implication is kernel-checked in scratch; it does not identify
   Sakai's division/filter semantics.
+- The subsequent 1.11.1 transaction proves the exact source statement: arbitrary real sequences
+  converging to a cut from below give convergence of the lower spectral projections in the
+  intrinsic strong topology, with no monotonicity hypothesis. General projection-LUB strong
+  convergence and filter-level left continuity are now public.
 - The theorem package had no uncommitted changes at the start of the orchestration work.
 - Jireh Loreaux's LeanOA and Mathlib are read-only references. The original LeanOA checkout has
   not been modified.
 
 ## Mathematical frontier
 
-Sakai 1.10.3--1.10.7 is complete, and the spectral-resolution development now includes norm
+Sakai 1.10.3--1.10.7 and Lemmas 1.11.1--1.11.2 are complete, and the spectral-resolution
+development now includes norm
 convergence of arbitrary tagged finite spectral sums in Sakai 1.11.3: lower spectral projections are
-constructed, proved monotone and ultraweakly continuous from below (the proved consequence of
-Sakai's stronger `s(M,M_*)` clause), satisfy Sakai's increment and
+constructed, proved strongly continuous from below under Sakai's exact nonmonotone hypotheses (and
+ultraweakly continuous for directed monotone nets), satisfy Sakai's increment and
 endpoint formulas, and yield lower and upper finite sums converging in norm along arbitrary
 mesh-zero filtered families and an explicit nested sequence of dyadic divisions. Spectral-band
 differences now have a reusable projection/commutation/additivity/orthogonality API. Arbitrary tags
@@ -80,8 +85,8 @@ The implemented public design is:
 10. Put the projection identity `p * q = 0 ↔ p ≤ 1 - q` in the general unital C-star projection
     API, then prove Sakai 1.10.7 and the reusable iff strengthening.
 11. Define the scalar cutoff `(r • 1 - a)⁺` in a C-star-only module, then define its support as
-    `WStarAlgebra.spectralProjectionIio` and prove the ultraweak consequence of Sakai 1.11.1 for
-    arbitrary directed nets.
+    `WStarAlgebra.spectralProjectionIio`; first prove the ultraweak monotone-net theorem, then the
+    exact strong nonmonotone statement of Sakai 1.11.1 through the downstream topology bridge.
 12. Reuse support and projection-order APIs to prove the spectral-band bounds and Sakai 1.11.2,
     strengthening the cut hypothesis from `<` to `≤`.
 13. Prove the endpoint formulas with sharp inequalities and derive their ultraweak limits from
@@ -109,6 +114,10 @@ The implemented public design is:
     simultaneous feasibility by finite metric nets; and assemble the abstract moment bridge,
     finite split, support recovery, pointwise identification, and family uniqueness under the
     explicit candidate semantics. Keep the result scratch-only pending source-equivalence review.
+21. Connect the projection lattice to the intrinsic strong topology downstream: eventual
+    domination plus ultraweak convergence upgrades projection nets to strong convergence, directed
+    LUBs converge strongly, and a nested-projection seminorm squeeze proves exact filter-level left
+    continuity and Sakai's nonmonotone sequential Lemma 1.11.1.
 
 ## Implementation order
 
@@ -139,7 +148,7 @@ The completed implementation layers are:
      continuity in the scalar cut;
    - `WStarAlgebra.spectralProjectionIio`, its leastness API, and monotonicity;
    - the least-upper-bound theorem and ultraweak continuity from below for arbitrary nonempty
-     directed preorders, giving a weaker consequence of Sakai's strong-topology Lemma 1.11.1;
+     directed preorders, later upgraded downstream to exact strong left continuity;
    - cutoff recovery, commutation, spectral-band bounds, and the increment estimate of Sakai
      1.11.2;
    - the lower and upper endpoint formulas; their eventual constancy yields limits in any topology,
@@ -192,13 +201,21 @@ The completed implementation layers are:
    - translated moment and endpoint-residual transport for arbitrary source filters;
    - complete pointwise and family uniqueness under the explicit candidate moment limit;
    - no public interface, because source equivalence remains unreviewed.
+14. Strong spectral-continuity layer (completed on 2026-08-31):
+   - projection ultraweak-to-strong convergence under eventual domination;
+   - strong convergence of canonical directed projection LUB nets;
+   - nested-projection strong-seminorm monotonicity;
+   - filter-general strong left continuity of lower spectral projections;
+   - the exact nonmonotone sequential statement of Sakai Lemma 1.11.1.
 
-The source audit has closed the review question with LEVEL C rather than an accepted definition.
-Do not promote `atTop ⊓ comap divisionMesh (nhds 0)` as Sakai's meaning. The natural next bounded
-transaction is to prove and promote the canonical strong-topology continuity required by Lemma
-1.11.1, then scope Section 1.12 using the canonical spectral family. Subsequent development may
-proceed where it depends only on proved canonical conclusions. Revisit a public PVM/integral
-interface only when coherent mathematics or new primary evidence fixes it.
+The source audit has closed the 1.11.3 review question with LEVEL C rather than an accepted
+definition. Do not promote `atTop ⊓ comap divisionMesh (nhds 0)` as Sakai's meaning. Canonical
+Lemma 1.11.1 is now source-formalized. Section 1.12 contains the single element
+polar-decomposition theorem 1.12.1 and is scoped as an independent, unblocked
+CFC/support/ultraweak-compactness chain. The natural next bounded transaction runs the general
+C-star partial-isometry/absolute-value API and the proof-local regularizer scratch test in parallel;
+the W-star support bridge starts once the exact annihilator signatures are frozen. Revisit a public
+PVM/integral interface only when coherent mathematics or new primary evidence fixes it.
 
 Before each substantial proof, search the current Sak-AI tree, pinned Mathlib, current Mathlib
 master/review history, and current LeanOA for an equivalent or more general declaration.
@@ -206,9 +223,9 @@ master/review history, and current LeanOA for an equivalent or more general decl
 ## Documentation continuation
 
 The Verso package preserves all 87 active nodes and 141 statement-dependency edges in the generated
-legacy graph and extends them to 103 nodes and 175 edges through the fixed-projection ultraweak
-decomposition used in Sakai 1.11.3. The exact manifest counts and audit state are recorded in
-`VERSO_STATUS.md`. The legacy
+legacy graph and extends them to 103 nodes and 176 edges through the fixed-projection ultraweak
+decomposition and the exact strong-topology continuity edge. The exact manifest counts and audit
+state are recorded in `VERSO_STATUS.md`. The legacy
 sources remain recoverable from Git history. New mathematical documentation must be authored in
 Verso first.
 
@@ -243,6 +260,7 @@ lake exe vbp check
 - Original LeanOA checkout: `/Users/jonbannon/LeanRepos/LeanOA` (read-only; do not alter).
 - Current read-only upstream LeanOA comparison used in this run: commit `cb811c10`.
 - Pinned Mathlib: commit `476ab284693e554a6b48c5f5210cb4fb5ae51252`.
-- Mathlib master audited on 2026-08-30: `3c8e222f6536ac9643441d449c4f9c872336c095`.
+- Mathlib master audited for Section 1.12 on 2026-08-31:
+  `be865aa50cc0364be66c3941a6dc0c845a2c2ceb`.
 - Mathlib PR #42100 was still open at head `7f7138a127bf5c2f91d5b3e30b58499139561672`;
   its clopen-set CFC projections do not replace the W-star half-line support construction.

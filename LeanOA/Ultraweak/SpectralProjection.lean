@@ -14,10 +14,11 @@ This file begins the spectral-resolution construction for a self-adjoint element
 algebra.  The lower spectral projection at `r` is the support of `(r • 1 - a)⁺`; equivalently,
 it is the projection associated with the open interval `Set.Iio r`.
 
-The main results are continuity from below, the two-sided spectral-band increment estimate, and the
-endpoint behavior of the spectral family.  These are Sakai, Lemmas 1.11.1 and 1.11.2 and the first
-part of Theorem 1.11.3; continuity is stated for directed nets rather than only sequences, and the
-increment estimate allows equal cuts.
+The main results are an ultraweak monotone convergence theorem, the two-sided spectral-band
+increment estimate, and the endpoint behavior of the spectral family.  The exact strong-topology,
+not-necessarily-monotone statement of Sakai, Lemma 1.11.1 is proved in the downstream
+`LeanOA.Ultraweak.SpectralProjectionStrong` module.  The increment estimate is Sakai, Lemma 1.11.2,
+with equal cuts allowed, and the endpoint behavior is the first part of Theorem 1.11.3.
 -/
 
 open Filter Set
@@ -337,10 +338,10 @@ theorem tendsto_spectralProjectionIio_atTop (a : selfAdjoint M) :
 
 variable [CompleteSpace P]
 
-/-- **Continuity from below for lower spectral projections** (Sakai, Lemma 1.11.1).
+/-- Increasing lower spectral projections converge ultraweakly when their cuts converge.
 
-This directed-net formulation specializes to every increasing real sequence converging to `r`.
--/
+This is the ultraweak monotone-net consequence of the stronger, nonmonotone sequential statement
+in Sakai, Lemma 1.11.1. -/
 theorem tendsto_spectralProjectionIio_of_monotone
     {I : Type*} [Preorder I] [IsDirectedOrder I] [Nonempty I]
     (a : selfAdjoint M) {f : I → ℝ} {r : ℝ} (hf : Monotone f)

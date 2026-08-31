@@ -6,8 +6,10 @@ the volumes of Takesaki. The current Lean library includes uniqueness of Banach 
 Kaplansky density theorem, the Section 1.10 development through central-support orthogonality,
 and lower spectral projections through norm convergence of the finite sums in Sakai 1.11.3. The
 convergence theorem applies both to arbitrary mesh-zero filtered families and to an explicit
-nested sequence of dyadic divisions. Packaging this limit as Sakai's spectral-integral
-representation is the next mathematical frontier.
+nested sequence of dyadic divisions. Sakai 1.11.1 is now formalized with its exact nonmonotone
+hypotheses in the intrinsic strong topology. The source semantics of the abstract spectral integral
+remain explicitly unresolved; the next independent checkpoint is the element polar decomposition
+of Sakai 1.12.1.
 
 - [Sak-AI documentation site](https://jonbannon.github.io/Sak-AI/)
 - [API documentation](https://jonbannon.github.io/Sak-AI/docs/)
@@ -19,7 +21,7 @@ The primary documentation source and deployed project site are the first-class V
 package in [`docs/`](docs/). It supplies a mathematical reading path, checked declaration links,
 dependency graph, formalization summary, full-text search, and index. The retired LeanBlueprint
 sources remain recoverable from Git history; all 87 former nodes and 141 dependency edges are in
-Verso.
+Verso, and the current graph has 103 nodes and 176 statement-dependency edges.
 
 Local theorem verification:
 

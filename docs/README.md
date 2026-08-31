@@ -56,7 +56,8 @@ agent and human reviewers.
 Keep the public `Current frontier` subsection in the project overview up to date until the
 formalization program is complete.
 
-All 87 active legacy LeanBlueprint nodes and 141 statement-dependency edges moved to Verso.  The
-Section 1.11 extension through norm convergence of the finite spectral sums brings the current
-graph to 98 nodes and 162 edges, with 445 manifest entries.  Declaration links cover the Section
-1.10 and lower-spectral-projection APIs.  The legacy sources remain available in Git history.
+All 87 active legacy LeanBlueprint nodes and 141 statement-dependency edges moved to Verso. The
+Section 1.11 development through the exact strong-topology Lemma 1.11.1 brings the current graph to
+103 nodes and 176 edges, with 496 manifest/cache entries. Declaration links cover the Section 1.10,
+spectral-approximation, fixed-projection, and strong lower-spectral-projection APIs. The legacy
+sources remain available in Git history.
