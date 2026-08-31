@@ -40,9 +40,11 @@ CFC bridge: weighted sums converge to cfc (fun lambda => (r - lambda)^+) a
   ↓
 fixed-projection ultraweak decomposition from a total difference limit [GREEN]
   ↓
-[RED] division-independent Radon--Stieltjes representation and cut-refinement bridge
+[scratch] finite-cut inclusion refinement + shrinking-mesh filter + asymptotic endpoints
   ↓
-conditional support recovery and uniqueness [kernel-checked scratch]
+[scratch] prescribed-cut moment transport + complete support recovery and uniqueness
+  ↓
+[RED] source-equivalence review and canonical packaging of Sakai's abstract integral clause
   ↓
 [RED] general PVM and measurable functional calculus
 ```
@@ -103,9 +105,18 @@ The fixed-projection transaction adds a reusable leaf at ordered $C^*$-algebra g
 the ultraweak limit of `u_i-v_i` and one eventual fixed-element extraction identity it derives the
 individual limits; for a star projection and eventually positive pieces it identifies those
 limits with positive and negative parts. Finite cutoff algebra and the subsequent support and
-pointwise uniqueness chain are kernel-checked in scratch. The sole missing dependency edge is now
-the source representation/refinement bridge that constructs the inserted-cut nets under Sakai's
-actual hypotheses. No lower-family, resolution, integral, or PVM object was added.
+pointwise uniqueness chain are kernel-checked in scratch. At the end of that transaction, the
+missing dependency edge was the representation/refinement bridge constructing the inserted-cut
+nets from a source-facing hypothesis. No lower-family, resolution, integral, or PVM object was
+added.
+
+The refinement transaction closes that bridge conditionally. `Finset ℝ` inclusion and union reuse
+Mathlib's directed order; a checked nontrivial filter adds shrinking maximum adjacent mesh while
+retaining endpoint escape and eventual fixed-cut insertion. Under explicit left-endpoint moment
+convergence along any such refinement-directed source, the complete finite split, support recovery,
+pointwise identification, and family uniqueness chain kernel-checks. The sole remaining RED edge is
+semantic: Sakai does not define his abstract Radon--Stieltjes integral by this Moore--Smith filter,
+so the candidate cannot become the source theorem or public API before source-equivalence review.
 
 ## Cartography fields for a major concept
 

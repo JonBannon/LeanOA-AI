@@ -26,16 +26,21 @@ in their workstream.
   norm limits. The fixed-projection transaction now kernel-checks the exact finite cutoff algebra,
   the total-moment-only positive/negative decomposition, both support inequalities, the `Iio` LUB
   recovery, and pointwise/family uniqueness under explicit inserted-cut approximation data. The
-  only missing edge from Sakai's clauses is a division-independent representation/refinement
-  theorem that constructs those data.
+  refinement transaction now proves the generic prescribed-cut restriction, a nontrivial concrete
+  finite-cut filter combining inclusion refinement with shrinking adjacent mesh, asymptotic
+  endpoint escape, and the full finite-set-to-support-to-family-uniqueness assembly. The remaining
+  edge from Sakai's clauses is no longer proof engineering: it is source review of whether the
+  chosen left-endpoint moment limit is exactly the book's undefined abstract Radon--Stieltjes
+  integral, followed by the canonical-family instantiation of that accepted predicate.
 - **Decision so far:** publish the canonical theorem layer only. Publish neither experimental
   integral predicate nor a lower-family, resolution, or PVM structure. Publish the general
   fixed-projection decomposition and coherent support helpers under D004. The architecture remains
-  OPEN / RED precisely at the source representation/refinement boundary.
-- **Next bounded action:** design and scratch-test a directed finite-division semantics for the
-  ultraweak Radon--Stieltjes representation. Prove cofinality after inserting any prescribed finite
-  set of cuts and derive the translated total moment plus varying endpoint-residual nets consumed
-  by the checked support-recovery theorem.
+  OPEN / RED precisely at source-equivalence review. The concrete filter and uniqueness theorem
+  remain scratch-only and are labeled `TRANSLATED_CANDIDATE`, not `SOURCE_EQUIVALENCE_CHECKED`.
+- **Next bounded action:** review and either accept the explicit refinement-plus-mesh,
+  left-endpoint moment predicate as Sakai's abstract integral semantics or supply an authoritative
+  alternative and prove equivalence. Then instantiate the canonical lower family using the
+  existing spectral-sum convergence layer and package all clauses of Theorem 1.11.3 together.
 
 ## IQ-002 — spectral helper generality
 

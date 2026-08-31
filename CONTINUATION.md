@@ -12,8 +12,12 @@ Last updated: 2026-08-30
 - The truncated-affine recovery transaction adds a theorem-only CFC bridge and leaves the
   arbitrary-resolution, PVM, and operator-valued integral boundaries explicitly RED.
 - The fixed-projection transaction adds the general ultraweak positive/negative decomposition and
-  support helper API. The full competing-resolution chain is kernel-checked conditionally; the
-  source representation-to-refinement bridge remains RED.
+  support helper API. At that stage the full competing-resolution chain was kernel-checked
+  conditionally and the source representation-to-refinement bridge remained RED.
+- The Radon--Stieltjes refinement transaction kernel-checks prescribed-cut cofinality, a nontrivial
+  refinement-plus-mesh filter with asymptotic endpoints, and complete pointwise/family uniqueness
+  under an explicit left-endpoint moment limit. Source equivalence with Sakai's undefined abstract
+  integral remains RED, so no candidate declaration is public or documented as complete.
 - The theorem package had no uncommitted changes at the start of the orchestration work.
 - Jireh Loreaux's LeanOA and Mathlib are read-only references. The original LeanOA checkout has
   not been modified.
@@ -39,10 +43,13 @@ The fixed-projection analytic step in Sakai's uniqueness paragraph is now public
 natural level. An eventual identity `p * (u_i-v_i)=u_i` separates the specified-ultraweak limits;
 when `p` is a star projection and the two pieces are eventually nonnegative, their limits are the
 Mathlib positive and negative parts. The source-accurate finite cutoff algebra, both support
-inequalities, continuity-from-below recovery, and uniqueness are kernel-checked in scratch under
-explicit inserted-cut approximation data. They are not yet the source theorem because Sakai's
-abstract ultraweak Radon--Stieltjes representation has not been shown to supply those data
-independently of the chosen division.
+inequalities, continuity-from-below recovery, and uniqueness are kernel-checked in scratch. A
+concrete nontrivial filter now combines finite-cut inclusion refinement with shrinking maximum
+adjacent mesh; its extrema escape and inserting any fixed cuts is eventually the identity. Under
+convergence of the corresponding left-endpoint identity moments, the full pointwise and family
+uniqueness assembly checks. This is not yet the source theorem because Sakai does not define his
+abstract ultraweak Radon--Stieltjes integral by that Moore--Smith filter, and the canonical family
+has not been packaged against a source-reviewed predicate.
 
 The implemented public design is:
 
@@ -90,6 +97,11 @@ The implemented public design is:
     using ultraweak order closure. Add the symmetric projection-support simp API and the reusable
     positive-scalar lower-bound criterion. Keep competing-resolution recovery conditional until
     the source representation/refinement bridge is formalized.
+20. Reuse `Finset` inclusion and Mathlib's `Ici` filter theorems for prescribed cuts; combine
+    refinement with a checked shrinking-mesh coordinate without exact finite endpoints; prove
+    simultaneous feasibility by finite metric nets; and assemble the abstract moment bridge,
+    finite split, support recovery, pointwise identification, and family uniqueness under the
+    explicit candidate semantics. Keep the result scratch-only pending source-equivalence review.
 
 ## Implementation order
 
@@ -162,14 +174,26 @@ The completed implementation layers are:
      bound implies inclusion in support;
    - source-faithful finite and conditional support/uniqueness scratch theorems isolate the sole
      remaining bridge without publishing a spectral-resolution structure.
+13. Radon--Stieltjes refinement candidate layer (completed conditionally on 2026-08-30):
+   - exact external audit of PNT+, teorth/analysis, pinned/current Mathlib, ICERM, and original
+     LeanOA;
+   - finite prescribed-cut cofinality by existing Mathlib `Finset`/`Ici` filter infrastructure;
+   - canonical ordered finite-cut enumeration, asymptotic extrema, and maximum adjacent mesh;
+   - a nontrivial filter combining inclusion refinement and mesh convergence, with endpoint escape
+     and eventual-identity insertion of fixed cuts;
+   - translated moment and endpoint-residual transport for arbitrary source filters;
+   - complete pointwise and family uniqueness under the explicit candidate moment limit;
+   - no public interface, because source equivalence remains unreviewed.
 
-The next bounded architecture transaction is the division-independent ultraweak
-Radon--Stieltjes/refinement bridge behind Sakai 1.11.3. Define or predicate only enough finite-
-division semantics to prove that imposing any prescribed cuts `s < r` gives a cofinal subsystem
-with the same identity-moment limit, and derive the translated total and varying endpoint-residual
-nets used by the already checked support proof. Do not replace asymptotic endpoints by exact finite
-endpoints or ultraweak convergence by norm convergence. Do not publish a lower-family, resolution,
-integral, or PVM structure unless this source-facing test determines a stable interface.
+The next bounded architecture transaction remains Theorem 1.11.3, but its technical refinement
+bridge is complete. Review whether convergence of the checked left-endpoint moment sums along
+`atTop ⊓ comap divisionMesh (nhds 0)` is the intended formal meaning of Sakai's abstract
+ultraweak Radon--Stieltjes integral. If accepted, introduce only the smallest proposition-level
+predicate, instantiate the canonical lower family from the existing spectral-sum convergence
+theorems, promote the proof at an appropriate abstraction boundary, and package all source clauses.
+If not accepted, record the authoritative tag/division semantics and prove its equivalence to the
+checked candidate or generalize the index type. Do not move to Section 1.12 or publish a PVM/general
+integral merely to bypass this source-fidelity decision.
 
 Before each substantial proof, search the current Sak-AI tree, pinned Mathlib, current Mathlib
 master/review history, and current LeanOA for an equivalent or more general declaration.
@@ -214,6 +238,6 @@ lake exe vbp check
 - Original LeanOA checkout: `/Users/jonbannon/LeanRepos/LeanOA` (read-only; do not alter).
 - Current read-only upstream LeanOA comparison used in this run: commit `cb811c10`.
 - Pinned Mathlib: commit `476ab284693e554a6b48c5f5210cb4fb5ae51252`.
-- Mathlib master observed on 2026-08-30: `e62ea4d7200989bad96e0cc05b349c1a5c9800c8`.
+- Mathlib master audited on 2026-08-30: `3c8e222f6536ac9643441d449c4f9c872336c095`.
 - Mathlib PR #42100 was still open at head `7f7138a127bf5c2f91d5b3e30b58499139561672`;
   its clopen-set CFC projections do not replace the W-star half-line support construction.

@@ -18,10 +18,11 @@ declaration links. Keep development guidance in repository documents, not the pu
 
 The spectral theorem stack now has a public presentation through spectral-band calculus, tagged
 spectral sums, truncated-affine weighted convergence to the existing CFC positive part, and the
-general fixed-projection ultraweak decomposition used by Sakai's uniqueness argument. The frontier
-states explicitly that the arbitrary-resolution support and uniqueness chain is only conditionally
-kernel-checked: the source-faithful, refinement-stable Radon--Stieltjes representation remains
-missing.
+general fixed-projection ultraweak decomposition used by Sakai's uniqueness argument. Scratch now
+kernel-checks a nontrivial refinement-plus-mesh filter and the complete pointwise/family uniqueness
+chain under its explicit left-endpoint moment hypothesis. The public frontier must continue to say
+that Sakai's source theorem is incomplete: source-equivalence of that candidate with the book's
+abstract Radon--Stieltjes integral remains OPEN / RED.
 
 ## Work that must wait
 

@@ -1,7 +1,7 @@
 # Sakai 1.11.3: Radon--Stieltjes refinement bridge
 
-Status: **substantial kernel-checked infrastructure; source semantics still OPEN; Sakai 1.11.3
-NOT YET FORMALIZED**
+Status: **kernel-checked conditional uniqueness; source semantics still OPEN; Sakai 1.11.3 NOT YET
+FORMALIZED**
 
 This report integrates the external audit, finite-cut/refinement work, finite-cut enumeration, and
 the abstract ultraweak moment/endpoint bridge.  It deliberately does not turn a convenient
@@ -28,8 +28,10 @@ The conclusions below are supported by these isolated or integrated evidence com
 | Finite cuts and `Ici` cofinality | `948b7c447ca8d62b69ec0c1e21da3d3b0757ca94` | `Scratch/DivisionRefinementCofinality.lean`; generic and `Finset` cofinal restriction |
 | Sorted finite-cut adapter and endpoints | `f7bd0bdfe56cbbce4f84dd07389167270f97892c` | `Scratch/FiniteCutEnumeration.lean`; canonical enumeration and endpoint escape |
 | Abstract moment/endpoint bridge | `9b657eed60d0f9e2b7766ad4ec21dfba64a55530` | `Scratch/SakaiRadonStieltjesBridge.lean`; finite translation identity and generic ultraweak cofinal bridge |
+| Refinement-plus-mesh source candidate | `f431754` (integrated) | `Scratch/RadonStieltjesMeshFilter.lean`; nontrivial refinement/mesh filter, endpoint escape, and prescribed-cut invariance |
 | Source/finite split | `6e349da6425e77fc20e439bd4e0d2cfefded9ef7` | finite inserted-cut algebra, positivity, localization, and residual lower bound |
 | Conditional support recovery | `b25d751b0d838d753d195704ca5270f7a0cb0204` | support recovery and uniqueness under explicit approximation hypotheses |
+| Complete candidate assembly | `9ec05eb` plus the current integration follow-up | `Scratch/SakaiRadonStieltjesFinsetCandidate.lean`; pointwise and family uniqueness under explicit candidate moment semantics |
 | Production fixed-projection layer | `979f14da3bc1d8f45ba8c12e8dbc6c606170ecb1` | reusable ultraweak decomposition and support infrastructure |
 
 No initial build was rerun merely to write this report.  The focused worker validations are
@@ -93,6 +95,25 @@ nonempty set.  The scratch proves membership, recovery of every cut, global mono
 nonempty sets, strict order of each valid adjacent pair, and exact minimum/maximum endpoint
 identification.  This is a representation shim, not a new foundational object.
 
+The richer checked candidate adds the maximum adjacent gap
+
+```lean
+divisionMesh : Finset ℝ → ℝ
+```
+
+and uses the existing filter lattice rather than a new division structure:
+
+```lean
+stieltjesFilter =
+  (atTop : Filter (Finset ℝ)) ⊓ comap divisionMesh (nhds 0).
+```
+
+`stieltjesFilter_neBot` is a substantive compatibility proof.  Given prescribed cuts and
+`ε > 0`, a finite `ε / 4`-net of their compact real interval supplies a refinement with mesh
+below `ε`; adjoining `-R` and `R` simultaneously forces both endpoints beyond the requested
+range.  Thus refinement, shrinking mesh, and endpoint escape are jointly feasible rather than
+three separately postulated conditions.
+
 ## D. Prescribed cuts and cofinality
 
 For a fixed finite `S`, insertion is union:
@@ -143,7 +164,17 @@ Tendsto (fun d ↦ f (d ∪ S)) source target ↔ Tendsto f source target.
 
 The checked names are `eventuallyEq_union_prescribed_of_tendsto_atTop` and
 `tendsto_union_prescribed_iff_of_tendsto_atTop`; a semilattice-sup version is checked as well.
-This is the form a future source-faithful mesh/endpoint filter should consume.
+This is the form any source-reviewed mesh/endpoint filter should consume.
+
+The candidate `stieltjesFilter` now supplies that premise:
+
+```lean
+Tendsto id stieltjesFilter atTop.
+```
+
+Consequently, insertion of every fixed finite cut set is eventually literally the identity on the
+same refinement-plus-mesh filter.  It therefore preserves and reflects arbitrary target-filter
+limits without a separate mesh-monotonicity assumption on the insertion map.
 
 ## E. Sakai's source formulation and the exact conditional Lean bridge
 
@@ -210,17 +241,20 @@ definition of Sakai's abstract integral: `hmoment` remains the explicit represen
 
 ## F. Limit restriction
 
-There are now two checked levels.
+There are now three checked levels.
 
 1. For bare finite-cut `atTop`, `Filter.tendsto_comp_val_Ici_atTop` says restriction to cut sets
    containing `{r}` or `{s,r}` preserves and reflects every limit, including an ultraweak one.
 2. For any richer filter on finite cut sets whose identity map tends to refinement `atTop`, union
    with fixed prescribed cuts is eventually equal to the identity.  Hence it preserves the moment,
-   endpoint, mesh, tag, or admissibility limits already encoded in that filter.
+   endpoint, mesh, or other cut-set-dependent admissibility limits already encoded in that filter.
+   Independent tags require a richer index type with a cut-set projection.
+3. The concrete nontrivial `stieltjesFilter` combines refinement with shrinking adjacent mesh and
+   satisfies the premise in item 2. Its extrema escape by composition with the checked bare
+   refinement endpoint theorems.
 
-The abstract bridge needs only `hrefine : Tendsto refine lJ lD`, so it is compatible with either
-route.  Gate 5 is therefore proved generically, conditional on an actual source filter and cofinal
-map being supplied.
+The abstract bridge needs only `hrefine : Tendsto refine lJ lD`, so it is compatible with every
+route above. Gate 5 is proved both generically and for the concrete candidate filter.
 
 ## G. Endpoint treatment
 
@@ -229,8 +263,9 @@ No checked theorem assumes `e(left) = 0` or `e(right) = 1` at a finite stage.
 For the concrete bare-`Finset` candidate,
 `tendsto_leftEndpoint_atBot` and `tendsto_rightEndpoint_atTop` prove that the minimum and maximum
 cut escape along `atTop`.  Composing these with Sakai's family-level endpoint limits gives the
-needed projection limits.  More generally, the bridge takes endpoint escape and family endpoint
-limits as separate hypotheses.
+needed projection limits. The same composition proves endpoint escape along `stieltjesFilter`
+because its identity map tends to `atTop`. More generally, the bridge takes endpoint escape and
+family endpoint limits as separate hypotheses.
 
 The finite lower comparison retains the honest residual:
 
@@ -243,8 +278,7 @@ source-incorrect assumption of finite endpoint normalization.
 
 ## H. Interface with the checked support recovery
 
-Once a source-certified filter supplies `hmoment`, endpoint escape, and prescribed-cut
-cofinality, the remaining intended composition is:
+Under an explicit candidate moment hypothesis, the entire composition now kernel-checks:
 
 ```text
 source identity moments and endpoints
@@ -258,13 +292,18 @@ source identity moments and endpoints
   → family extensionality.
 ```
 
-The enumeration scratch also proves that every prescribed cut has an in-range index.  The small
-positional lemma placing the index of `s` before that of `r` when `s < r`, and adapting the total
-`bandCount` to the finite split signature, has not been assembled with the support scratch as one
-theorem.  This is routine finite engineering, but it is not reported as checked.
+`competing_eq_spectralProjectionIio_of_finset_candidate` performs the positional/index assembly,
+finite split, localization, both support inequalities, continuity-from-below recovery, and final
+pointwise identification. It accepts any nontrivial `source : Filter (Finset ℝ)` satisfying
+`Tendsto id source atTop`. `competing_family_unique_of_finset_candidate` applies this independently
+to two families and permits separate source filters. The concrete
+`competing_eq_spectralProjectionIio_of_mesh_refinement_candidate` and
+`competing_family_unique_of_mesh_refinement_candidate` specialize these results to the checked
+refinement-plus-mesh filter.
 
-The conditional support theorem remains scratch-only.  Its source hypotheses have not yet been
-discharged, so it must not be promoted merely because the abstract transport theorem now exists.
+These declarations are `PROOF_CHECKED` under their explicit hypotheses and
+`TRANSLATED_CANDIDATE`; they are not `SOURCE_EQUIVALENCE_CHECKED`. They remain scratch-only until
+the representation predicate itself passes source review.
 
 ## I. Sakai Theorem 1.11.3
 
@@ -272,73 +311,65 @@ discharged, so it must not be promoted merely because the abstract transport the
 NOT YET FORMALIZED
 ```
 
-The remaining blocker is precise and lies before the support argument: no source-reviewed Lean
-filter/predicate has yet been shown to mean Sakai's phrase “abstract Radon--Stieltjes integral with
-respect to the `σ(M,M_*)` topology.”
+The remaining blocker is precise and lies before the now-complete conditional support argument: no
+source-reviewed Lean predicate has yet been certified to mean Sakai's phrase “abstract
+Radon--Stieltjes integral with respect to the `σ(M,M_*)` topology.”
 
 In particular, bare `Finset ℝ` atTop is **not** source-equivalent merely because it solves
 prescribed cuts.  It forces every fixed finite cut set to appear eventually and makes the extrema
 escape, but it does not make the maximum adjacent gap tend to zero.  After any threshold `S`, one
 may refine to `S ∪ {R}` with `R` arbitrarily far above `max S`, producing an arbitrarily large final
-gap.  Conversely, requiring convergence over every such superset may be stronger than Sakai's
-small-mesh division language.  This mismatch must not be hidden.
+gap. Bare refinement and the usual mesh filter are therefore not known equivalent and are
+generally incomparable without extra estimates. This mismatch must not be hidden.
 
 ### Exact next missing statement
 
-The next bounded transaction should scratch-define a richer filter
+The proposed richer filter and all of its technical obligations are now kernel-checked:
 
 ```lean
-sakaiDivisionFilter : Filter (Finset ℝ)
+stieltjesFilter =
+  (atTop : Filter (Finset ℝ)) ⊓ comap divisionMesh (nhds 0)
+
+Filter.NeBot stieltjesFilter
+Tendsto id stieltjesFilter atTop
+Tendsto leftEndpoint stieltjesFilter atBot
+Tendsto rightEndpoint stieltjesFilter atTop
+Tendsto divisionMesh stieltjesFilter (nhds 0)
 ```
 
-with a reviewed basis of the following mathematical form:
-
-```text
-parameters: prescribed cuts S, range R≥0, tolerance ε>0
-basis set:  {d |
-  S ⊆ d
-  and leftEndpoint d ≤ -R
-  and R ≤ rightEndpoint d
-  and divisionMesh d ≤ ε}
-```
-
-and kernel-prove at least:
-
-```lean
-Filter.NeBot sakaiDivisionFilter
-Tendsto id sakaiDivisionFilter atTop
-Tendsto leftEndpoint sakaiDivisionFilter atBot
-Tendsto rightEndpoint sakaiDivisionFilter atTop
-Tendsto divisionMesh sakaiDivisionFilter (nhds 0).
-```
-
-The exact source-facing statement to certify is then:
+The exact remaining statement is semantic rather than combinatorial. A human/source-reviewed
+translation must certify, by definition or equivalence, that Sakai's clause is the left-endpoint
+moment limit
 
 ```lean
 HasSakaiRadonStieltjesRepresentation e a ↔
   Tendsto
     (fun d ↦ toUltraweak ℂ P
       (identityMomentSum e (orderedCut d) (bandCount d)))
-    sakaiDivisionFilter
+    stieltjesFilter
     (nhds (toUltraweak ℂ P a)).
 ```
 
-Here the left side is a provisional name for a source-reviewed formal translation, not an API that
-already exists.  Two honest closure routes are available:
+Here the left side is a provisional name, not an API that already exists. Two honest closure routes
+are available:
 
 1. accept the displayed richer-filter right side as the definition only after human/source review
-   of its mesh, endpoint, and left-tag quantifiers; or
+   of its refinement, mesh, endpoint, and left-endpoint-sum quantifiers; or
 2. if an authoritative formal abstract Radon--Stieltjes predicate appears, prove the displayed
    equivalence to it.
 
-The audit found no existing predicate capable of route 2.  Until route 1 is statement-checked or
-route 2 is proved, Gate 1 remains open and Theorem 1.11.3 remains incomplete.
+The audit found no existing predicate capable of route 2. After that semantic choice, the canonical
+lower family must also be connected to the accepted predicate using the existing spectral-sum
+convergence theorems, so that Sakai's existence clauses and the checked candidate uniqueness are
+presented as one source theorem. Until those steps are statement-checked, Gate 1 remains open and
+Theorem 1.11.3 remains incomplete.
 
 ## J. External reuse and provenance
 
 - Direct reuse: pinned Mathlib `Finset` order/union/sort APIs, `Set.Ici`,
   `map_val_Ici_atTop`, `atTop_Ici_eq`, `tendsto_comp_val_Ici_atTop`, and generic `Filter.Tendsto`
-  composition.
+  composition; `totallyBounded_Icc`, `Metric.finite_approx_of_totallyBounded`, and filter-basis
+  lemmas provide the finite mesh witness and nontriviality proof.
 - Adapted external code: none.
 - PNT+ code copied: none.  If its `fromPoints` implementation is later closely ported, its
   Apache-2.0 and Aristotle/Harmonic provenance requirements must be preserved.
@@ -372,19 +403,25 @@ No new declaration should become public in this transaction.
 - The bare `Ici` cofinality theorem already exists in pinned Mathlib.
 - The `orderedCut` adapter has only one current consumer and should remain local until a second
   consumer establishes a stable abstraction boundary.
+- The mesh/filter candidate is coherent and nontrivial, but its source interpretation is still a
+  statement-review question; publishing `stieltjesFilter` would settle that question by naming.
 - The moment definitions and abstract bridge remain scratch-only because naming them
   “Radon--Stieltjes” publicly would imply a source semantics that has not been fixed.
 - No PVM, resolution, spectral integral, or general integration object should be introduced.
 
 ## N. Sakai coverage
 
-No additional source theorem is complete.  The transaction does, however, close three genuine
+No additional source theorem is complete.  The transaction does, however, close five genuine
 infrastructure questions:
 
 1. prescribed finite cuts are handled by existing Mathlib `Ici` cofinality;
 2. finite cut sets have a checked canonical ordered adapter with asymptotic extrema; and
 3. arbitrary cofinal moment and endpoint limits imply exactly the translated and residual nets
-   consumed by the support proof.
+   consumed by the support proof;
+4. refinement, shrinking global adjacent mesh, and endpoint escape coexist in one nontrivial
+   concrete candidate filter; and
+5. under that explicit candidate moment semantics, the full pointwise support recovery and
+   two-family uniqueness arguments kernel-check.
 
 The next natural Sakai target remains Theorem 1.11.3 itself.  Work should not advance to Section
 1.12 until the richer filter/source-equivalence gate is resolved or consciously deferred by human
@@ -395,14 +432,14 @@ review.
 | Gate | Status | Evidence or blocker |
 |---|---|---|
 | 0 — external audit | **PASS** | PNT+, teorth/analysis, pinned/current Mathlib, ICERM upstream, and original LeanOA audited exactly |
-| 1 — source fidelity | **OPEN / RED** | Sakai does not define a refinement net; bare `Finset atTop` lacks shrinking mesh; richer filter/equivalence statement missing |
+| 1 — source fidelity | **OPEN / RED** | Sakai does not define a Moore--Smith index or tag convention; the richer filter is checked but its left-endpoint moment limit is not source-equivalence checked |
 | 2 — directed refinement | **PASS FOR CANDIDATE** | `Finset` inclusion and union; full source index awaits Gate 1 |
 | 3 — prescribed-cut insertion | **PASS** | insertion by finite union, including empty/singleton/duplicate/two-cut stress tests |
 | 4 — cofinality | **PASS** | Mathlib `map_val_Ici_atTop`, `atTop_Ici_eq`, and scratch richer-filter eventual equality |
-| 5 — limit preservation | **PASS ABSTRACTLY** | generic target-filter restriction and `hrefine : Tendsto refine lJ lD`; concrete source instantiation awaits Gate 1 |
-| 6 — endpoint fidelity | **PASS ABSTRACTLY** | extrema escape for bare candidate; generic bridge retains endpoint residuals and assumes only asymptotic family limits |
-| 7 — scratch-to-production support bridge | **OPEN** | exact analytic inputs are derivable conditionally; source filter and small positional assembly remain |
-| 8 — uniqueness | **NOT CLOSED** | must not run ahead of Gates 1 and 7 |
+| 5 — limit preservation | **PASS** | generic restriction plus concrete eventual-identity insertion on `stieltjesFilter` preserve every target-filter limit |
+| 6 — endpoint fidelity | **PASS FOR CANDIDATE** | extrema escape on `stieltjesFilter`; finite residuals are retained and removed only by asymptotic family limits |
+| 7 — scratch-to-production support bridge | **PASS CONDITIONALLY** | complete finite-set-to-support assembly under explicit candidate moment semantics; source instantiation awaits Gate 1 |
+| 8 — uniqueness | **PASS FOR CANDIDATE / SOURCE OPEN** | pointwise and two-family uniqueness are kernel-checked under candidate semantics; Sakai uniqueness is not source-equivalence checked |
 | 9 — architecture | **PASS** | no duplicate CFC, PVM, resolution, or general integral; no production API added |
 | 10 — validation | **PARTIAL** | focused scratch/build checks pass; full integrated Lean/lint/Verso/blueprint validation still required by lead |
 
@@ -412,9 +449,10 @@ Transaction assessment:
 IMPROVED
 ```
 
-The result materially reduces uncertainty and removes cofinal transport, endpoint composition, and
-translated-moment algebra as blockers.  It also prevents a false completion by isolating the mesh
-/ source-equivalence gap.
+The result materially reduces uncertainty and removes cofinal transport, simultaneous mesh/endpoint
+feasibility, translated-moment algebra, finite positional assembly, support recovery, and family
+extensionality as technical blockers. It also prevents a false completion by isolating the sole
+semantic source-equivalence gate.
 
 Classification:
 

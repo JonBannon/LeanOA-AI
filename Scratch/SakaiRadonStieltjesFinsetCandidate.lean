@@ -1,4 +1,5 @@
 import Scratch.FiniteCutEnumeration
+import Scratch.RadonStieltjesMeshFilter
 import Scratch.SakaiRadonStieltjesBridge
 import Scratch.SakaiUniquenessFinite
 import Scratch.CompetingSupportRecovery
@@ -153,8 +154,10 @@ Assume explicitly that the left-endpoint identity moments indexed by an arbitrar
 filter converge to `a`, and that this source still tends to finite-cut refinement `atTop`. Then the
 finite split and support-recovery layers identify the competing family at the cut `r`.
 
-The source filter may retain mesh, tag, or admissibility data. Prescribing `{r}` and `{s,r}` by
-finite union is eventually the identity and therefore does not alter any of those conditions. -/
+The source filter may retain mesh, endpoint, or other cut-set-dependent admissibility data.
+Independent tags would require a richer index type with a projection to `Finset ℝ`. Prescribing
+`{r}` and `{s,r}` by finite union is eventually the identity and therefore does not alter any of
+the cut-set conditions. -/
 theorem competing_eq_spectralProjectionIio_of_finset_candidate
     {source : Filter (Finset ℝ)} [NeBot source]
     (hsource : Tendsto id source atTop)
@@ -257,7 +260,7 @@ theorem competing_eq_spectralProjectionIio_of_finset_candidate
       (monotone_orderedCut d ⟨r, hr⟩)
       (orderedCut_canonicalIndex hs) (orderedCut_canonicalIndex hr)
 
-/-- Bare refinement `atTop` is the immediate concrete specialization of the source-neutral
+/-- Bare refinement `atTop` is the immediate concrete specialization of the filter-parametric
 candidate theorem. -/
 theorem competing_eq_spectralProjectionIio_of_finset_atTop_candidate
     (e : ℝ → StarProjection M) (he : Monotone e)
@@ -278,12 +281,39 @@ theorem competing_eq_spectralProjectionIio_of_finset_atTop_candidate
   exact competing_eq_spectralProjectionIio_of_finset_candidate
     (P := P) tendsto_id e he hcont heAtBot heAtTop a hmoment r
 
+/-- Concrete specialization to the kernel-checked filter combining inclusion refinement and
+shrinking global mesh.  Endpoint escape follows from its refinement coordinate.  This is still a
+candidate translation of Sakai's abstract integral, not a source-equivalence theorem. -/
+theorem competing_eq_spectralProjectionIio_of_mesh_refinement_candidate
+    (e : ℝ → StarProjection M) (he : Monotone e)
+    (hcont : ∀ (f : ℕ → ℝ) (t : ℝ), Monotone f → Tendsto f atTop (nhds t) →
+      Tendsto (fun n ↦ toUltraweak ℂ P (e (f n)).1) atTop
+        (nhds (toUltraweak ℂ P (e t).1)))
+    (heAtBot : Tendsto (fun t ↦ toUltraweak ℂ P (e t).1) atBot
+      (nhds (toUltraweak ℂ P 0)))
+    (heAtTop : Tendsto (fun t ↦ toUltraweak ℂ P (e t).1) atTop
+      (nhds (toUltraweak ℂ P 1)))
+    (a : selfAdjoint M)
+    (hmoment : Tendsto
+      (fun d : Finset ℝ ↦ toUltraweak ℂ P
+        (Scratch.SakaiRadonStieltjesBridge.identityMomentSum
+          (fun t ↦ (e t).1) (orderedCut d) (bandCount d)))
+      Scratch.RadonStieltjesMeshFilter.stieltjesFilter
+      (nhds (toUltraweak ℂ P a.1)))
+    (r : ℝ) : e r = spectralProjectionIio a r := by
+  letI : NeBot Scratch.RadonStieltjesMeshFilter.stieltjesFilter :=
+    Scratch.RadonStieltjesMeshFilter.stieltjesFilter_neBot
+  exact competing_eq_spectralProjectionIio_of_finset_candidate
+    (P := P) Scratch.RadonStieltjesMeshFilter.tendsto_id_stieltjesFilter_atTop
+    e he hcont heAtBot heAtTop a hmoment r
+
 /-- Two competing families satisfying the explicit candidate semantics over the same richer
 source filter coincide. This is family uniqueness conditional on the candidate, not a theorem
 that Sakai's source notation has already been translated equivalently. -/
 theorem competing_family_unique_of_finset_candidate
-    {source : Filter (Finset ℝ)} [NeBot source]
+    {source source' : Filter (Finset ℝ)} [NeBot source] [NeBot source']
     (hsource : Tendsto id source atTop)
+    (hsource' : Tendsto id source' atTop)
     (e e' : ℝ → StarProjection M) (he : Monotone e) (he' : Monotone e')
     (hcont : ∀ (f : ℕ → ℝ) (t : ℝ), Monotone f → Tendsto f atTop (nhds t) →
       Tendsto (fun n ↦ toUltraweak ℂ P (e (f n)).1) atTop
@@ -309,14 +339,52 @@ theorem competing_family_unique_of_finset_candidate
       (fun d : Finset ℝ ↦ toUltraweak ℂ P
         (Scratch.SakaiRadonStieltjesBridge.identityMomentSum
           (fun t ↦ (e' t).1) (orderedCut d) (bandCount d)))
-      source (nhds (toUltraweak ℂ P a.1))) : e = e' := by
+      source' (nhds (toUltraweak ℂ P a.1))) : e = e' := by
   apply competing_family_unique_of_pointwise_recovery a
   · intro r
     exact competing_eq_spectralProjectionIio_of_finset_candidate
       (P := P) hsource e he hcont heAtBot heAtTop a hmoment r
   · intro r
     exact competing_eq_spectralProjectionIio_of_finset_candidate
-      (P := P) hsource e' he' hcont' heAtBot' heAtTop' a hmoment' r
+      (P := P) hsource' e' he' hcont' heAtBot' heAtTop' a hmoment' r
+
+/-- Two families satisfying the concrete refinement-plus-mesh candidate moment semantics agree.
+The source-equivalence warning on the pointwise theorem remains in force. -/
+theorem competing_family_unique_of_mesh_refinement_candidate
+    (e e' : ℝ → StarProjection M) (he : Monotone e) (he' : Monotone e')
+    (hcont : ∀ (f : ℕ → ℝ) (t : ℝ), Monotone f → Tendsto f atTop (nhds t) →
+      Tendsto (fun n ↦ toUltraweak ℂ P (e (f n)).1) atTop
+        (nhds (toUltraweak ℂ P (e t).1)))
+    (hcont' : ∀ (f : ℕ → ℝ) (t : ℝ), Monotone f → Tendsto f atTop (nhds t) →
+      Tendsto (fun n ↦ toUltraweak ℂ P (e' (f n)).1) atTop
+        (nhds (toUltraweak ℂ P (e' t).1)))
+    (heAtBot : Tendsto (fun t ↦ toUltraweak ℂ P (e t).1) atBot
+      (nhds (toUltraweak ℂ P 0)))
+    (heAtTop : Tendsto (fun t ↦ toUltraweak ℂ P (e t).1) atTop
+      (nhds (toUltraweak ℂ P 1)))
+    (heAtBot' : Tendsto (fun t ↦ toUltraweak ℂ P (e' t).1) atBot
+      (nhds (toUltraweak ℂ P 0)))
+    (heAtTop' : Tendsto (fun t ↦ toUltraweak ℂ P (e' t).1) atTop
+      (nhds (toUltraweak ℂ P 1)))
+    (a : selfAdjoint M)
+    (hmoment : Tendsto
+      (fun d : Finset ℝ ↦ toUltraweak ℂ P
+        (Scratch.SakaiRadonStieltjesBridge.identityMomentSum
+          (fun t ↦ (e t).1) (orderedCut d) (bandCount d)))
+      Scratch.RadonStieltjesMeshFilter.stieltjesFilter
+      (nhds (toUltraweak ℂ P a.1)))
+    (hmoment' : Tendsto
+      (fun d : Finset ℝ ↦ toUltraweak ℂ P
+        (Scratch.SakaiRadonStieltjesBridge.identityMomentSum
+          (fun t ↦ (e' t).1) (orderedCut d) (bandCount d)))
+      Scratch.RadonStieltjesMeshFilter.stieltjesFilter
+      (nhds (toUltraweak ℂ P a.1))) : e = e' := by
+  letI : NeBot Scratch.RadonStieltjesMeshFilter.stieltjesFilter :=
+    Scratch.RadonStieltjesMeshFilter.stieltjesFilter_neBot
+  exact competing_family_unique_of_finset_candidate
+    (P := P) Scratch.RadonStieltjesMeshFilter.tendsto_id_stieltjesFilter_atTop
+    Scratch.RadonStieltjesMeshFilter.tendsto_id_stieltjesFilter_atTop
+    e e' he he' hcont hcont' heAtBot heAtTop heAtBot' heAtTop' a hmoment hmoment'
 
 end CandidateUniqueness
 

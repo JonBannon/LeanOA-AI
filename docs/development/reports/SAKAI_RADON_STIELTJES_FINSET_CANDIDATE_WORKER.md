@@ -54,7 +54,7 @@ The existing Mathlib identity `Filter.map_val_Ici_atTop` supplies cofinality. Th
 theorems from `FiniteCutEnumeration` supply the scalar minimum/maximum limits, and composition with
 the competing family's endpoint laws supplies projection endpoint convergence.
 
-### Source-neutral theorem
+### Source-filter-parametric theorem
 
 The main pointwise theorem is
 `competing_eq_spectralProjectionIio_of_finset_candidate`. It is intentionally more general than
@@ -69,9 +69,10 @@ hsource : Tendsto id source atTop
 together with the explicit candidate moment convergence, monotonicity, sequential continuity from
 below, and the competing family's ultraweak endpoint laws.
 
-This allows `source` to retain mesh, tag, or admissibility conditions. For every fixed finite cut
-set `c`, the map `d ↦ d ∪ c` is eventually the identity under `hsource`; hence it tends from
-`source` to itself. The proof uses:
+This allows `source` to retain mesh, endpoint, or other cut-set-dependent admissibility conditions.
+It cannot carry independent tag data without replacing `Finset ℝ` by a richer index type with a
+cut-set projection. For every fixed finite cut set `c`, the map `d ↦ d ∪ c` is eventually the
+identity under `hsource`; hence it tends from `source` to itself. The proof uses:
 
 - `d ∪ {r}` for the fixed-projection split;
 - `d ∪ {s,r}` for the source-faithful lower residual at each `s < r`.
@@ -79,9 +80,21 @@ set `c`, the map `d ↦ d ∪ c` is eventually the identity under `hsource`; hen
 The bare-refinement corollary is
 `competing_eq_spectralProjectionIio_of_finset_atTop_candidate`.
 
+After the independent mesh-filter experiment was integrated,
+`competing_eq_spectralProjectionIio_of_mesh_refinement_candidate` instantiated the same theorem
+with the checked nontrivial filter
+
+```lean
+atTop ⊓ comap divisionMesh (nhds 0).
+```
+
+This closes the Lean composition from simultaneous refinement/mesh/endpoint behavior through
+pointwise recovery. It remains a candidate translation rather than a source-equivalence result.
+
 The two-family theorem `competing_family_unique_of_finset_candidate` applies pointwise recovery to
-two competing families satisfying the same candidate moment semantics and concludes equality of
-the functions.
+two competing families and now permits a separate nontrivial refinement-directed source filter for
+each family. `competing_family_unique_of_mesh_refinement_candidate` is the concrete specialization
+when both moment limits use the checked refinement-plus-mesh filter.
 
 ## Finite mechanics discharged
 
@@ -126,7 +139,9 @@ Kernel-proved under the candidate hypotheses:
 1. translated moments tend to `r • 1 - a` after prescribing `r`;
 2. the finite positive/negative split satisfies the support-recovery hypotheses;
 3. a competing lower family satisfies `e r = spectralProjectionIio a r` for every `r`;
-4. two such competing families are equal.
+4. two such competing families are equal, even when their explicit candidate moments are indexed
+   by separate refinement-directed source filters;
+5. the pointwise and family theorems apply to the checked nontrivial refinement-plus-mesh filter.
 
 Not proved:
 
@@ -140,11 +155,11 @@ Not proved:
 
 Do not publish this integration theorem yet.
 
-The order/filter design is stable and source-neutral: retain `Finset`, inclusion refinement,
+The order/filter design is stable and filter-parametric: retain `Finset`, inclusion refinement,
 arbitrary richer source filters satisfying `Tendsto id source atTop`, and eventually-identity
 finite union. The remaining review target is semantic, not proof engineering: determine whether
-Sakai's integral clause really licenses this left-endpoint finite-set moment hypothesis, and what
-mesh/tag information belongs in `source`.
+Sakai's integral clause really licenses this left-endpoint finite-set moment hypothesis, what
+mesh/admissibility information belongs in `source`, and whether a richer tagged index is needed.
 
 If that source review succeeds, promote a small proposition describing the moment semantics rather
 than the scratch-local `canonicalIndex` or net shims. The latter should remain implementation

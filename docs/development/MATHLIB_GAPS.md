@@ -66,6 +66,20 @@ norm-to-ultraweak map rather than adding a local integration hierarchy.
   for nonunital $C^*$-algebras and says that differences from two ordered disjoint intervals in a
   chain of four projections are orthogonal. No equivalent was found in pinned or current Mathlib.
 
+## Radon--Stieltjes refinement audit
+
+The exact audit in `reports/RIEMANN_STIELTJES_EXTERNAL_AUDIT.md` confirms that pinned Mathlib already
+contains the generic machinery Sak-AI should reuse: `Finset` inclusion/union, `Set.Ici`,
+`map_val_Ici_atTop`, `atTop_Ici_eq`, `tendsto_comp_val_Ici_atTop`, metric finite approximations of
+totally bounded intervals, and filter-basis nontriviality lemmas. These suffice for prescribed cuts
+and for a checked nontrivial refinement-plus-mesh candidate filter.
+
+No audited library supplies the missing semantic object. PNT+'s implemented filter is scalar,
+fixed-interval, and mesh-only; teorth's scalar Darboux development has placeholders; current
+Mathlib's archived Riemann--Stieltjes API and the ICERM work are fixed-box and norm-topological.
+Accordingly the remaining gap is not another generic cofinality theorem. It is a source-reviewed
+operator-valued ultraweak representation predicate matching Sakai's abstract integral clause.
+
 ## CFC audit for truncated-affine recovery
 
 At pinned Mathlib commit `476ab284`, the public unital CFC is already algebra-and-predicate based:

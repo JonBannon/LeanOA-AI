@@ -161,6 +161,11 @@ application of the directly reusable generic filter API.  Proving that this inte
 faithful reading of Sakai is a separate obligation from proving cut cofinality.  This is the
 shortest honest route to the missing prescribed-cut/refinement bridge.
 
+The subsequent scratch experiment followed this recommendation without porting external code. It
+proved nontriviality of `atTop ⊓ comap divisionMesh (nhds 0)`, endpoint escape, and
+eventual-identity insertion of every fixed finite cut set. This closes the engineering part of the
+recommendation; the source-equivalence obligation stated above remains unchanged.
+
 ## Primary source links
 
 - [PNT+ current source file](https://github.com/AlexKontorovich/PrimeNumberTheoremAnd/blob/a5154676af9aa3095150ee410cdda80555aa0642/PrimeNumberTheoremAnd/Unused/MyMV_A3a.lean)

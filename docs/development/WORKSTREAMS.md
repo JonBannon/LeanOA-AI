@@ -244,7 +244,9 @@ canonical. No stream may publish a PVM, general integral, or competing resolutio
 - **Scope:** PNT+, `teorth/analysis`, pinned/current Mathlib, original LeanOA, provenance, and exact
   reuse classification
 - **Owned files:** one isolated external-audit report
-- **Status:** PLANNED
+- **Status:** COMPLETE and integrated as `9ce196c`; exact versions, licenses, declarations,
+  placeholders, endpoint conventions, and reuse classifications are recorded in the required
+  eight-column report
 
 ### Division/refinement/cofinality
 
@@ -252,7 +254,9 @@ canonical. No stream may publish a PVM, general integral, or competing resolutio
 - **Scope:** generic finite divisions, refinement, finite prescribed cuts, common refinement,
   cofinality, and generic limit restriction
 - **Owned files:** isolated scratch/report and at most one reviewed generic production proposal
-- **Status:** PLANNED
+- **Status:** COMPLETE in scratch; `948b7c4` reuses Mathlib's `Ici`/`atTop` cofinality and proves
+  richer-filter eventual-identity insertion, while `f7bd0bd` supplies the sorted finite-cut and
+  asymptotic-endpoint adapter. No production proposal was accepted.
 
 ### Source-faithful Radon--Stieltjes bridge
 
@@ -260,7 +264,10 @@ canonical. No stream may publish a PVM, general integral, or competing resolutio
 - **Scope:** moment sums, asymptotic endpoint residuals, representation filter, inserted-cut
   translated limit, and compatibility with the existing conditional support proof
 - **Owned files:** isolated scratch/report; no public integral/resolution structure
-- **Status:** PLANNED
+- **Status:** COMPLETE conditionally in scratch; `8ced075` proves the abstract translated-moment
+  and endpoint-residual bridge, and `f431754` proves a nontrivial concrete filter combining
+  refinement, shrinking mesh, endpoint escape, and prescribed-cut invariance. Source equivalence
+  remains OPEN / RED.
 
 ### Lead architecture, uniqueness integration, and Verso
 
@@ -268,4 +275,7 @@ canonical. No stream may publish a PVM, general integral, or competing resolutio
 - **Scope:** external-reuse decision, shared API ownership, integration of the conditional support
   proof, completion of Sakai 1.11.3 if source hypotheses close, public API judgment, Verso, and full
   validation
-- **Status:** ACTIVE
+- **Status:** CONDITIONAL PROOF COMPLETE / SOURCE REVIEW ACTIVE; `9ec05eb` plus its integration
+  follow-up assemble finite indices, support recovery, pointwise identification, and family
+  uniqueness under the explicit candidate moment limit. Nothing became public or entered Verso;
+  full validation is the remaining engineering gate.
