@@ -22,6 +22,7 @@ public import LeanOA.MackeySpace
 public import LeanOA.Masa
 public import LeanOA.Mathlib.Algebra.Order.Star.Conjugate
 public import LeanOA.Mathlib.Algebra.Star.NonUnitalSubalgebra
+public import LeanOA.Mathlib.Analysis.CStarAlgebra.Abs
 public import LeanOA.Mathlib.Analysis.CStarAlgebra.ApproximateUnit
 public import LeanOA.Mathlib.Analysis.CStarAlgebra.Basic
 public import LeanOA.Mathlib.Analysis.CStarAlgebra.ContinuousFunctionalCalculus.Basic

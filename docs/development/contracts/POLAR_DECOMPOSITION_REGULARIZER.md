@@ -2,8 +2,7 @@
 
 WORKSTREAM: Section 1.12 regularized contractions
 
-BASE COMMIT: assigned integration baseline; replace this line with the exact integration commit
-before dispatch
+BASE COMMIT: `f840ec2643a255cf1fcbb5c69da316c74417829f`
 
 OBJECTIVE: Kernel-check Sakai's regularization while translating its `n = 1, 2, ...` indexing to a
 nondegenerate Lean `ℕ`-sequence. Set

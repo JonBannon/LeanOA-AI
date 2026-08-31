@@ -2,8 +2,7 @@
 
 WORKSTREAM: Section 1.12 general C-star API
 
-BASE COMMIT: assigned integration baseline; replace this line with the exact integration commit
-before dispatch
+BASE COMMIT: `f840ec2643a255cf1fcbb5c69da316c74417829f`
 
 OBJECTIVE: Prove the small general C-star facts needed by Sakai 1.12.1. From
 `IsStarProjection (star u * u)`, derive the standard partial-isometry fixing and final-projection

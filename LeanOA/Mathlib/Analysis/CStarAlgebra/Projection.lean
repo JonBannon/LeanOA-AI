@@ -3,11 +3,34 @@ module
 public import LeanOA.Mathlib.RingTheory.Idempotents
 public import Mathlib.Analysis.CStarAlgebra.Projection
 
+import LeanOA.Mathlib.Analysis.CStarAlgebra.Basic
+import Mathlib.Analysis.CStarAlgebra.ContinuousFunctionalCalculus.Basic
+import Mathlib.Analysis.CStarAlgebra.ContinuousFunctionalCalculus.Projection
+
 @[expose] public section
 
 namespace IsStarProjection
 
 variable {A : Type*} {p q : A}
+
+/-- If `star u * u` is a projection, then `u` is fixed by its initial projection. -/
+lemma mul_star_mul_self [NonUnitalCStarAlgebra A] {u : A}
+    (hu : IsStarProjection (star u * u)) : u * star u * u = u := by
+  rw [mul_assoc]
+  exact hu.isSelfAdjoint.mul_eq_self_of_star_mul_self_mul_eq hu.isIdempotentElem.eq
+
+/-- If `star u * u` is a projection, then it fixes `u` on the right. This is the
+right-associated form of `IsStarProjection.mul_star_mul_self`. -/
+lemma mul_star_mul_self_assoc [NonUnitalCStarAlgebra A] {u : A}
+    (hu : IsStarProjection (star u * u)) : u * (star u * u) = u := by
+  rw [← mul_assoc]
+  exact hu.mul_star_mul_self
+
+/-- If `star u * u` is a projection, then so is the final projection `u * star u`. -/
+lemma mul_star_self [NonUnitalCStarAlgebra A] {u : A}
+    (hu : IsStarProjection (star u * u)) : IsStarProjection (u * star u) :=
+  ⟨isIdempotentElem_star_mul_self_iff_isIdempotentElem_self_mul_star.mp hu.isIdempotentElem,
+    .mul_star_self u⟩
 
 /-- Passing to the multiplicative opposite preserves star projections. -/
 @[simp]
