@@ -5,8 +5,10 @@ import LeanOA.Mathlib.RingTheory.Annihilator
 import LeanOA.Ultraweak.Annihilator
 import LeanOA.Ultraweak.CentralSupport
 import LeanOA.Ultraweak.KaplanskyDensity
+import LeanOA.Ultraweak.NormalOrder
 import LeanOA.Ultraweak.Opposite
 import LeanOA.Ultraweak.ElementPolarDecomposition
+import LeanOA.Ultraweak.OrthogonalProjectionSum
 import LeanOA.Ultraweak.PredualUniqueness
 import LeanOA.Ultraweak.ProjectionDecomposition
 import LeanOA.Ultraweak.ProjectionLattice
@@ -48,6 +50,15 @@ a star projection and the pieces are eventually nonnegative,
 identifies those limits with Mathlib's positive and negative parts.  This
 general $`C^*`-level API does not assert an arbitrary spectral-resolution
 theorem.
+
+The canonical positive-functional normality predicate remains
+{name}`PositiveLinearMap.IsNormalOnProjections`.  Its source-facing order
+characterizations are
+{name}`PositiveLinearMap.isNormalOnProjections_iff_scottContinuous` and
+{name}`PositiveLinearMap.isNormalOnProjections_iff_scottContinuousOn_bounded_nonneg`;
+the specified-predual form of Sakai 1.13.2 is
+{name}`PositiveLinearMap.scottContinuousOn_bounded_nonneg_iff_mem_continuousDual`.
+No second normal-functional structure or predicate is introduced.
 
 # Projection and ideal interfaces
 
@@ -92,6 +103,17 @@ The ordered-difference identity
 $`C^*`-algebras.  It says that $`p\leq q\leq r\leq s` makes the projection
 differences $`q-p` and $`s-r` orthogonal, and contains no spectral or
 $`W^*`-algebra assumptions.
+
+For an arbitrary pairwise orthogonal family of star projections,
+{name}`IsStarProjection.orthogonalFinsetSum` is the finite-subset partial sum.
+Its projection and order interfaces culminate in
+{name}`IsStarProjection.isLUB_range_orthogonalFinsetSum` and the ambient-order
+variant {name}`IsStarProjection.isLUB_range_coe_orthogonalFinsetSum`.
+The finite-subset net converges to the existing projection supremum through
+{name}`IsStarProjection.tendsto_toUltraweak_orthogonalFinsetSum` and
+{name}`IsStarProjection.tendsto_toStrong_orthogonalFinsetSum`.  The index type
+is arbitrary; this API introduces neither countability nor a new infinite-sum
+object.
 
 # Element polar decomposition
 

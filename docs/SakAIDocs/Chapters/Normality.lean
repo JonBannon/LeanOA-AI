@@ -27,11 +27,23 @@ The formal definition is order-theoretic and assumes neither a topology nor a
 C-star algebra.
 :::
 
+:::definition "def:normal_positive_Sak_1_13_1" (lean := "PositiveLinearMap.isNormalOnProjections_iff_scottContinuousOn_bounded_nonneg, ScottContinuousOn.bounded_nonneg_iff_nonneg") (uses := "def:normal_on_projections")
+Sakai calls a positive functional $`\varphi` _normal_ when it preserves the
+least upper bound of every uniformly norm-bounded, nonempty directed family of
+positive elements.  In Lean this is `ScottContinuousOn` restricted to bounded
+nonnegative sets.  It is equivalent to the established projection-normality
+predicate.  The printed boundedness clause is retained explicitly, although it
+is automatic once a nonnegative set has a least upper bound.
+:::
+
 :::definition "def:specified_ultraweak_dual" (lean := "Ultraweak.continuousDual, Ultraweak.mem_continuousDual_iff_exists_comp_toUltraweakL") (uses := "def:sigma_top")
 The _continuous dual represented by $`P`_ is the norm-closed subspace of
 $`M^*` given by the image of the canonical isometric embedding of $`P`.  A
 norm-continuous functional belongs to it precisely when it factors through
 the explicit map from $`M` to its $`\sigma(M,P)` topology.
+This is also the established Lean object representing Sakai Definition
+1.13.5: its elements are the arbitrary (not necessarily positive) normal
+linear functionals.
 :::
 
 :::group "normal-easy-direction"
@@ -154,18 +166,18 @@ $`Q`.  Completeness of the projection lattice and Zorn's lemma then provide a
 maximal projection.
 :::
 
-:::theorem "thm:sigma_cts_of_normal_Sak_1_13_2" (parent := "normal-hard-direction") (lean := "PositiveLinearMap.isNormalOnProjections_iff_mem_continuousDual") (uses := "def:normal_on_projections, def:specified_ultraweak_dual, thm:uw_continuous_is_normal, lem:zorn_base, lem:exists_uw_ge_normal, lem:msr_th_lemma, lem:cut_down_sigma_closed_cts, thm:real_rank_zero_of_predual, cor:positive_functional_le_of_projection_le, lem:bdd_sigma_cts_iff_bdd_s_cts_Sak_1_8_10")
+:::theorem "thm:sigma_cts_of_normal_Sak_1_13_2" (parent := "normal-hard-direction") (lean := "PositiveLinearMap.scottContinuousOn_bounded_nonneg_iff_mem_continuousDual, PositiveLinearMap.isNormalOnProjections_iff_scottContinuousOn_bounded_nonneg") (uses := "def:normal_positive_Sak_1_13_1, def:normal_on_projections, def:specified_ultraweak_dual, thm:uw_continuous_is_normal, lem:zorn_base, lem:exists_uw_ge_normal, lem:msr_th_lemma, lem:cut_down_sigma_closed_cts, thm:real_rank_zero_of_predual, cor:positive_functional_le_of_projection_le, lem:bdd_sigma_cts_iff_bdd_s_cts_Sak_1_8_10")
 For a positive functional $`\varphi` on $`M`, the following are equivalent:
 
-1. $`\varphi` is normal on projections;
+1. $`\varphi` preserves least upper bounds of uniformly bounded increasing
+   directed families of positive elements, in the sense of Sakai 1.13.1;
 2. $`\varphi` is represented by $`P`, equivalently it is
    $`\sigma(M,P)`-continuous.
 
-This is the established projection-normality formulation of the mathematical
-core of Sakai 1.13.2.  Sakai's Definition 1.13.1 instead quantifies over every
-uniformly bounded increasing directed family of positive elements.  The
-explicit equivalence with that source formulation is the next source-fidelity
-bridge, so this node does not yet certify the theorem's exact printed wording.
+The order-theoretic condition is also equivalent to full Scott continuity of
+$`\varphi` and to normality on projections.  Thus the source definition, the
+canonical Sak-AI predicate, and the specified-predual characterization agree
+without replacing directed families by sequences.
 :::
 
 :::proof "thm:sigma_cts_of_normal_Sak_1_13_2"
@@ -219,3 +231,53 @@ Compose one identification with the inverse of the other.  The construction
 preserves evaluation, and injectivity of the embedding into $`M^*` makes that
 property unique.
 :::
+
+:::group "orthogonal-projection-sums"
+Arbitrary orthogonal families and their finite-subset nets.
+:::
+
+# Orthogonal projection sums
+%%%
+tag := "orthogonal-projection-sums"
+%%%
+
+:::definition "def:orthogonal_projection_sum_Sak_1_13_4" (parent := "orthogonal-projection-sums") (lean := "IsStarProjection.orthogonalFinsetSum, IsStarProjection.isLUB_range_orthogonalFinsetSum, IsStarProjection.isLUB_range_coe_orthogonalFinsetSum") (uses := "prop:proj_compl_lat_wstar_Sak_1_10_2")
+Let $`(p_i)_{i\in I}` be an arbitrary pairwise orthogonal family of
+projections.  For a finite subset $`J\subseteq I`, put
+$`P_J=\sum_{i\in J}p_i`.  Each $`P_J` is a projection, inclusion of finite
+subsets makes $`J\mapsto P_J` increasing, and its least upper bound is
+$`\sup_{J\subseteq_{\mathrm{fin}} I} P_J=\bigvee_{i\in I}p_i`.
+
+This least upper bound in the canonical projection lattice is also the least
+upper bound in the ambient $`C^*`-algebra.  It is Sakai's definition of the
+sum of the arbitrary orthogonal family; no countability or `tsum` semantics is
+used.
+:::
+
+:::proof "def:orthogonal_projection_sum_Sak_1_13_4"
+Mathlib's finite orthogonal-idempotent theorem gives idempotence of every
+partial sum, while self-adjointness is preserved by finite sums.  Product
+identities show monotonicity under inclusion.  Every partial sum lies below
+$`\bigvee_i p_i`; conversely, any projection above all partial sums is above
+each singleton sum $`p_i`, hence above their supremum.
+:::
+
+:::theorem "thm:orthogonal_projection_sum_convergence_Sak_1_13_4" (parent := "orthogonal-projection-sums") (lean := "IsStarProjection.tendsto_toUltraweak_orthogonalFinsetSum, IsStarProjection.tendsto_toStrong_orthogonalFinsetSum") (uses := "def:orthogonal_projection_sum_Sak_1_13_4, prop:proj_compl_lat_wstar_Sak_1_10_2, def:sigma_top, def:strong_top")
+The finite partial sums $`P_J`, indexed by all finite subsets of the arbitrary
+type $`I` and ordered by inclusion, converge to $`\bigvee_i p_i` both
+ultraweakly and in the intrinsic strong topology $`s(M,P)`.
+:::
+
+:::proof "thm:orthogonal_projection_sum_convergence_Sak_1_13_4"
+The range of the monotone finite-sum net is a nonempty directed family of
+projections with the preceding least upper bound.  The established projection
+LUB theorems give ultraweak and strong convergence of its canonical range net.
+The map from finite subsets to that range is cofinal, so precomposition gives
+the stated convergence of $`J\mapsto P_J` itself.
+:::
+
+Sakai continues by characterizing normality through complete additivity on
+these arbitrary orthogonal families.  The forward implication and the exact
+unconditional scalar-sum semantics are kernel-checked in scratch.  The
+converse still requires a maximal orthogonal decomposition of projection
+chains, so no production complete-additivity predicate is claimed here.

@@ -57,7 +57,8 @@ Keep the public `Current frontier` subsection in the project overview up to date
 formalization program is complete.
 
 All 87 active legacy LeanBlueprint nodes and 141 statement-dependency edges moved to Verso. The
-development through exact Sakai Theorem 1.12.1 brings the current graph to 105 nodes and 182 edges,
-with 503 manifest/cache entries. Declaration links cover the Section 1.10,
-spectral-approximation, fixed-projection, strong lower-spectral-projection, and element-polar-
-decomposition APIs. The legacy sources remain available in Git history.
+development through the first Sakai Section 1.13 production wave brings the current graph to 108
+nodes and 189 edges, with 515 manifest/cache entries. Declaration links cover the Section 1.10,
+spectral-approximation, fixed-projection, strong lower-spectral-projection, element-polar-
+decomposition, source-normality, and arbitrary orthogonal-projection-sum APIs. The legacy sources
+remain available in Git history.

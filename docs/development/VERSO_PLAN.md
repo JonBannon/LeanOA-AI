@@ -35,10 +35,11 @@ Sakai 1.12.1 is now a public theorem node linked to the exact kernel-proved `Exi
 declaration. A small Mathlib-tagged absolute-value node records its genuine CFC dependency without
 inventing a local absolute-value object. Section 1.12 is complete.
 
-The next public work belongs in the existing Normality chapter, not a duplicate Section 1.13
-chapter. Add source-facing nodes only after the directed-positive normality bridge or orthogonal
-finite-sum net is kernel-proved. The §1.13 scope report and workstream policy remain agent-facing and
-must not appear in the public reading path.
+The existing Normality chapter now contains the source-facing bounded directed-positive
+characterization, exact Theorem 1.13.2, and arbitrary orthogonal finite-sum/LUB/convergence nodes.
+It does not duplicate Section 1.13 or expose workstream policy. The complete-additivity equivalence
+must remain absent from the public graph until its converse and permanent statement interface are
+kernel-proved; scratch `HasSum` reconnaissance is not a public completion claim.
 
 ## Work that must wait
 

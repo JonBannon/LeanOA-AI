@@ -95,7 +95,7 @@ in their workstream.
 
 ## IQ-006 — Sakai 1.13 source normality and complete additivity
 
-- **Status:** ACTIVE / YELLOW
+- **Status:** PARTIALLY RESOLVED / YELLOW only for the converse
 - **Affected streams:** positive functionals, projection lattice, strong projection convergence,
   predual uniqueness, Verso
 - **Question:** How should Sakai's all-positive directed-supremum definition and arbitrary
@@ -103,9 +103,15 @@ in their workstream.
 - **Default:** do not add a competing permanent normality definition and do not use `tsum` for an
   arbitrary, possibly uncountable, projection family. State finite-partial-sum nets through
   `Finset`/`IsLUB` and reuse the existing projection lattice and convergence theorems.
-- **Evidence:** the hard normality characterization and predual uniqueness are already public.
-  The missing source-fidelity edges are the all-positive-to-projection normality bridge and exact
-  arbitrary orthogonal-sum packaging; the complete-additivity converse may require a maximal
-  orthogonal-family lemma.
-- **Next bounded action:** run 1.13-A and 1.13-B in disjoint modules while 1.13-C remains
-  scratch-only reconnaissance, as specified in `reports/SAKAI_SECTION_1_13_SCOPE.md`.
+- **Decision:** keep `IsNormalOnProjections` canonical. Express Sakai 1.13.1 through the existing
+  bounded nonnegative `ScottContinuousOn` condition and prove all characterizations. Express the
+  operator sum through `Finset` partial sums and the existing projection `iSup`, with no new
+  structure or notation. Use arbitrary-index `HasSum` for future scalar complete additivity.
+- **Evidence:** `Ultraweak.NormalOrder` and `Ultraweak.OrthogonalProjectionSum` close the two
+  production branches. Scratch proves normality implies the exact `HasSum` statement and reduces
+  the converse to a dominated orthogonal decomposition of every projection chain. No such
+  complete-orthomodular-lattice theorem exists in the audited libraries.
+- **Next bounded action:** prove the maximal orthogonal chain decomposition, its commutation/LUB
+  closure, and the chain-LUB version of the cutoff/selection boundary. Publish no
+  complete-additivity predicate until the converse kernel-checks; see
+  `reports/SAKAI_1_13_COMPLETE_ADDITIVITY_RECON.md`.

@@ -14,7 +14,9 @@ Sak-AI has two complementary reading paths.
   completes Section 1.10 and constructs the lower spectral family through
   norm convergence of its finite sums and the canonical truncated-affine
   recovery theorem in Sakai 1.11.3.  It also completes the element polar
-  decomposition of Theorem 1.12.1.
+  decomposition of Theorem 1.12.1 and the source normality characterization
+  of Theorem 1.13.2, together with the geometric part of arbitrary
+  orthogonal projection sums in Definition 1.13.4.
 * The *library path* follows reusable Lean concepts: weak topologies and
   preduals, ultraweak continuity, closed ideals, projection lattices, and
   support constructions.  Names and assumptions are chosen for Mathlib
@@ -75,7 +77,16 @@ The connected frontier targets completed so far are:
     1.11.3;
 12. every element $`a` of a $`W^*`-algebra has a unique polar factor $`u`
     satisfying $`a=u|a|`, $`u^*u=s(|a|)`, and
-    $`uu^*=s(|a^*|)`, completing Sakai 1.12.1.
+    $`uu^*=s(|a^*|)`, completing Sakai 1.12.1;
+13. Sakai's uniformly bounded directed-positive definition of a normal
+    functional is equivalent to the established projection-normality
+    predicate, full Scott continuity, and membership in every specified
+    ultraweak continuous dual.  This completes the exact printed statement
+    of Theorem 1.13.2;
+14. for an arbitrary pairwise orthogonal projection family, all finite
+    partial sums are projections, their least upper bound is the canonical
+    projection supremum, and the finite-subset net converges to it both
+    ultraweakly and strongly, giving the geometric content of Sakai 1.13.4.
 
 The source audit found an important correction and a genuine ambiguity.
 Sakai prints the strong $`s(M,M_*)` topology, not the ultraweak
@@ -92,11 +103,14 @@ filter is Sakai's undefined integral.
 Section 1.12 is complete.  Its proof uses Mathlib's
 continuous-functional-calculus absolute value, the existing support API, and
 ultraweak compactness of the closed unit ball; it does not depend on the
-unresolved integral semantics.  The next scoped checkpoint is the
-source-facing closeout of Section 1.13.  Most of its normal-functional and
-predual-uniqueness mathematics already exists in Sak-AI; the remaining work
-is to connect Sakai's directed-positive definition of normality to that API
-and to package arbitrary orthogonal projection sums and complete additivity.
+unresolved integral semantics.  In Section 1.13, Definitions 1.13.1 and
+1.13.5 (through the established ultraweak continuous-dual object), Theorem
+1.13.2, Corollary 1.13.3, and the projection-sum/convergence part of Definition
+1.13.4 are now represented.  The remaining scoped
+checkpoint is the converse from complete additivity on arbitrary orthogonal
+families to normality.  Its scalar finite-subset semantics and forward
+implication are kernel-checked in scratch; production waits for a
+source-faithful maximal orthogonal decomposition of projection chains.
 
 # Migration parity
 
@@ -107,14 +121,15 @@ norm from states; because that proposal had neither an active graph node nor
 a Lean declaration, it is recorded as future work rather than counted as a
 completed theorem.
 
-The lower-spectral-projection and element-polar-decomposition nodes are new
-work after that migration baseline; they extend rather than replace the 87
-historical nodes.
+The lower-spectral-projection, element-polar-decomposition, source-normality,
+and arbitrary orthogonal-sum nodes are new work after that migration baseline;
+they extend rather than replace the 87 historical nodes.
 
 The dependency graph below therefore represents the whole completed Sak-AI
 development through canonical truncated-affine recovery, the general
 fixed-projection ultraweak decomposition used in Sakai 1.11.3, and the
-element polar decomposition of Sakai 1.12.1, including
+element polar decomposition of Sakai 1.12.1, the exact normality theorem of
+Sakai 1.13.2, and arbitrary orthogonal projection sums, including
 $`C^*`-algebra foundations, operator
 topologies, positive separation, Stonean spectra and real rank zero,
 normality and predual uniqueness, Kaplansky density, projection lattices, and

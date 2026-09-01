@@ -103,3 +103,18 @@ The complete lattice on central projections is built with `completeLatticeOfInf`
 `PartialOrder` definitionally and avoids an order-instance diamond. Central support is the infimum
 of the central majorants; an annihilator classification supplies an actual least majorant, after
 which its public closure-operator laws are order-theoretic.
+
+## Normality and arbitrary orthogonal sums
+
+`PositiveLinearMap.IsNormalOnProjections` remains the canonical intrinsic normality predicate.
+Sakai's uniformly bounded directed-positive formulation is expressed with Mathlib's
+`ScottContinuousOn` restricted to bounded nonnegative sets and is connected to the canonical
+predicate by characterization theorems; Sak-AI has no second normal-functional structure. Full
+Scott continuity and specified-predual membership are equivalent downstream consequences.
+
+For an arbitrary orthogonal projection family, `Finset` partial sums form the source-faithful net
+and the existing projection `iSup` is its sum. The library exposes the finite-sum, LUB,
+ultraweak-convergence, and intrinsic-strong-convergence theorem layer without introducing infinite
+projection-sum notation, a family structure, or `tsum` semantics. Complete additivity is naturally
+expressible with arbitrary-index `HasSum`, but its predicate and converse remain uncommitted until
+the required projection-chain decomposition is production-proved.

@@ -35,6 +35,11 @@ Last updated: 2026-08-31
   partial-isometry predicate, compactness layer, or exposed predual was introduced. Algebraic
   uniqueness uses only the factorization and initial-support equations, and
   `WStarAlgebra.existsUnique_element_polar_decomposition` packages exact Theorem 1.12.1.
+- The first Section 1.13 production wave connects the literal bounded directed-positive definition
+  to projection normality, full Scott continuity, and specified-predual membership without adding
+  a predicate. It also packages arbitrary orthogonal projection `Finset` sums, their intrinsic LUB,
+  and both ultraweak and strong convergence. Complete additivity remains scratch-only because its
+  converse needs a maximal orthogonal decomposition of projection chains.
 - The theorem package had no uncommitted changes at the start of the orchestration work.
 - Jireh Loreaux's LeanOA and Mathlib are read-only references. The original LeanOA checkout has
   not been modified.
@@ -81,10 +86,16 @@ chosen-predual parameter. The source consequence for `a * star a` is separately 
 theorem turns `(u-v) * CFC.abs a = 0` into `(u-v) * support |a| = 0`; the initial-support equations
 then give `u = v`. The exact `ExistsUnique` package includes both source support equations.
 
-Section 1.13 is the next bounded source-facing target. Its hard normality characterization and
-predual uniqueness are already present. The remaining work is a source-normality bridge for
-bounded directed positive suprema, an arbitrary orthogonal-projection finite-sum net, and the
-complete-additivity equivalence; these must reuse the existing APIs rather than duplicate them.
+Section 1.13 is now source-formalized through Definition 1.13.1, Theorem 1.13.2, Corollary 1.13.3,
+Definition 1.13.5, and the geometric/convergence portion of Definition 1.13.4. The canonical
+predicate remains `PositiveLinearMap.IsNormalOnProjections`; its exact source characterization uses
+`ScottContinuousOn` on norm-bounded nonnegative sets. For an arbitrary orthogonal family, the
+`Finset` partial sums converge ultraweakly and strongly to the existing projection `iSup`.
+
+The remaining Section 1.13 statement is the equivalence with complete additivity. Arbitrary-index
+`HasSum` is source-faithful and the forward implication is kernel-checked in scratch. The converse
+is deferred pending a maximal orthogonal decomposition of projection chains, finite-sum domination
+by the original chain, and a chain-LUB form of the existing cutoff/selection proof.
 
 The implemented public design is:
 
@@ -156,6 +167,14 @@ The implemented public design is:
 25. Prove polar-factor uniqueness directly from the support zero-kernel theorem and the two
     initial-support fixing identities. Preserve the existence-only theorem, package exact
     `ExistsUnique`, and do not add a `polarPart` or partial-isometry predicate without a consumer.
+26. Keep `IsNormalOnProjections` canonical and characterize it through full Scott continuity and
+    Sakai's bounded nonnegative `ScottContinuousOn` condition; prove the printed boundedness clause
+    redundant once an `IsLUB` is supplied, and keep intrinsic statements free of a chosen predual.
+27. Represent arbitrary orthogonal projection sums by `Finset` partial sums and the existing
+    projection `iSup`; expose algebraic, LUB, ultraweak, and strong theorem layers without a new
+    family structure, notation, or `tsum` interpretation.
+28. Use arbitrary-index `HasSum` for future scalar complete additivity, but keep the predicate and
+    converse out of production until the projection-chain decomposition route kernel-checks.
 
 ## Implementation order
 
@@ -261,14 +280,24 @@ The completed implementation layers are:
       with both source support equations and no public regularizer/predual implementation detail.
     - WS-5 algebraic uniqueness from only the factorization and initial supports;
     - exact `ExistsUnique` packaging and a checked public Verso node for Sakai 1.12.1.
+16. Section 1.13 first production wave (begun at baseline
+    `d19b0d77f71931add5f925a66156208ba7232425`):
+    - exact bounded directed-positive normality through existing `ScottContinuousOn`;
+    - intrinsic equivalence with projection normality and full Scott continuity;
+    - exact specified-predual form of Sakai Theorem 1.13.2;
+    - arbitrary-index orthogonal projection finite sums, monotonicity, projection/ambient LUBs,
+      and ultraweak/strong convergence;
+    - scratch `HasSum` semantics, forward complete additivity, and an exact converse reduction;
+    - no complete-additivity predicate or converse promoted.
 
 The source audit has closed the 1.11.3 review question with LEVEL C rather than an accepted
 definition. Do not promote `atTop ⊓ comap divisionMesh (nhds 0)` as Sakai's meaning. Canonical
 Lemma 1.11.1 is now source-formalized. Section 1.12 contains the single element
 polar-decomposition theorem 1.12.1 and is complete through an independent
 CFC/support/ultraweak-compactness chain followed by algebraic uniqueness. The next bounded
-transaction is the Section 1.13 source-normality and orthogonal-projection-sum closeout described
-in `docs/development/reports/SAKAI_SECTION_1_13_SCOPE.md`. Revisit a
+transaction is the projection-chain decomposition needed for the complete-additivity converse in
+Section 1.13, as isolated in
+`docs/development/reports/SAKAI_1_13_COMPLETE_ADDITIVITY_RECON.md`. Revisit a
 public PVM/integral interface only when coherent mathematics or new primary evidence fixes it.
 
 Before each substantial proof, search the current Sak-AI tree, pinned Mathlib, current Mathlib
@@ -277,8 +306,9 @@ master/review history, and current LeanOA for an equivalent or more general decl
 ## Documentation continuation
 
 The Verso package preserves all 87 active nodes and 141 statement-dependency edges in the generated
-legacy graph and extends them to 105 nodes and 182 edges through the exact strong-topology,
-fixed-projection, spectral-approximation, and element-polar-decomposition edges. The exact manifest
+legacy graph and extends them to 108 nodes and 189 edges through the exact strong-topology,
+fixed-projection, spectral-approximation, element-polar-decomposition, and first Section 1.13
+edges. The exact manifest
 count and audit state are recorded in `VERSO_STATUS.md`. The legacy
 sources remain recoverable from Git history. New mathematical documentation must be authored in
 Verso first.

@@ -82,9 +82,11 @@ public import LeanOA.Ultraweak.NonUnitalStarSubalgebra
 public import LeanOA.Ultraweak.Normal
 public import LeanOA.Ultraweak.NormalCharacterization
 public import LeanOA.Ultraweak.NormalCutoff
+public import LeanOA.Ultraweak.NormalOrder
 public import LeanOA.Ultraweak.NormalSelection
 public import LeanOA.Ultraweak.Opposite
 public import LeanOA.Ultraweak.OrderClosed
+public import LeanOA.Ultraweak.OrthogonalProjectionSum
 public import LeanOA.Ultraweak.PolarDecomposition
 public import LeanOA.Ultraweak.PredualUniqueness
 public import LeanOA.Ultraweak.ProjectionDecomposition

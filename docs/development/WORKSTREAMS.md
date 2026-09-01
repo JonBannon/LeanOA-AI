@@ -371,19 +371,21 @@ The source audit finds that most of §1.13 is already supplied by Sak-AI's norma
 projection-lattice, strong-projection, and predual-uniqueness layers. Work should follow logical
 dependency order, not repeat the section linearly.
 
-- **1.13-A, source-normality bridge (production):** freeze an explicit source-faithful property
-  for preservation of bounded directed suprema of positive elements and prove it equivalent to
-  the existing `PositiveLinearMap.IsNormalOnProjections`, hence to membership in the ultraweak
-  continuous dual. Own one narrow new module; do not create a competing foundational definition.
-- **1.13-B, orthogonal projection finite-sum net (production, parallel with A):** package finite
-  partial sums of an arbitrary orthogonal projection family, prove they are projections and form a
-  directed monotone net, identify their LUB with the projection supremum, and reuse existing
-  ultraweak/strong LUB convergence. Do not overload `tsum` or add a new projection-sum structure.
-- **1.13-C, complete-additivity converse reconnaissance (scratch/report, parallel with A/B):** test
-  the exact uncountable finite-subset formulation and isolate any maximal-orthogonal-family lemma
-  needed for complete additivity to imply normality. Promote no interface until A and B settle.
-- **Sequential integration:** after A and B, prove the forward complete-additivity direction and
-  integrate into the existing Normality Verso chapter. Add no duplicate §1.13 chapter.
+- **1.13-A, source-normality bridge:** COMPLETE / GREEN in `Ultraweak.NormalOrder`. The literal
+  bounded nonnegative `ScottContinuousOn` condition, full Scott continuity, projection normality,
+  and specified-predual membership are equivalent. No predicate or chosen-predual parameter was
+  added to the intrinsic statements.
+- **1.13-B, orthogonal projection finite-sum net:** COMPLETE / GREEN in
+  `Ultraweak.OrthogonalProjectionSum`. Arbitrary-index finite sums are projections, monotone, have
+  LUB the existing projection `iSup`, and converge ultraweakly and strongly. There is no `tsum`
+  overload or projection-family structure.
+- **1.13-C, complete-additivity converse reconnaissance:** COMPLETE AS SCRATCH / DEFER PRODUCTION.
+  Arbitrary-index `HasSum` is the exact scalar semantics; normality implies it, and the final
+  converse reduction kernel-checks once a dominated orthogonal chain decomposition is supplied.
+  The missing maximal decomposition and chain-LUB cutoff boundary are recorded precisely.
+- **Sequential integration:** the source-normality and orthogonal-sum nodes are integrated into the
+  existing Normality Verso chapter. The forward complete-additivity theorem remains scratch because
+  publishing it alone would force a permanent predicate before the converse architecture settles.
 
 Collision rule: A alone owns the normality bridge module, B alone owns the orthogonal-sum module,
 and C is scratch-only. Shared umbrella imports, coordination documents, and Verso remain lead-owned.

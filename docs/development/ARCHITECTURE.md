@@ -67,8 +67,10 @@ algebraic uniqueness. Element polar decomposition uses Mathlib `CFC.abs`, adds n
 partial-isometry predicate, and lives in `Ultraweak.ElementPolarDecomposition`, distinct from the
 existing functional `Ultraweak.PolarDecomposition` module.
 
-Section 1.13 is a connective closeout rather than a new foundational normality layer. The existing
-projection-normality and continuous-dual characterization remains canonical. A source-facing
-positive-directed-supremum bridge belongs downstream of it; arbitrary orthogonal projection sums
-should be expressed through finite-subset nets and the existing projection LUB convergence, not a
-new sum structure or ordinary countable `tsum`.
+Section 1.13 remains a connective closeout rather than a new foundational normality layer. The
+source-facing positive-directed bridge now lives in `Ultraweak.NormalOrder`, downstream of the
+canonical projection-normality/continuous-dual theorem. Arbitrary orthogonal projection sums live
+in `Ultraweak.OrthogonalProjectionSum` as finite-subset/LUB/convergence theorems over the existing
+projection subtype. The remaining complete-additivity converse is YELLOW and scratch-isolated;
+arbitrary-index `HasSum` is its scalar semantics, but no predicate is public until the projection-
+chain decomposition and chain-LUB cutoff route are proved.

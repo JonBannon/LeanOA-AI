@@ -115,11 +115,21 @@ arbitrary $W^*$-projection sums, or unique-predual theorem. Sak-AI already has t
 convergence in both ultraweak and intrinsic strong topologies, and the canonical predual
 equivalence. Original LeanOA contains only earlier specified-predual/ultraweak foundations.
 
-The remaining gap is connective rather than foundational: an explicit source-facing equivalence
-between Sakai's preservation of bounded directed suprema of all positive elements and the existing
-projection-normality predicate, plus finite-partial-sum packaging for arbitrary orthogonal
-projection families and the complete-additivity equivalence. Do not use ordinary `tsum` for the
-possibly uncountable source sum or introduce a competing normality structure.
+Sak-AI now supplies the connective source-normality and orthogonal-sum layers. The former reuses
+Mathlib `ScottContinuousOn`; the latter combines the standard finite-sum API with Sak-AI's
+projection lattice and convergence API. Mathlib's `OrthogonalIdempotents` finite-sum theorem is
+currently unital, whereas `IsStarProjection.finset_sum` now needs only a
+`NonUnitalNonAssocSemiring` and `StarAddMonoid`. That theorem is a plausible small upstream
+generality improvement, though it remains in the downstream module for its current single
+consumer.
+
+The remaining gap is the complete-additivity converse. Mathlib `HasSum` already gives the correct
+arbitrary-index finite-subset scalar semantics, and the forward implication kernel-checks. No
+audited library supplies the needed theorem that a completely additive projection functional
+preserves LUBs of arbitrary projection chains. The exact missing input is a maximal pairwise
+orthogonal decomposition whose finite partial sums are dominated by members of the chain. Do not
+publish a predicate, use bare `tsum` equality, or introduce a competing normality structure before
+that theorem is available.
 
 ## Radon--Stieltjes refinement audit
 

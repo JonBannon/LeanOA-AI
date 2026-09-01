@@ -174,31 +174,39 @@ factorization, the two initial-support equations, and the established support ze
 `WStarAlgebra.existsUnique_element_polar_decomposition` packages all three source conditions.
 Section 1.12 is GREEN and source-formalized.
 
-Section 1.13 is the next source-facing closeout, but most of its mathematical core is already
-present:
+The first Section 1.13 production wave closes its source-normality and orthogonal-sum branches:
 
 ```text
 projection complete lattice + directed LUB convergence [GREEN]
   ↓
 projection normality ⇔ ultraweak continuous dual [GREEN]
   ↓
-Sakai all-positive directed-supremum normality bridge [YELLOW]
+full Scott continuity ⇔ bounded directed-positive normality [GREEN]
+  ↓
+exact Sakai 1.13.2 [GREEN]
 
 orthogonal projection family
   ↓
-finite partial sums + ultraweak/strong convergence to projection supremum [YELLOW]
+finite partial sums + projection/ambient LUB [GREEN]
   ↓
-normality ⇔ complete additivity [YELLOW; converse needs reconnaissance]
+ultraweak/strong convergence to projection supremum [GREEN]
+  ↓
+normality ⇒ arbitrary-index HasSum [SCRATCH PROOF CHECKED]
+  ↓
+maximal orthogonal decomposition of projection chains [MISSING / YELLOW]
+  ↓
+complete additivity ⇒ chain-LUB preservation ⇒ normality [DEFERRED]
 
 continuous-dual identification + canonical predual equivalence [GREEN]
   ↓
 Sakai 1.13.3 predual uniqueness [GREEN]
 ```
 
-The two production-yellow branches can proceed independently. They must reuse
-`PositiveLinearMap.IsNormalOnProjections`, `ProjectionLattice`, and `StrongProjection` rather than
-introducing competing notions of normality or projection sums. The exact source boundary and
-collision constraints are recorded in `reports/SAKAI_SECTION_1_13_SCOPE.md`.
+The remaining bounded edge is pure projection-order/connective mathematics: construct the
+orthogonal decomposition of a projection chain with finite sums dominated by chain members, then
+reuse the existing cutoff/selection proof at the chain-LUB boundary. No spectral integral, PVM, or
+element polar decomposition lies on this dependency path. The exact reduction is recorded in
+`reports/SAKAI_1_13_COMPLETE_ADDITIVITY_RECON.md`.
 
 ## Cartography fields for a major concept
 
