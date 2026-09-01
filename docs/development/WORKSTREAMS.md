@@ -11,7 +11,9 @@ Scores are qualitative: low/medium/high.
 | --- | --- | --- | --- | --- | --- | --- |
 | Spectral-band projection/order/orthogonality lemmas | current `SpectralProjection` | GREEN→YELLOW helper API | high for sums and measures | low | medium | yes |
 | Tagged spectral sums and mesh estimate | current `SpectralSum` | GREEN→YELLOW helper API | high for integral packaging | low | medium-high | yes |
-| Generic monotone projection-family finite-sum lemmas | Mathlib projection/order | YELLOW | medium-high | medium | medium | yes, if no bundled structure |
+| Orthogonal projection-family finite-sum net | projection lattice + strong LUB | YELLOW | high for Sakai 1.13 | low | medium | yes, if no competing sum object |
+| Source normality bridge | existing normality characterization | YELLOW | high for Sakai 1.13 | low | medium | yes |
+| Complete-additivity equivalence | source normality + orthogonal sums | YELLOW | high for Sakai 1.13 | medium | medium-high | reconnaissance first |
 | Spectral integral interface | all completed spectral files | RED | very high | high | high | architecture only |
 | Set-indexed spectral resolution / PVM | projection lattice + measure theory | RED | very high | very high | very high | no |
 | Uniqueness portion of Sakai 1.11.3 | spectral representation interface | RED/unavailable | high | high | high | not yet |
@@ -333,8 +335,8 @@ source semantics from implementation convenience or add an axiom/placeholder.
   pinned/current Mathlib and original LeanOA have no competing implementation.
 - **Production proof:** COMPLETE. General projection convergence lives in `StrongProjection`; exact
   filter-general and sequential spectral continuity live in `SpectralProjectionStrong`.
-- **Section 1.12 cartography:** COMPLETE. The section contains only Theorem 1.12.1 and is YELLOW but
-  unblocked, with no dependency on the RED integral/PVM boundary.
+- **Section 1.12 cartography:** COMPLETE. The section contains only Theorem 1.12.1 and is now
+  source-formalized, with no dependency on the RED integral/PVM boundary.
 
 ## Sakai 1.12 first production wave
 
@@ -357,5 +359,31 @@ source semantics from implementation convenience or add an axiom/placeholder.
   `u * star u = support |a*|`. The proof uses the source cutdown `q * b * p`, and
   `CFC.mul_star_eq_of_eq_mul_abs` records the source modulus-square consequence at the weaker
   abstract nonunital real-CFC generality of Mathlib's absolute value.
-- **WS-5, packaging:** READY and strictly sequential after reviewed WS-4. It owns uniqueness, exact
-  `ExistsUnique` source packaging, and the first public Verso node for Theorem 1.12.1.
+- **WS-5, packaging:** COMPLETE. `WStarAlgebra.element_polar_decomposition_unique` proves
+  uniqueness algebraically from only the two factorizations and initial-support equations;
+  `WStarAlgebra.existsUnique_element_polar_decomposition` packages the exact source predicate.
+  The Verso node links the completed theorem and its direct dependencies. No `polarPart` or new
+  partial-isometry predicate was introduced.
+
+## Sakai 1.13 bounded closeout wave
+
+The source audit finds that most of §1.13 is already supplied by Sak-AI's normality,
+projection-lattice, strong-projection, and predual-uniqueness layers. Work should follow logical
+dependency order, not repeat the section linearly.
+
+- **1.13-A, source-normality bridge (production):** freeze an explicit source-faithful property
+  for preservation of bounded directed suprema of positive elements and prove it equivalent to
+  the existing `PositiveLinearMap.IsNormalOnProjections`, hence to membership in the ultraweak
+  continuous dual. Own one narrow new module; do not create a competing foundational definition.
+- **1.13-B, orthogonal projection finite-sum net (production, parallel with A):** package finite
+  partial sums of an arbitrary orthogonal projection family, prove they are projections and form a
+  directed monotone net, identify their LUB with the projection supremum, and reuse existing
+  ultraweak/strong LUB convergence. Do not overload `tsum` or add a new projection-sum structure.
+- **1.13-C, complete-additivity converse reconnaissance (scratch/report, parallel with A/B):** test
+  the exact uncountable finite-subset formulation and isolate any maximal-orthogonal-family lemma
+  needed for complete additivity to imply normality. Promote no interface until A and B settle.
+- **Sequential integration:** after A and B, prove the forward complete-additivity direction and
+  integrate into the existing Normality Verso chapter. Add no duplicate §1.13 chapter.
+
+Collision rule: A alone owns the normality bridge module, B alone owns the orthogonal-sum module,
+and C is scratch-only. Shared umbrella imports, coordination documents, and Verso remain lead-owned.

@@ -27,12 +27,14 @@ Last updated: 2026-08-31
   converging to a cut from below give convergence of the lower spectral projections in the
   intrinsic strong topology, with no monotonicity hypothesis. General projection-LUB strong
   convergence and filter-level left continuity are now public.
-- Section 1.12 WS-4 is production-complete from accepted-input baseline
+- Section 1.12 is source-formalized from accepted-input baseline
   `9476b69357b8d2f6c9884b363f5378098d3ac039`. The exact Sakai regularizer is private production
   scaffolding; filter-based ultraweak compactness and the source cutdown `u = q * b * p` prove the
   factorization and both support equations in
   `WStarAlgebra.exists_element_polar_decomposition`. No duplicate polar calculus,
-  partial-isometry predicate, compactness layer, or exposed predual was introduced.
+  partial-isometry predicate, compactness layer, or exposed predual was introduced. Algebraic
+  uniqueness uses only the factorization and initial-support equations, and
+  `WStarAlgebra.existsUnique_element_polar_decomposition` packages exact Theorem 1.12.1.
 - The theorem package had no uncommitted changes at the start of the orchestration work.
 - Jireh Loreaux's LeanOA and Mathlib are read-only references. The original LeanOA checkout has
   not been modified.
@@ -68,15 +70,21 @@ uniqueness assembly checks. This is not yet the source theorem because Sakai sta
 strong-topology Radon--Stieltjes integral but does not define its Moore--Smith, tag, refinement, or
 improper-endpoint semantics. No source-reviewed predicate has therefore been accepted.
 
-The independent Section 1.12 existence chain is now public. The general annihilator,
+The independent Section 1.12 chain is now public. The general annihilator,
 partial-isometry, and absolute-value support APIs feed a private copy of Sakai's contractive
 regularizer. `Ultraweak.isCompact_closedBall` and a mapped-filter cluster point give a contraction
 `b` with `b * CFC.abs a = a`; the exact cutdown `u = q * b * p` then proves
 `a = u * CFC.abs a`, `star u * u = support |a|`, and
 `u * star u = support |star a|`. The public theorem has the ordinary `WStarAlgebra` context and no
 chosen-predual parameter. The source consequence for `a * star a` is separately available as
-`CFC.mul_star_eq_of_eq_mul_abs` at abstract nonunital real-CFC generality. WS-5 uniqueness and exact
-`ExistsUnique` packaging are the next dependency.
+`CFC.mul_star_eq_of_eq_mul_abs` at abstract nonunital real-CFC generality. The support zero-kernel
+theorem turns `(u-v) * CFC.abs a = 0` into `(u-v) * support |a| = 0`; the initial-support equations
+then give `u = v`. The exact `ExistsUnique` package includes both source support equations.
+
+Section 1.13 is the next bounded source-facing target. Its hard normality characterization and
+predual uniqueness are already present. The remaining work is a source-normality bridge for
+bounded directed positive suprema, an arbitrary orthogonal-projection finite-sum net, and the
+complete-additivity equivalence; these must reuse the existing APIs rather than duplicate them.
 
 The implemented public design is:
 
@@ -145,6 +153,9 @@ The implemented public design is:
     existence theorem and both canonical support equations. Put the independent modulus-square
     consequence at the abstract CFC boundary rather than retaining unnecessary $C^*$ or $W^*$
     assumptions.
+25. Prove polar-factor uniqueness directly from the support zero-kernel theorem and the two
+    initial-support fixing identities. Preserve the existence-only theorem, package exact
+    `ExistsUnique`, and do not add a `polarPart` or partial-isometry predicate without a consumer.
 
 ## Implementation order
 
@@ -234,7 +245,7 @@ The completed implementation layers are:
    - nested-projection strong-seminorm monotonicity;
    - filter-general strong left continuity of lower spectral projections;
    - the exact nonmonotone sequential statement of Sakai Lemma 1.11.1.
-15. Section 1.12 first production wave (begun at checkpoint
+15. Section 1.12 production (begun at checkpoint
     `6d24a2feb704cae6e4bedc00d6bc9f17c601f310`, reviewed on 2026-08-31):
     - `CFC.abs_mul_eq_zero_iff` and `CFC.mul_abs_eq_zero_iff` at nonunital $C^*$-algebra
       generality;
@@ -248,15 +259,16 @@ The completed implementation layers are:
       equivalence;
     - WS-4 production existence via the exact ultraweak cluster and `q * b * p` cutdown route,
       with both source support equations and no public regularizer/predual implementation detail.
+    - WS-5 algebraic uniqueness from only the factorization and initial supports;
+    - exact `ExistsUnique` packaging and a checked public Verso node for Sakai 1.12.1.
 
 The source audit has closed the 1.11.3 review question with LEVEL C rather than an accepted
 definition. Do not promote `atTop ⊓ comap divisionMesh (nhds 0)` as Sakai's meaning. Canonical
 Lemma 1.11.1 is now source-formalized. Section 1.12 contains the single element
-polar-decomposition theorem 1.12.1 and is scoped as an independent, unblocked
-CFC/support/ultraweak-compactness chain. The general C-star, proof-local regularizer, and W-star
-support and existence branches are now complete and independently reviewed. The next bounded
-transaction is WS-5 uniqueness and exact `ExistsUnique` packaging, followed by the public Verso
-node. Revisit a
+polar-decomposition theorem 1.12.1 and is complete through an independent
+CFC/support/ultraweak-compactness chain followed by algebraic uniqueness. The next bounded
+transaction is the Section 1.13 source-normality and orthogonal-projection-sum closeout described
+in `docs/development/reports/SAKAI_SECTION_1_13_SCOPE.md`. Revisit a
 public PVM/integral interface only when coherent mathematics or new primary evidence fixes it.
 
 Before each substantial proof, search the current Sak-AI tree, pinned Mathlib, current Mathlib
@@ -265,9 +277,9 @@ master/review history, and current LeanOA for an equivalent or more general decl
 ## Documentation continuation
 
 The Verso package preserves all 87 active nodes and 141 statement-dependency edges in the generated
-legacy graph and extends them to 103 nodes and 176 edges through the fixed-projection ultraweak
-decomposition and the exact strong-topology continuity edge. The exact manifest counts and audit
-state are recorded in `VERSO_STATUS.md`. The legacy
+legacy graph and extends them to 105 nodes and 182 edges through the exact strong-topology,
+fixed-projection, spectral-approximation, and element-polar-decomposition edges. The exact manifest
+count and audit state are recorded in `VERSO_STATUS.md`. The legacy
 sources remain recoverable from Git history. New mathematical documentation must be authored in
 Verso first.
 
@@ -302,7 +314,7 @@ lake exe vbp check
 - Original LeanOA checkout: `/Users/jonbannon/LeanRepos/LeanOA` (read-only; do not alter).
 - Current read-only upstream LeanOA comparison used in this run: commit `cb811c10`.
 - Pinned Mathlib: commit `476ab284693e554a6b48c5f5210cb4fb5ae51252`.
-- Mathlib master audited for Section 1.12 on 2026-08-31:
-  `567908cf509fb0bab796e5401edf35b4492ae48f`.
+- Mathlib master audited for Sections 1.12--1.13 on 2026-08-31:
+  `be865aa50cc0364be66c3941a6dc0c845a2c2ceb`.
 - Mathlib PR #42100 was still open at head `7f7138a127bf5c2f91d5b3e30b58499139561672`;
   its clopen-set CFC projections do not replace the W-star half-line support construction.

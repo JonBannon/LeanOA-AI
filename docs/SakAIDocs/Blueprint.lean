@@ -13,6 +13,7 @@ import SakAIDocs.Chapters.Normality
 import SakAIDocs.Chapters.KaplanskyDensity
 import SakAIDocs.Chapters.SupportProjections
 import SakAIDocs.Chapters.SpectralResolution
+import SakAIDocs.Chapters.PolarDecomposition
 import SakAIDocs.Chapters.Library
 
 open Verso.Genre
@@ -50,6 +51,8 @@ guide the Lean API.
 {include 0 SakAIDocs.Chapters.SupportProjections}
 
 {include 0 SakAIDocs.Chapters.SpectralResolution}
+
+{include 0 SakAIDocs.Chapters.PolarDecomposition}
 
 {include 0 SakAIDocs.Chapters.Library}
 

@@ -31,8 +31,14 @@ improper-endpoint conventions are not defined and were not uniform in the period
 must continue to present the candidate uniqueness theorem only as a clarified scratch analogue,
 never as the exact source theorem.
 
-The next public theorem node should be Sakai 1.12.1 after its element polar decomposition is
-kernel-proved. The scope report is agent-facing and does not itself become a public theorem node.
+Sakai 1.12.1 is now a public theorem node linked to the exact kernel-proved `ExistsUnique`
+declaration. A small Mathlib-tagged absolute-value node records its genuine CFC dependency without
+inventing a local absolute-value object. Section 1.12 is complete.
+
+The next public work belongs in the existing Normality chapter, not a duplicate Section 1.13
+chapter. Add source-facing nodes only after the directed-positive normality bridge or orthogonal
+finite-sum net is kernel-proved. The §1.13 scope report and workstream policy remain agent-facing and
+must not appear in the public reading path.
 
 ## Work that must wait
 

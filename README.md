@@ -8,9 +8,10 @@ and lower spectral projections through norm convergence of the finite sums in Sa
 convergence theorem applies both to arbitrary mesh-zero filtered families and to an explicit
 nested sequence of dyadic divisions. Sakai 1.11.1 is now formalized with its exact nonmonotone
 hypotheses in the intrinsic strong topology. The source semantics of the abstract spectral integral
-remain explicitly unresolved. The existence half of Sakai's element polar decomposition is now
-kernel-proved with its exact initial and final support equations; the next checkpoint is uniqueness
-and exact Theorem 1.12.1 packaging.
+remain explicitly unresolved. Sakai's element polar decomposition is now kernel-proved with exact
+existence, algebraic uniqueness, and initial/final support equations, completing Theorem 1.12.1.
+The next checkpoint is the source-facing closeout of Section 1.13, reusing Sak-AI's existing
+normal-functional and predual-uniqueness machinery.
 
 - [Sak-AI documentation site](https://jonbannon.github.io/Sak-AI/)
 - [API documentation](https://jonbannon.github.io/Sak-AI/docs/)
@@ -22,7 +23,8 @@ The primary documentation source and deployed project site are the first-class V
 package in [`docs/`](docs/). It supplies a mathematical reading path, checked declaration links,
 dependency graph, formalization summary, full-text search, and index. The retired LeanBlueprint
 sources remain recoverable from Git history; all 87 former nodes and 141 dependency edges are in
-Verso, and the current graph has 103 nodes and 176 statement-dependency edges.
+Verso, whose current graph has 105 nodes and 182 statement-dependency edges. Exact build audit data
+is recorded in [`VERSO_STATUS.md`](VERSO_STATUS.md).
 
 Local theorem verification:
 

@@ -13,7 +13,8 @@ Sak-AI has two complementary reading paths.
 * The *mathematical path* follows Sakai.  The current formal development
   completes Section 1.10 and constructs the lower spectral family through
   norm convergence of its finite sums and the canonical truncated-affine
-  recovery theorem in Sakai 1.11.3.
+  recovery theorem in Sakai 1.11.3.  It also completes the element polar
+  decomposition of Theorem 1.12.1.
 * The *library path* follows reusable Lean concepts: weak topologies and
   preduals, ultraweak continuity, closed ideals, projection lattices, and
   support constructions.  Names and assumptions are chosen for Mathlib
@@ -33,7 +34,7 @@ The deployed site is accompanied by the
 tag := "current-frontier"
 %%%
 
-The connected Section 1.11 targets completed so far are:
+The connected frontier targets completed so far are:
 
 1. the scalar cutoff $`b_h(\lambda)=(\lambda 1-h)^+` is developed at the
    C-star-algebra level and shown norm-continuous in $`\lambda`;
@@ -71,7 +72,10 @@ The connected Section 1.11 targets completed so far are:
     ultraweakly convergent difference forces the two pieces to converge to
     the Mathlib positive and negative parts of the limit; this supplies the
     analytic decomposition used in the uniqueness paragraph of Sakai
-    1.11.3.
+    1.11.3;
+12. every element $`a` of a $`W^*`-algebra has a unique polar factor $`u`
+    satisfying $`a=u|a|`, $`u^*u=s(|a|)`, and
+    $`uu^*=s(|a^*|)`, completing Sakai 1.12.1.
 
 The source audit found an important correction and a genuine ambiguity.
 Sakai prints the strong $`s(M,M_*)` topology, not the ultraweak
@@ -85,10 +89,14 @@ hypotheses of the complete conditional uniqueness argument.  This preserves
 the useful modern analogue without asserting that its refinement-plus-mesh
 filter is Sakai's undefined integral.
 
-The next coherent checkpoint is Sakai 1.12.1, the element polar-decomposition
-theorem.  Its source proof uses Mathlib's continuous-functional-calculus
-absolute value, the existing support API, and ultraweak compactness of the
-closed unit ball; it does not depend on the unresolved integral semantics.
+Section 1.12 is complete.  Its proof uses Mathlib's
+continuous-functional-calculus absolute value, the existing support API, and
+ultraweak compactness of the closed unit ball; it does not depend on the
+unresolved integral semantics.  The next scoped checkpoint is the
+source-facing closeout of Section 1.13.  Most of its normal-functional and
+predual-uniqueness mathematics already exists in Sak-AI; the remaining work
+is to connect Sakai's directed-positive definition of normality to that API
+and to package arbitrary orthogonal projection sums and complete additivity.
 
 # Migration parity
 
@@ -99,13 +107,15 @@ norm from states; because that proposal had neither an active graph node nor
 a Lean declaration, it is recorded as future work rather than counted as a
 completed theorem.
 
-The lower-spectral-projection nodes are new work after that migration
-baseline; they extend rather than replace the 87 historical nodes.
+The lower-spectral-projection and element-polar-decomposition nodes are new
+work after that migration baseline; they extend rather than replace the 87
+historical nodes.
 
 The dependency graph below therefore represents the whole completed Sak-AI
-development through canonical truncated-affine recovery and the general
-fixed-projection ultraweak decomposition used in Sakai 1.11.3, including
-$`C^*`$-algebra foundations, operator
+development through canonical truncated-affine recovery, the general
+fixed-projection ultraweak decomposition used in Sakai 1.11.3, and the
+element polar decomposition of Sakai 1.12.1, including
+$`C^*`-algebra foundations, operator
 topologies, positive separation, Stonean spectra and real rank zero,
 normality and predual uniqueness, Kaplansky density, projection lattices, and
 support, central-support, and lower-spectral-projection theory.

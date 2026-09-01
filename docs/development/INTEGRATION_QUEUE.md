@@ -39,9 +39,9 @@ in their workstream.
   fixed-projection decomposition and coherent support helpers under D004. The architecture remains
   OPEN / RED at a documented historical ambiguity. The concrete filter and uniqueness theorem
   remain scratch-only and are labeled `TRANSLATED_CANDIDATE`, not `SOURCE_EQUIVALENCE_CHECKED`.
-- **Next bounded action:** do not manufacture source equivalence. The canonical continuity layer is
-  now corrected and source-formalized in Sakai's strong topology. Proceed into Section 1.12 through
-  the independent CFC-absolute-value/support/compactness chain. Revisit a public representation
+- **Next bounded action:** do not manufacture source equivalence. The independent Section 1.12
+  CFC/support/compactness chain is now complete without touching this boundary. Continue with the
+  Section 1.13 source-normality and orthogonal-sum closeout. Revisit a public representation
   predicate only when a coherent PVM/integral construction or new primary evidence fixes its
   semantics.
 
@@ -72,21 +72,40 @@ in their workstream.
 
 ## IQ-005 — element polar-decomposition packaging
 
-- **Status:** ACTIVE / YELLOW; WS-4 existence reviewed, WS-5 packaging remains
+- **Status:** RESOLVED / GREEN
 - **Affected streams:** general C-star API, support, CFC regularizer, ultraweak compactness, Verso
 - **Question:** Which reusable helper surface is needed before packaging Sakai 1.12.1?
-- **Decision so far:** keep Mathlib `CFC.abs` canonical. The stable annihilator bridges are
+- **Decision:** keep Mathlib `CFC.abs` canonical. The stable annihilator bridges are
   `CFC.abs_mul_eq_zero_iff` and `CFC.mul_abs_eq_zero_iff`; the stable partial-isometry consequences
   are `IsStarProjection.mul_star_mul_self`, `mul_star_mul_self_assoc`, and `mul_star_self`. Continue
   to express partial-isometry semantics through `IsStarProjection (star u * u)` initially; use a
   distinct future `Ultraweak.ElementPolarDecomposition` module so the existing functional-polar-
   decomposition module remains unambiguous. Do not add a `polarPart` object until a consumer needs
   one.
-- **Evidence:** WS-4 now privately productionizes the source-faithful regularizer, reuses the
+- **Evidence:** WS-4 privately productionizes the source-faithful regularizer, reuses the
   existing ultraweak compact closed ball and fixed-right-multiplication API, and kernel-proves the
   source cutdown `u = q * b * p`. `WStarAlgebra.exists_element_polar_decomposition` has the exact
   factorization and initial/final support orientations without a new support object, exposed
   predual, partial-isometry predicate, or joint-continuity assumption. The source consequence
   `CFC.mul_star_eq_of_eq_mul_abs` is stated at abstract nonunital real-CFC generality.
-- **Next bounded action:** WS-5 should prove uniqueness against this stable witness interface,
-  package the exact Sakai theorem, and only then add the Verso theorem node.
+  WS-5 proves uniqueness using only the factorization, initial-support equations, and existing
+  support zero-kernel theorem. The exact `ExistsUnique` declaration and Verso node are integrated.
+- **Outcome:** no new `polarPart`, partial-isometry predicate, compactness layer, or public predual
+  parameter. Sakai 1.12.1 is source-formalized.
+
+## IQ-006 — Sakai 1.13 source normality and complete additivity
+
+- **Status:** ACTIVE / YELLOW
+- **Affected streams:** positive functionals, projection lattice, strong projection convergence,
+  predual uniqueness, Verso
+- **Question:** How should Sakai's all-positive directed-supremum definition and arbitrary
+  orthogonal-family complete additivity be connected to the existing projection-normality API?
+- **Default:** do not add a competing permanent normality definition and do not use `tsum` for an
+  arbitrary, possibly uncountable, projection family. State finite-partial-sum nets through
+  `Finset`/`IsLUB` and reuse the existing projection lattice and convergence theorems.
+- **Evidence:** the hard normality characterization and predual uniqueness are already public.
+  The missing source-fidelity edges are the all-positive-to-projection normality bridge and exact
+  arbitrary orthogonal-sum packaging; the complete-additivity converse may require a maximal
+  orthogonal-family lemma.
+- **Next bounded action:** run 1.13-A and 1.13-B in disjoint modules while 1.13-C remains
+  scratch-only reconnaissance, as specified in `reports/SAKAI_SECTION_1_13_SCOPE.md`.

@@ -62,7 +62,13 @@ spectral family. This dependency direction is deliberate: neither foundational m
 other merely to host a bridge theorem. Sakai 1.11.1 is GREEN; the unrelated 1.11.3 integral
 semantics remain RED.
 
-Section 1.12 is scoped as an independent CFC/support/ultraweak-compactness chain. Future element
-polar decomposition should use Mathlib `CFC.abs`, avoid a duplicate partial-isometry predicate
-until needed, and live in a distinctly named module rather than the existing functional
-`Ultraweak.PolarDecomposition` module.
+Section 1.12 is complete through an independent CFC/support/ultraweak-compactness chain followed by
+algebraic uniqueness. Element polar decomposition uses Mathlib `CFC.abs`, adds no duplicate
+partial-isometry predicate, and lives in `Ultraweak.ElementPolarDecomposition`, distinct from the
+existing functional `Ultraweak.PolarDecomposition` module.
+
+Section 1.13 is a connective closeout rather than a new foundational normality layer. The existing
+projection-normality and continuous-dual characterization remains canonical. A source-facing
+positive-directed-supremum bridge belongs downstream of it; arbitrary orthogonal projection sums
+should be expressed through finite-subset nets and the existing projection LUB convergence, not a
+new sum structure or ordinary countable `tsum`.

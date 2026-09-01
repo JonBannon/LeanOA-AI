@@ -207,7 +207,7 @@ Monotonicity of $`e_h` turns each ordered difference into a projection.
 Comparable projections commute, and subtraction preserves commutation, which
 gives all stated commutation relations.  Adjacent additivity is cancellation
 in the ambient additive group.  Orthogonality is the general nonunital
-$`C^*`$-algebra fact that if four projections satisfy
+$`C^*`-algebra fact that if four projections satisfy
 $`p\leq q\leq r\leq s`, then $`(q-p)(s-r)=0`; commutation gives the reverse
 product.
 :::

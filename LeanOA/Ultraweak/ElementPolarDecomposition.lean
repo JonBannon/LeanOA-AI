@@ -13,9 +13,10 @@ import Mathlib.Analysis.SpecificLimits.Basic
 /-!
 # Polar decomposition of elements of a von Neumann algebra
 
-This file proves the existence part of Sakai, Theorem 1.12.1.  The implementation follows
-Sakai's regularization and ultraweak-compactness argument, while keeping the regularizer itself
-private.
+This file proves Sakai, Theorem 1.12.1.  The existence proof follows Sakai's regularization and
+ultraweak-compactness argument, while keeping the regularizer itself private.  Uniqueness is
+separated into a reusable algebraic theorem depending only on the factorization and initial
+support equation.
 -/
 
 open Filter
@@ -299,6 +300,36 @@ end ElementPolarDecomposition
 
 variable [WStarAlgebra M]
 
+/-- The polar factor of an element is determined by its factorization and initial support.
+
+The final-support equation is deliberately absent: it is not needed for uniqueness.  This is the
+algebraic uniqueness step in Sakai, Theorem 1.12.1. -/
+theorem element_polar_decomposition_unique
+    (a u v : M)
+    (hu : a = u * CFC.abs a)
+    (hu_initial : star u * u =
+      (support ⟨CFC.abs a, (CFC.abs_nonneg a).isSelfAdjoint⟩).1)
+    (hv : a = v * CFC.abs a)
+    (hv_initial : star v * v =
+      (support ⟨CFC.abs a, (CFC.abs_nonneg a).isSelfAdjoint⟩).1) :
+    u = v := by
+  let x : selfAdjoint M :=
+    ⟨CFC.abs a, (CFC.abs_nonneg a).isSelfAdjoint⟩
+  let p : {p : M // IsStarProjection p} :=
+    support x
+  have hzero : (u - v) * x.1 = 0 := by
+    rw [sub_mul, ← hu, ← hv, sub_self]
+  have hs : (u - v) * p.1 = 0 :=
+    (mul_support_eq_zero_iff x (u - v)).2 hzero
+  have hup : u * p.1 = u := by
+    rw [← hu_initial]
+    exact (hu_initial.symm ▸ p.2).mul_star_mul_self_assoc
+  have hvp : v * p.1 = v := by
+    rw [← hv_initial]
+    exact (hv_initial.symm ▸ p.2).mul_star_mul_self_assoc
+  rw [sub_mul, hup, hvp, sub_eq_zero] at hs
+  exact hs
+
 /-- Existence in the polar decomposition of an element of a von Neumann algebra.
 
 This is the existence half of Sakai, Theorem 1.12.1. -/
@@ -311,6 +342,22 @@ theorem exists_element_polar_decomposition (a : M) :
         ⟨CFC.abs (star a), (CFC.abs_nonneg (star a)).isSelfAdjoint⟩).1 := by
   obtain ⟨b, hb, hba⟩ := ElementPolarDecomposition.exists_contractive_factor a
   exact ElementPolarDecomposition.exists_support_cutdown a b hb hba
+
+/-- Polar decomposition of an element of a von Neumann algebra, with the polar factor uniquely
+characterized by its factorization and exact initial and final support projections.
+
+This is Sakai, Theorem 1.12.1. -/
+theorem existsUnique_element_polar_decomposition (a : M) :
+    ∃! u : M,
+      a = u * CFC.abs a ∧
+      star u * u =
+        (support ⟨CFC.abs a, (CFC.abs_nonneg a).isSelfAdjoint⟩).1 ∧
+      u * star u = (support
+        ⟨CFC.abs (star a), (CFC.abs_nonneg (star a)).isSelfAdjoint⟩).1 := by
+  obtain ⟨u, hua, hu, huf⟩ := exists_element_polar_decomposition a
+  refine ⟨u, ⟨hua, hu, huf⟩, ?_⟩
+  intro v hv
+  exact (element_polar_decomposition_unique a u v hua hu hv.1 hv.2.1).symm
 
 end
 

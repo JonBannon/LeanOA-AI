@@ -85,7 +85,7 @@ intrinsic topology in which to state them.
 
 Pinned Mathlib has the required canonical `CFC.abs`, sqrt/rpow/inverse/order APIs but no element
 polar-decomposition theorem and no `IsPartialIsometry` predicate. Current Mathlib audited at
-`567908cf509fb0bab796e5401edf35b4492ae48f` has the same gap. The audit found no duplicate polar
+`be865aa50cc0364be66c3941a6dc0c845a2c2ceb` has the same gap. The audit found no duplicate polar
 calculus in Sak-AI or the read-only original LeanOA either. Sak-AI now supplies the general
 absolute-value annihilation lemmas `CFC.abs_mul_eq_zero_iff` and `CFC.mul_abs_eq_zero_iff`, plus
 the consequences `IsStarProjection.mul_star_mul_self`, `mul_star_mul_self_assoc`, and
@@ -101,7 +101,25 @@ ultraweak cluster-point proof. The general source consequence
 `CFC.mul_star_eq_of_eq_mul_abs` has been placed in the mirrored layer at the abstract nonunital
 real-CFC generality of Mathlib's absolute value; it is a small plausible upstream candidate. No
 combined element-polar theorem or equivalent cutdown was found in pinned Mathlib, audited current
-Mathlib, current Sak-AI, or original LeanOA.
+Mathlib, pre-WS-5 Sak-AI, or original LeanOA. Sak-AI now also supplies
+`WStarAlgebra.element_polar_decomposition_unique` and the exact
+`WStarAlgebra.existsUnique_element_polar_decomposition`; the former deliberately uses the existing
+support zero-kernel and projection-fixing APIs rather than adding a more abstract one-use helper.
+
+## Section 1.13 normality and complete additivity
+
+Pinned and audited current Mathlib provide generic `ScottContinuous`/`ScottContinuousOn`, positive
+linear maps, finite sums, and $C^*$-projection algebra, but no $W^*$-predual, ultraweak normality,
+arbitrary $W^*$-projection sums, or unique-predual theorem. Sak-AI already has the hard theorem
+`PositiveLinearMap.isNormalOnProjections_iff_mem_continuousDual`, directed projection LUB
+convergence in both ultraweak and intrinsic strong topologies, and the canonical predual
+equivalence. Original LeanOA contains only earlier specified-predual/ultraweak foundations.
+
+The remaining gap is connective rather than foundational: an explicit source-facing equivalence
+between Sakai's preservation of bounded directed suprema of all positive elements and the existing
+projection-normality predicate, plus finite-partial-sum packaging for arbitrary orthogonal
+projection families and the complete-additivity equivalence. Do not use ordinary `tsum` for the
+possibly uncountable source sum or introduce a competing normality structure.
 
 ## Radon--Stieltjes refinement audit
 

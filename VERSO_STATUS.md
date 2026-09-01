@@ -4,10 +4,10 @@ Last updated: 2026-08-31
 
 ## Current state
 
-The Verso Blueprint package in `docs/` builds and generates a multi-page site with 103 active nodes
-and 176 statement-dependency edges. This includes all 87 nodes and 141 edges from the generated
-legacy LeanBlueprint graph plus sixteen new connected nodes through the fixed-projection
-ultraweak decomposition used in Sakai 1.11.3. The manifest has 496 entries and reports no
+The Verso Blueprint package in `docs/` builds and generates a multi-page site with 105 active nodes
+and 182 statement-dependency edges. This includes all 87 nodes and 141 edges from the generated
+legacy LeanBlueprint graph plus eighteen new connected nodes through the element polar
+decomposition of Sakai 1.12.1. The manifest has 503 entries and reports no
 unknown dependency references or missing external Lean declarations.
 
 The apparent historical count of 88 came from counting textual `\label` occurrences: one of those
@@ -21,7 +21,7 @@ Kaplansky density, the Section 1.10 support/central-support development, and low
 projections through the exact strong-topology continuity theorem of Sakai 1.11.1, norm and
 ultraweak convergence of arbitrary tagged spectral sums, and their truncated-affine recovery to
 the existing CFC positive part in Sakai 1.11.3. It also presents the reusable fixed-projection
-decomposition. Scratch checks a nontrivial
+decomposition and the unique element polar decomposition of Sakai 1.12.1. Scratch checks a nontrivial
 refinement-plus-mesh filter and the complete competing-resolution support/uniqueness chain under an
 explicit left-endpoint moment limit. The public document accurately stops before those candidate
 results: source equivalence with Sakai's abstract Radon--Stieltjes integral has not been checked, so
@@ -49,7 +49,7 @@ test -f _out/site/html-multi/-verso-data/blueprint-manifest.json
 test -f _out/site/html-multi/-verso-data/blueprint-html-cache.json
 ```
 
-All checks passed on 2026-08-31. `vbp check` reports `ok: true`, zero errors, and 496 manifest/cache
+All checks passed on 2026-08-31. `vbp check` reports `ok: true`, zero errors, and 503 manifest/cache
 entries. The build replays warnings from three pinned upstream Verso or
 SubVerso modules; Sak-AI's own documentation modules elaborate without warnings.
 
@@ -63,10 +63,11 @@ longer part of the build or deployment.
 2. Preserve the distinction now visible in the public chapter: canonical Lemma 1.11.1 is exactly
    source-formalized in `s(M,M_*)`, while the integral's division/refinement semantics remain LEVEL
    C ambiguous. Do not present the checked refinement-plus-mesh candidate as the source definition.
-   Section 1.12's independent CFC/support/compactness proof now supplies the existence theorem and
-   both support equations. The next public theorem slice remains Theorem 1.12.1, after WS-5 proves
-   uniqueness and exact packaging. No resolution, integral, or PVM structure becomes public before
-   a genuine mathematical interface fixes it.
+   Section 1.12's independent CFC/support/compactness proof and algebraic uniqueness theorem now
+   supply exact Theorem 1.12.1. The next public slice is the source-facing closeout of Section 1.13:
+   connect Sakai's directed-positive normality definition to the existing projection-normality API
+   and package arbitrary orthogonal projection sums. No resolution, integral, or PVM structure
+   becomes public before a genuine mathematical interface fixes it.
 
 Do not create a second theorem-status registry: Verso blocks and `uses` references are the
 documentation source of truth.

@@ -157,7 +157,9 @@ support-defect cutdown u = q * b * p
   ↓
 factorization + exact initial/final supports [GREEN, WS-4]
   ↓
-uniqueness + exact Sakai 1.12.1 packaging [YELLOW, WS-5]
+algebraic uniqueness from factorization + initial supports [GREEN, WS-5]
+  ↓
+exact `ExistsUnique` Sakai 1.12.1 package + Verso node [GREEN, WS-5]
 ```
 
 The general $C^*$-layer and support bridge are public and stable. WS-4 privately transplants the
@@ -167,7 +169,36 @@ convergence using only fixed-right-multiplication continuity. Sakai's cutdown
 `u = q * b * p` then gives the factorization and both support equations in
 `WStarAlgebra.exists_element_polar_decomposition`. No sequence extraction, joint ultraweak
 continuity, exposed predual parameter, or edge from the §1.11 integral/PVM boundary is used. The
-only remaining theorem edge in §1.12 is uniqueness and exact source packaging in WS-5.
+algebraic theorem `WStarAlgebra.element_polar_decomposition_unique` then uses only the
+factorization, the two initial-support equations, and the established support zero-kernel API.
+`WStarAlgebra.existsUnique_element_polar_decomposition` packages all three source conditions.
+Section 1.12 is GREEN and source-formalized.
+
+Section 1.13 is the next source-facing closeout, but most of its mathematical core is already
+present:
+
+```text
+projection complete lattice + directed LUB convergence [GREEN]
+  ↓
+projection normality ⇔ ultraweak continuous dual [GREEN]
+  ↓
+Sakai all-positive directed-supremum normality bridge [YELLOW]
+
+orthogonal projection family
+  ↓
+finite partial sums + ultraweak/strong convergence to projection supremum [YELLOW]
+  ↓
+normality ⇔ complete additivity [YELLOW; converse needs reconnaissance]
+
+continuous-dual identification + canonical predual equivalence [GREEN]
+  ↓
+Sakai 1.13.3 predual uniqueness [GREEN]
+```
+
+The two production-yellow branches can proceed independently. They must reuse
+`PositiveLinearMap.IsNormalOnProjections`, `ProjectionLattice`, and `StrongProjection` rather than
+introducing competing notions of normality or projection sums. The exact source boundary and
+collision constraints are recorded in `reports/SAKAI_SECTION_1_13_SCOPE.md`.
 
 ## Cartography fields for a major concept
 

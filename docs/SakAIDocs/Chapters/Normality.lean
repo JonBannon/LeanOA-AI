@@ -160,6 +160,12 @@ For a positive functional $`\varphi` on $`M`, the following are equivalent:
 1. $`\varphi` is normal on projections;
 2. $`\varphi` is represented by $`P`, equivalently it is
    $`\sigma(M,P)`-continuous.
+
+This is the established projection-normality formulation of the mathematical
+core of Sakai 1.13.2.  Sakai's Definition 1.13.1 instead quantifies over every
+uniformly bounded increasing directed family of positive elements.  The
+explicit equivalence with that source formulation is the next source-fidelity
+bridge, so this node does not yet certify the theorem's exact printed wording.
 :::
 
 :::proof "thm:sigma_cts_of_normal_Sak_1_13_2"

@@ -6,6 +6,7 @@ import LeanOA.Ultraweak.Annihilator
 import LeanOA.Ultraweak.CentralSupport
 import LeanOA.Ultraweak.KaplanskyDensity
 import LeanOA.Ultraweak.Opposite
+import LeanOA.Ultraweak.ElementPolarDecomposition
 import LeanOA.Ultraweak.PredualUniqueness
 import LeanOA.Ultraweak.ProjectionDecomposition
 import LeanOA.Ultraweak.ProjectionLattice
@@ -29,6 +30,7 @@ to the reusable library layers in which they live.
 {index}[ultraweak topology]
 {index}[predual]
 {index}[Kaplansky density theorem]
+{index}[polar decomposition]
 
 # Duality and ultraweak topology
 
@@ -44,7 +46,7 @@ pieces from the ultraweak limit of their difference.  When the extractor is
 a star projection and the pieces are eventually nonnegative,
 {name}`Ultraweak.posPart_negPart_eq_of_tendsto_sub_of_isStarProjection`
 identifies those limits with Mathlib's positive and negative parts.  This
-general $`C^*`$-level API does not assert an arbitrary spectral-resolution
+general $`C^*`-level API does not assert an arbitrary spectral-resolution
 theorem.
 
 # Projection and ideal interfaces
@@ -87,15 +89,32 @@ W-star-specific argument.
 
 The ordered-difference identity
 {name}`IsStarProjection.sub_mul_sub_eq_zero_of_le` is stated for nonunital
-$`C^*`$-algebras.  It says that $`p\leq q\leq r\leq s` makes the projection
+$`C^*`-algebras.  It says that $`p\leq q\leq r\leq s` makes the projection
 differences $`q-p` and $`s-r` orthogonal, and contains no spectral or
-$`W^*`$-algebra assumptions.
+$`W^*`-algebra assumptions.
+
+# Element polar decomposition
+
+Mathlib's {name}`CFC.abs` remains the canonical absolute value.  The narrow
+$`W^*`-bridge {name}`WStarAlgebra.support_abs` identifies its support with
+the established right support; {name}`WStarAlgebra.support_abs_star` gives
+the corresponding final-support form.
+
+The existence interface
+{name}`WStarAlgebra.exists_element_polar_decomposition` exposes only the
+factorization and the two canonical support equations.  The algebraic
+theorem {name}`WStarAlgebra.element_polar_decomposition_unique` needs only
+the factorization and initial-support equations, while
+{name}`WStarAlgebra.existsUnique_element_polar_decomposition` packages the
+exact statement of Sakai 1.12.1.  The useful modulus-square consequence
+{name}`CFC.mul_star_eq_of_eq_mul_abs` is stated independently at the weaker
+abstract nonunital real-CFC level.
 
 # Lower spectral projections
 
 The positive cutoff
 {name}`CStarAlgebra.spectralPositivePart` is deliberately defined at the
-$`C^*`$-algebra level.  Its named continuous-functional-calculus bridge,
+$`C^*`-algebra level.  Its named continuous-functional-calculus bridge,
 identification with positive part, and fixed-element norm continuity are
 {name}`CStarAlgebra.spectralPositivePart_eq_cfc`,
 {name}`CStarAlgebra.spectralPositivePart_eq_posPart` and
