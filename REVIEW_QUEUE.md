@@ -1,6 +1,6 @@
 # Sak-AI human review queue and upstream opportunities
 
-Last updated: 2026-08-27
+Last updated: 2026-09-01
 
 ## DESIGN REVIEW REQUEST: semiring two-sided ideals and annihilators
 
@@ -129,3 +129,25 @@ future upstream naming, Sak-AI uses `WStarAlgebra.spectralProjectionIio`.
 The cutoff `CStarAlgebra.spectralPositivePart` and its norm-continuity theorem are isolated in a
 C-star-only module; the W-star module adds only support, projection-order, and ultraweak-convergence
 arguments. This split is the current portability decision and needs no human design gate.
+
+## Accepted API review for Sakai 1.14.2
+
+The 2026-09-01 comparison used pinned Mathlib commit `476ab284...`, audited current Mathlib commit
+`567908cf...`, original LeanOA commit `cb811c...`, and the pre-transaction Sak-AI tree. No existing
+functional-support, GNS-null-left-ideal, or applicable positive-functional faithfulness API was
+found.
+
+The accepted public construction is `PositiveLinearMap.support φ hφ`, separate by namespace and
+type from `WStarAlgebra.support` for algebra elements. Its explicit
+`IsNormalOnProjections` argument is mathematically necessary for the closed-ideal route; the
+canonical $W^*$-predual is selected only inside the definition. `PositiveLinearMap.nullIdeal` is
+more general and remains at the unital $C^*$-algebra boundary. The exact source orientation is
+`x ∈ φ.nullIdeal ↔ x * (φ.support hφ).1 = 0`.
+
+The review rejected a second supremum-based support, a normal-positive-functional bundle, a
+`Faithful` predicate, a public null-support object, and a second corner construction. The stable
+interface instead reuses the existing closed-left-ideal classifier and `IsStarProjection.Corner`,
+and publishes theorem-level greatest-zero, cutdown, full-support, and faithful-corner consequences.
+The two Cauchy--Schwarz coefficient-zero lemmas and the ring-theoretic complement-of-idempotent
+ideal lemma are recorded as plausible upstream candidates; no new human design gate blocks
+Definition 1.14.1 or Theorem 1.14.3.

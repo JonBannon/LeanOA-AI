@@ -115,3 +115,27 @@ in their workstream.
   complete-additivity predicate is needed.
 - **Next bounded action:** none for Section 1.13. The scoped next source target is functional
   support in Sakai 1.14.2; see `reports/SAKAI_SECTION_1_14_SCOPE.md`.
+
+## IQ-007 — Sakai 1.14.2 normal-positive-functional support
+
+- **Status:** RESOLVED / GREEN
+- **Affected streams:** positive functionals, intrinsic strong topology, one-sided ideals,
+  element support, corners, future functional Jordan and polar decomposition
+- **Question:** How should functional support be constructed without duplicating element support,
+  normality, ideal classification, or corner infrastructure?
+- **Decision:** define `PositiveLinearMap.nullIdeal` at general unital $C^*$-algebra level. Require
+  an explicit `PositiveLinearMap.IsNormalOnProjections` proof for functional support, prove the
+  null ideal strongly closed, obtain ultraweak closedness through the existing convex
+  strong-to-ultraweak closure theorem, and reuse the existing closed-left-ideal classifier. Define
+  `PositiveLinearMap.support` separately from `WStarAlgebra.support`, with the canonical $W^*$-
+  predual hidden inside its construction.
+- **Reusable helpers:** retain both Cauchy--Schwarz coefficient-zero orientations,
+  `apply_star_mul_eq_zero_of_apply_star_mul_self_eq_zero_left` and
+  `apply_star_mul_eq_zero_of_apply_star_mul_self_eq_zero_right`, together with the general
+  ring/idempotent bridge `Ideal.mem_span_singleton_one_sub_iff_mul_eq_zero`.
+- **Rejected alternatives:** no supremum-based second support, normal-positive-functional bundle,
+  `Faithful` predicate, `Fact`-hidden normality, public null-support projection, or new corner
+  structure. Use theorem-level faithfulness and `IsStarProjection.Corner`.
+- **Next bounded action:** scope Sakai 1.14.3 around positive-functional norm orthogonality and the
+  unique orthogonal Jordan decomposition of a self-adjoint normal functional, reusing this support
+  API and the existing functional polar-factorization results.

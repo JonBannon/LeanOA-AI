@@ -9,6 +9,7 @@ import LeanOA.Ultraweak.KaplanskyDensity
 import LeanOA.Ultraweak.NormalOrder
 import LeanOA.Ultraweak.Opposite
 import LeanOA.Ultraweak.ElementPolarDecomposition
+import LeanOA.Ultraweak.FunctionalSupport
 import LeanOA.Ultraweak.OrthogonalProjectionSum
 import LeanOA.Ultraweak.PredualUniqueness
 import LeanOA.Ultraweak.ProjectionDecomposition
@@ -35,6 +36,8 @@ to the reusable library layers in which they live.
 {index}[predual]
 {index}[Kaplansky density theorem]
 {index}[polar decomposition]
+{index}[support projection, of a functional]
+{index}[null left ideal]
 
 # Duality and ultraweak topology
 
@@ -139,6 +142,49 @@ The operator-algebra endpoints are
 {name}`PositiveLinearMap.isNormalOnProjections_iff_hasSum_orthogonal`.
 They introduce no bundled complete-additivity predicate and no countability
 assumption.
+
+# Support of a normal positive functional
+
+The GNS null left ideal
+{name}`PositiveLinearMap.nullIdeal` is defined for an arbitrary positive
+functional on a $`C^*`-algebra; it does not carry an unnecessary normality or
+$`W^*`-algebra assumption.  Its defining and coefficient-vanishing
+interfaces are {name}`PositiveLinearMap.mem_nullIdeal` and
+{name}`PositiveLinearMap.mem_nullIdeal_iff_forall_apply_star_mul_eq_zero`.
+
+For a specified predual, normality gives strong and ultraweak closedness via
+{name}`PositiveLinearMap.IsNormalOnProjections.isClosed_nullIdeal_strong` and
+{name}`PositiveLinearMap.IsNormalOnProjections.isClosed_nullIdeal_ultraweak`.
+The second theorem follows the source route through coincidence of strong and
+ultraweak closures on convex sets.
+
+The intrinsic $`W^*`-algebra construction is
+{name}`PositiveLinearMap.support`.  It takes an explicit proof of the
+established `PositiveLinearMap.IsNormalOnProjections` predicate; the chosen
+predual remains internal.  The null-ideal generator and right-annihilator
+interfaces are
+{name}`PositiveLinearMap.nullIdeal_eq_span_one_sub_support` and
+{name}`PositiveLinearMap.mem_nullIdeal_iff_mul_support_eq_zero`.  The right
+orientation matters: nullity is $`x s(\varphi)=0`.
+
+The projection-order characterization is
+{name}`PositiveLinearMap.apply_eq_zero_iff_le_one_sub_support`, packaged as a
+greatest-element statement by
+{name}`PositiveLinearMap.isGreatest_setOf_apply_eq_zero`.  The source cutdown
+API consists of {name}`PositiveLinearMap.apply_mul_support`,
+{name}`PositiveLinearMap.apply_support_mul`, and
+{name}`PositiveLinearMap.apply_support_mul_support`.
+
+Sakai's full-support definition of faithfulness is exposed by
+{name}`PositiveLinearMap.support_eq_one_iff_apply_star_mul_self_eq_zero_imp`.
+The useful support-corner consequences are
+{name}`PositiveLinearMap.apply_star_mul_self_eq_zero_iff_on_support_corner`
+and
+{name}`PositiveLinearMap.apply_eq_zero_iff_of_nonneg_on_support_corner`.
+These reuse `IsStarProjection.Corner`; no competing corner or functional-
+faithfulness structure is introduced.  The corner theorems are derived
+consequences of Definition 1.14.2 rather than separate verbatim source
+statements.
 
 # Element polar decomposition
 

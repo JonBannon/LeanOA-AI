@@ -42,6 +42,13 @@ Last updated: 2026-09-01
   chain-restricted Scott continuity as a sufficient normality criterion, and the theorem-level
   arbitrary-family `HasSum` characterization. No second normality or complete-additivity predicate
   was added.
+- Sakai 1.14.2 is source-formalized. The general positive-functional null left ideal is public at
+  the unital $C^*$-algebra boundary. For a normal positive functional, its strong closedness and
+  the convex strong-to-ultraweak closure bridge feed the existing closed-left-ideal classifier.
+  `PositiveLinearMap.support` hides the canonical predual and exposes the exact right-annihilator,
+  greatest-zero-projection, cutdown, full-support, and derived faithful-corner interfaces. No
+  second element-support object, normal-functional bundle, faithfulness predicate, or corner was
+  added.
 - The theorem package had no uncommitted changes at the start of the orchestration work.
 - Jireh Loreaux's LeanOA and Mathlib are read-only references. The original LeanOA checkout has
   not been modified.
@@ -95,8 +102,16 @@ Section 1.13 is source-formalized in full. The canonical predicate remains
 normality is equivalent to `HasSum (fun i ↦ φ (p i)) (φ (⨆ i, p i))`. The forward theorem supports
 an index type in an independent universe. The converse uses a same-algebra-universe family because
 the Zorn decomposition is subtype-indexed; after normality is recovered, the forward theorem gives
-the fully universe-polymorphic result. The next bounded source target is the support of a normal
-positive functional in Sakai 1.14.2.
+the fully universe-polymorphic result.
+
+Sakai 1.14.2 is now source-formalized. For a normal positive functional `φ`, the null left ideal
+is `M (1 - s(φ))`, so `φ (star x * x) = 0 ↔ x * s(φ) = 0`; the complement is the greatest
+projection killed by `φ`. The one-sided cutdowns are simp-facing rewrites and the two-sided cutdown
+is a named consequence; full support is equivalent to a trivial quadratic kernel, and the
+restriction to the canonical support corner is faithful. The latter is recorded as a derived
+consequence rather than a separate verbatim assertion of Definition 1.14.2. The next bounded
+source target is Definition 1.14.1 together with Theorem 1.14.3: norm orthogonality of positive
+functionals and the unique orthogonal Jordan decomposition of a self-adjoint normal functional.
 
 The implemented public design is:
 
@@ -177,6 +192,12 @@ The implemented public design is:
 28. Use arbitrary-index `HasSum` for scalar complete additivity. Keep the API theorem-level: the
     projection-chain decomposition route now kernel-checks both implications, so no predicate is
     needed.
+29. Define `PositiveLinearMap.nullIdeal` before normality at the general unital $C^*$-algebra
+    boundary. For a normal positive functional, follow Sakai's strong-to-ultraweak closure route,
+    reuse the existing closed-left-ideal classifier, and define one intrinsic
+    `PositiveLinearMap.support` with its chosen predual hidden. Keep functional and element support
+    separate, orient nullity as right annihilation, and express faithfulness through theorem-level
+    statements on the existing corner API.
 
 ## Implementation order
 
@@ -301,6 +322,15 @@ The completed implementation layers are:
     - normality implies arbitrary-universe orthogonal-family `HasSum`;
     - same-universe complete additivity implies canonical projection normality;
     - exact theorem-level iff, with no countability assumption, predicate, structure, or `tsum`.
+18. Section 1.14.2 functional-support wave (begun at baseline
+    `05c69abaa5a8608700a75d25b4da05d04d63a588`, completed on 2026-09-01):
+    - a general positive-functional null left ideal and paired Cauchy--Schwarz coefficient lemmas;
+    - exact strong closedness followed by the convex strong-to-ultraweak closure bridge;
+    - the existing closed-left-ideal classifier and one intrinsic functional support definition;
+    - right-annihilator, greatest-zero-projection, and all source cutdown identities;
+    - full-support faithfulness and the explicitly derived faithful-support-corner theorems;
+    - no duplicate element support, chosen-predual leak, normal-functional bundle, faithfulness
+      predicate, or corner structure.
 
 The source audit has closed the 1.11.3 review question with LEVEL C rather than an accepted
 definition. Do not promote `atTop ⊓ comap divisionMesh (nhds 0)` as Sakai's meaning. Canonical
@@ -308,9 +338,9 @@ Lemma 1.11.1 is now source-formalized. Section 1.12 contains the single element
 polar-decomposition theorem 1.12.1 and is complete through an independent
 CFC/support/ultraweak-compactness chain followed by algebraic uniqueness. Section 1.13 is now
 complete through the production projection-chain and complete-additivity modules. The next bounded
-transaction is the support/faithfulness API for a normal positive functional in Sakai 1.14.2, as
-scoped in `docs/development/reports/SAKAI_SECTION_1_14_SCOPE.md`. Revisit a
-public PVM/integral interface only when coherent mathematics or new primary evidence fixes it.
+transaction is Definition 1.14.1 plus Theorem 1.14.3, the orthogonal Jordan decomposition of a
+self-adjoint normal functional. Revisit a public PVM/integral interface only when coherent
+mathematics or new primary evidence fixes it.
 
 Before each substantial proof, search the current Sak-AI tree, pinned Mathlib, current Mathlib
 master/review history, and current LeanOA for an equivalent or more general declaration.
@@ -318,10 +348,10 @@ master/review history, and current LeanOA for an equivalent or more general decl
 ## Documentation continuation
 
 The Verso package preserves all 87 active nodes and 141 statement-dependency edges in the generated
-legacy graph and extends them to 111 nodes and 196 edges through the exact strong-topology,
-fixed-projection, spectral-approximation, element-polar-decomposition, and completed Section 1.13
-edges. The exact manifest
-count and audit state are recorded in `VERSO_STATUS.md`. The legacy
+legacy graph and extends them to 117 nodes and 209 edges through the exact strong-topology,
+fixed-projection, spectral-approximation, element-polar-decomposition, completed Section 1.13, and
+normal-positive-functional-support edges. The exact manifest count and audit state are recorded in
+`VERSO_STATUS.md`. The legacy
 sources remain recoverable from Git history. New mathematical documentation must be authored in
 Verso first.
 

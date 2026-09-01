@@ -73,6 +73,7 @@ public import LeanOA.Ultraweak.ContinuousStar
 public import LeanOA.Ultraweak.Corner
 public import LeanOA.Ultraweak.Dual
 public import LeanOA.Ultraweak.ElementPolarDecomposition
+public import LeanOA.Ultraweak.FunctionalSupport
 public import LeanOA.Ultraweak.Ideal
 public import LeanOA.Ultraweak.IsUnital
 public import LeanOA.Ultraweak.KaplanskyDensity

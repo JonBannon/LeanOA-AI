@@ -122,7 +122,65 @@ lemma cauchy_schwarz_mul_star (f : A →ₚ[ℂ] ℂ) (x y : A) :
     ‖f (x * star y)‖ ≤ √‖f (x * star x)‖ * √‖f (y * star y)‖ := by
   simpa using cauchy_schwarz_star_mul f (star x) (star y)
 
+/-- If an element has zero GNS seminorm, every positive-functional coefficient with that
+element in the first variable vanishes. -/
+lemma apply_star_mul_eq_zero_of_apply_star_mul_self_eq_zero_left
+    (f : A →ₚ[ℂ] ℂ) {x : A} (hx : f (star x * x) = 0) (y : A) :
+    f (star x * y) = 0 := by
+  apply norm_eq_zero.mp
+  apply le_antisymm (f.cauchy_schwarz_star_mul x y |>.trans_eq ?_) (norm_nonneg _)
+  rw [hx, norm_zero, Real.sqrt_zero, zero_mul]
+
+/-- If an element has zero GNS seminorm, every positive-functional coefficient with that
+element in the second variable vanishes. -/
+lemma apply_star_mul_eq_zero_of_apply_star_mul_self_eq_zero_right
+    (f : A →ₚ[ℂ] ℂ) {x : A} (hx : f (star x * x) = 0) (y : A) :
+    f (star y * x) = 0 := by
+  apply norm_eq_zero.mp
+  apply le_antisymm (f.cauchy_schwarz_star_mul y x |>.trans_eq ?_) (norm_nonneg _)
+  rw [hx, norm_zero, Real.sqrt_zero, mul_zero]
+
 end CauchySchwarz
+
+section NullIdeal
+
+variable {A : Type*} [CStarAlgebra A] [PartialOrder A] [StarOrderedRing A]
+
+/-- The GNS null left ideal of a positive linear functional: the elements `x` for which
+`φ (star x * x) = 0`. -/
+def nullIdeal (φ : A →ₚ[ℂ] ℂ) : Ideal A where
+  carrier := {x | φ (star x * x) = 0}
+  zero_mem' := by simp
+  add_mem' {x y} hx hy := by
+    change φ (star x * x) = 0 at hx
+    change φ (star y * y) = 0 at hy
+    change φ (star (x + y) * (x + y)) = 0
+    have hxy := φ.apply_star_mul_eq_zero_of_apply_star_mul_self_eq_zero_left hx y
+    have hyx := φ.apply_star_mul_eq_zero_of_apply_star_mul_self_eq_zero_left hy x
+    simp only [star_add, add_mul, mul_add, map_add, hx, hy, hxy, hyx, add_zero]
+  smul_mem' a x hx := by
+    change φ (star x * x) = 0 at hx
+    change φ (star (a * x) * (a * x)) = 0
+    have h := φ.apply_star_mul_eq_zero_of_apply_star_mul_self_eq_zero_left hx
+      (star a * a * x)
+    simpa only [smul_eq_mul, star_mul, mul_assoc] using h
+
+@[simp]
+lemma mem_nullIdeal (φ : A →ₚ[ℂ] ℂ) (x : A) :
+    x ∈ φ.nullIdeal ↔ φ (star x * x) = 0 :=
+  Iff.rfl
+
+/-- Membership in the GNS null ideal is equivalent to the vanishing of every coefficient with
+the null element in the second variable. -/
+lemma mem_nullIdeal_iff_forall_apply_star_mul_eq_zero (φ : A →ₚ[ℂ] ℂ) (x : A) :
+    x ∈ φ.nullIdeal ↔ ∀ y : A, φ (star y * x) = 0 := by
+  constructor
+  · intro hx y
+    exact φ.apply_star_mul_eq_zero_of_apply_star_mul_self_eq_zero_right hx y
+  · intro hx
+    exact hx x
+
+end NullIdeal
 
 section GNSCoefficients
 

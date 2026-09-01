@@ -67,11 +67,21 @@ central projections and centralSupport
 ```text
 positive continuous linear maps / positive functionals
   ↓
-Mathlib GNS
+positive-functional Cauchy--Schwarz and zero-coefficient helpers
   ↓
-strong-topology coefficient arguments
+PositiveLinearMap.nullIdeal [general unital C*-algebra]
   ↓
-normality and predual uniqueness
+explicit IsNormalOnProjections proof
+  ↓
+strong-seminorm zero set is closed
+  ↓ existing convex strong-to-ultraweak closure bridge
+ultraweakly closed null ideal
+  ↓ existing closed-left-ideal classifier
+PositiveLinearMap.support [intrinsic W*-algebra API; chosen predual hidden]
+  ↓
+annihilation, greatest-zero, cutdown, and theorem-level faithfulness interfaces
+  ↓
+orthogonal Jordan decomposition of self-adjoint normal functionals [1.14.3 frontier]
 ```
 
 ## Current junction nodes
@@ -213,6 +223,17 @@ this dependency path. The reconnaissance and completed proofs are recorded in
 `reports/SAKAI_1_13_COMPLETE_ADDITIVITY_RECON.md`,
 `reports/PROJECTION_CHAIN_ORTHOGONAL_DECOMPOSITION.md`, and
 `reports/SAKAI_1_13_COMPLETE_ADDITIVITY.md`.
+
+Section 1.14.2 follows a single support construction. The reusable $C^*$-level inputs are the two
+Cauchy--Schwarz coefficient-vanishing orientations
+`apply_star_mul_eq_zero_of_apply_star_mul_self_eq_zero_left` and
+`apply_star_mul_eq_zero_of_apply_star_mul_self_eq_zero_right`; the general algebraic bridge is
+`Ideal.mem_span_singleton_one_sub_iff_mul_eq_zero` for an idempotent in a ring. Normality enters
+only at topological closedness. The implementation mirrors Sakai by deriving ultraweak closedness
+from strong closedness, then reuses the established one-sided ideal classifier. Functional support
+is not identified with element support, and support-corner faithfulness reuses the existing
+`IsStarProjection.Corner` rather than adding a predicate or structure. This branch feeds the
+orthogonality and uniqueness work for 1.14.3.
 
 ## Cartography fields for a major concept
 

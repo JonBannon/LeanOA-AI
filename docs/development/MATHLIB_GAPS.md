@@ -137,6 +137,32 @@ maximal decomposition and normality characterization remain naturally downstream
 operator-algebra assumptions and naming receive broader review. Sak-AI deliberately publishes no
 complete-additivity predicate, no bare `tsum` equality, and no competing normality structure.
 
+## Section 1.14.2 functional support
+
+Pinned Mathlib (`476ab284...`), audited current Mathlib (`567908cf...`), and original LeanOA
+(`cb811c...`) contain no functional-support or GNS-null-left-ideal API for positive functionals.
+Mathlib does supply the canonical `PositiveLinearMap`, GNS, `Ideal`, projection, and convexity
+objects; current Sak-AI supplies projection normality, the intrinsic strong topology and its
+convex-closure bridge, the ultraweakly closed left-ideal classifier, element support, and corners.
+The accepted implementation composes those objects rather than adding a parallel foundation.
+
+The reusable general additions are:
+
+- the paired Cauchy--Schwarz consequences
+  `PositiveLinearMap.apply_star_mul_eq_zero_of_apply_star_mul_self_eq_zero_left` and
+  `PositiveLinearMap.apply_star_mul_eq_zero_of_apply_star_mul_self_eq_zero_right`, stated under the
+  same natural assumptions as the existing coefficient estimate;
+- `Ideal.mem_span_singleton_one_sub_iff_mul_eq_zero`, stated for an idempotent in a ring.
+
+`PositiveLinearMap.nullIdeal` itself is kept at the natural general unital $C^*$-algebra boundary,
+with no normality or $W^*$-algebra assumption. The support construction remains downstream because
+Mathlib has no compatible $W^*$-predual, intrinsic strong topology, or closed-left-ideal classifier.
+Its explicit normality proof, hidden chosen predual, and separation from element support are
+intentional portability decisions. No general `Faithful` predicate or corner structure is needed;
+the theorem-level consequences reuse `IsStarProjection.Corner`. The next Mathlib audit for 1.14.3
+should search norm orthogonality and Jordan decomposition of self-adjoint functionals before any
+new functional-decomposition abstraction is introduced.
+
 ## Radon--Stieltjes refinement audit
 
 The exact audit in `reports/RIEMANN_STIELTJES_EXTERNAL_AUDIT.md` confirms that pinned Mathlib already

@@ -399,3 +399,33 @@ dependency order, not repeat the section linearly.
 
 Collision rule: A alone owns the normality bridge module, B alone owns the orthogonal-sum module,
 and C is scratch-only. Shared umbrella imports, coordination documents, and Verso remain lead-owned.
+
+## Sakai 1.14.2 functional-support wave
+
+> **Read and obey `docs/development/SAKAI_DESIGN_CONTRACT.md` and the authoritative Sak-AI specifications it references. These requirements govern this workstream. Do not introduce designs inconsistent with them.**
+
+This wave starts from `05c69abaa5a8608700a75d25b4da05d04d63a588` and uses Sakai's null-left-ideal
+route. It does not construct functional support as a supremum of zero projections and does not add
+a second support object.
+
+- **WS-14A, source and architecture:** fixed the exact orientation
+  `Lφ = M p₀`, `s(φ) = 1 - p₀`, and `x ∈ Lφ ↔ x * s(φ) = 0`; confirmed that functional support
+  belongs in `PositiveLinearMap`, separate from element support.
+- **WS-14B, null ideal and topology:** placed `PositiveLinearMap.nullIdeal` at general unital
+  $C^*$-algebra level, with the paired Cauchy--Schwarz zero-coefficient helpers. Under an explicit
+  `IsNormalOnProjections` proof, the topology route is exactly strong closedness followed by the
+  existing convex strong-to-ultraweak closure theorem. The chosen predual appears only in those
+  topology-specific proofs, and the existing closed-left-ideal classifier supplies the generator.
+- **WS-14C, support consequences:** uses the intrinsic annihilator and greatest-zero interfaces for
+  cutdown and faithfulness results. It reuses `IsStarProjection.Corner`; no `Faithful` predicate,
+  normal-positive-functional bundle, or new corner structure is introduced.
+- **Integration decision:** retain the general ring/idempotent bridge
+  `Ideal.mem_span_singleton_one_sub_iff_mul_eq_zero`; expose functional support only with explicit
+  normality and keep the canonical $W^*$-predual internal.
+- **Next bounded wave:** Sakai 1.14.3, beginning with the norm-orthogonality relation for positive
+  functionals and its use in the unique positive/negative decomposition of a self-adjoint normal
+  functional. Reuse the 1.14.2 support API and the existing functional polar-factorization layer
+  before introducing any new abstraction.
+
+Collision rule: future 1.14.3 work may consume functional support but must not redefine it, add a
+parallel faithfulness notion, or expose a predual parameter in intrinsic statements.

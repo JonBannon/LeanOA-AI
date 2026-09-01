@@ -14,6 +14,7 @@ import SakAIDocs.Chapters.KaplanskyDensity
 import SakAIDocs.Chapters.SupportProjections
 import SakAIDocs.Chapters.SpectralResolution
 import SakAIDocs.Chapters.PolarDecomposition
+import SakAIDocs.Chapters.FunctionalSupport
 import SakAIDocs.Chapters.Library
 
 open Verso.Genre
@@ -53,6 +54,8 @@ guide the Lean API.
 {include 0 SakAIDocs.Chapters.SpectralResolution}
 
 {include 0 SakAIDocs.Chapters.PolarDecomposition}
+
+{include 0 SakAIDocs.Chapters.FunctionalSupport}
 
 {include 0 SakAIDocs.Chapters.Library}
 

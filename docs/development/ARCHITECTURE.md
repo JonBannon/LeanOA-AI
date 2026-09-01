@@ -75,3 +75,14 @@ projection subtype. `Ultraweak.ProjectionChain` supplies the minimal maximal-ort
 decomposition needed for the converse, while `Ultraweak.CompleteAdditivity` uses arbitrary-index
 `HasSum` as its scalar semantics. Complete additivity remains theorem-level: no predicate or
 parallel normality structure is public.
+
+Section 1.14.2 adds functional support without changing the established element-support API.
+`PositiveLinearMap.nullIdeal` is defined at the general unital $C^*$-algebra boundary, while
+functional `PositiveLinearMap.support` is distinct from `WStarAlgebra.support` and requires an
+explicit `IsNormalOnProjections` proof. Its chosen predual remains internal. Following Sakai's
+dependency order, the null ideal is first proved closed in the intrinsic strong topology and then
+ultraweakly closed through the existing convex strong-to-ultraweak closure theorem; the existing
+closed-left-ideal classifier then supplies its unique projection generator. The faithfulness API
+is theorem-level and reuses `IsStarProjection.Corner`: no `Faithful` predicate, normal-functional
+bundle, null-support object, or competing corner structure is introduced. The next bounded
+frontier is the orthogonal Jordan decomposition of self-adjoint normal functionals in 1.14.3.

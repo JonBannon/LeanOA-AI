@@ -1,6 +1,6 @@
 # Sak-AI architecture and design decisions
 
-Last updated: 2026-08-31
+Last updated: 2026-09-01
 
 ## Theorem library
 
@@ -116,5 +116,26 @@ For an arbitrary orthogonal projection family, `Finset` partial sums form the so
 and the existing projection `iSup` is its sum. The library exposes the finite-sum, LUB,
 ultraweak-convergence, and intrinsic-strong-convergence theorem layer without introducing infinite
 projection-sum notation, a family structure, or `tsum` semantics. Complete additivity is naturally
-expressible with arbitrary-index `HasSum`, but its predicate and converse remain uncommitted until
-the required projection-chain decomposition is production-proved.
+expressed with arbitrary-index `HasSum`; `LeanOA.Ultraweak.CompleteAdditivity` proves its exact
+equivalence with `IsNormalOnProjections` after decomposing projection chains into orthogonal
+families. No competing complete-additivity predicate or structure is introduced.
+
+## Support of a normal positive functional
+
+Functional support is a separate typed API from `WStarAlgebra.support` for algebra elements. The
+general $C^*$-algebra layer defines `PositiveLinearMap.nullIdeal` and its Cauchy--Schwarz
+coefficient characterizations. For a normal positive functional on a $W^*$-algebra,
+`PositiveLinearMap.support φ hφ` is the complement of the unique projection generating that null
+left ideal.
+
+The public support definition takes an explicit proof of the established
+`PositiveLinearMap.IsNormalOnProjections` predicate. It selects `WStarAlgebra.predual M` only
+inside its construction; the chosen predual does not occur in the definition's type or in the
+intrinsic annihilator, zero-projection, cutdown, and faithfulness theorems. The topology-facing
+strong- and ultraweak-closedness lemmas retain an explicit predual because their statements
+genuinely mention those topologies.
+
+Sakai's orientation is fixed as a null left ideal `M (1 - s(φ))`, equivalently
+`x ∈ φ.nullIdeal ↔ x * s(φ) = 0`. The construction reuses the established ultraweakly closed
+left-ideal classifier and the canonical `IsStarProjection.Corner`; it introduces no second
+support hierarchy, normal-functional bundle, faithfulness predicate, or corner type.
