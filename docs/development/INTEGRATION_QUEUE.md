@@ -72,7 +72,7 @@ in their workstream.
 
 ## IQ-005 — element polar-decomposition packaging
 
-- **Status:** ACTIVE / YELLOW; foundational wave reviewed
+- **Status:** ACTIVE / YELLOW; WS-4 existence reviewed, WS-5 packaging remains
 - **Affected streams:** general C-star API, support, CFC regularizer, ultraweak compactness, Verso
 - **Question:** Which reusable helper surface is needed before packaging Sakai 1.12.1?
 - **Decision so far:** keep Mathlib `CFC.abs` canonical. The stable annihilator bridges are
@@ -82,11 +82,11 @@ in their workstream.
   distinct future `Ultraweak.ElementPolarDecomposition` module so the existing functional-polar-
   decomposition module remains unambiguous. Do not add a `polarPart` object until a consumer needs
   one.
-- **Evidence:** checkpoint `6d24a2feb704cae6e4bedc00d6bc9f17c601f310` accepts the general
-  $C^*$-API and a source-faithful scratch regularizer. The latter is contractive, satisfies the
-  exact product identity, and converges after multiplication by `CFC.abs a`; the cluster-point
-  handoff reuses the existing ultraweak compact closed ball and fixed-right-multiplication API.
-  The independently reviewed bridge `WStarAlgebra.support_abs` / `support_abs_star` supplies the
-  exact initial/final support orientations without a new support object or normality assumption.
-- **Next bounded action:** begin WS-4 existence using only these accepted inputs. Keep packaging
-  sequential and isolated after existence.
+- **Evidence:** WS-4 now privately productionizes the source-faithful regularizer, reuses the
+  existing ultraweak compact closed ball and fixed-right-multiplication API, and kernel-proves the
+  source cutdown `u = q * b * p`. `WStarAlgebra.exists_element_polar_decomposition` has the exact
+  factorization and initial/final support orientations without a new support object, exposed
+  predual, partial-isometry predicate, or joint-continuity assumption. The source consequence
+  `CFC.mul_star_eq_of_eq_mul_abs` is stated at abstract nonunital real-CFC generality.
+- **Next bounded action:** WS-5 should prove uniqueness against this stable witness interface,
+  package the exact Sakai theorem, and only then add the Verso theorem node.

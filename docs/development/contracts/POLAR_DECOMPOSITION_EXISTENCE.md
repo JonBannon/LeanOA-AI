@@ -2,8 +2,7 @@
 
 WORKSTREAM: Section 1.12 polar-decomposition existence
 
-BASE COMMIT: assigned integration baseline after WS-1 through WS-3 validation; replace this line
-with the exact accepted-input commit before dispatch
+BASE COMMIT: `9476b69357b8d2f6c9884b363f5378098d3ac039`
 
 OBJECTIVE: Use the regularized contractions and ultraweak compactness to construct the element
 `u` in Sakai 1.12.1 and prove its factorization and initial/final support equations.
@@ -25,7 +24,7 @@ GOVERNING DESIGN DOCUMENTS:
 OWNED MODULES:
 
 - `LeanOA/Ultraweak/ElementPolarDecomposition.lean`;
-- `docs/development/reports/POLAR_DECOMPOSITION_EXISTENCE.md`.
+- `docs/development/reports/SAKAI_ELEMENT_POLAR_EXISTENCE.md`.
 
 No other worker may edit the production module while WS-4 is active.
 

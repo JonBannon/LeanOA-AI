@@ -1,8 +1,8 @@
 # Shared API status
 
-Status reflects integration review through the first Sakai 1.12 production wave (2026-08-31),
-whose WS-1/WS-3 checkpoint is `6d24a2feb704cae6e4bedc00d6bc9f17c601f310`. This is not a
-promise of permanent immutability.
+Status reflects integration review through Sakai 1.12 WS-4 existence (2026-08-31). Its accepted
+WS-1--WS-3 input checkpoint is `9476b69357b8d2f6c9884b363f5378098d3ac039`. This is not a promise
+of permanent immutability.
 
 ## GREEN — stable downstream surfaces
 
@@ -15,7 +15,7 @@ promise of permanent immutability.
 | Ideals and central support | `Annihilator`, `Ideal`, `TwoSidedIdeal`, `CentralSupport`, `Opposite` | Completed, documented native-object API. The alternative upstream representation remains a separate review question. |
 | Lower spectral projections | `CStarAlgebra.Spectral`, `Ultraweak.SpectralProjection`, `Ultraweak.SpectralProjectionStrong` | Half-line semantics and naming are intentionally fixed. Sakai 1.11.1 is source-formalized in `s(M,M_*)` without an extra monotonicity hypothesis; current finite sums depend on the same projection object. |
 | Finite spectral sums, bands, and convergence | `Ultraweak.SpectralSum`, `Ultraweak.SpectralApproximation`, `Ultraweak.SpectralBand`, `Ultraweak.TaggedSpectralSum`, `Ultraweak.TruncatedSpectralSum` | Checked theorem-level frontier, including arbitrary tagged sums, sharp truncated-affine mesh estimates with an unaligned cutoff, and explicit norm-to-ultraweak convergence to the existing CFC target. These modules deliberately commit to no spectral-measure representation. |
-| Polar-decomposition foundations | `Mathlib.Analysis.CStarAlgebra.Abs`, `Mathlib.Analysis.CStarAlgebra.Projection`, `Ultraweak.AbsSupport` | `CFC.abs_mul_eq_zero_iff` and `CFC.mul_abs_eq_zero_iff` are the stable nonunital $C^*$-annihilator bridges. `IsStarProjection.mul_star_mul_self`, `mul_star_mul_self_assoc`, and `mul_star_self` are the stable partial-isometry consequences. `WStarAlgebra.support_abs` is the canonical simp rewrite and `WStarAlgebra.support_abs_star` is the named starred rewrite; they use the existing support object and add no normality or explicit-predual assumption. |
+| Element polar-decomposition existence | `Mathlib.Analysis.CStarAlgebra.Abs`, `Mathlib.Analysis.CStarAlgebra.Projection`, `Ultraweak.AbsSupport`, `Ultraweak.ElementPolarDecomposition` | The general nonunital $C^*$-annihilator and partial-isometry consequences, together with an abstract nonunital real-CFC modulus-square identity, feed a source-faithful $W^*$-algebra existence theorem. `WStarAlgebra.exists_element_polar_decomposition` exposes the factorization and exact initial/final support equations in the ordinary `WStarAlgebra` context; its regularizer, chosen predual, cluster filter, and support-defect cutdown remain private. |
 | Verso package architecture | `docs/SakAIDocs`, `scripts/build-verso-site.sh` | Sole documentation source with verified migration parity and checked declaration links. |
 
 ## YELLOW — evolving, consume cautiously
@@ -24,6 +24,7 @@ promise of permanent immutability.
 | --- | --- | --- | --- |
 | Mirrored Mathlib extension layer | architecture + Mathlib reconnaissance | Some declarations may move upstream or be replaced by newer Mathlib APIs. | Per-module overlap audit and a migration plan for any upstream replacement. |
 | Positive-functional / representation assembly | architecture | Sak-AI uses Mathlib GNS plus local functional APIs, but has no separate broad representation layer. | A real Sakai consumer demonstrates the missing interface and design review chooses its home. |
+| Sakai 1.12 uniqueness packaging | WS-5 | Existence and both support equations are GREEN, but the source theorem's uniqueness and exact `ExistsUnique` packaging have deliberately not been claimed. | Kernel-prove uniqueness from the stable existence/support interface, expose the exact source theorem, and then add the Verso node. |
 | Legacy mathematical typography in Verso | Verso stream | Existing source consistently uses older plain-text forms; new prose follows the recorded convention. | One systematic documentation-only migration, not scattered edits. |
 
 ## RED — architecture owner only

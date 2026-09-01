@@ -8,8 +8,9 @@ and lower spectral projections through norm convergence of the finite sums in Sa
 convergence theorem applies both to arbitrary mesh-zero filtered families and to an explicit
 nested sequence of dyadic divisions. Sakai 1.11.1 is now formalized with its exact nonmonotone
 hypotheses in the intrinsic strong topology. The source semantics of the abstract spectral integral
-remain explicitly unresolved; the next independent checkpoint is the element polar decomposition
-of Sakai 1.12.1.
+remain explicitly unresolved. The existence half of Sakai's element polar decomposition is now
+kernel-proved with its exact initial and final support equations; the next checkpoint is uniqueness
+and exact Theorem 1.12.1 packaging.
 
 - [Sak-AI documentation site](https://jonbannon.github.io/Sak-AI/)
 - [API documentation](https://jonbannon.github.io/Sak-AI/docs/)

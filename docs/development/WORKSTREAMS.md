@@ -343,17 +343,19 @@ source semantics from implementation convenience or add an axiom/placeholder.
   `CFC.abs_mul_eq_zero_iff`, `CFC.mul_abs_eq_zero_iff`,
   `IsStarProjection.mul_star_mul_self`, `mul_star_mul_self_assoc`, and `mul_star_self`. It adds no
   competing absolute value or partial-isometry predicate.
-- **WS-3, Sakai regularizer:** GREEN in `Scratch/SakaiElementPolarRegularizer.lean` at the same
-  checkpoint. The exact regularizer is contractive, satisfies `aReg n * h n = a`, and gives
-  `aReg n * CFC.abs a -> a` in norm. The compactness handoff reuses
-  `Ultraweak.isCompact_closedBall`, mapped-filter cluster points, and fixed-right-multiplication
-  continuity; no new compactness layer or joint-continuity claim is needed.
+- **WS-3, Sakai regularizer:** GREEN as scratch evidence at the accepted-input checkpoint and now
+  transplanted privately into `Ultraweak.ElementPolarDecomposition` for its sole production
+  consumer. The exact regularizer is contractive, satisfies `aReg n * h n = a`, and gives
+  `aReg n * CFC.abs a -> a` in norm. It is not exposed as a parallel public API.
 - **WS-2, absolute-value support bridge:** COMPLETE and independently reviewed GREEN from baseline
   `6d24a2f`. `WStarAlgebra.support_abs` and `support_abs_star` form the entire production surface;
   they reuse WS-1 and the existing support API, assume neither normality nor explicit predual data,
   and add no extra kernel corollary. The former is the canonical simp normal form; the latter is a
   named composite rewrite rather than a redundant simp lemma.
-- **WS-4, existence:** READY now that WS-2 review is complete. Consume only the accepted WS-1 and
-  WS-2 surfaces plus the proof-local WS-3 route.
-- **WS-5, packaging:** WAITING and strictly sequential after WS-4; it shares the future element
-  polar-decomposition module with existence work.
+- **WS-4, existence:** COMPLETE. `WStarAlgebra.exists_element_polar_decomposition` gives
+  `a = u * CFC.abs a` and the exact supports `star u * u = support |a|` and
+  `u * star u = support |a*|`. The proof uses the source cutdown `q * b * p`, and
+  `CFC.mul_star_eq_of_eq_mul_abs` records the source modulus-square consequence at the weaker
+  abstract nonunital real-CFC generality of Mathlib's absolute value.
+- **WS-5, packaging:** READY and strictly sequential after reviewed WS-4. It owns uniqueness, exact
+  `ExistsUnique` source packaging, and the first public Verso node for Theorem 1.12.1.

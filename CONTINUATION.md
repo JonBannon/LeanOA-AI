@@ -27,12 +27,12 @@ Last updated: 2026-08-31
   converging to a cut from below give convergence of the lower spectral projections in the
   intrinsic strong topology, with no monotonicity hypothesis. General projection-LUB strong
   convergence and filter-level left continuity are now public.
-- The first Section 1.12 production checkpoint is
-  `6d24a2feb704cae6e4bedc00d6bc9f17c601f310`. It adds the general nonunital $C^*$-algebra
-  absolute-value annihilator and partial-isometry consequences, while the exact Sakai regularizer
-  and its norm limits are kernel-checked in scratch. No duplicate polar calculus, partial-isometry
-  predicate, or compactness layer was introduced. The subsequent narrow W-star support bridge has
-  also passed focused validation and independent review.
+- Section 1.12 WS-4 is production-complete from accepted-input baseline
+  `9476b69357b8d2f6c9884b363f5378098d3ac039`. The exact Sakai regularizer is private production
+  scaffolding; filter-based ultraweak compactness and the source cutdown `u = q * b * p` prove the
+  factorization and both support equations in
+  `WStarAlgebra.exists_element_polar_decomposition`. No duplicate polar calculus,
+  partial-isometry predicate, compactness layer, or exposed predual was introduced.
 - The theorem package had no uncommitted changes at the start of the orchestration work.
 - Jireh Loreaux's LeanOA and Mathlib are read-only references. The original LeanOA checkout has
   not been modified.
@@ -68,16 +68,15 @@ uniqueness assembly checks. This is not yet the source theorem because Sakai sta
 strong-topology Radon--Stieltjes integral but does not define its Moore--Smith, tag, refinement, or
 improper-endpoint semantics. No source-reviewed predicate has therefore been accepted.
 
-The independent Section 1.12 chain has now entered production. `CFC.abs_mul_eq_zero_iff` and
-`CFC.mul_abs_eq_zero_iff` identify the two one-sided annihilators needed to compare absolute-value
-supports. From `IsStarProjection (star u * u)`, the general projection API now provides both
-association forms of the fixing identity and the final star projection. In scratch, Sakai's
-regularizers are contractive, satisfy `aReg n * h n = a`, and give
-`aReg n * CFC.abs a -> a` in norm. The next compactness step reuses
-`Ultraweak.isCompact_closedBall`, mapped-filter cluster points, and continuous multiplication by a
-fixed element. The reviewed `WStarAlgebra.support_abs` and `support_abs_star` now identify the
-initial and final source supports without a normality or explicit-predual hypothesis. WS-4
-existence is therefore the next dependency.
+The independent Section 1.12 existence chain is now public. The general annihilator,
+partial-isometry, and absolute-value support APIs feed a private copy of Sakai's contractive
+regularizer. `Ultraweak.isCompact_closedBall` and a mapped-filter cluster point give a contraction
+`b` with `b * CFC.abs a = a`; the exact cutdown `u = q * b * p` then proves
+`a = u * CFC.abs a`, `star u * u = support |a|`, and
+`u * star u = support |star a|`. The public theorem has the ordinary `WStarAlgebra` context and no
+chosen-predual parameter. The source consequence for `a * star a` is separately available as
+`CFC.mul_star_eq_of_eq_mul_abs` at abstract nonunital real-CFC generality. WS-5 uniqueness and exact
+`ExistsUnique` packaging are the next dependency.
 
 The implemented public design is:
 
@@ -142,6 +141,10 @@ The implemented public design is:
 23. Put the CFC-to-W-star bridge in a narrow downstream module: rewrite support of `CFC.abs a` to
     `rightSupport a` and support of `CFC.abs (star a)` to `leftSupport a`, without importing CFC
     back into foundational `Ultraweak.Support` or adding a normality assumption.
+24. Keep Sakai's regularizer and cluster-point construction private; expose only the element-polar
+    existence theorem and both canonical support equations. Put the independent modulus-square
+    consequence at the abstract CFC boundary rather than retaining unnecessary $C^*$ or $W^*$
+    assumptions.
 
 ## Implementation order
 
@@ -242,15 +245,18 @@ The completed implementation layers are:
       multiplication continuity, with no assumption of joint ultraweak continuity;
     - the independently reviewed W-star rewrites `WStarAlgebra.support_abs` and
       `support_abs_star`, downstream of the existing support API and the accepted annihilator
-      equivalence.
+      equivalence;
+    - WS-4 production existence via the exact ultraweak cluster and `q * b * p` cutdown route,
+      with both source support equations and no public regularizer/predual implementation detail.
 
 The source audit has closed the 1.11.3 review question with LEVEL C rather than an accepted
 definition. Do not promote `atTop ⊓ comap divisionMesh (nhds 0)` as Sakai's meaning. Canonical
 Lemma 1.11.1 is now source-formalized. Section 1.12 contains the single element
 polar-decomposition theorem 1.12.1 and is scoped as an independent, unblocked
 CFC/support/ultraweak-compactness chain. The general C-star, proof-local regularizer, and W-star
-support branches are now complete and reviewed. The next bounded transaction is the element-polar-
-decomposition existence contract (WS-4). Packaging remains sequential after existence. Revisit a
+support and existence branches are now complete and independently reviewed. The next bounded
+transaction is WS-5 uniqueness and exact `ExistsUnique` packaging, followed by the public Verso
+node. Revisit a
 public PVM/integral interface only when coherent mathematics or new primary evidence fixes it.
 
 Before each substantial proof, search the current Sak-AI tree, pinned Mathlib, current Mathlib

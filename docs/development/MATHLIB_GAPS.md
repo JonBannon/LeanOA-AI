@@ -95,7 +95,13 @@ convergence, while Sak-AI's existing specified-predual closed-ball compactness s
 ultraweak cluster point. The reviewed W-star bridge `WStarAlgebra.support_abs` / `support_abs_star`
 then reuses Sak-AI's existing support universal properties; no equivalent appears in the audited
 trees, and no new Mathlib object is needed. The W-star existence theorem itself belongs in Sak-AI
-unless Mathlib first acquires a compatible W-star support/compactness layer.
+unless Mathlib first acquires a compatible W-star support/compactness layer. Sak-AI now supplies
+that theorem as `WStarAlgebra.exists_element_polar_decomposition`, using a private regularizer and
+ultraweak cluster-point proof. The general source consequence
+`CFC.mul_star_eq_of_eq_mul_abs` has been placed in the mirrored layer at the abstract nonunital
+real-CFC generality of Mathlib's absolute value; it is a small plausible upstream candidate. No
+combined element-polar theorem or equivalent cutdown was found in pinned Mathlib, audited current
+Mathlib, current Sak-AI, or original LeanOA.
 
 ## Radon--Stieltjes refinement audit
 

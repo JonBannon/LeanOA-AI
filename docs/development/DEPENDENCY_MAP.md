@@ -149,21 +149,25 @@ IsStarProjection.mul_star_mul_self(_assoc) / mul_star_self
   ↓
 WStarAlgebra.support_abs / support_abs_star
   ↓
-checked regularizer in scratch + existing ultraweak compact closed ball
+private production regularizer + existing ultraweak compact closed ball
   ↓
-element polar decomposition (Sakai 1.12.1)
+ultraweak cluster equation b * |a| = a
+  ↓
+support-defect cutdown u = q * b * p
+  ↓
+factorization + exact initial/final supports [GREEN, WS-4]
+  ↓
+uniqueness + exact Sakai 1.12.1 packaging [YELLOW, WS-5]
 ```
 
-The general $C^*$-layer and regularizer branch have been reviewed: the former is public and stable,
-and the exact Sakai regularizer is kernel-checked in scratch. The latter gives contractive
-regularizers
-`aReg n`, `aReg n * h n = a`, `h n -> CFC.abs a`, and consequently
-`aReg n * CFC.abs a -> a` in norm. Its next edge reuses `Ultraweak.isCompact_closedBall`, mapped
-filter cluster points, and continuous multiplication by the fixed element `CFC.abs a`; it does not
-require joint ultraweak continuity or a new compactness layer. The support bridge is now reviewed:
-it identifies the two absolute-value supports with `rightSupport a` and `leftSupport a` without
-unfolding or replacing the existing support construction. The WS-1--WS-3 inputs are therefore
-ready for WS-4 existence work. No edge from the §1.11 integral/PVM boundary enters this chain.
+The general $C^*$-layer and support bridge are public and stable. WS-4 privately transplants the
+exact Sakai regularizer, obtains a contractive cluster point with
+`Ultraweak.isCompact_closedBall`, and passes `aReg n * CFC.abs a -> a` from norm to ultraweak
+convergence using only fixed-right-multiplication continuity. Sakai's cutdown
+`u = q * b * p` then gives the factorization and both support equations in
+`WStarAlgebra.exists_element_polar_decomposition`. No sequence extraction, joint ultraweak
+continuity, exposed predual parameter, or edge from the §1.11 integral/PVM boundary is used. The
+only remaining theorem edge in §1.12 is uniqueness and exact source packaging in WS-5.
 
 ## Cartography fields for a major concept
 

@@ -63,9 +63,10 @@ longer part of the build or deployment.
 2. Preserve the distinction now visible in the public chapter: canonical Lemma 1.11.1 is exactly
    source-formalized in `s(M,M_*)`, while the integral's division/refinement semantics remain LEVEL
    C ambiguous. Do not present the checked refinement-plus-mesh candidate as the source definition.
-   The next public theorem slice is Section 1.12's element polar decomposition after its independent
-   CFC/support/compactness proof is complete. No resolution, integral, or PVM structure becomes
-   public before a genuine mathematical interface fixes it.
+   Section 1.12's independent CFC/support/compactness proof now supplies the existence theorem and
+   both support equations. The next public theorem slice remains Theorem 1.12.1, after WS-5 proves
+   uniqueness and exact packaging. No resolution, integral, or PVM structure becomes public before
+   a genuine mathematical interface fixes it.
 
 Do not create a second theorem-status registry: Verso blocks and `uses` references are the
 documentation source of truth.
