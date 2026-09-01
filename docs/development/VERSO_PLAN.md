@@ -37,9 +37,11 @@ inventing a local absolute-value object. Section 1.12 is complete.
 
 The existing Normality chapter now contains the source-facing bounded directed-positive
 characterization, exact Theorem 1.13.2, and arbitrary orthogonal finite-sum/LUB/convergence nodes.
-It does not duplicate Section 1.13 or expose workstream policy. The complete-additivity equivalence
-must remain absent from the public graph until its converse and permanent statement interface are
-kernel-proved; scratch `HasSum` reconnaissance is not a public completion claim.
+It now also contains the kernel-proved arbitrary-family complete-additivity characterization and
+its projection-chain proof dependency, without duplicating Section 1.13 or exposing workstream
+policy. Section 1.13 is complete. Keep the public current frontier pointed at the bounded
+functional-support checkpoint in Section 1.14; do not present the scope audit itself as
+formalized mathematics.
 
 ## Work that must wait
 

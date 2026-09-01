@@ -4,6 +4,7 @@ import VersoBlueprint
 import LeanOA.Mathlib.RingTheory.Annihilator
 import LeanOA.Ultraweak.Annihilator
 import LeanOA.Ultraweak.CentralSupport
+import LeanOA.Ultraweak.CompleteAdditivity
 import LeanOA.Ultraweak.KaplanskyDensity
 import LeanOA.Ultraweak.NormalOrder
 import LeanOA.Ultraweak.Opposite
@@ -11,6 +12,7 @@ import LeanOA.Ultraweak.ElementPolarDecomposition
 import LeanOA.Ultraweak.OrthogonalProjectionSum
 import LeanOA.Ultraweak.PredualUniqueness
 import LeanOA.Ultraweak.ProjectionDecomposition
+import LeanOA.Ultraweak.ProjectionChain
 import LeanOA.Ultraweak.ProjectionLattice
 import LeanOA.Ultraweak.SpectralApproximation
 import LeanOA.Ultraweak.SpectralBand
@@ -56,6 +58,10 @@ The canonical positive-functional normality predicate remains
 characterizations are
 {name}`PositiveLinearMap.isNormalOnProjections_iff_scottContinuous` and
 {name}`PositiveLinearMap.isNormalOnProjections_iff_scottContinuousOn_bounded_nonneg`;
+the chain-restricted characterization is
+{name}`PositiveLinearMap.isNormalOnProjections_iff_scottContinuousOn_chains`.
+Its specified-predual bridge is
+{name}`PositiveLinearMap.mem_continuousDual_of_scottContinuousOn_chains`;
 the specified-predual form of Sakai 1.13.2 is
 {name}`PositiveLinearMap.scottContinuousOn_bounded_nonneg_iff_mem_continuousDual`.
 No second normal-functional structure or predicate is introduced.
@@ -114,6 +120,25 @@ The finite-subset net converges to the existing projection supremum through
 {name}`IsStarProjection.tendsto_toStrong_orthogonalFinsetSum`.  The index type
 is arbitrary; this API introduces neither countability nor a new infinite-sum
 object.
+
+For a nonempty projection chain in a $`W^*`-algebra,
+{name}`IsChain.exists_orthogonal_projection_family` produces an orthogonal
+family whose supremum is the chain LUB.  Its finite-domination clause gives
+every finite partial sum a common upper bound lying in the original chain;
+the reusable finite-sum order lemma is
+{name}`IsStarProjection.orthogonalFinsetSum_le_of_forall_le`.
+Commutation with a fixed element passes to any nonempty directed projection
+LUB through {name}`IsStarProjection.commute_of_isLUB`.
+
+Complete additivity remains a theorem-only interface.  The scalar bridge
+{name}`Complex.hasSum_iff_isLUB_finsetSum_of_nonneg` identifies Mathlib's
+`HasSum` with the LUB of all finite subsums for a nonnegative family.
+The operator-algebra endpoints are
+{name}`PositiveLinearMap.IsNormalOnProjections.hasSum_orthogonal`,
+{name}`PositiveLinearMap.isNormalOnProjections_of_hasSum_orthogonal`, and
+{name}`PositiveLinearMap.isNormalOnProjections_iff_hasSum_orthogonal`.
+They introduce no bundled complete-additivity predicate and no countability
+assumption.
 
 # Element polar decomposition
 

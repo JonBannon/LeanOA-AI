@@ -13,7 +13,7 @@ Scores are qualitative: low/medium/high.
 | Tagged spectral sums and mesh estimate | current `SpectralSum` | GREEN→YELLOW helper API | high for integral packaging | low | medium-high | yes |
 | Orthogonal projection-family finite-sum net | projection lattice + strong LUB | YELLOW | high for Sakai 1.13 | low | medium | yes, if no competing sum object |
 | Source normality bridge | existing normality characterization | YELLOW | high for Sakai 1.13 | low | medium | yes |
-| Complete-additivity equivalence | source normality + orthogonal sums | YELLOW | high for Sakai 1.13 | medium | medium-high | reconnaissance first |
+| Complete-additivity equivalence | source normality + orthogonal sums + projection-chain decomposition | GREEN | high for Sakai 1.13 | complete | reviewed | theorem-only API |
 | Spectral integral interface | all completed spectral files | RED | very high | high | high | architecture only |
 | Set-indexed spectral resolution / PVM | projection lattice + measure theory | RED | very high | very high | very high | no |
 | Uniqueness portion of Sakai 1.11.3 | spectral representation interface | RED/unavailable | high | high | high | not yet |
@@ -379,13 +379,23 @@ dependency order, not repeat the section linearly.
   `Ultraweak.OrthogonalProjectionSum`. Arbitrary-index finite sums are projections, monotone, have
   LUB the existing projection `iSup`, and converge ultraweakly and strongly. There is no `tsum`
   overload or projection-family structure.
-- **1.13-C, complete-additivity converse reconnaissance:** COMPLETE AS SCRATCH / DEFER PRODUCTION.
-  Arbitrary-index `HasSum` is the exact scalar semantics; normality implies it, and the final
-  converse reduction kernel-checks once a dominated orthogonal chain decomposition is supplied.
-  The missing maximal decomposition and chain-LUB cutoff boundary are recorded precisely.
-- **Sequential integration:** the source-normality and orthogonal-sum nodes are integrated into the
-  existing Normality Verso chapter. The forward complete-additivity theorem remains scratch because
-  publishing it alone would force a permanent predicate before the converse architecture settles.
+- **1.13-C, complete-additivity reconnaissance:** COMPLETE. It established arbitrary-index
+  `HasSum` as the exact scalar semantics and isolated the maximal-chain decomposition as the sole
+  hard blocker.
+- **1.13-D, projection-chain decomposition:** COMPLETE / GREEN in
+  `Ultraweak.ProjectionChain`. A maximal subtype-indexed orthogonal family has every finite sum
+  dominated by a chain member and has supremum equal to the chain LUB. Maximality scaffolding is
+  private.
+- **1.13-E, chain-LUB normality bridge:** COMPLETE / GREEN across `ProjectionLattice`,
+  `NormalCutoff`, `NormalSelection`, `NormalCharacterization`, and `NormalOrder`. The reusable
+  theorem states that preservation of projection-chain LUBs already recovers canonical normality;
+  no chain-normality predicate was introduced.
+- **1.13-F, complete-additivity characterization:** COMPLETE / GREEN in
+  `Ultraweak.CompleteAdditivity`. Normality gives `HasSum` for arbitrary index universes; the
+  converse uses the chain decomposition and yields `IsNormalOnProjections`. The production API is
+  theorem-only and Section 1.13 is complete.
+- **Sequential integration:** all Section 1.13 mathematics is presented in the existing Normality
+  Verso chapter. The current frontier is the scoped functional-support checkpoint in Section 1.14.
 
 Collision rule: A alone owns the normality bridge module, B alone owns the orthogonal-sum module,
 and C is scratch-only. Shared umbrella imports, coordination documents, and Verso remain lead-owned.

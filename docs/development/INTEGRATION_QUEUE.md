@@ -95,7 +95,7 @@ in their workstream.
 
 ## IQ-006 — Sakai 1.13 source normality and complete additivity
 
-- **Status:** PARTIALLY RESOLVED / YELLOW only for the converse
+- **Status:** RESOLVED / GREEN
 - **Affected streams:** positive functionals, projection lattice, strong projection convergence,
   predual uniqueness, Verso
 - **Question:** How should Sakai's all-positive directed-supremum definition and arbitrary
@@ -107,11 +107,11 @@ in their workstream.
   bounded nonnegative `ScottContinuousOn` condition and prove all characterizations. Express the
   operator sum through `Finset` partial sums and the existing projection `iSup`, with no new
   structure or notation. Use arbitrary-index `HasSum` for future scalar complete additivity.
-- **Evidence:** `Ultraweak.NormalOrder` and `Ultraweak.OrthogonalProjectionSum` close the two
-  production branches. Scratch proves normality implies the exact `HasSum` statement and reduces
-  the converse to a dominated orthogonal decomposition of every projection chain. No such
-  complete-orthomodular-lattice theorem exists in the audited libraries.
-- **Next bounded action:** prove the maximal orthogonal chain decomposition, its commutation/LUB
-  closure, and the chain-LUB version of the cutoff/selection boundary. Publish no
-  complete-additivity predicate until the converse kernel-checks; see
-  `reports/SAKAI_1_13_COMPLETE_ADDITIVITY_RECON.md`.
+- **Evidence:** `Ultraweak.NormalOrder`, `Ultraweak.OrthogonalProjectionSum`,
+  `Ultraweak.ProjectionChain`, and `Ultraweak.CompleteAdditivity` close all production branches.
+  The maximal orthogonal chain decomposition, finite domination, LUB recovery, chain-LUB
+  cutoff/selection route, and both implications are kernel-checked. The public surface is
+  theorem-only: `HasSum` expresses the arbitrary finite-subsum limit and no new normality or
+  complete-additivity predicate is needed.
+- **Next bounded action:** none for Section 1.13. The scoped next source target is functional
+  support in Sakai 1.14.2; see `reports/SAKAI_SECTION_1_14_SCOPE.md`.

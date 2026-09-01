@@ -5,6 +5,11 @@
 Source: Sakai, *$C^*$-Algebras and $W^*$-Algebras*, Section 1.13, inspected directly in the local
 scan at `/Users/jonbannon/Desktop/ClaudeMath/SakaiBook_1971.pdf`.
 
+Completion update (2026-09-01): all numbered items and substantive assertions scoped below are now
+source-formalized. The first wave supplied the source-normality and orthogonal-sum APIs; the second
+supplied projection-chain decomposition and complete additivity iff normality. This report remains
+the pre-production scope record; see `SAKAI_1_13_COMPLETE_ADDITIVITY.md` for the closeout.
+
 Section 1.13 is titled **Linear Functionals on a $W^*$-Algebra**. It begins on printed p. 28
 (local PDF p. 40), continues through printed pp. 29--30 (local PDF pp. 41--42), and ends before
 Section 1.14, **Polar Decomposition of Linear Functionals on a $W^*$-Algebra**, which begins on
@@ -260,14 +265,14 @@ hypothesis.
 
 | Item | Status after audit | Reason |
 | --- | --- | --- |
-| 1.13.1 | PARTIAL / EQUIVALENT INTERFACE | Projection normality exists; the exact positive-directed bridge is missing. |
-| 1.13.2 | CORE KERNEL-PROVED; SOURCE BRIDGE PENDING | The cutoff/Zorn theorem is complete at a stronger abstraction boundary, but its hypothesis uses projection normality. |
+| 1.13.1 | SOURCE-FORMALIZED | The exact bounded positive-directed condition is equivalent to canonical projection normality. |
+| 1.13.2 | SOURCE-FORMALIZED | Normality is equivalent to ultraweak continuous-dual membership through the existing cutoff/Zorn proof. |
 | 1.13.3 | SOURCE-FORMALIZED IN LEAN-CORRECT FORM | Equality of embedded continuous duals and the canonical pairing-preserving predual equivalence are public. |
-| 1.13.4 | PARTIAL | Projection LUB and convergence infrastructure exists; the orthogonal finite-sum package and complete-additivity equivalence do not. |
-| 1.13.5 | ALREADY REPRESENTED | `Ultraweak.continuousDual` is the established object; only source-facing presentation may remain. |
+| 1.13.4 | SOURCE-FORMALIZED | Arbitrary orthogonal finite sums, LUB and convergence, plus complete additivity iff normality, are public. |
+| 1.13.5 | SOURCE-FORMALIZED | `Ultraweak.continuousDual` and the normality characterizations represent the source definition. |
 
-Section 1.13 must not yet be marked complete. Equally, it must not be rebuilt wholesale: the hard
-normality and predual-uniqueness mathematics is already stable Sak-AI API.
+Section 1.13 is complete. Its implementation reuses the stable normality and predual-uniqueness
+mathematics rather than rebuilding the section wholesale.
 
 ## Dependency map
 

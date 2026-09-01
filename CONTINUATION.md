@@ -1,6 +1,6 @@
 # Sak-AI mathematical continuation
 
-Last updated: 2026-08-31
+Last updated: 2026-09-01
 
 ## Verified repository state
 
@@ -35,11 +35,13 @@ Last updated: 2026-08-31
   partial-isometry predicate, compactness layer, or exposed predual was introduced. Algebraic
   uniqueness uses only the factorization and initial-support equations, and
   `WStarAlgebra.existsUnique_element_polar_decomposition` packages exact Theorem 1.12.1.
-- The first Section 1.13 production wave connects the literal bounded directed-positive definition
-  to projection normality, full Scott continuity, and specified-predual membership without adding
-  a predicate. It also packages arbitrary orthogonal projection `Finset` sums, their intrinsic LUB,
-  and both ultraweak and strong convergence. Complete additivity remains scratch-only because its
-  converse needs a maximal orthogonal decomposition of projection chains.
+- Section 1.13 is complete. The first wave connected the literal bounded directed-positive
+  definition to projection normality, full Scott continuity, and specified-predual membership and
+  packaged arbitrary orthogonal projection `Finset` sums with their LUB and ultraweak/strong
+  convergence. The second wave supplied the maximal orthogonal decomposition of projection chains,
+  chain-restricted Scott continuity as a sufficient normality criterion, and the theorem-level
+  arbitrary-family `HasSum` characterization. No second normality or complete-additivity predicate
+  was added.
 - The theorem package had no uncommitted changes at the start of the orchestration work.
 - Jireh Loreaux's LeanOA and Mathlib are read-only references. The original LeanOA checkout has
   not been modified.
@@ -86,16 +88,15 @@ chosen-predual parameter. The source consequence for `a * star a` is separately 
 theorem turns `(u-v) * CFC.abs a = 0` into `(u-v) * support |a| = 0`; the initial-support equations
 then give `u = v`. The exact `ExistsUnique` package includes both source support equations.
 
-Section 1.13 is now source-formalized through Definition 1.13.1, Theorem 1.13.2, Corollary 1.13.3,
-Definition 1.13.5, and the geometric/convergence portion of Definition 1.13.4. The canonical
-predicate remains `PositiveLinearMap.IsNormalOnProjections`; its exact source characterization uses
+Section 1.13 is source-formalized in full. The canonical predicate remains
+`PositiveLinearMap.IsNormalOnProjections`; its exact source characterization uses
 `ScottContinuousOn` on norm-bounded nonnegative sets. For an arbitrary orthogonal family, the
-`Finset` partial sums converge ultraweakly and strongly to the existing projection `iSup`.
-
-The remaining Section 1.13 statement is the equivalence with complete additivity. Arbitrary-index
-`HasSum` is source-faithful and the forward implication is kernel-checked in scratch. The converse
-is deferred pending a maximal orthogonal decomposition of projection chains, finite-sum domination
-by the original chain, and a chain-LUB form of the existing cutoff/selection proof.
+`Finset` partial sums converge ultraweakly and strongly to the existing projection `iSup`, and
+normality is equivalent to `HasSum (fun i ↦ φ (p i)) (φ (⨆ i, p i))`. The forward theorem supports
+an index type in an independent universe. The converse uses a same-algebra-universe family because
+the Zorn decomposition is subtype-indexed; after normality is recovered, the forward theorem gives
+the fully universe-polymorphic result. The next bounded source target is the support of a normal
+positive functional in Sakai 1.14.2.
 
 The implemented public design is:
 
@@ -173,8 +174,9 @@ The implemented public design is:
 27. Represent arbitrary orthogonal projection sums by `Finset` partial sums and the existing
     projection `iSup`; expose algebraic, LUB, ultraweak, and strong theorem layers without a new
     family structure, notation, or `tsum` interpretation.
-28. Use arbitrary-index `HasSum` for future scalar complete additivity, but keep the predicate and
-    converse out of production until the projection-chain decomposition route kernel-checks.
+28. Use arbitrary-index `HasSum` for scalar complete additivity. Keep the API theorem-level: the
+    projection-chain decomposition route now kernel-checks both implications, so no predicate is
+    needed.
 
 ## Implementation order
 
@@ -289,15 +291,25 @@ The completed implementation layers are:
       and ultraweak/strong convergence;
     - scratch `HasSum` semantics, forward complete additivity, and an exact converse reduction;
     - no complete-additivity predicate or converse promoted.
+17. Section 1.13 second production wave (begun at baseline
+    `9cd4ecf926b0fdd50a7c97a32fc9e80372a2e13d`, completed on 2026-09-01):
+    - generic finite orthogonal-sum domination and commutation at a directed projection LUB;
+    - a Zorn-maximal orthogonal decomposition of every nonempty projection chain, with finite sums
+      dominated by chain members and supremum equal to the chain LUB;
+    - chain-Scott cutoff, selection, and continuous-dual infrastructure, with existing normality
+      APIs delegating to the weaker core;
+    - normality implies arbitrary-universe orthogonal-family `HasSum`;
+    - same-universe complete additivity implies canonical projection normality;
+    - exact theorem-level iff, with no countability assumption, predicate, structure, or `tsum`.
 
 The source audit has closed the 1.11.3 review question with LEVEL C rather than an accepted
 definition. Do not promote `atTop ⊓ comap divisionMesh (nhds 0)` as Sakai's meaning. Canonical
 Lemma 1.11.1 is now source-formalized. Section 1.12 contains the single element
 polar-decomposition theorem 1.12.1 and is complete through an independent
-CFC/support/ultraweak-compactness chain followed by algebraic uniqueness. The next bounded
-transaction is the projection-chain decomposition needed for the complete-additivity converse in
-Section 1.13, as isolated in
-`docs/development/reports/SAKAI_1_13_COMPLETE_ADDITIVITY_RECON.md`. Revisit a
+CFC/support/ultraweak-compactness chain followed by algebraic uniqueness. Section 1.13 is now
+complete through the production projection-chain and complete-additivity modules. The next bounded
+transaction is the support/faithfulness API for a normal positive functional in Sakai 1.14.2, as
+scoped in `docs/development/reports/SAKAI_SECTION_1_14_SCOPE.md`. Revisit a
 public PVM/integral interface only when coherent mathematics or new primary evidence fixes it.
 
 Before each substantial proof, search the current Sak-AI tree, pinned Mathlib, current Mathlib
@@ -306,8 +318,8 @@ master/review history, and current LeanOA for an equivalent or more general decl
 ## Documentation continuation
 
 The Verso package preserves all 87 active nodes and 141 statement-dependency edges in the generated
-legacy graph and extends them to 108 nodes and 189 edges through the exact strong-topology,
-fixed-projection, spectral-approximation, element-polar-decomposition, and first Section 1.13
+legacy graph and extends them to 111 nodes and 196 edges through the exact strong-topology,
+fixed-projection, spectral-approximation, element-polar-decomposition, and completed Section 1.13
 edges. The exact manifest
 count and audit state are recorded in `VERSO_STATUS.md`. The legacy
 sources remain recoverable from Git history. New mathematical documentation must be authored in

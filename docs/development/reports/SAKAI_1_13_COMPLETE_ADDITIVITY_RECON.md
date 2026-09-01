@@ -390,3 +390,11 @@ normal => completely additive: PROOF SHAPE KERNEL-CHECKED
 completely additive => normal: DEFERRED WITH PRECISE BLOCKER
 public complete-additivity predicate: DEFERRED
 ```
+
+## Production closeout
+
+Those steps were completed in the 2026-09-01 second production wave. The maximal orthogonal
+projection-chain decomposition and chain-LUB normality bridge are kernel-proved, both directions
+of the complete-additivity equivalence are public, and the final API deliberately remains
+theorem-only rather than introducing the predicate contemplated during reconnaissance. See
+`PROJECTION_CHAIN_ORTHOGONAL_DECOMPOSITION.md` and `SAKAI_1_13_COMPLETE_ADDITIVITY.md`.

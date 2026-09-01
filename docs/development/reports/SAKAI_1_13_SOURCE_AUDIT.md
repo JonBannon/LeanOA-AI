@@ -4,6 +4,12 @@ Date: 2026-08-31
 
 Baseline: `d19b0d77f71931add5f925a66156208ba7232425`
 
+Completion update (2026-09-01): the second production wave proved the missing projection-chain
+decomposition and the exact complete-additivity equivalence. The source observations below remain
+the audit record; their former deferral is resolved by `Ultraweak.ProjectionChain` and
+`Ultraweak.CompleteAdditivity`. See `PROJECTION_CHAIN_ORTHOGONAL_DECOMPOSITION.md` and
+`SAKAI_1_13_COMPLETE_ADDITIVITY.md`.
+
 ## Audit boundary
 
 The source is Sakai, *$C^*$-Algebras and $W^*$-Algebras*, Section 1.13, inspected
@@ -138,5 +144,6 @@ No new topology, chosen-predual redesign, spectral integral, or PVM is required.
   bounded/nonnegative family class and a proved redundancy bridge.
 - Keep `PositiveLinearMap.IsNormalOnProjections` authoritative.
 - Represent operator sums by projection LUBs of `Finset` partial sums, not `tsum`.
-- Keep the complete-additivity predicate and converse out of production until the
-  missing arbitrary-directed projection argument has been reviewed.
+- Publish complete additivity only after the arbitrary-directed projection argument has been
+  reviewed. That gate is now closed; the resulting production API is theorem-only and introduces
+  no predicate.

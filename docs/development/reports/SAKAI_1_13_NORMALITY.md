@@ -136,7 +136,9 @@ the specified-predual equivalence gives the exact statement of Theorem 1.13.2 wi
 positive-functional, arbitrary-directed-family, boundedness, supremum, or topology semantics.
 Corollary 1.13.3 continues to reuse the existing predual-uniqueness API. The parallel
 `Ultraweak.OrthogonalProjectionSum` module supplies the geometric part of Definition 1.13.4;
-complete additivity remains a separate deferred workstream.
+the subsequent `Ultraweak.ProjectionChain` and `Ultraweak.CompleteAdditivity` modules now close
+the arbitrary-family complete-additivity equivalence without changing this canonical normality
+API.
 
 ## Integrity
 

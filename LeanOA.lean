@@ -67,6 +67,7 @@ public import LeanOA.Ultraweak.Annihilator
 public import LeanOA.Ultraweak.Basic
 public import LeanOA.Ultraweak.Bornology
 public import LeanOA.Ultraweak.CentralSupport
+public import LeanOA.Ultraweak.CompleteAdditivity
 public import LeanOA.Ultraweak.ContinuousFunctionalCalculus
 public import LeanOA.Ultraweak.ContinuousStar
 public import LeanOA.Ultraweak.Corner
@@ -89,6 +90,7 @@ public import LeanOA.Ultraweak.OrderClosed
 public import LeanOA.Ultraweak.OrthogonalProjectionSum
 public import LeanOA.Ultraweak.PolarDecomposition
 public import LeanOA.Ultraweak.PredualUniqueness
+public import LeanOA.Ultraweak.ProjectionChain
 public import LeanOA.Ultraweak.ProjectionDecomposition
 public import LeanOA.Ultraweak.ProjectionLattice
 public import LeanOA.Ultraweak.SeparatingDual

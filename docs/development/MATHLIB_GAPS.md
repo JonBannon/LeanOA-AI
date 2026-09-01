@@ -123,13 +123,19 @@ currently unital, whereas `IsStarProjection.finset_sum` now needs only a
 generality improvement, though it remains in the downstream module for its current single
 consumer.
 
-The remaining gap is the complete-additivity converse. Mathlib `HasSum` already gives the correct
-arbitrary-index finite-subset scalar semantics, and the forward implication kernel-checks. No
-audited library supplies the needed theorem that a completely additive projection functional
-preserves LUBs of arbitrary projection chains. The exact missing input is a maximal pairwise
-orthogonal decomposition whose finite partial sums are dominated by members of the chain. Do not
-publish a predicate, use bare `tsum` equality, or introduce a competing normality structure before
-that theorem is available.
+Sak-AI now closes the previously recorded complete-additivity gap. Mathlib `HasSum` supplies the
+correct arbitrary-index finite-subset scalar semantics, while Sak-AI supplies the missing maximal
+pairwise-orthogonal decomposition of a projection chain, with finite sums dominated by chain
+members and supremum equal to the chain LUB. The chain-restricted Scott-continuity bridge then
+recovers the canonical normality predicate. No audited Mathlib or original LeanOA declaration
+supplied these results.
+
+Small upstream candidates exposed by the proof are the nonnegative-complex
+`HasSum`/finite-subsum-`IsLUB` equivalence, finite orthogonal projection-sum domination by a common
+upper projection, and commutation with a fixed element at a directed projection LUB. The full
+maximal decomposition and normality characterization remain naturally downstream until their
+operator-algebra assumptions and naming receive broader review. Sak-AI deliberately publishes no
+complete-additivity predicate, no bare `tsum` equality, and no competing normality structure.
 
 ## Radon--Stieltjes refinement audit
 

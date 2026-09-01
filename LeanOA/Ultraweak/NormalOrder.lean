@@ -112,6 +112,24 @@ theorem isNormalOnProjections_iff_scottContinuous
   isNormalOnProjections_iff_scottContinuous_of_predual (WStarAlgebra.predual M) φ
 
 /-- A positive functional on a W-star algebra is normal on projections exactly when it preserves
+least upper bounds of projection chains. Thus chain preservation already recovers the canonical
+normality predicate; no competing chain-normality definition is needed. -/
+theorem isNormalOnProjections_iff_scottContinuousOn_chains
+    {M : Type*} [CStarAlgebra M] [PartialOrder M] [StarOrderedRing M] [WStarAlgebra M]
+    (φ : M →ₚ[ℂ] ℂ) :
+    φ.IsNormalOnProjections ↔
+      ScottContinuousOn
+        {s : Set {p : M // IsStarProjection p} | IsChain (· ≤ ·) s}
+        (fun p ↦ φ p.1) := by
+  constructor
+  · intro hφ
+    exact hφ.scottContinuousOn
+  · intro hφ
+    exact φ.isNormalOnProjections_of_mem_continuousDual <|
+      φ.mem_continuousDual_of_scottContinuousOn_chains
+        (P := WStarAlgebra.predual M) hφ
+
+/-- A positive functional on a W-star algebra is normal on projections exactly when it preserves
 directed suprema of nonnegative elements. -/
 theorem isNormalOnProjections_iff_scottContinuousOn_nonneg
     {M : Type*} [CStarAlgebra M] [PartialOrder M] [StarOrderedRing M] [WStarAlgebra M]

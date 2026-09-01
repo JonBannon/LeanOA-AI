@@ -14,9 +14,10 @@ public import LeanOA.Ultraweak.Strong
 # Order-theoretic characterization of ultraweakly continuous positive functionals
 
 A positive functional on a non-unital C-star algebra with a specified Banach predual is ultraweakly
-continuous exactly when it preserves directed suprema of projections. The predual remains an
-explicit parameter throughout, so the characterization does not depend on a selected
-`WStarAlgebra` instance.
+continuous exactly when it preserves directed suprema of projections. In fact, preservation only
+for projection chains already implies ultraweak continuity. The predual remains an explicit
+parameter throughout, so the characterization does not depend on a selected `WStarAlgebra`
+instance.
 -/
 
 open scoped ComplexOrder NNReal Ultraweak
@@ -87,17 +88,21 @@ section NonUnital
 variable {M P : Type*} [NonUnitalCStarAlgebra M] [PartialOrder M] [StarOrderedRing M]
   [NormedAddCommGroup P] [NormedSpace ℂ P] [CompleteSpace P] [Predual ℂ M P]
 
-/-- A positive functional on a non-unital C-star algebra with a specified Banach predual is normal
-on projections exactly when it is represented by that predual. -/
-theorem isNormalOnProjections_iff_mem_continuousDual (φ : M →ₚ[ℂ] ℂ) :
-    φ.IsNormalOnProjections ↔
-      φ.toContinuousLinearMap ∈ Ultraweak.continuousDual ℂ M P := by
+/-- A positive functional which preserves projection LUBs on chains is represented by the
+specified predual. -/
+theorem mem_continuousDual_of_scottContinuousOn_chains (φ : M →ₚ[ℂ] ℂ)
+    (hφ : ScottContinuousOn
+      {s : Set {p : M // IsStarProjection p} | IsChain (· ≤ ·) s}
+      (fun p ↦ φ p.1)) :
+    φ.toContinuousLinearMap ∈ Ultraweak.continuousDual ℂ M P := by
   letI : IsUnital M := CStarAlgebra.isUnital_of_predual (P := P)
   letI : CStarAlgebra M := IsUnital.toCStarAlgebra
-  constructor
-  · intro hφ
-    obtain ⟨p₀, hp₀⟩ := hφ.exists_maximal_isUltraweakCutoff (P := P)
-    suffices hp₀_one : p₀.1 = 1 by
+  letI : CompleteLattice {p : M // IsStarProjection p} :=
+    IsStarProjection.completeLatticeOfPredual (P := P)
+  obtain ⟨p₀, hp₀⟩ :=
+    φ.exists_maximal_isUltraweakCutoff_of_scottContinuousOn_chains (P := P) hφ
+  refine ?_
+  · suffices hp₀_one : p₀.1 = 1 by
       have : p₀ = ⟨1, IsStarProjection.one M⟩ := Subtype.ext hp₀_one
       subst p₀
       simpa [IsUltraweakCutoff] using hp₀.1
@@ -119,7 +124,8 @@ theorem isNormalOnProjections_iff_mem_continuousDual (φ : M →ₚ[ℂ] ℂ) :
               PositiveContinuousLinearMap.coe_toPositiveLinearMap,
               PositiveContinuousLinearMap.comp_apply, Ultraweak.toUltraweakPosCLM_apply]⟩
     obtain ⟨p, hp, hp_ne, hpr, hp_lt⟩ :=
-      hφ.exists_nonzero_subprojection_lt_of_predual (P := P) hψ r.2 <| by
+      PositiveLinearMap.exists_nonzero_subprojection_lt_of_scottContinuousOn_chains
+        hφ hψ.scottContinuousOn (fun s _ _ ↦ ⟨sSup s, isLUB_sSup s⟩) r.2 <| by
         simpa only [ψ, PositiveContinuousLinearMap.coe_toPositiveLinearMap,
           PositiveContinuousLinearMap.comp_apply, Ultraweak.toUltraweakPosCLM_apply] using hψᵤ
     let Q := P ⧸ Ultraweak.preannihilator (P := P)
@@ -172,6 +178,15 @@ theorem isNormalOnProjections_iff_mem_continuousDual (φ : M →ₚ[ℂ] ℂ) :
     apply add_left_cancel (a := p₀.1)
     simpa only [add_zero, q] using
       (congrArg Subtype.val (hp₀q.antisymm hqp₀)).symm
+
+/-- A positive functional on a non-unital C-star algebra with a specified Banach predual is normal
+on projections exactly when it is represented by that predual. -/
+theorem isNormalOnProjections_iff_mem_continuousDual (φ : M →ₚ[ℂ] ℂ) :
+    φ.IsNormalOnProjections ↔
+      φ.toContinuousLinearMap ∈ Ultraweak.continuousDual ℂ M P := by
+  constructor
+  · intro hφ
+    exact φ.mem_continuousDual_of_scottContinuousOn_chains hφ.scottContinuousOn
   · exact φ.isNormalOnProjections_of_mem_continuousDual
 
 end NonUnital

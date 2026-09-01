@@ -1,9 +1,8 @@
 # Shared API status
 
-Status reflects integration review through the first Sakai 1.13 production wave (2026-08-31).
-That wave began at `d19b0d77f71931add5f925a66156208ba7232425`; the preceding Section 1.12
-checkpoint remains `9476b69357b8d2f6c9884b363f5378098d3ac039`. This is not a promise of
-permanent immutability.
+Status reflects integration review through the Sakai 1.13 closeout wave (2026-09-01). That wave
+began at `9cd4ecf926b0fdd50a7c97a32fc9e80372a2e13d`; the first Section 1.13 production wave began at
+`d19b0d77f71931add5f925a66156208ba7232425`. This is not a promise of permanent immutability.
 
 ## GREEN — stable downstream surfaces
 
@@ -13,8 +12,9 @@ permanent immutability.
 | Ultraweak and intrinsic strong topology | `Ultraweak.Algebra`, `ContinuousStar`, `Multiplication`, `Strong`, `StrongProjection` | Established topology-facing API. Projection domination plus ultraweak convergence now has a reusable strong upgrade, and directed projection LUBs converge strongly. |
 | Fixed-projection ultraweak decomposition | `Ultraweak.ProjectionDecomposition` | General ordered-C-star theorem layer: a fixed extraction identity separates an ultraweak difference limit and identifies positive/negative parts under eventual positivity. It introduces no spectral-family abstraction. |
 | Projection lattice and support | `ProjectionLattice`, `Support`, `Corner` | Completed Section 1.10 and current spectral construction consume these interfaces. Support leastness, projection simp lemmas, and the positive-scalar projection lower-bound criterion are stable consumers of the same support object. |
-| Source normality characterizations | `Ultraweak.NormalOrder` | `IsNormalOnProjections` remains canonical and is now equivalent to full Scott continuity, Sakai's bounded directed-positive condition, and specified-predual membership. No new predicate or chosen-predual leak was introduced. |
+| Source normality characterizations | `Ultraweak.NormalOrder` | `IsNormalOnProjections` remains canonical and is equivalent to full Scott continuity, preservation of projection-chain LUBs, Sakai's bounded directed-positive condition, and specified-predual membership. No new predicate or chosen-predual leak was introduced. |
 | Arbitrary orthogonal projection sums | `Ultraweak.OrthogonalProjectionSum` | `Finset` partial sums, the existing projection `iSup`, ambient LUB, and ultraweak/strong convergence form a theorem-only arbitrary-index API with no new projection family or infinite-sum object. |
+| Projection-chain decomposition and complete additivity | `Ultraweak.ProjectionChain`, `Ultraweak.CompleteAdditivity` | Every nonempty projection chain with a LUB admits an arbitrary orthogonal family whose finite sums are dominated by chain members and whose supremum is the chain LUB. Positive-functional normality is equivalent to arbitrary-family complete additivity, expressed by `HasSum`; there is no bundled predicate, countability hypothesis, or second normality notion. |
 | Ideals and central support | `Annihilator`, `Ideal`, `TwoSidedIdeal`, `CentralSupport`, `Opposite` | Completed, documented native-object API. The alternative upstream representation remains a separate review question. |
 | Lower spectral projections | `CStarAlgebra.Spectral`, `Ultraweak.SpectralProjection`, `Ultraweak.SpectralProjectionStrong` | Half-line semantics and naming are intentionally fixed. Sakai 1.11.1 is source-formalized in `s(M,M_*)` without an extra monotonicity hypothesis; current finite sums depend on the same projection object. |
 | Finite spectral sums, bands, and convergence | `Ultraweak.SpectralSum`, `Ultraweak.SpectralApproximation`, `Ultraweak.SpectralBand`, `Ultraweak.TaggedSpectralSum`, `Ultraweak.TruncatedSpectralSum` | Checked theorem-level frontier, including arbitrary tagged sums, sharp truncated-affine mesh estimates with an unaligned cutoff, and explicit norm-to-ultraweak convergence to the existing CFC target. These modules deliberately commit to no spectral-measure representation. |
@@ -27,7 +27,6 @@ permanent immutability.
 | --- | --- | --- | --- |
 | Mirrored Mathlib extension layer | architecture + Mathlib reconnaissance | Some declarations may move upstream or be replaced by newer Mathlib APIs. | Per-module overlap audit and a migration plan for any upstream replacement. |
 | Positive-functional / representation assembly | architecture | Sak-AI uses Mathlib GNS plus local functional APIs, but has no separate broad representation layer. | A real Sakai consumer demonstrates the missing interface and design review chooses its home. |
-| Sakai 1.13 complete additivity | next bounded wave | Arbitrary-index scalar `HasSum`, the forward implication, and the final converse reduction are kernel-checked in scratch, but the converse needs a maximal orthogonal decomposition of projection chains and a chain-LUB cutoff interface. | Prove the chain decomposition and converse before publishing a complete-additivity predicate. |
 | Legacy mathematical typography in Verso | Verso stream | Existing source consistently uses older plain-text forms; new prose follows the recorded convention. | One systematic documentation-only migration, not scattered edits. |
 
 ## RED — architecture owner only

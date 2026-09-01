@@ -174,7 +174,8 @@ factorization, the two initial-support equations, and the established support ze
 `WStarAlgebra.existsUnique_element_polar_decomposition` packages all three source conditions.
 Section 1.12 is GREEN and source-formalized.
 
-The first Section 1.13 production wave closes its source-normality and orthogonal-sum branches:
+The Section 1.13 production waves close the source-normality, orthogonal-sum, and complete-
+additivity branches:
 
 ```text
 projection complete lattice + directed LUB convergence [GREEN]
@@ -191,22 +192,27 @@ finite partial sums + projection/ambient LUB [GREEN]
   ↓
 ultraweak/strong convergence to projection supremum [GREEN]
   ↓
-normality ⇒ arbitrary-index HasSum [SCRATCH PROOF CHECKED]
+normality ⇒ arbitrary-index HasSum [GREEN]
   ↓
-maximal orthogonal decomposition of projection chains [MISSING / YELLOW]
+maximal orthogonal decomposition of projection chains [GREEN]
   ↓
-complete additivity ⇒ chain-LUB preservation ⇒ normality [DEFERRED]
+complete additivity ⇒ chain-LUB preservation ⇒ normality [GREEN]
+  ↓
+normality ⇔ complete additivity [GREEN]
 
 continuous-dual identification + canonical predual equivalence [GREEN]
   ↓
 Sakai 1.13.3 predual uniqueness [GREEN]
 ```
 
-The remaining bounded edge is pure projection-order/connective mathematics: construct the
-orthogonal decomposition of a projection chain with finite sums dominated by chain members, then
-reuse the existing cutoff/selection proof at the chain-LUB boundary. No spectral integral, PVM, or
-element polar decomposition lies on this dependency path. The exact reduction is recorded in
-`reports/SAKAI_1_13_COMPLETE_ADDITIVITY_RECON.md`.
+The second production wave supplies the pure projection-order/connective edge. A Zorn-maximal
+orthogonal family has finite sums dominated by chain members and supremum equal to the chain LUB.
+Chain-restricted Scott continuity is then sufficient for the existing cutoff/selection
+characterization of normality. No spectral integral, PVM, or element polar decomposition lies on
+this dependency path. The reconnaissance and completed proofs are recorded in
+`reports/SAKAI_1_13_COMPLETE_ADDITIVITY_RECON.md`,
+`reports/PROJECTION_CHAIN_ORTHOGONAL_DECOMPOSITION.md`, and
+`reports/SAKAI_1_13_COMPLETE_ADDITIVITY.md`.
 
 ## Cartography fields for a major concept
 

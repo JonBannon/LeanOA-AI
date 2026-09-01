@@ -124,11 +124,11 @@ limiting projection itself.
 ## Source coverage and next use
 
 This module formalizes the geometric and convergence content used to define Sakai's arbitrary
-orthogonal projection sum in 1.13.4. It does not yet formalize the final normality/completely-
-additive equivalence in that definition, so Definition 1.13.4 should not yet be marked wholly
-source-formalized.
+orthogonal projection sum in 1.13.4. The later `Ultraweak.ProjectionChain` and
+`Ultraweak.CompleteAdditivity` modules now formalize the final normality/completely-additive
+equivalence, so Definition 1.13.4 is source-formalized across this module stack.
 
-The immediate downstream use is the forward implication
+The immediate downstream use, now production-proved, is the forward implication
 
 ```text
 normal positive functional

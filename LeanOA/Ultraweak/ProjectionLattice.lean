@@ -187,6 +187,39 @@ theorem tendsto_toUltraweak_of_isLUB (s : Set {p : M // IsStarProjection p})
   apply tendsto_atTop_isLUB (hf.comp <| Subtype.mono_coe (· ∈ s))
   simpa only [Set.range_comp, Subtype.range_coe] using hUw
 
+section Commutation
+
+variable {A Q : Type*} [NonUnitalCStarAlgebra A] [PartialOrder A] [StarOrderedRing A]
+
+/-- Commutation with a fixed element is preserved at a nonempty directed least upper bound of
+projections.  The specified predual supplies ultraweak convergence of the canonical projection
+net, while separate ultraweak continuity of multiplication passes the equality to its limit. -/
+theorem commute_of_isLUB (Q : Type*) [NormedAddCommGroup Q] [NormedSpace ℂ Q]
+    [CompleteSpace Q] [Predual ℂ A Q]
+    (s : Set {p : A // IsStarProjection p}) (hnon : s.Nonempty)
+    (hs : DirectedOn (· ≤ ·) s) {p : {p : A // IsStarProjection p}}
+    (hp : IsLUB s p) {a : A} (ha : ∀ q ∈ s, Commute q.1 a) :
+    Commute p.1 a := by
+  letI : IsUnital A := CStarAlgebra.isUnital_of_predual (P := Q)
+  letI : CStarAlgebra A := IsUnital.toCStarAlgebra
+  letI : Nonempty s := hnon.to_subtype
+  letI : IsDirectedOrder s := ⟨hs.directed_val⟩
+  have hlim := IsStarProjection.tendsto_toUltraweak_of_isLUB
+    (P := Q) s hs hnon hp
+  have hleft := hlim.mul_const (toUltraweak ℂ Q a)
+  have hright := hlim.const_mul (toUltraweak ℂ Q a)
+  have heq :
+      (fun q : s ↦ toUltraweak ℂ Q q.1.1 * toUltraweak ℂ Q a) =
+      (fun q : s ↦ toUltraweak ℂ Q a * toUltraweak ℂ Q q.1.1) := by
+    funext q
+    rw [← Ultraweak.toUltraweak_mul, ← Ultraweak.toUltraweak_mul,
+      (ha q.1 q.2).eq]
+  rw [heq] at hleft
+  rw [commute_iff_eq, ← toUltraweak_inj (𝕜 := ℂ) (P := Q)]
+  simpa only [Ultraweak.toUltraweak_mul] using tendsto_nhds_unique hleft hright
+
+end Commutation
+
 section WStarAlgebra
 
 variable {M : Type*} [CStarAlgebra M] [PartialOrder M] [StarOrderedRing M] [WStarAlgebra M]

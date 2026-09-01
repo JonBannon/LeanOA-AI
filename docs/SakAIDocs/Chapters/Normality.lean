@@ -1,6 +1,7 @@
 import Verso
 import VersoManual
 import VersoBlueprint
+import LeanOA.Ultraweak.CompleteAdditivity
 import LeanOA
 
 open Verso.Genre
@@ -276,8 +277,55 @@ The map from finite subsets to that range is cofinal, so precomposition gives
 the stated convergence of $`J\mapsto P_J` itself.
 :::
 
-Sakai continues by characterizing normality through complete additivity on
-these arbitrary orthogonal families.  The forward implication and the exact
-unconditional scalar-sum semantics are kernel-checked in scratch.  The
-converse still requires a maximal orthogonal decomposition of projection
-chains, so no production complete-additivity predicate is claimed here.
+:::theorem "thm:projection_chain_orthogonal_decomposition_Sak_1_13_4" (parent := "orthogonal-projection-sums") (lean := "IsChain.exists_orthogonal_projection_family") (uses := "def:orthogonal_projection_sum_Sak_1_13_4, prop:proj_compl_lat_wstar_Sak_1_10_2")
+Let $`C` be a nonempty chain of projections with least upper bound $`q`.
+There is an arbitrary pairwise orthogonal family $`(r_i)_{i\in I}` such that
+every finite partial sum is dominated by some member of $`C`, and
+$`\bigvee_i r_i=q`.
+:::
+
+:::proof "thm:projection_chain_orthogonal_decomposition_Sak_1_13_4"
+Choose, by Zorn's lemma, a maximal set of nonzero pairwise orthogonal
+projections that are subordinate to chain members and commute with the
+chain.  Total comparability puts every finite subfamily below one chain
+member.  The supremum of the maximal family commutes with every chain
+projection.  If it were smaller than some member of $`C`, the corresponding
+nonzero projection defect would enlarge the family, contradicting
+maximality.  Hence its supremum is the chain least upper bound.
+:::
+
+:::definition "def:complete_additivity_Sak_1_13_4" (parent := "orthogonal-projection-sums") (lean := "Complex.hasSum_iff_isLUB_finsetSum_of_nonneg") (uses := "def:orthogonal_projection_sum_Sak_1_13_4")
+A positive functional $`\varphi` is *completely additive* when, for every
+arbitrary pairwise orthogonal projection family $`(p_i)_{i\in I}`,
+
+$`
+  \sum_{i\in I}\varphi(p_i)=\varphi\!\left(\bigvee_{i\in I}p_i\right).
+`
+
+The scalar sum means convergence of the net of all finite subsums.  In Lean
+this is `HasSum`; for the nonnegative values $`\varphi(p_i)`, it is equivalent
+to the asserted scalar being the least upper bound of those finite subsums.
+No countability, enumeration, or default-valued `tsum` is involved.  The
+library leaves this property unbundled and states its characterization
+directly.
+:::
+
+:::theorem "thm:complete_additivity_iff_normal_Sak_1_13_4" (parent := "orthogonal-projection-sums") (lean := "PositiveLinearMap.isNormalOnProjections_iff_hasSum_orthogonal") (uses := "def:normal_on_projections, def:complete_additivity_Sak_1_13_4, thm:projection_chain_orthogonal_decomposition_Sak_1_13_4, thm:sigma_cts_of_normal_Sak_1_13_2")
+A positive functional on a $`W^*`-algebra is normal if and only if it is
+completely additive on arbitrary pairwise orthogonal projection families.
+:::
+
+:::proof "thm:complete_additivity_iff_normal_Sak_1_13_4"
+If $`\varphi` is normal, apply projection-LUB preservation to the directed net
+of finite orthogonal sums; its scalar image therefore has least upper bound
+$`\varphi(\bigvee_i p_i)`, which is the required `HasSum`.
+
+Conversely, decompose any nonempty projection chain by the preceding theorem.
+Complete additivity identifies $`\varphi` at the chain LUB with the supremum
+of the scalar finite subsums.  Finite domination bounds each such subsum by
+$`\varphi` at a chain member, so $`\varphi` preserves the chain LUB.  The
+chain-LUB cutoff and selection characterization then recovers the established
+projection-normality predicate.  The existing Section 1.13 bridge identifies
+this with full Scott continuity, Sakai's bounded directed-positive condition,
+and membership in the specified ultraweak continuous dual.
+:::

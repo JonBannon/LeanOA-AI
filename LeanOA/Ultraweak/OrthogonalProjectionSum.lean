@@ -118,6 +118,20 @@ theorem le_orthogonalFinsetSum_of_mem
   apply (p i).2.le_of_mul_eq_left (orthogonalFinsetSum p horth s).2
   exact mul_finsetSum_of_mem (fun i ↦ (p i).1) (fun i ↦ (p i).2) horth hi
 
+/-- A finite orthogonal sum lies below any projection which dominates every summand. -/
+theorem orthogonalFinsetSum_le_of_forall_le
+    (p : I → {q : M // IsStarProjection q})
+    (horth : Pairwise fun i j ↦ (p i).1 * (p j).1 = 0)
+    {s : Finset I} {r : {q : M // IsStarProjection q}}
+    (h : ∀ i ∈ s, p i ≤ r) :
+    orthogonalFinsetSum p horth s ≤ r := by
+  classical
+  apply (orthogonalFinsetSum p horth s).2.le_of_mul_eq_left r.2
+  change (∑ i ∈ s, (p i).1) * r.1 = ∑ i ∈ s, (p i).1
+  rw [Finset.sum_mul]
+  exact Finset.sum_congr rfl fun i hi ↦
+    ((p i).2.le_iff_mul_eq_left r.2).mp (h i hi)
+
 private theorem tendsto_range_orthogonalFinsetSum
     (p : I → {q : M // IsStarProjection q})
     (horth : Pairwise fun i j ↦ (p i).1 * (p j).1 = 0) :

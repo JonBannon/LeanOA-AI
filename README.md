@@ -10,10 +10,12 @@ nested sequence of dyadic divisions. Sakai 1.11.1 is now formalized with its exa
 hypotheses in the intrinsic strong topology. The source semantics of the abstract spectral integral
 remain explicitly unresolved. Sakai's element polar decomposition is now kernel-proved with exact
 existence, algebraic uniqueness, and initial/final support equations, completing Theorem 1.12.1.
-The first Section 1.13 wave now identifies Sakai's bounded directed-positive normality with the
-existing projection-normality and predual APIs and proves arbitrary-index orthogonal projection
-finite-sum convergence. The next checkpoint is the projection-chain machinery needed for the
-complete-additivity converse.
+Section 1.13 now identifies Sakai's bounded directed-positive normality with the existing
+projection-normality and predual APIs, proves arbitrary-index orthogonal projection finite-sum
+convergence, and characterizes normality by complete additivity on arbitrary orthogonal projection
+families. The converse is genuinely arbitrary-cardinal: a maximal orthogonal decomposition
+recovers the least upper bound of every projection chain. The next checkpoint is the support of a
+normal positive functional in Section 1.14.
 
 - [Sak-AI documentation site](https://jonbannon.github.io/Sak-AI/)
 - [API documentation](https://jonbannon.github.io/Sak-AI/docs/)
@@ -25,7 +27,7 @@ The primary documentation source and deployed project site are the first-class V
 package in [`docs/`](docs/). It supplies a mathematical reading path, checked declaration links,
 dependency graph, formalization summary, full-text search, and index. The retired LeanBlueprint
 sources remain recoverable from Git history; all 87 former nodes and 141 dependency edges are in
-Verso, whose current graph has 108 nodes and 189 statement-dependency edges. Exact build audit data
+Verso, whose current graph has 111 nodes and 196 statement-dependency edges. Exact build audit data
 is recorded in [`VERSO_STATUS.md`](VERSO_STATUS.md).
 
 Local theorem verification:

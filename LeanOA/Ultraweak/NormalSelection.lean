@@ -9,16 +9,17 @@ public import Mathlib.Order.Zorn
 /-!
 # A projection-selection lemma for normal positive functionals
 
-Given two positive functionals which preserve directed suprema of projections, a strict inequality
-on a projection persists uniformly on all nonzero subprojections of some nonzero subprojection.
-The main result is algebraic once nonempty chains of projections have suprema. Separate wrappers
-accept directed completeness or use an explicit Banach predual to supply full completeness.
+Given two positive functionals which preserve least upper bounds of projection chains, a strict
+inequality on a projection persists uniformly on all nonzero subprojections of some nonzero
+subprojection. The main result is algebraic once nonempty chains of projections have suprema.
+Separate normality wrappers accept directed completeness or use an explicit Banach predual to
+supply full completeness.
 -/
 
 open Set
 open scoped ComplexOrder
 
-namespace PositiveLinearMap.IsNormalOnProjections
+namespace PositiveLinearMap
 
 section ChainCompleteProjectionOrder
 
@@ -32,16 +33,23 @@ private lemma le_of_not_lt_apply (f g : M →ₚ[ℂ] ℂ) {q : M} (hq : 0 ≤ q
   have hg := Complex.nonneg_iff.mp (g.map_nonneg hq)
   exact ⟨le_of_not_gt fun hgf ↦ h ⟨hgf, hf.2.symm.trans hg.2⟩, hg.2.symm.trans hf.2⟩
 
-/-- If two normal positive functionals satisfy a strict inequality on a projection, then the same
-strict inequality holds on every nonzero subprojection of some nonzero subprojection, provided
-every nonempty chain of projections has a least upper bound.
+/-- If two positive functionals preserve projection LUBs on chains and satisfy a strict inequality
+on a projection, then the same strict inequality holds on every nonzero subprojection of some
+nonzero subprojection, provided every nonempty chain of projections has a least upper bound.
 
 The hypothesis itself forces the original projection to be nonzero. Both normality assumptions are
-purely order-theoretic. The final hypothesis is exactly the chain completeness used by Zorn's
-lemma, stated in the inherited projection order. This avoids installing a second, potentially
-incoherent order through a bundled lattice instance. -/
-theorem exists_nonzero_subprojection_lt_of_chain_lubs {f g : M →ₚ[ℂ] ℂ}
-    (hf : f.IsNormalOnProjections) (hg : g.IsNormalOnProjections)
+replaced by the weaker chain-Scott hypotheses actually consumed by the proof. The final hypothesis
+is exactly the chain completeness used by Zorn's lemma, stated in the inherited projection order.
+This avoids installing a second, potentially incoherent order through a bundled lattice
+instance. -/
+theorem exists_nonzero_subprojection_lt_of_scottContinuousOn_chains
+    {f g : M →ₚ[ℂ] ℂ}
+    (hf : ScottContinuousOn
+      {s : Set {q : M // IsStarProjection q} | IsChain (· ≤ ·) s}
+      (fun q ↦ f q.1))
+    (hg : ScottContinuousOn
+      {s : Set {q : M // IsStarProjection q} | IsChain (· ≤ ·) s}
+      (fun q ↦ g q.1))
     (hcomplete : ∀ s : Set {q : M // IsStarProjection q}, s.Nonempty →
       IsChain (· ≤ ·) s → ∃ p, IsLUB s p) {p : M}
     (hp : IsStarProjection p) (hfg : f p < g p) :
@@ -55,10 +63,9 @@ theorem exists_nonzero_subprojection_lt_of_chain_lubs {f g : M →ₚ[ℂ] ℂ}
     exact hp.nonneg
   obtain ⟨q₀, -, hq₀S, hq₀max⟩ := zorn_le_nonempty₀ S (fun c hcS hc q hqc ↦ by
     have hnon : c.Nonempty := ⟨q, hqc⟩
-    have hcdir : DirectedOn (· ≤ ·) c := hc.directedOn
     obtain ⟨r, hr⟩ := hcomplete c hnon hc
-    have hfc := hf hnon hcdir hr
-    have hgc := hg hnon hcdir hr
+    have hfc := hf hc hnon hc.directedOn hr
+    have hgc := hg hc hnon hc.directedOn hr
     refine ⟨r, ⟨hr.2 fun q hq ↦ (hcS hq).1, hgc.2 ?_⟩, hr.1⟩
     rintro _ ⟨q, hqc, rfl⟩
     exact (hcS hqc).2.trans (hfc.1 ⟨q, hqc, rfl⟩)) z hz
@@ -93,6 +100,21 @@ theorem exists_nonzero_subprojection_lt_of_chain_lubs {f g : M →ₚ[ℂ] ℂ}
   apply add_left_cancel (a := q₀.1)
   simpa only [add_zero, r] using congrArg Subtype.val (hq₀r.antisymm hrq₀).symm
 
+namespace IsNormalOnProjections
+
+/-- If two normal positive functionals satisfy a strict inequality on a projection, then the same
+strict inequality holds on every nonzero subprojection of some nonzero subprojection, provided
+every nonempty chain of projections has a least upper bound. -/
+theorem exists_nonzero_subprojection_lt_of_chain_lubs {f g : M →ₚ[ℂ] ℂ}
+    (hf : f.IsNormalOnProjections) (hg : g.IsNormalOnProjections)
+    (hcomplete : ∀ s : Set {q : M // IsStarProjection q}, s.Nonempty →
+      IsChain (· ≤ ·) s → ∃ p, IsLUB s p) {p : M}
+    (hp : IsStarProjection p) (hfg : f p < g p) :
+    ∃ p₁ : M, IsStarProjection p₁ ∧ p₁ ≠ 0 ∧ p₁ ≤ p ∧
+      ∀ {q : M}, IsStarProjection q → q ≠ 0 → q ≤ p₁ → f q < g q :=
+  PositiveLinearMap.exists_nonzero_subprojection_lt_of_scottContinuousOn_chains
+    hf.scottContinuousOn hg.scottContinuousOn hcomplete hp hfg
+
 /-- A directed-complete wrapper for `exists_nonzero_subprojection_lt_of_chain_lubs`.
 
 This preserves the previous API for callers which naturally have least upper bounds of all
@@ -107,7 +129,11 @@ theorem exists_nonzero_subprojection_lt {f g : M →ₚ[ℂ] ℂ}
   hf.exists_nonzero_subprojection_lt_of_chain_lubs hg
     (fun s hnon hs ↦ hcomplete s hnon hs.directedOn) hp hfg
 
+end IsNormalOnProjections
+
 end ChainCompleteProjectionOrder
+
+namespace IsNormalOnProjections
 
 section Predual
 
@@ -134,4 +160,6 @@ theorem exists_nonzero_subprojection_lt_of_predual {f g : M →ₚ[ℂ] ℂ}
 
 end Predual
 
-end PositiveLinearMap.IsNormalOnProjections
+end IsNormalOnProjections
+
+end PositiveLinearMap

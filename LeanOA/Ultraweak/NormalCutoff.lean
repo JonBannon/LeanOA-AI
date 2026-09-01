@@ -12,7 +12,8 @@ public import Mathlib.Order.Zorn
 For a positive functional `φ` and an element `p`, the right cutoff of `φ` by `p` is the
 functional `x ↦ φ (x * p)`. Cauchy–Schwarz controls its operator norm when `p` is a
 projection. Consequently, ultraweak continuity of these cutoffs is preserved by directed
-suprema of projections, which supplies the chain condition in the associated Zorn argument.
+suprema whenever the scalar projection values have the corresponding least upper bound. In
+particular, chain-Scott continuity supplies the chain condition in the associated Zorn argument.
 
 The cutoff construction and its norm convergence are nonunital. A specified predual enters only
 when asking whether a cutoff is ultraweakly continuous; unitality enters only for the cutoff at
@@ -85,19 +86,21 @@ theorem norm_cutoff_sub_le (φ : M →ₚ[ℂ] ℂ)
   φ.norm_cutoff_le <| (q.2.le_iff_sub p.2).mp hqp
 
 /-- Cutoffs along a nonempty directed family of projections converge in operator norm to the
-cutoff at any specified least upper bound, provided the functional is normal on projections. -/
-theorem IsNormalOnProjections.tendsto_cutoff_of_isLUB {φ : M →ₚ[ℂ] ℂ}
-    (hφ : φ.IsNormalOnProjections) (s : Set {p : M // IsStarProjection p})
-    (hnon : s.Nonempty) (hs : DirectedOn (· ≤ ·) s) {p : {p : M // IsStarProjection p}}
-    (hp : IsLUB s p) :
+cutoff at a specified least upper bound as soon as the scalar values have the corresponding least
+upper bound. -/
+theorem tendsto_cutoff_of_isLUB_apply (φ : M →ₚ[ℂ] ℂ)
+    (s : Set {p : M // IsStarProjection p}) (_hnon : s.Nonempty)
+    (_hs : DirectedOn (· ≤ ·) s) {p : {p : M // IsStarProjection p}}
+    (hp : IsLUB s p)
+    (hφp : IsLUB ((fun q : {p : M // IsStarProjection p} ↦ φ q.1) '' s) (φ p.1)) :
     Tendsto (fun q : s ↦ φ.cutoff q.1.1) atTop (𝓝 (φ.cutoff p.1)) := by
-  letI : Nonempty s := hnon.to_subtype
-  letI : IsDirectedOrder s := ⟨hs.directed_val⟩
+  letI : Nonempty s := _hnon.to_subtype
+  letI : IsDirectedOrder s := ⟨_hs.directed_val⟩
   have hφlim : Tendsto (fun q : s ↦ φ q.1.1) atTop (𝓝 (φ p.1)) := by
-    apply tendsto_atTop_isLUB (hφ.monotone.comp <| Subtype.mono_coe (· ∈ s))
+    apply tendsto_atTop_isLUB (φ.monotone.comp <| Subtype.mono_coe (· ∈ s))
     change IsLUB (Set.range ((fun q : {p : M // IsStarProjection p} ↦ φ q.1) ∘
       (Subtype.val : s → {p : M // IsStarProjection p}))) (φ p.1)
-    simpa only [Set.range_comp, Subtype.range_coe] using hφ hnon hs hp
+    simpa only [Set.range_comp, Subtype.range_coe] using hφp
   have hzero : Tendsto (fun q : s ↦ √‖φ (p.1 - q.1.1)‖) atTop (𝓝 0) := by
     have hsub : Tendsto (fun q : s ↦ φ p.1 - φ q.1.1) atTop (𝓝 0) := by
       simpa only [sub_self] using (tendsto_const_nhds (x := φ p.1)).sub hφlim
@@ -111,6 +114,15 @@ theorem IsNormalOnProjections.tendsto_cutoff_of_isLUB {φ : M →ₚ[ℂ] ℂ}
     exact φ.norm_cutoff_sub_le <| hp.1 q.2
   · simpa only [mul_zero] using
       (tendsto_const_nhds (x := √‖φ.toContinuousLinearMap‖)).mul hzero
+
+/-- Cutoffs along a nonempty directed family of projections converge in operator norm to the
+cutoff at any specified least upper bound, provided the functional is normal on projections. -/
+theorem IsNormalOnProjections.tendsto_cutoff_of_isLUB {φ : M →ₚ[ℂ] ℂ}
+    (hφ : φ.IsNormalOnProjections) (s : Set {p : M // IsStarProjection p})
+    (hnon : s.Nonempty) (hs : DirectedOn (· ≤ ·) s) {p : {p : M // IsStarProjection p}}
+    (hp : IsLUB s p) :
+    Tendsto (fun q : s ↦ φ.cutoff q.1.1) atTop (𝓝 (φ.cutoff p.1)) :=
+  φ.tendsto_cutoff_of_isLUB_apply s hnon hs hp (hφ hnon hs hp)
 
 end NonUnital
 
@@ -152,7 +164,25 @@ theorem IsNormalOnProjections.isUltraweakCutoff_of_isLUB {φ : M →ₚ[ℂ] ℂ
   letI : Nonempty s := hnon.to_subtype
   letI : IsDirectedOrder s := ⟨hs.directed_val⟩
   exact (Ultraweak.continuousDual ℂ M P).isClosed.mem_of_tendsto
-    (hφ.tendsto_cutoff_of_isLUB s hnon hs hp)
+    (φ.tendsto_cutoff_of_isLUB_apply s hnon hs hp (hφ hnon hs hp))
+    (Eventually.of_forall fun q ↦ hcutoff q.1 q.2)
+
+/-- Chain-Scott continuity of the projection evaluation map suffices to pass ultraweak cutoff
+continuity to a chain least upper bound. -/
+theorem isUltraweakCutoff_of_isLUB_of_scottContinuousOn_chains
+    (φ : M →ₚ[ℂ] ℂ)
+    (hφ : ScottContinuousOn
+      {s : Set {p : M // IsStarProjection p} | IsChain (· ≤ ·) s}
+      (fun p ↦ φ p.1))
+    (s : Set {p : M // IsStarProjection p}) (hnon : s.Nonempty)
+    (hs : IsChain (· ≤ ·) s) {p : {p : M // IsStarProjection p}}
+    (hp : IsLUB s p) (hcutoff : ∀ q ∈ s, φ.IsUltraweakCutoff P q) :
+    φ.IsUltraweakCutoff P p := by
+  letI : Nonempty s := hnon.to_subtype
+  letI : IsDirectedOrder s := ⟨hs.directedOn.directed_val⟩
+  exact (Ultraweak.continuousDual ℂ M P).isClosed.mem_of_tendsto
+    (φ.tendsto_cutoff_of_isLUB_apply s hnon hs.directedOn hp
+      (hφ hs hnon hs.directedOn hp))
     (Eventually.of_forall fun q ↦ hcutoff q.1 q.2)
 
 end Predual
@@ -162,22 +192,34 @@ section PredualMaximal
 variable {M P : Type*} [NonUnitalCStarAlgebra M] [PartialOrder M] [StarOrderedRing M]
   [NormedAddCommGroup P] [NormedSpace ℂ P] [CompleteSpace P] [Predual ℂ M P]
 
-/-- A normal positive functional has a maximal projection with ultraweakly continuous cutoff. -/
-theorem IsNormalOnProjections.exists_maximal_isUltraweakCutoff {φ : M →ₚ[ℂ] ℂ}
-    (hφ : φ.IsNormalOnProjections) :
+/-- A chain-Scott-continuous positive functional has a maximal projection with ultraweakly
+continuous cutoff. -/
+theorem exists_maximal_isUltraweakCutoff_of_scottContinuousOn_chains
+    (φ : M →ₚ[ℂ] ℂ)
+    (hφ : ScottContinuousOn
+      {s : Set {p : M // IsStarProjection p} | IsChain (· ≤ ·) s}
+      (fun p ↦ φ p.1)) :
     ∃ p : {p : M // IsStarProjection p}, Maximal (φ.IsUltraweakCutoff P) p := by
   letI : IsUnital M := CStarAlgebra.isUnital_of_predual (P := P)
   letI : CStarAlgebra M := IsUnital.toCStarAlgebra
   letI : CompleteLattice {p : M // IsStarProjection p} :=
     IsStarProjection.completeLatticeOfPredual (P := P)
   let pzero : {p : M // IsStarProjection p} := ⟨0, IsStarProjection.zero M⟩
-  obtain ⟨p, -, hp⟩ := zorn_le_nonempty₀ {p | φ.IsUltraweakCutoff P p} (fun c hc hchain q hq ↦
-    ⟨sSup c, hφ.isUltraweakCutoff_of_isLUB c ⟨q, hq⟩ hchain.directedOn
-      (isLUB_sSup c) fun r hr ↦ hc hr, fun r hr ↦ le_sSup hr⟩) pzero
-        (by
-          change φ.IsUltraweakCutoff P pzero
-          simpa only [pzero] using φ.isUltraweakCutoff_zero (P := P))
+  obtain ⟨p, -, hp⟩ := zorn_le_nonempty₀ {p | φ.IsUltraweakCutoff P p}
+    (fun c hc hchain q hq ↦
+      ⟨sSup c, φ.isUltraweakCutoff_of_isLUB_of_scottContinuousOn_chains hφ c
+        ⟨q, hq⟩ hchain (isLUB_sSup c) fun r hr ↦ hc hr,
+        fun r hr ↦ le_sSup hr⟩)
+    pzero (by
+      change φ.IsUltraweakCutoff P pzero
+      simpa only [pzero] using φ.isUltraweakCutoff_zero (P := P))
   exact ⟨p, hp⟩
+
+/-- A normal positive functional has a maximal projection with ultraweakly continuous cutoff. -/
+theorem IsNormalOnProjections.exists_maximal_isUltraweakCutoff {φ : M →ₚ[ℂ] ℂ}
+    (hφ : φ.IsNormalOnProjections) :
+    ∃ p : {p : M // IsStarProjection p}, Maximal (φ.IsUltraweakCutoff P) p :=
+  φ.exists_maximal_isUltraweakCutoff_of_scottContinuousOn_chains hφ.scottContinuousOn
 
 end PredualMaximal
 
