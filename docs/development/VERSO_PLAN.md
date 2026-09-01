@@ -39,9 +39,13 @@ The existing Normality chapter now contains the source-facing bounded directed-p
 characterization, exact Theorem 1.13.2, and arbitrary orthogonal finite-sum/LUB/convergence nodes.
 It now also contains the kernel-proved arbitrary-family complete-additivity characterization and
 its projection-chain proof dependency, without duplicating Section 1.13 or exposing workstream
-policy. Section 1.13 is complete. Keep the public current frontier pointed at the bounded
-functional-support checkpoint in Section 1.14; do not present the scope audit itself as
-formalized mathematics.
+policy. Section 1.13 is complete.
+
+The Section 1.14 reading path now includes functional support, Sakai's norm-theoretic Definition
+1.14.1, and the exact unique orthogonal Jordan decomposition in Theorem 1.14.3. Keep the source
+definition visibly distinct from the derived support-product-zero characterization. The public
+current frontier should now point to Sakai Theorem 1.14.4, the polar decomposition of an arbitrary
+normal functional; do not present the earlier self-adjoint-unitary factorization as that theorem.
 
 ## Work that must wait
 

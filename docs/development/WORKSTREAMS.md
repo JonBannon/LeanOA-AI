@@ -395,7 +395,8 @@ dependency order, not repeat the section linearly.
   converse uses the chain decomposition and yields `IsNormalOnProjections`. The production API is
   theorem-only and Section 1.13 is complete.
 - **Sequential integration:** all Section 1.13 mathematics is presented in the existing Normality
-  Verso chapter. The current frontier is the scoped functional-support checkpoint in Section 1.14.
+  Verso chapter. The public frontier has since advanced through the Section 1.14 support and
+  orthogonal-Jordan waves to Sakai Theorem 1.14.4.
 
 Collision rule: A alone owns the normality bridge module, B alone owns the orthogonal-sum module,
 and C is scratch-only. Shared umbrella imports, coordination documents, and Verso remain lead-owned.
@@ -422,10 +423,44 @@ a second support object.
 - **Integration decision:** retain the general ring/idempotent bridge
   `Ideal.mem_span_singleton_one_sub_iff_mul_eq_zero`; expose functional support only with explicit
   normality and keep the canonical $W^*$-predual internal.
-- **Next bounded wave:** Sakai 1.14.3, beginning with the norm-orthogonality relation for positive
-  functionals and its use in the unique positive/negative decomposition of a self-adjoint normal
-  functional. Reuse the 1.14.2 support API and the existing functional polar-factorization layer
-  before introducing any new abstraction.
+- **Downstream wave:** COMPLETE. Sakai Definition 1.14.1 and Theorem 1.14.3 consume this support API
+  through the orthogonal-Jordan wave recorded below.
 
-Collision rule: future 1.14.3 work may consume functional support but must not redefine it, add a
-parallel faithfulness notion, or expose a predual parameter in intrinsic statements.
+Collision rule: downstream Section 1.14 work may consume functional support but must not redefine
+it, add a parallel faithfulness notion, or expose a predual parameter in intrinsic statements.
+
+## Sakai 1.14.1 and 1.14.3 orthogonal-Jordan wave
+
+> **Read and obey `docs/development/SAKAI_DESIGN_CONTRACT.md` and the authoritative Sak-AI specifications it references. These requirements govern this workstream. Do not introduce designs inconsistent with them.**
+
+This wave formalizes the source norm relation before using the completed functional-support API to
+obtain the unique orthogonal decomposition of a self-adjoint normal functional.
+
+- **WS-14D, source and factorization:** COMPLETE. Reconstructed Definition 1.14.1 and Theorem
+  1.14.3 directly, audited Mathlib/original LeanOA/current Sak-AI, and selected
+  `Ultraweak.exists_positive_comp_mulLeft_of_isSelfAdjoint` as the existing analytic engine. The
+  source and overlap record is `reports/SAKAI_1_14_1_1_14_3_SOURCE.md`.
+- **WS-14E, norm orthogonality and support:** COMPLETE / GREEN.
+  `PositiveLinearMap.IsOrthogonal` is the exact norm relation at general nonunital $C^*$-algebra
+  level. `PositiveLinearMap.isOrthogonal_of_support_mul_eq_zero` is the direct $W^*$ consequence;
+  the converse and `PositiveLinearMap.isOrthogonal_iff_support_mul_eq_zero` are derived only after
+  uniqueness.
+- **WS-14F, construction and normality:** COMPLETE / GREEN. The existing positive factor is split
+  by private complementary projections and `IsStarProjection.Corner.ultraweakCutdownP`. Pullback
+  to ordinary positive maps and explicit `IsNormalOnProjections` proofs reuse the established
+  predual bridge.
+- **WS-14H, uniqueness:** COMPLETE / GREEN. Carrier values, component norm comparison,
+  `PositiveLinearMap.support_le_iff_apply_eq_apply_one`, and support cutdowns prove uniqueness
+  without assuming the later support-characterization converse.
+- **Lead integration and independent review:** COMPLETE / GREEN.
+  `Ultraweak.existsUnique_orthogonal_decomposition_of_isSelfAdjoint` is the exact source-facing
+  `∃!` theorem. No public choice-based positive/negative parts, decomposition structure, normal-
+  functional wrapper, or competing polar decomposition was introduced. The implementation report
+  is `reports/SAKAI_1_14_1_1_14_3_JORDAN_DECOMPOSITION.md`.
+- **Next bounded wave:** Sakai Theorem 1.14.4, the polar decomposition of an arbitrary normal
+  functional. Audit the exact partial-isometry, norm, and support clauses before extending the
+  existing functional factorization API.
+
+Collision rule: Theorem 1.14.4 work may reuse the self-adjoint-unitary factorization and Jordan
+decomposition, but must not relabel either as the general functional polar decomposition or create
+a second functional-support object.

@@ -159,9 +159,31 @@ with no normality or $W^*$-algebra assumption. The support construction remains 
 Mathlib has no compatible $W^*$-predual, intrinsic strong topology, or closed-left-ideal classifier.
 Its explicit normality proof, hidden chosen predual, and separation from element support are
 intentional portability decisions. No general `Faithful` predicate or corner structure is needed;
-the theorem-level consequences reuse `IsStarProjection.Corner`. The next Mathlib audit for 1.14.3
-should search norm orthogonality and Jordan decomposition of self-adjoint functionals before any
-new functional-decomposition abstraction is introduced.
+the theorem-level consequences reuse `IsStarProjection.Corner`. The requested 1.14.3 overlap audit
+is now complete below; it preceded every new functional-decomposition declaration.
+
+## Section 1.14.1 and 1.14.3 norm orthogonality and Jordan decomposition
+
+The completed audit in `reports/SAKAI_1_14_1_1_14_3_SOURCE.md` found no matching functional Jordan
+decomposition or positive-functional norm-orthogonality API in pinned Mathlib, audited current
+Mathlib, original LeanOA, or baseline Sak-AI. Mathlib's `MeasureTheory.JordanDecomposition` concerns
+signed measures, and existing `IsOrthogonal`, `Disjoint`, positive/negative-part, and CFC APIs refer
+to different principal objects. They cannot faithfully replace Sakai's Definition 1.14.1.
+
+`PositiveLinearMap.IsOrthogonal` is consequently new, but is stated at its natural general
+nonunital $C^*$-algebra boundary. The $W^*$-specific decomposition remains downstream in
+`Ultraweak.existsUnique_orthogonal_decomposition_of_isSelfAdjoint`. Its implementation reuses the
+existing `Ultraweak.exists_positive_comp_mulLeft_of_isSelfAdjoint`, functional support, corner
+cutdowns, and normality bridges rather than adding ordered-dual or normal-functional foundations.
+
+Mathlib does provide `IsStarProjection.two_mul_sub_one_mem_unitary`, the forward passage from a
+projection to a self-adjoint unitary. No reverse splitting theorem or matching functional
+centrality lemma was found. Both reverse steps remain private because the present wave has only one
+consumer; they become upstream candidates only if a second independent use appears. The public
+reusable additions are instead `PositiveLinearMap.support_le_iff_apply_eq_apply_one` and the
+support/norm-orthogonality implications. The next overlap audit should target the exact arbitrary-
+normal-functional polar decomposition of Sakai Theorem 1.14.4, not reinterpret the self-adjoint
+factorization used for Theorem 1.14.3.
 
 ## Radon--Stieltjes refinement audit
 

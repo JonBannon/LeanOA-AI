@@ -139,3 +139,18 @@ Sakai's orientation is fixed as a null left ideal `M (1 - s(φ))`, equivalently
 `x ∈ φ.nullIdeal ↔ x * s(φ) = 0`. The construction reuses the established ultraweakly closed
 left-ideal classifier and the canonical `IsStarProjection.Corner`; it introduces no second
 support hierarchy, normal-functional bundle, faithfulness predicate, or corner type.
+
+## Orthogonality and self-adjoint functional decomposition
+
+`PositiveLinearMap.IsOrthogonal` is Sakai's norm relation
+`‖φ - ψ‖ = ‖φ‖ + ‖ψ‖`, defined at nonunital $C^*$-algebra generality. For normal
+positive functionals on a $W^*$-algebra, zero product of the intrinsic support projections is a
+proved characterization, not a replacement definition.
+
+The self-adjoint normal-functional Jordan theorem keeps the established representation
+`f : σ(M, P) →L[ℂ] ℂ` and returns ordinary positive maps with explicit
+`IsNormalOnProjections` proofs. It reuses the existing self-adjoint-unitary positive
+factorization; complementary carriers and cutdowns remain private. The public surface is one
+`ExistsUnique` theorem plus support-characterization lemmas. Choice-based positive/negative-part
+definitions, a decomposition structure, and a second normal-functional or polar-decomposition API
+remain deliberately absent until a downstream consumer earns them.

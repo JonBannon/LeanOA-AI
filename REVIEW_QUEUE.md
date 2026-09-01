@@ -151,3 +151,24 @@ and publishes theorem-level greatest-zero, cutdown, full-support, and faithful-c
 The two Cauchy--Schwarz coefficient-zero lemmas and the ring-theoretic complement-of-idempotent
 ideal lemma are recorded as plausible upstream candidates; no new human design gate blocks
 Definition 1.14.1 or Theorem 1.14.3.
+
+## Accepted API review for Sakai 1.14.1 and 1.14.3
+
+The 2026-09-01 audit found no matching functional Jordan decomposition or positive-functional
+norm-orthogonality API in pinned Mathlib, audited current Mathlib, original LeanOA, or baseline
+Sak-AI. Mathlib's `Disjoint` and other `IsOrthogonal` uses do not express Sakai's norm relation.
+
+The accepted source definition is `PositiveLinearMap.IsOrthogonal`, at natural nonunital
+$C^*$-algebra generality. For normal positive functionals the structural theorem
+`PositiveLinearMap.isOrthogonal_iff_support_mul_eq_zero` is downstream of, rather than a
+replacement for, that definition. Its converse is proved after Jordan uniqueness, so the
+dependency is acyclic.
+
+The accepted source theorem is
+`Ultraweak.existsUnique_orthogonal_decomposition_of_isSelfAdjoint`. It reuses the existing
+self-adjoint-unitary positive factorization, returns ordinary positive maps with explicit
+`IsNormalOnProjections` proofs, and records the exact norm sum through `IsOrthogonal`. Independent
+review confirmed positivity, normality, sign, norm identity, support orientations, uniqueness,
+and the predual boundary. The review rejected public choice-based parts, a Jordan-decomposition
+structure, a normal-functional wrapper, exposed carrier projections, and a competing polar API.
+No human design gate blocks the source audit of Theorem 1.14.4.

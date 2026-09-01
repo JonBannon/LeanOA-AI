@@ -84,5 +84,12 @@ dependency order, the null ideal is first proved closed in the intrinsic strong 
 ultraweakly closed through the existing convex strong-to-ultraweak closure theorem; the existing
 closed-left-ideal classifier then supplies its unique projection generator. The faithfulness API
 is theorem-level and reuses `IsStarProjection.Corner`: no `Faithful` predicate, normal-functional
-bundle, null-support object, or competing corner structure is introduced. The next bounded
-frontier is the orthogonal Jordan decomposition of self-adjoint normal functionals in 1.14.3.
+bundle, null-support object, or competing corner structure is introduced.
+
+Definition 1.14.1 adds `PositiveLinearMap.IsOrthogonal` at general nonunital $C^*$-algebra
+generality, preserving Sakai's norm equality as the definition. Theorem 1.14.3 reuses the existing
+self-adjoint-unitary positive factorization and private complementary corner cutdowns to expose one
+`ExistsUnique` theorem for normal positive parts. Support-product zero is a downstream
+characterization, and no choice-based parts, decomposition structure, normal-functional wrapper,
+or second polar API is public. The next bounded frontier is Theorem 1.14.4, the polar decomposition
+of an arbitrary normal functional.

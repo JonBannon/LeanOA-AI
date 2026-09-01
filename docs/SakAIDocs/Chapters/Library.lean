@@ -9,6 +9,7 @@ import LeanOA.Ultraweak.KaplanskyDensity
 import LeanOA.Ultraweak.NormalOrder
 import LeanOA.Ultraweak.Opposite
 import LeanOA.Ultraweak.ElementPolarDecomposition
+import LeanOA.Ultraweak.FunctionalJordanDecomposition
 import LeanOA.Ultraweak.FunctionalSupport
 import LeanOA.Ultraweak.OrthogonalProjectionSum
 import LeanOA.Ultraweak.PredualUniqueness
@@ -38,6 +39,8 @@ to the reusable library layers in which they live.
 {index}[polar decomposition]
 {index}[support projection, of a functional]
 {index}[null left ideal]
+{index}[orthogonal positive functionals]
+{index}[Jordan decomposition, of a normal functional]
 
 # Duality and ultraweak topology
 
@@ -185,6 +188,29 @@ These reuse `IsStarProjection.Corner`; no competing corner or functional-
 faithfulness structure is introduced.  The corner theorems are derived
 consequences of Definition 1.14.2 rather than separate verbatim source
 statements.
+
+# Orthogonality and functional Jordan decomposition
+
+Sakai's norm-theoretic relation is
+{name}`PositiveLinearMap.IsOrthogonal`, defined at nonunital $`C^*`-algebra
+generality.  Its intrinsic $`W^*`-algebra characterization for normal
+positive functionals is
+{name}`PositiveLinearMap.isOrthogonal_iff_support_mul_eq_zero`.  The two
+directions are also available separately as
+{name}`PositiveLinearMap.isOrthogonal_of_support_mul_eq_zero` and
+{name}`PositiveLinearMap.support_mul_eq_zero_of_isOrthogonal`.
+
+The source-facing Sakai 1.14.3 endpoint is
+{name}`Ultraweak.existsUnique_orthogonal_decomposition_of_isSelfAdjoint`.
+It accepts the existing continuous-linear-functional representation on a
+specified ultraweak topology and returns a unique pair of ordinary positive
+linear maps, each carrying an explicit
+`PositiveLinearMap.IsNormalOnProjections` proof.  The difference is stated
+after pullback to the ordinary normed algebra, and `IsOrthogonal` records the
+exact additive norm identity.  Complementary carrier projections and the
+positive polar factor remain private implementation data.  No choice-based
+positive/negative-part definitions or second normal-functional structure are
+introduced.
 
 # Element polar decomposition
 

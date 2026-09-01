@@ -155,6 +155,81 @@ theorem isGreatest_setOf_apply_eq_zero (φ : M →ₚ[ℂ] ℂ)
   · intro q hq
     exact (φ.apply_eq_zero_iff_le_one_sub_support hφ q).1 hq
 
+/-- The support of a normal positive functional lies below a projection exactly when the
+functional takes the same value on that projection as on the identity. -/
+theorem support_le_iff_apply_eq_apply_one (φ : M →ₚ[ℂ] ℂ)
+    (hφ : φ.IsNormalOnProjections) (p : {p : M // IsStarProjection p}) :
+    φ.support hφ ≤ p ↔ φ p.1 = φ 1 := by
+  change (φ.support hφ).1 ≤ p.1 ↔ φ p.1 = φ 1
+  calc
+    (φ.support hφ).1 ≤ p.1 ↔
+        (1 - p.1 : M) ≤ 1 - (φ.support hφ).1 := by
+      rw [sub_le_sub_iff_left]
+    _ ↔ φ (1 - p.1) = 0 :=
+      (φ.apply_eq_zero_iff_le_one_sub_support hφ ⟨1 - p.1, p.2.one_sub⟩).symm
+    _ ↔ φ p.1 = φ 1 := by rw [map_sub, sub_eq_zero, eq_comm]
+
+/-- Normal positive functionals with orthogonal support projections are orthogonal in Sakai's
+norm-theoretic sense. -/
+theorem isOrthogonal_of_support_mul_eq_zero (φ ψ : M →ₚ[ℂ] ℂ)
+    (hφ : φ.IsNormalOnProjections) (hψ : ψ.IsNormalOnProjections)
+    (horth : (φ.support hφ).1 * (ψ.support hψ).1 = 0) :
+    φ.IsOrthogonal ψ := by
+  let p := (φ.support hφ).1
+  let q := (ψ.support hψ).1
+  have hp : IsStarProjection p := (φ.support hφ).2
+  have hq : IsStarProjection q := (ψ.support hψ).2
+  change p * q = 0 at horth
+  have hqp : q * p = 0 := by
+    simpa only [p, q, star_mul, hp.isSelfAdjoint.star_eq, hq.isSelfAdjoint.star_eq,
+      star_zero] using congrArg star horth
+  have hφq : φ q = 0 := by
+    rw [φ.apply_eq_zero_iff_le_one_sub_support hφ]
+    exact (hq.mul_eq_zero_iff_le_one_sub hp).mp hqp
+  have hψp : ψ p = 0 := by
+    rw [ψ.apply_eq_zero_iff_le_one_sub_support hψ]
+    exact (hp.mul_eq_zero_iff_le_one_sub hq).mp horth
+  have hφp : φ p = (‖φ.toContinuousLinearMap‖ : ℂ) := by
+    calc
+      φ p = φ 1 := by
+        simpa only [p] using
+          (φ.support_le_iff_apply_eq_apply_one hφ (φ.support hφ)).mp le_rfl
+      _ = (‖φ.toContinuousLinearMap‖ : ℂ) :=
+        (PositiveContinuousLinearMap.ofReal_opNorm_eq_map_one
+          φ.toPositiveContinuousLinearMap).symm
+  have hψq : ψ q = (‖ψ.toContinuousLinearMap‖ : ℂ) := by
+    calc
+      ψ q = ψ 1 := by
+        simpa only [q] using
+          (ψ.support_le_iff_apply_eq_apply_one hψ (ψ.support hψ)).mp le_rfl
+      _ = (‖ψ.toContinuousLinearMap‖ : ℂ) :=
+        (PositiveContinuousLinearMap.ofReal_opNorm_eq_map_one
+          ψ.toPositiveContinuousLinearMap).symm
+  have hpq_norm : ‖p - q‖ ≤ 1 := by
+    rw [sub_eq_add_neg,
+      CStarRing.norm_add_eq_max_of_mul_star_eq_zero_of_star_mul_eq_zero]
+    · exact max_le (IsStarProjection.norm_le p hp)
+        (by simpa using IsStarProjection.norm_le q hq)
+    · simp only [star_neg, hq.isSelfAdjoint.star_eq, mul_neg, horth, neg_zero]
+    · simp only [hp.isSelfAdjoint.star_eq, mul_neg, horth, neg_zero]
+  let f := φ.toContinuousLinearMap - ψ.toContinuousLinearMap
+  have hf_apply : f (p - q) =
+      ((‖φ.toContinuousLinearMap‖ + ‖ψ.toContinuousLinearMap‖ : ℝ) : ℂ) := by
+    change φ (p - q) - ψ (p - q) = _
+    rw [map_sub, map_sub, hφp, hφq, hψp, hψq]
+    simp
+  have hf_apply_norm : ‖f (p - q)‖ =
+      ‖φ.toContinuousLinearMap‖ + ‖ψ.toContinuousLinearMap‖ := by
+    rw [hf_apply, Complex.norm_real, Real.norm_eq_abs,
+      abs_of_nonneg (add_nonneg (norm_nonneg _) (norm_nonneg _))]
+  rw [IsOrthogonal]
+  apply le_antisymm (norm_sub_le _ _) ?_
+  rw [← hf_apply_norm]
+  calc
+    ‖f (p - q)‖ ≤ ‖f‖ * ‖p - q‖ := f.le_opNorm (p - q)
+    _ ≤ ‖f‖ * 1 := mul_le_mul_of_nonneg_left hpq_norm (norm_nonneg f)
+    _ = ‖φ.toContinuousLinearMap - ψ.toContinuousLinearMap‖ := by simp [f]
+
 /-- Right multiplication by the complement of the support is invisible to the functional. -/
 theorem apply_mul_one_sub_support (φ : M →ₚ[ℂ] ℂ)
     (hφ : φ.IsNormalOnProjections) (x : M) :
@@ -200,6 +275,28 @@ theorem apply_support_mul_support (φ : M →ₚ[ℂ] ℂ)
     (hφ : φ.IsNormalOnProjections) (x : M) :
     φ ((φ.support hφ).1 * x * (φ.support hφ).1) = φ x := by
   rw [φ.apply_mul_support hφ, φ.apply_support_mul hφ]
+
+/-- Cutting down by any projection above the support does not change a normal positive
+functional. -/
+theorem apply_cutdown_of_support_le (φ : M →ₚ[ℂ] ℂ)
+    (hφ : φ.IsNormalOnProjections) (p : {p : M // IsStarProjection p})
+    (hsp : φ.support hφ ≤ p) (x : M) :
+    φ (p.1 * x * p.1) = φ x := by
+  have hsp_right : (φ.support hφ).1 * p.1 = (φ.support hφ).1 :=
+    ((φ.support hφ).2.le_iff_mul_eq_left p.2).mp hsp
+  have hsp_left : p.1 * (φ.support hφ).1 = (φ.support hφ).1 :=
+    ((φ.support hφ).2.le_iff_mul_eq_right p.2).mp hsp
+  calc
+    φ (p.1 * x * p.1) =
+        φ ((φ.support hφ).1 * (p.1 * x * p.1) * (φ.support hφ).1) :=
+      (φ.apply_support_mul_support hφ (p.1 * x * p.1)).symm
+    _ = φ (((φ.support hφ).1 * p.1) * x *
+        (p.1 * (φ.support hφ).1)) := by
+      congr 1
+      noncomm_ring
+    _ = φ ((φ.support hφ).1 * x * (φ.support hφ).1) := by
+      rw [hsp_right, hsp_left]
+    _ = φ x := φ.apply_support_mul_support hφ x
 
 /-- Sakai's full-support definition of faithfulness is equivalent to the direct statement that
 the functional's GNS null space is trivial. -/

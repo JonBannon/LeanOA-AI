@@ -49,6 +49,12 @@ Last updated: 2026-09-01
   greatest-zero-projection, cutdown, full-support, and derived faithful-corner interfaces. No
   second element-support object, normal-functional bundle, faithfulness predicate, or corner was
   added.
+- Sakai Definition 1.14.1 and Theorem 1.14.3 are source-formalized. Norm orthogonality is the
+  general nonunital $C^*$-level relation `PositiveLinearMap.IsOrthogonal`; for normal positive
+  functionals it is equivalent to zero product of their intrinsic supports. The existing
+  self-adjoint-unitary positive factorization supplies the unique normal positive decomposition,
+  exact difference, and norm sum. No choice-based parts, decomposition structure, normal-
+  functional wrapper, or competing polar API was added.
 - The theorem package had no uncommitted changes at the start of the orchestration work.
 - Jireh Loreaux's LeanOA and Mathlib are read-only references. The original LeanOA checkout has
   not been modified.
@@ -104,14 +110,14 @@ an index type in an independent universe. The converse uses a same-algebra-unive
 the Zorn decomposition is subtype-indexed; after normality is recovered, the forward theorem gives
 the fully universe-polymorphic result.
 
-Sakai 1.14.2 is now source-formalized. For a normal positive functional `φ`, the null left ideal
-is `M (1 - s(φ))`, so `φ (star x * x) = 0 ↔ x * s(φ) = 0`; the complement is the greatest
-projection killed by `φ`. The one-sided cutdowns are simp-facing rewrites and the two-sided cutdown
-is a named consequence; full support is equivalent to a trivial quadratic kernel, and the
-restriction to the canonical support corner is faithful. The latter is recorded as a derived
-consequence rather than a separate verbatim assertion of Definition 1.14.2. The next bounded
-source target is Definition 1.14.1 together with Theorem 1.14.3: norm orthogonality of positive
-functionals and the unique orthogonal Jordan decomposition of a self-adjoint normal functional.
+Sakai Definitions 1.14.1--1.14.2 and Theorem 1.14.3 are now source-formalized. For a normal
+positive functional `φ`, the null left ideal is `M (1 - s(φ))`, so
+`φ (star x * x) = 0 ↔ x * s(φ) = 0`; the complement is the greatest projection killed by `φ`.
+Sakai's orthogonality relation is exactly `‖φ - ψ‖ = ‖φ‖ + ‖ψ‖`, and for normal positive
+functionals it is equivalent to `s(φ) * s(ψ) = 0`. Every self-adjoint normal functional has a
+unique orthogonal normal positive/negative decomposition with the exact additive norm identity.
+The next bounded source target is Theorem 1.14.4, the polar decomposition of an arbitrary normal
+functional; its partial-isometry and support clauses must be audited before implementation.
 
 The implemented public design is:
 
@@ -331,16 +337,26 @@ The completed implementation layers are:
     - full-support faithfulness and the explicitly derived faithful-support-corner theorems;
     - no duplicate element support, chosen-predual leak, normal-functional bundle, faithfulness
       predicate, or corner structure.
+19. Section 1.14.1/1.14.3 orthogonal-Jordan wave (begun at baseline
+    `ffb61d2e1abd8d5a66076762a43d0e2a90beafce`, completed on 2026-09-01):
+    - Sakai's exact norm orthogonality at general nonunital $C^*$-algebra level;
+    - the intrinsic support-product-zero characterization for normal positive functionals;
+    - private splitting of the existing self-adjoint-unitary positive factorization by
+      complementary projection cutdowns;
+    - explicit normality, the exact difference and norm sum, and carrier-based uniqueness;
+    - one source-facing `ExistsUnique` theorem, with no choice-based parts or second polar API;
+    - independent mathematical/API review and an acyclic proof of the support equivalence.
 
 The source audit has closed the 1.11.3 review question with LEVEL C rather than an accepted
 definition. Do not promote `atTop ⊓ comap divisionMesh (nhds 0)` as Sakai's meaning. Canonical
 Lemma 1.11.1 is now source-formalized. Section 1.12 contains the single element
 polar-decomposition theorem 1.12.1 and is complete through an independent
 CFC/support/ultraweak-compactness chain followed by algebraic uniqueness. Section 1.13 is now
-complete through the production projection-chain and complete-additivity modules. The next bounded
-transaction is Definition 1.14.1 plus Theorem 1.14.3, the orthogonal Jordan decomposition of a
-self-adjoint normal functional. Revisit a public PVM/integral interface only when coherent
-mathematics or new primary evidence fixes it.
+complete through the production projection-chain and complete-additivity modules. Definitions
+1.14.1--1.14.2 and Theorem 1.14.3 are complete. The next bounded transaction is a direct source and
+overlap audit of Theorem 1.14.4, the polar decomposition of an arbitrary normal functional, before
+extending the existing self-adjoint factorization. Revisit a public PVM/integral interface only
+when coherent mathematics or new primary evidence fixes it.
 
 Before each substantial proof, search the current Sak-AI tree, pinned Mathlib, current Mathlib
 master/review history, and current LeanOA for an equivalent or more general declaration.
@@ -348,9 +364,10 @@ master/review history, and current LeanOA for an equivalent or more general decl
 ## Documentation continuation
 
 The Verso package preserves all 87 active nodes and 141 statement-dependency edges in the generated
-legacy graph and extends them to 117 nodes and 209 edges through the exact strong-topology,
-fixed-projection, spectral-approximation, element-polar-decomposition, completed Section 1.13, and
-normal-positive-functional-support edges. The exact manifest count and audit state are recorded in
+legacy graph and extends them to 120 nodes and 217 edges through the exact strong-topology,
+fixed-projection, spectral-approximation, element-polar-decomposition, completed Section 1.13,
+normal-positive-functional-support, norm-orthogonality, and functional-Jordan edges. The exact
+manifest count and audit state are recorded in
 `VERSO_STATUS.md`. The legacy
 sources remain recoverable from Git history. New mathematical documentation must be authored in
 Verso first.

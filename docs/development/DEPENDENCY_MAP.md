@@ -81,7 +81,19 @@ PositiveLinearMap.support [intrinsic W*-algebra API; chosen predual hidden]
   ↓
 annihilation, greatest-zero, cutdown, and theorem-level faithfulness interfaces
   ↓
-orthogonal Jordan decomposition of self-adjoint normal functionals [1.14.3 frontier]
+support_le_iff_apply_eq_apply_one + support-zero implies norm orthogonality [GREEN]
+
+PositiveLinearMap.IsOrthogonal [general nonunital API] [GREEN]
+  + existing self-adjoint-unitary positive factorization [GREEN]
+  + ultraweak corner cutdowns and explicit projection normality [GREEN]
+  ↓
+private complementary-carrier construction and exact norm identity
+  ↓
+Ultraweak.existsUnique_orthogonal_decomposition_of_isSelfAdjoint [GREEN]
+  ↓
+support_mul_eq_zero_of_isOrthogonal + isOrthogonal_iff_support_mul_eq_zero [GREEN]
+  ↓
+arbitrary-normal-functional polar decomposition [Sakai 1.14.4 frontier]
 ```
 
 ## Current junction nodes
@@ -232,8 +244,17 @@ Cauchy--Schwarz coefficient-vanishing orientations
 only at topological closedness. The implementation mirrors Sakai by deriving ultraweak closedness
 from strong closedness, then reuses the established one-sided ideal classifier. Functional support
 is not identified with element support, and support-corner faithfulness reuses the existing
-`IsStarProjection.Corner` rather than adding a predicate or structure. This branch feeds the
-orthogonality and uniqueness work for 1.14.3.
+`IsStarProjection.Corner` rather than adding a predicate or structure.
+
+Definition 1.14.1 adds the independent source relation `PositiveLinearMap.IsOrthogonal` at
+nonunital $C^*$-algebra generality. Theorem 1.14.3 then combines the existing
+`Ultraweak.exists_positive_comp_mulLeft_of_isSelfAdjoint` factorization, complementary ultraweak
+corner cutdowns, and the functional-support carrier API. The exact public endpoint is
+`Ultraweak.existsUnique_orthogonal_decomposition_of_isSelfAdjoint`. Support-product zero is proved
+equivalent only afterward, through `PositiveLinearMap.support_mul_eq_zero_of_isOrthogonal` and
+`PositiveLinearMap.isOrthogonal_iff_support_mul_eq_zero`, so the dependency is noncircular. See
+`reports/SAKAI_1_14_1_1_14_3_JORDAN_DECOMPOSITION.md`. The next source dependency is the genuinely
+general polar decomposition of an arbitrary normal functional in Theorem 1.14.4.
 
 ## Cartography fields for a major concept
 

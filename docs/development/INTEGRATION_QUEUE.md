@@ -113,8 +113,8 @@ in their workstream.
   cutoff/selection route, and both implications are kernel-checked. The public surface is
   theorem-only: `HasSum` expresses the arbitrary finite-subsum limit and no new normality or
   complete-additivity predicate is needed.
-- **Next bounded action:** none for Section 1.13. The scoped next source target is functional
-  support in Sakai 1.14.2; see `reports/SAKAI_SECTION_1_14_SCOPE.md`.
+- **Outcome:** the next source target, functional support in Sakai 1.14.2, was completed under
+  IQ-007; see `reports/SAKAI_SECTION_1_14_SCOPE.md`.
 
 ## IQ-007 — Sakai 1.14.2 normal-positive-functional support
 
@@ -136,6 +136,30 @@ in their workstream.
 - **Rejected alternatives:** no supremum-based second support, normal-positive-functional bundle,
   `Faithful` predicate, `Fact`-hidden normality, public null-support projection, or new corner
   structure. Use theorem-level faithfulness and `IsStarProjection.Corner`.
-- **Next bounded action:** scope Sakai 1.14.3 around positive-functional norm orthogonality and the
-  unique orthogonal Jordan decomposition of a self-adjoint normal functional, reusing this support
-  API and the existing functional polar-factorization results.
+- **Outcome:** the Section 1.14.3 wave consumed this support API without redefining it; see IQ-008
+  and `reports/SAKAI_1_14_1_1_14_3_JORDAN_DECOMPOSITION.md`.
+
+## IQ-008 — Sakai 1.14.1 and 1.14.3 norm orthogonality and Jordan decomposition
+
+- **Status:** RESOLVED / GREEN
+- **Affected streams:** positive functionals, functional support, ultraweak factorization, corners,
+  future functional polar decomposition
+- **Question:** How should Sakai's norm orthogonality and the unique positive/negative
+  decomposition of a self-adjoint normal functional be exposed without creating a second polar
+  decomposition or premature choice-based parts?
+- **Decision:** define `PositiveLinearMap.IsOrthogonal` by Sakai's norm formula at general
+  nonunital $C^*$-algebra level. Reuse
+  `Ultraweak.exists_positive_comp_mulLeft_of_isSelfAdjoint`, split its self-adjoint unitary
+  privately into complementary projections, and use existing ultraweak corner cutdowns. Package
+  the source theorem only as
+  `Ultraweak.existsUnique_orthogonal_decomposition_of_isSelfAdjoint`.
+- **Support boundary:** `PositiveLinearMap.isOrthogonal_of_support_mul_eq_zero` supplies the direct
+  implication. The converse and
+  `PositiveLinearMap.isOrthogonal_iff_support_mul_eq_zero` are derived after uniqueness, so support
+  orthogonality characterizes but does not define the source relation.
+- **Rejected alternatives:** no new normal-functional wrapper, Jordan-decomposition structure,
+  public `positivePart`/`negativePart`, competing polar decomposition, or exposed carrier
+  projection.
+- **Next bounded action:** source-audit Sakai Theorem 1.14.4, the polar decomposition of an
+  arbitrary normal functional. Distinguish it from the self-adjoint-unitary factorization already
+  used here and reuse the completed support and Jordan APIs.

@@ -1,8 +1,8 @@
 # Shared API status
 
-Status reflects integration review through the Sakai 1.14.2 functional-support wave (2026-09-01).
-That wave began at `05c69abaa5a8608700a75d25b4da05d04d63a588`. This is not a promise of
-permanent immutability.
+Status reflects integration review through Sakai Definition 1.14.1 and Theorem 1.14.3 (2026-09-01).
+The Section 1.14 sequence began at `05c69abaa5a8608700a75d25b4da05d04d63a588`. This is not a
+promise of permanent immutability.
 
 ## GREEN — stable downstream surfaces
 
@@ -16,6 +16,7 @@ permanent immutability.
 | Arbitrary orthogonal projection sums | `Ultraweak.OrthogonalProjectionSum` | `Finset` partial sums, the existing projection `iSup`, ambient LUB, and ultraweak/strong convergence form a theorem-only arbitrary-index API with no new projection family or infinite-sum object. |
 | Projection-chain decomposition and complete additivity | `Ultraweak.ProjectionChain`, `Ultraweak.CompleteAdditivity` | Every nonempty projection chain with a LUB admits an arbitrary orthogonal family whose finite sums are dominated by chain members and whose supremum is the chain LUB. Positive-functional normality is equivalent to arbitrary-family complete additivity, expressed by `HasSum`; there is no bundled predicate, countability hypothesis, or second normality notion. |
 | Normal-positive-functional support | `CStarAlgebra.PositiveLinearFunctional`, `Mathlib.RingTheory.Idempotents`, `Ultraweak.FunctionalSupport` | The reusable null left ideal is defined at unital $C^*$-algebra generality. Explicit projection normality gives source-order strong then ultraweak closedness; the existing ideal classifier supplies an intrinsic functional support with the chosen predual hidden. Annihilation, greatest-zero, cutdown, full-support, and existing-corner interfaces introduce no second element support, `Faithful` predicate, or corner structure. |
+| Norm orthogonality and self-adjoint normal-functional Jordan decomposition | `CStarAlgebra.PositiveLinearFunctional`, `Ultraweak.FunctionalSupport`, `Ultraweak.FunctionalJordanDecomposition` | `PositiveLinearMap.IsOrthogonal` is Sakai's norm definition at general nonunital $C^*$-algebra level. `Ultraweak.existsUnique_orthogonal_decomposition_of_isSelfAdjoint` gives the exact unique normal positive pair on a $W^*$-algebra. Support-product zero is a proved characterization, not a competing definition; the proof reuses the existing self-adjoint-unitary factorization and publishes no choice-based parts or new decomposition structure. |
 | Ideals and central support | `Annihilator`, `Ideal`, `TwoSidedIdeal`, `CentralSupport`, `Opposite` | Completed, documented native-object API. The alternative upstream representation remains a separate review question. |
 | Lower spectral projections | `CStarAlgebra.Spectral`, `Ultraweak.SpectralProjection`, `Ultraweak.SpectralProjectionStrong` | Half-line semantics and naming are intentionally fixed. Sakai 1.11.1 is source-formalized in `s(M,M_*)` without an extra monotonicity hypothesis; current finite sums depend on the same projection object. |
 | Finite spectral sums, bands, and convergence | `Ultraweak.SpectralSum`, `Ultraweak.SpectralApproximation`, `Ultraweak.SpectralBand`, `Ultraweak.TaggedSpectralSum`, `Ultraweak.TruncatedSpectralSum` | Checked theorem-level frontier, including arbitrary tagged sums, sharp truncated-affine mesh estimates with an unaligned cutoff, and explicit norm-to-ultraweak convergence to the existing CFC target. These modules deliberately commit to no spectral-measure representation. |
@@ -27,7 +28,7 @@ permanent immutability.
 | Area | Owner | Reason / consumers | Stabilization criterion |
 | --- | --- | --- | --- |
 | Mirrored Mathlib extension layer | architecture + Mathlib reconnaissance | Some declarations may move upstream or be replaced by newer Mathlib APIs. | Per-module overlap audit and a migration plan for any upstream replacement. |
-| Broader positive-functional / representation assembly | architecture | The functional-support slice is stable, but Sak-AI still has no separate broad representation layer beyond Mathlib GNS and focused local APIs. | A later Sakai consumer demonstrates another missing interface and design review chooses its home. |
+| Broader positive-functional / representation assembly | architecture | The functional-support and orthogonal-Jordan slices are stable, but Sak-AI still has no separate broad representation layer beyond Mathlib GNS and focused local APIs. | A later Sakai consumer demonstrates another missing interface and design review chooses its home. |
 | Legacy mathematical typography in Verso | Verso stream | Existing source consistently uses older plain-text forms; new prose follows the recorded convention. | One systematic documentation-only migration, not scattered edits. |
 
 ## RED — architecture owner only

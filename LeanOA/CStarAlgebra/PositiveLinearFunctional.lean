@@ -14,6 +14,24 @@ import LeanOA.CFC
 open scoped ComplexOrder
 
 namespace PositiveLinearMap
+
+section Orthogonality
+
+variable {A : Type*} [NonUnitalCStarAlgebra A] [PartialOrder A] [StarOrderedRing A]
+
+/-- Two positive functionals are orthogonal when the norm of their difference is the sum of
+their norms. This is Sakai's norm-theoretic definition of orthogonality. -/
+def IsOrthogonal (φ ψ : A →ₚ[ℂ] ℂ) : Prop :=
+  ‖φ.toContinuousLinearMap - ψ.toContinuousLinearMap‖ =
+    ‖φ.toContinuousLinearMap‖ + ‖ψ.toContinuousLinearMap‖
+
+/-- Orthogonality of positive functionals is symmetric. -/
+theorem isOrthogonal_comm (φ ψ : A →ₚ[ℂ] ℂ) :
+    φ.IsOrthogonal ψ ↔ ψ.IsOrthogonal φ := by
+  rw [IsOrthogonal, IsOrthogonal, norm_sub_rev, add_comm]
+
+end Orthogonality
+
 section CauchySchwarz
 
 open scoped ComplexOrder InnerProductSpace

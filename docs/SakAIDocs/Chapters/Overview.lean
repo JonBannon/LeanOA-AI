@@ -19,7 +19,9 @@ Sak-AI has two complementary reading paths.
   the complete-additivity characterization in Definition 1.13.4.  This
   completes Section 1.13.  The support, greatest-zero-projection, cutdown,
   and faithfulness theory of a normal positive functional in Definition
-  1.14.2 is complete as well.
+  1.14.2 is complete as well, together with the norm orthogonality of
+  Definition 1.14.1 and the unique functional Jordan decomposition of
+  Theorem 1.14.3.
 * The *library path* follows reusable Lean concepts: weak topologies and
   preduals, ultraweak continuity, closed ideals, projection lattices, and
   support constructions.  Names and assumptions are chosen for Mathlib
@@ -104,6 +106,12 @@ The connected frontier targets completed so far are:
     one- or two-sided support cutdown, and its restriction to the support
     corner is faithful.  The corner statement is a derived consequence,
     rather than a separate assertion printed in Definition 1.14.2.
+17. normal positive functionals are orthogonal in Sakai's exact norm-theoretic
+    sense precisely when their supports have zero product, and every
+    self-adjoint normal functional has a unique expression
+    $`f=f_+-f_-` by orthogonal normal positive functionals, with
+    $`\lVert f\rVert=\lVert f_+\rVert+\lVert f_-\rVert`.  This completes
+    Definitions 1.14.1--1.14.2 and Theorem 1.14.3.
 
 The source audit found an important correction and a genuine ambiguity.
 Sakai prints the strong $`s(M,M_*)` topology, not the ultraweak
@@ -123,15 +131,12 @@ ultraweak compactness of the closed unit ball; it does not depend on the
 unresolved integral semantics.  Section 1.13 is also complete: Definitions
 1.13.1, 1.13.4, and 1.13.5, Theorem 1.13.2, and Corollary 1.13.3 are all
 represented with their arbitrary directed-set or arbitrary-family
-quantifiers.  Definition 1.14.2 is now complete through the source
-construction of the null left ideal, greatest-zero-projection
-characterization, and cutdown
-identities, together with the derived faithful-support-corner theorem.  The
-current bounded checkpoint is Definition 1.14.1 and Theorem 1.14.3: define
-orthogonality of positive functionals by norm additivity and prove the unique
-orthogonal positive/negative decomposition of a self-adjoint normal
-functional.  The general functional polar decomposition of Theorem 1.14.4
-comes afterward.
+quantifiers.  Definitions 1.14.1--1.14.2 and Theorem 1.14.3 are now
+complete: the functional-support theory feeds the support characterization
+of Sakai's norm orthogonality and the unique orthogonal positive/negative
+decomposition of a self-adjoint normal functional.  The current bounded
+checkpoint is Theorem 1.14.4, the general polar decomposition of an
+arbitrary normal functional.
 
 # Migration parity
 
@@ -143,9 +148,10 @@ a Lean declaration, it is recorded as future work rather than counted as a
 completed theorem.
 
 The lower-spectral-projection, element-polar-decomposition, source-normality,
-arbitrary orthogonal-sum, complete-additivity, and normal-positive-functional-
-support nodes are new work after that migration baseline; they extend rather
-than replace the 87 historical nodes.
+arbitrary orthogonal-sum, complete-additivity, normal-positive-functional-
+support, norm-orthogonality, and functional-Jordan-decomposition nodes are
+new work after that migration baseline; they extend rather than replace the
+87 historical nodes.
 
 The dependency graph below therefore represents the whole completed Sak-AI
 development through canonical truncated-affine recovery, the general
@@ -153,7 +159,8 @@ fixed-projection ultraweak decomposition used in Sakai 1.11.3, and the
 element polar decomposition of Sakai 1.12.1, the exact normality theorem of
 Sakai 1.13.2, arbitrary orthogonal projection sums, and the complete-additivity
 characterization closing Sakai 1.13, and the functional-support theory of
-Sakai 1.14.2, together with $`C^*`-algebra foundations, operator topologies,
+Sakai 1.14.2 and orthogonal Jordan decomposition of Sakai 1.14.3, together
+with $`C^*`-algebra foundations, operator topologies,
 positive separation, Stonean spectra and real rank zero, normality and
 predual uniqueness, Kaplansky density, projection lattices, and element
 support, central support, and lower-spectral-projection theory.
