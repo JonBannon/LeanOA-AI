@@ -50,7 +50,10 @@ right-action convention, norm, initial support, uniqueness, and final support of
 dependency, not the general theorem. Section 1.14 is complete, and the public current frontier
 now points past the source-formalized Proposition 1.15.1 to Proposition 1.15.2. The next public
 addition should follow a direct source/API audit of its bounded-sphere and induced-predual
-interfaces.
+interfaces. That audit is now complete: “bounded spheres” means norm-closed balls, and the exact
+statement is topology-level and net-general. The next public theorem node should not appear until
+the weak-family and strong-family halves both kernel-check; implementation begins with the generic
+quotient-predual subspace-topology bridge and the weak-family closed-ball theorem.
 
 The first Section 1.15 transaction completes the direct source and API audit but does not complete
 Proposition 1.15.1. Do not create a theorem node or declaration link for it. The public current

@@ -107,7 +107,11 @@ because Sakai names the unique positive factor $|g|$ and the final-projection cl
 $s(|g^*|)$; no choice-based polar element or decomposition structure is introduced.
 
 Section 1.14 and Proposition 1.15.1 are complete. Proposition 1.15.2 is the next exact numbered
-source frontier; its first bounded transaction is a direct source and existing-API audit.
+source frontier. Its direct source/API audit is complete: Sakai's “bounded spheres” are
+zero-centered norm-closed balls, and the claim is equality of restricted topologies for arbitrary
+nets. The next bounded transaction first exposes the existing quotient predual as the ambient
+ultraweak subspace topology at general closed-submodule generality, then proves the weak-family
+closed-ball equivalence. The positive-square strong-family argument remains a separate transaction.
 
 The first Section 1.15 transaction fixes the topology boundary without filling it by notation.
 Mathlib's `ContinuousLinearMapWOT` is the concrete weak operator topology, and
@@ -147,3 +151,11 @@ closure by applying relative Kaplansky density on the unit ball and then normali
 elements. `NonUnitalStarSubalgebra.operatorTopologyClosedness_tfae` therefore source-formalizes
 Proposition 1.15.1 without asserting either later topology equality. IQ-010 is resolved, and the
 public frontier advances to Proposition 1.15.2.
+
+For Proposition 1.15.2, the induced predual is not a new foundational object. It is the existing
+quotient `P / Ultraweak.preannihilator N` supplied by `Ultraweak.closedSubmodulePredual`. The
+missing general seam is its pairing-evaluation lemma and a canonical continuous equivalence
+between `sigma(N, P / N_perp)` and the ambient ultraweak subtype. Source-specific WOT and
+coefficient-series comparisons must sit downstream of this general bridge. Do not use the
+choice-based `WStarAlgebra.predual N` as the primary construction, because it hides the restriction
+map needed by the proof.

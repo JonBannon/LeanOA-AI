@@ -363,10 +363,11 @@ only the one-way comparison maps available at this point in Sakai and does
 not claim the later equality of the operator topologies.
 
 The current exact numbered frontier is Proposition 1.15.2, which compares the
-weak-family and strong-family topologies on bounded spheres of a weakly closed
-self-adjoint subalgebra.  Its precise source statement, its use of the induced
-predual $`N_*`, and the existing subtype/restriction APIs must be audited before
-formalization begins.
+weak-family and strong-family topologies on norm-closed balls of a weakly
+closed self-adjoint subalgebra.  Its direct source and API audit is complete:
+$`N_*` is the existing quotient predual by the preannihilator.  The next
+transaction proves the general relative-ultraweak subtype bridge and the
+weak-family closed-ball half before the strong-family positive-square half.
 
 Sakai Proposition 1.15.1: SOURCE-FORMALIZED
 Sakai Proposition 1.15.2: NOT SOURCE-FORMALIZED

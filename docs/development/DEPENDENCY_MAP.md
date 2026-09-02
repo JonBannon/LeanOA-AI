@@ -150,7 +150,13 @@ ultraweak closed → WOT closure equals source [unit-ball normalization; GREEN]
   ↓
 Sakai Proposition 1.15.1 [SOURCE-FORMALIZED; GREEN]
   ↓
-Sakai Proposition 1.15.2 [frontier; source/API audit next]
+Sakai Proposition 1.15.2 [frontier; source/API audit complete]
+  ↑
+closed-submodule quotient-predual topology bridge [next]
+  ↓
+weak-family equivalence on norm-closed balls [next production half]
+  ↓
+positive-square strong-family equivalence [subsequent production half]
 ```
 
 ## Current junction nodes

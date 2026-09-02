@@ -257,6 +257,10 @@ in their workstream.
   replacement predual, and keep the intrinsic and concrete topology families explicitly distinct.
   The source theorem uses exactly the source hypotheses and one-way maps, with no later topology
   equality imported.
-- **Next bounded action:** audit Proposition 1.15.2 directly, especially the induced predual of a
-  weakly closed self-adjoint subalgebra and the subtype/restriction topology APIs. The public
-  frontier is Proposition 1.15.2.
+- **Proposition 1.15.2 audit:** COMPLETE. “Bounded spheres” means zero-centered norm-closed balls;
+  the source requires equality of the restricted topologies for arbitrary nets. The induced
+  predual is the existing quotient by `Ultraweak.preannihilator`, not a new predual notion.
+- **Next bounded action:** prove the general closed-submodule quotient-predual evaluation and
+  relative-ultraweak equivalence, then use compact-to-Hausdorff to formalize the weak-family
+  closed-ball half of Proposition 1.15.2. Defer the strong-family positive-square argument to the
+  following transaction. The public frontier remains Proposition 1.15.2.

@@ -156,11 +156,13 @@ closure transport, and relative Kaplansky density in the WOT closure.  It
 does not assume the converse series representation or either topology
 equality later stated in Corollary 1.15.6.
 
-The current exact numbered frontier is Proposition 1.15.2: bounded-sphere
+The current exact numbered frontier is Proposition 1.15.2: closed-norm-ball
 equivalence of the weak-family and strong-family topologies on a weakly closed
-self-adjoint subalgebra.  The next bounded transaction is a direct source and
-API audit of that result, especially the induced predual $`N_*` and the
-subtype topology interfaces.
+self-adjoint subalgebra.  The direct source and API audit is complete.  The
+next bounded transaction identifies the existing quotient predual topology
+with the ambient ultraweak subspace topology and proves the weak-family
+closed-ball equivalence; the positive-square strong-family argument follows
+separately.
 
 Sakai Proposition 1.15.1: SOURCE-FORMALIZED
 Sakai Proposition 1.15.2: NOT SOURCE-FORMALIZED

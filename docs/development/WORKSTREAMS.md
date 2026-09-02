@@ -728,3 +728,26 @@ Collision rule: retain the five concrete/intrinsic predicates as distinct object
 later representation results justify topology equality. The next bounded transaction is a direct
 source and API audit of Proposition 1.15.2, especially its induced-predual and bounded-sphere
 interfaces.
+
+### Section 1.15.2 source and API audit transaction
+
+This audit starts from `76b84e9` and fixes the exact target before topology implementation.
+
+- **WS-15T, direct source semantics:** COMPLETE. Proposition 1.15.2 compares WOT,
+  coefficient-series $`\sigma`-WOT, and $`\sigma(N,N_*)`, then SOT, concrete ultrastrong, and
+  $`s(N,N_*)`, on norm-closed balls of a WOT-closed possibly nonunital self-adjoint subalgebra.
+  Sakai's “bounded spheres” means closed balls, and the net-based topology theorem must not be
+  weakened to sequences.
+- **WS-15U, induced-predual audit:** COMPLETE. `Ultraweak.closedSubmodulePredual` already realizes
+  $`N_*` as the ambient predual modulo the preannihilator. The missing reusable seam is the
+  quotient evaluation formula and the continuous equivalence with the ambient ultraweak subtype;
+  it belongs at general closed-submodule and `RCLike` generality.
+- **WS-15V, implementation split:** FIXED. The next transaction proves that general seam and the
+  weak-family closed-ball equivalence by compact-to-Hausdorff. A subsequent transaction proves the
+  strong family through filter-general positive-square convergence. Trace-class representation
+  and global topology equality remain later source results.
+- **Source status:** Proposition 1.15.2 is **SOURCE-AUDITED; NOT SOURCE-FORMALIZED**.
+
+Collision rule: do not introduce another predual class or topology synonym, do not use the
+choice-based W-star predual as a substitute for the explicit quotient restriction map, and do not
+advertise bounded-ball equivalence as global equality.

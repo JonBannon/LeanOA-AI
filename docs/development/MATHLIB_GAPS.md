@@ -271,8 +271,12 @@ the finite coefficient core specializes it to Mathlib's WOT closure without a ne
 predual. Restriction from the coefficient-series test space to the finite core supplies the
 remaining WOT comparison, while relative unit-ball density plus scalar normalization proves the
 reverse closedness implication. Sakai Proposition 1.15.1 is therefore **source-formalized** even
-though the later global topology equalities remain unavailable. The next source gap is the
-bounded-sphere and induced-predual interface required by Proposition 1.15.2.
+though the later global topology equalities remain unavailable. The Proposition 1.15.2 audit
+shows that the next gap is not construction of another predual: Sak-AI already has the canonical
+quotient predual of an ultraweakly closed submodule. What is missing is the general theorem that
+its weak-star topology is the ambient ultraweak subspace topology, followed by the concrete
+weak-family closed-ball comparison and the strong-family positive-square bridge. These interfaces
+are absent from pinned and audited current Mathlib and from original LeanOA.
 
 ### Finite vector-functional layer and completion reconnaissance
 
