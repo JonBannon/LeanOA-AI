@@ -354,3 +354,36 @@ authority for public mathematical completion claims.
   1.15.2, validate the full node, and then audit Theorem 1.15.3 directly from the source.
 - **Decision:** `CONTINUE` — the next transaction is bounded, source-determined integration and
   requires no escalation.
+
+## 2026-09-02 — AUT-009 — exact Sakai Proposition 1.15.2 package
+
+- **Starting HEAD:** `4d1dd1643229386f78192b578c27427ad3c1997b`.
+- **Ending HEAD:** `9f9cd9220ae489929dc408628c399403bff37d47`.
+- **Target:** package the separately proved weak-family and strong-family bounded-ball clauses in
+  Sakai's exact printed order as one source-facing Proposition 1.15.2 interface.
+- **Source:** Sakai, Proposition 1.15.2, Section 1.15, printed page 35 / PDF page 47.
+- **Result:** `NonUnitalStarSubalgebra.OperatorTopologyClosedBallAgreement` records the two
+  source-ordered chains through their four adjacent identity homeomorphisms, and
+  `NonUnitalStarSubalgebra.IsWOTClosed.operatorTopologyClosedBallAgreement` constructs the exact
+  package from the already proved clause APIs. It adds no topology carrier, duplicate predual, or
+  redundant diagonal homeomorphism and does not promote restricted closed-ball agreement to a
+  global topology equality. The full proposition now has a source-facing Verso node.
+- **Classification:** `SOURCE_RESULT`. Sakai Proposition 1.15.2 is **SOURCE-FORMALIZED**.
+- **Generality and reuse:** the package retains Sakai's WOT-closed, possibly nonunital concrete
+  operator-algebra boundary, while its component homeomorphisms keep their more general
+  ultraweak-closed and generic carrier APIs. Allowing arbitrary real radii is a harmless
+  strengthening because negative-radius balls are empty. A direct SOT/ultrastrong comparison on
+  arbitrary operator-norm-bounded sets remains a deferred portability improvement, not a source
+  blocker.
+- **Validation:** focused kernel and documentation checks; full 3,204-job theorem build;
+  `lake lint`; `mk_all --check`; clean 3,566-job Verso elaboration and canonical site build/check;
+  proof-debt, conflict, stale-status, unbounded-option, axiom, and diff scans all passed. The
+  generated site has 131 nodes, 242 statement edges, 391 unique linked Lean declarations, and 635
+  manifest/cache entries with zero graph errors. The source package depends only on `propext`,
+  `Classical.choice`, and `Quot.sound`; only known pinned Verso/SubVerso warnings remain.
+- **Blockers discovered:** none.
+- **Next target:** directly source-audit Theorem 1.15.3 and its intervening Hilbert--Schmidt and
+  trace-class prerequisites, then re-audit Mathlib and Sak-AI before selecting any new
+  infinite-dimensional operator-ideal representation.
+- **Decision:** `CONTINUE` — the next transaction is source mapping, not an architectural choice,
+  and requires no escalation.
