@@ -500,9 +500,10 @@ spectral-approximation, element-polar-decomposition, completed Section 1.13,
 normal-positive-functional-support, norm-orthogonality, functional-Jordan, and general
 functional-polar edges, followed by the Section 1.15 concrete-predual, closedness, induced-
 predual, bounded weak/strong-family, and exact Proposition 1.15.2 package edges. The exact
-current graph has 131 nodes and 242 statement-dependency edges; its manifest has 635 entries and
-391 unique linked Lean declarations. The full audit state is recorded in
-`VERSO_STATUS.md`. The legacy
+current graph has 132 nodes and 242 statement-dependency edges; its manifest has 642 entries and
+396 unique linked Lean declarations. The full audit state is recorded in
+`VERSO_STATUS.md`, and the latest repository synchronization audit is recorded in
+`docs/development/reports/SAKAI_GITHUB_CHECKPOINT.md`. The legacy
 sources remain recoverable from Git history. New mathematical documentation must be authored in
 Verso first.
 
