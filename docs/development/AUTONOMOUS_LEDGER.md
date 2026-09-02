@@ -307,3 +307,50 @@ authority for public mathematical completion claims.
 - **Next target:** source-formalize Proposition 1.15.2(2), comparing intrinsic strong, concrete
   ultrastrong, and SOT on norm-closed balls, then package the exact two-clause proposition.
 - **Decision:** `CONTINUE` — the source route is fixed and no escalation is required.
+
+## 2026-09-02 — AUT-008 — Sakai Proposition 1.15.2 strong-family closed balls
+
+- **Starting HEAD:** `b43f35a5333bf69b02dd598957f23094b001af41`.
+- **Ending HEAD:** `88fbf9d92af62461ea8d6a90897785ac96adad49`.
+- **Target:** source-formalize the strong-family clause of Proposition 1.15.2 on every
+  zero-centered norm-closed ball by the shortest source-faithful positive-square route.
+- **Source:** Sakai, Proposition 1.15.2(2), Section 1.15, printed page 35 / PDF page 47.
+- **Result:** for an ultraweakly closed concrete self-adjoint operator algebra `N`—equivalently
+  WOT closed in this setting—proved canonical closed-ball homeomorphisms among intrinsic
+  `s(N,N_*)`, coefficient-series ultrastrong convergence, and Mathlib SOT, together with all three
+  arbitrary-filter convergence comparisons. The proof sends each difference to its positive
+  square, places those squares in the radius-`(2*r)^2` ball, and reuses the weak-family theorem.
+  It uses neither trace-class representation nor a sequence-only reduction and does not claim
+  global topology equality.
+- **Classification:** `SOURCE_RESULT` for clause (2). Clauses (1) and (2) are each
+  **SOURCE-FORMALIZED**; Proposition 1.15.2 as a single exact source-order declaration remains
+  **NOT SOURCE-FORMALIZED**.
+- **Generality and reuse:** `NonUnitalStarSubalgebra.InducedStrong` is defined for any
+  ultraweakly closed self-adjoint subalgebra of a dual C-star-algebra. The SOT and square-summable
+  closed-ball carriers are generic over normed spaces and nontrivially normed scalar fields. The
+  SOT positive-square theorem is filter-general for maps between Hilbert spaces, the intrinsic
+  strong and concrete ultrastrong square criteria are independently reusable, and the common
+  C-star norm bound lives at nonunital C-star-ring generality. A direct SOT/ultrastrong theorem on
+  arbitrary operator-norm-bounded sets remains a recorded portability improvement, not a source
+  blocker.
+- **Important declarations:**
+  `CStarRing.norm_star_sub_mul_self_le_add_sq`,
+  `ContinuousLinearMapWOT.tendsto_pointwise_iff_tendsto_wot_adjoint_comp_self`,
+  `PointwiseConvergenceCLM.tendsto_iff_wot_star_mul_self`,
+  `Ultraweak.Strong.tendsto_iff_tendsto_star_sub_mul_self_of_eventually_norm_le`,
+  `BoundedOperatorUltrastrong.tendsto_iff_vectorFunctionalSeriesWeak_positiveSquare`,
+  `NonUnitalStarSubalgebra.IsUltraweakClosed.inducedStrongSOTClosedBallHomeomorph`,
+  `NonUnitalStarSubalgebra.IsUltraweakClosed.usotSOTClosedBallHomeomorph`, and
+  `NonUnitalStarSubalgebra.IsUltraweakClosed.inducedStrongUSOTClosedBallHomeomorph`.
+- **Validation:** focused kernel checks; full 3,203-job theorem build; `lake lint`;
+  `mk_all --check`; clean 3,565-job Verso elaboration and canonical site build/check; proof-debt,
+  conflict, stale-status, unbounded-option, axiom, and diff scans all passed. The generated site has
+  130 nodes, 240 statement edges, 390 unique linked Lean declarations, and 632 manifest/cache
+  entries with zero graph errors. The principal declarations depend only on `propext`,
+  `Classical.choice`, and `Quot.sound`; only known pinned Verso/SubVerso warnings remain.
+- **Blockers discovered:** none. The full proposition now lacks only exact source-order packaging
+  and its corresponding full-proposition Verso node.
+- **Next target:** package the weak and strong bounded-family clauses as exact Sakai Proposition
+  1.15.2, validate the full node, and then audit Theorem 1.15.3 directly from the source.
+- **Decision:** `CONTINUE` — the next transaction is bounded, source-determined integration and
+  requires no escalation.
