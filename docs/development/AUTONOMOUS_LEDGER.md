@@ -136,3 +136,42 @@ authority for public mathematical completion claims.
   families and the comparison with intrinsic `s(B(H),P)` needed for Proposition 1.15.1.
 - **Decision:** `CONTINUE` — the remaining interface is source-determined and requires no
   escalation.
+
+## 2026-09-02 — AUT-004 — concrete ultrastrong topology bridge
+
+- **Starting HEAD:** `b0655c9af8e3b2ceb7c663655f504dfdb17a568f`.
+- **Ending HEAD:** `18e12990fca545ac7fdae1054f1c4d7dfa7f8bda`.
+- **Target:** represent Sakai's strongest operator topology by its
+  square-summable-vector seminorms and prove exactly the one-sided comparisons needed for
+  Proposition 1.15.1.
+- **Source:** Sakai, Section 1.15, printed page 35. This is topology infrastructure used in the
+  proof of Proposition 1.15.1, not yet the complete source proposition.
+- **Result:** constructed `SquareSummableConvergenceCLM` from the seminorms
+  `T ↦ ‖(T (ξ n))ₙ‖_{ℓ²}`; proved their exact square-root-of-tsum formula; proved the continuous
+  identity from concrete ultrastrong convergence to Mathlib pointwise/SOT; constructed the
+  positive diagonal coefficient-series functional on the concrete predual; identified its GNS
+  seminorm exactly with the concrete square-summable seminorm; and proved the continuous identity
+  from intrinsic `s(B(H),P_H)` to concrete ultrastrong convergence. No converse identity or
+  equality of topologies was claimed; those belong to the later positive-functional
+  representation theorem and Corollary 1.15.6.
+- **Classification:** `INFRASTRUCTURE`.
+- **Important declarations:**
+  `ContinuousLinearMap.applyLpₗ`,
+  `ContinuousLinearMap.squareSummableSeminorm_apply_eq_sqrt_tsum`,
+  `SquareSummableConvergenceCLM.toPointwiseConvergenceCLM`,
+  `ContinuousLinearMap.vectorFunctionalDiagonalSeriesUltraweakP`,
+  `BoundedOperatorUltrastrong.gnsSeminorm_vectorFunctionalDiagonalSeriesUltraweakP`, and
+  `BoundedOperatorUltrastrong.toSquareSummableL`.
+- **Imminent theorem enabled:** the strongest-operator closedness clauses in Sakai Proposition
+  1.15.1 now fit into the source-safe implication chain
+  `s(B(H),P_H) → USOT → SOT` without assuming the later topology equality.
+- **Validation:** full 3,198-job theorem build, lint, two clean documentation site builds,
+  generated-artifact checks, principal axiom audit, conflict and proof-debt scans, and
+  `git diff --check` passed. Verso reports 126 nodes, 229 statement edges, and 608 manifest/cache
+  entries; its only warnings are replayed from pinned Verso/SubVerso dependencies.
+- **Blockers discovered:** none. The local `lp.mapCLM` now overlaps a declaration available in
+  current Mathlib, but pinned-dependency compatibility makes migration a separate cleanup rather
+  than a source-formalization blocker.
+- **Next target:** the final five-way global closedness theorem for Proposition 1.15.1.
+- **Decision:** `CONTINUE` — every source-required one-way bridge is now present, so the final
+  assembly is the shortest honest next transaction.
