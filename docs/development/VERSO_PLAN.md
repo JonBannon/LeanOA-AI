@@ -83,12 +83,21 @@ density result into the five-way global closedness theorem. The frontier now ret
 ultrastrong/intrinsic-strong bridge among the immediate Proposition 1.15.1 implementation edges;
 the converse coefficient-series representation remains deferred to the later source results.
 
+The sixth transaction is a stable concrete-ultrastrong infrastructure node, still not Proposition
+1.15.1. It records the square-summable convergence carrier, its continuous identity to
+pointwise/SOT, the positive diagonal coefficient-series functional, the exact GNS-seminorm
+identity, and the continuous identity from intrinsic strong to concrete ultrastrong convergence.
+The prose must explicitly deny the converse and topology equality. The frontier now retains only
+the final five-way global closedness assembly; later representation/equality results remain
+deferred to their source order.
+
 If the general topology bridges are mentioned later in the library/API path, distinguish them
 precisely: Mathlib's `ContinuousLinearMapWOT` is concrete WOT;
 `PointwiseConvergenceCLM` is pointwise/SOT; Sak-AI's `σ(M,P)`, `s(M,P)`, and Mackey topology are
 intrinsic specified-predual constructions. `PointwiseConvergenceCLM.toWOT`, its WOT-closed-to-SOT-
-closed corollary, and `Strong.isClosed_iff_image_toUltraweakEquiv` introduce no new topology and do
-not identify $\sigma$-WOT or ultrastrong topology with the intrinsic types. Likewise,
+closed corollary, and `Strong.isClosed_iff_image_toUltraweakEquiv` do not identify $\sigma$-WOT or
+ultrastrong topology with the intrinsic types. The dedicated square-summable carrier is related
+only by the proved chain intrinsic strong → concrete ultrastrong → pointwise/SOT. Likewise,
 `WeakBilin.restrictRightL` and its coefficient-series specialization prove only the continuous
 identity in the displayed direction. No Verso mathematical
 status should be inferred from these connective API declarations alone.

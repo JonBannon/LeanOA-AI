@@ -370,7 +370,10 @@ theorem.  The ambient-relative Kaplansky bridge is now complete: the finite
 coefficient test-weak closure is exactly Mathlib's WOT closure, and the unit
 ball of a self-adjoint subalgebra is Mackey dense in the unit ball of that
 closure.  This supplies the relative-density step in Sakai's reverse
-closedness argument.  The concrete ultrastrong comparison is the next
-bounded implementation step.
+closedness argument.  The concrete ultrastrong bridge is now also complete:
+its square-summable seminorms are represented by positive diagonal
+coefficient-series functionals, yielding only the source-required continuous
+chain from intrinsic strong to ultrastrong to pointwise/SOT.  The final
+five-way global closedness assembly is the next bounded implementation step.
 
 Sakai Proposition 1.15.1: NOT SOURCE-FORMALIZED

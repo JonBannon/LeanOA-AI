@@ -31,7 +31,7 @@ Lean side by continuous linear endomorphisms, schematically
 |---|---|---|---|
 | Weak operator topology (WOT) | Seminorms \(a\mapsto |(a\xi,\eta)|\) | Mathlib `ContinuousLinearMapWOT`; the local bridge uses `E →WOT[𝕜] F` | Exact for continuous linear maps once the scalar/dual pairing is instantiated |
 | Strong operator topology (SOT) | Seminorms \(a\mapsto\lVert a\xi\rVert\) | Mathlib `PointwiseConvergenceCLM`; the local notation is `E →Lₚₜ[𝕜] F` | Exact pointwise-convergence model for the source SOT |
-| “Strongest operator topology” | Seminorms \(a\mapsto(\sum_i\lVert a\xi_i\rVert^2)^{1/2}\) for square-summable \((\xi_i)\) | Current Sak-AI `Ultraweak.Strong`, written `s(M,P)` | Not yet an exact concrete match: `s(M,P)` is an intrinsic compatible-dual strong topology, and no theorem currently identifies it with Sakai's square-summable-vector topology on `B(H)` |
+| “Strongest operator topology” | Seminorms \(a\mapsto(\sum_i\lVert a\xi_i\rVert^2)^{1/2}\) for square-summable \((\xi_i)\) | Sak-AI `SquareSummableConvergenceCLM`, written `E →USOT[𝕜] F` | Exact concrete carrier. The source-required identity from intrinsic `s(B(H),P_H)` to this topology is continuous; the converse/equality remains deferred to Corollary 1.15.6 |
 | \(\sigma\)-weak operator topology | Seminorms \(a\mapsto|\sum_i(a\xi_i,\eta_i)|\) for two square-summable vector sequences | `WeakBilin` for the pairing against `ContinuousLinearMap.vectorFunctionalSeriesSpan` | The concrete source test topology is represented without a new synonym, and the full predual topology maps continuously to it. The converse/equality remains the later representation theorem |
 | \(\sigma(B(H),B(H)_*)\) | Weak topology induced by the predual | Sak-AI intrinsic `σ(M,P)`, instantiated with `ContinuousLinearMap.VectorFunctionalPredual` | The short carrier is canonically isometric to `vectorFunctionalClosure`; the concrete completion model and predual equivalence are proved, while identification with Sakai's later trace-class realization is not yet claimed |
 
@@ -46,7 +46,8 @@ part of the later result.
 Likewise, Sakai's named **strongest operator topology** is the modern
 ultrastrong operator topology, not the Mackey topology. Current
 `Ultraweak.Strong` is an appropriate abstract endpoint only after a concrete
-identification theorem. Current `SakaiMackey` models the relevant Mackey
+comparison theorem. Sak-AI now proves the required one-way comparison, but not
+the later topology equality. Current `SakaiMackey` models the relevant Mackey
 construction and must not be substituted definitionally for the named
 strongest operator topology.
 
@@ -63,7 +64,8 @@ transport closure of convex sets when the two topologies have been proved to
 have the same continuous dual. This is a useful proof engine, but it does not
 itself construct the coefficient-completion predual of `B(H)` or identify the
 operator topologies in Sakai's statement. The former has now been supplied by
-the local bridge described below; the latter comparisons remain open.
+the local bridge described below; the source-required one-sided ultrastrong
+comparisons are also local, while the final closedness equivalence remains open.
 
 | Finding | Classification | Decision |
 |---|---|---|
@@ -71,6 +73,7 @@ the local bridge described below; the latter comparisons remain open.
 | `PointwiseConvergenceCLM` | `PINNED VERSION ALREADY HAS IT` | Reuse it as pointwise/SOT |
 | Compatible-dual convex closure transport | `PINNED VERSION ALREADY HAS IT` | Reuse through the established Sak-AI intrinsic bridge |
 | Continuous identity from pointwise/SOT to WOT | `LOCAL BRIDGE NEEDED` | Added without a new topology type |
+| Square-summable-vector ultrastrong carrier and one-sided comparisons | `LOCAL BRIDGE ADDED` | Reuse `SquareSummableConvergenceCLM` and the proved chain intrinsic strong → ultrastrong → pointwise/SOT; do not infer the converse |
 | Concrete coefficient-completion predual and relative closure theorem | `LOCAL BRIDGE ADDED` | Reuse the completed predual, explicit-target relative theorem, and Mathlib-WOT instantiation |
 | Current-Mathlib API renamings not changing the available mathematics | `NOT RELEVANT` | Do not update the dependency for naming alone |
 | Upstream replacement for the local pointwise-to-WOT bridge | `FUTURE MATHLIB MIGRATION CANDIDATE` | None found now; remove the local declaration if one appears upstream |
@@ -102,7 +105,9 @@ predual is now connected to the intrinsic construction by a local `Predual`
 instance, but this is not by itself a formalization of the source proposition:
 the required one-sided concrete coefficient-series comparison is proved, while
 the relative Mathlib-WOT closure argument is also proved. The concrete
-strongest-operator topology remains unconnected.
+strongest-operator topology is now represented by square-summable application
+seminorms and connected by the source-required one-way maps to intrinsic
+strong and pointwise/SOT convergence.
 
 ## Present public APIs and their exact force
 
@@ -170,6 +175,39 @@ The four APIs
 
 therefore provide genuine reusable implications or transports, but they do
 **not** prove Proposition 1.15.1.
+
+### Concrete ultrastrong comparison
+
+`SquareSummableConvergenceCLM` is generated by the seminorms
+
+```text
+T ↦ ‖(T (ξ n))ₙ‖_{ℓ²},   ξ ∈ ℓ²(ℕ,H).
+```
+
+The continuous identity
+
+```lean
+SquareSummableConvergenceCLM.toPointwiseConvergenceCLM
+```
+
+proves that this topology is finer than Mathlib pointwise/SOT. For the
+concrete vector-functional predual, the positive diagonal coefficient series
+has GNS seminorm exactly equal to the displayed concrete seminorm. Hence
+
+```lean
+BoundedOperatorUltrastrong.toSquareSummableL
+```
+
+is the continuous identity from `s(B(H),P_H)` to concrete ultrastrong
+convergence. This establishes only
+
+```text
+intrinsic strong → concrete ultrastrong → pointwise/SOT.
+```
+
+The reverse identity and topology equality are not used here and remain
+deferred to Sakai's later positive-functional representation theorem and
+Corollary 1.15.6.
 
 ## Source proof topology
 
@@ -242,10 +280,12 @@ showing that it suffices for global closedness of the subalgebra.
    converse/equality belongs to the trace-class/predual analysis later in
    §1.15 and must not be assumed early.
 
-4. **Concrete strongest-operator bridge.** The topology generated by
-   `(Σ ‖a ξ_i‖²)^(1/2)` must be defined and related to intrinsic
-   `s(B(H),B(H)_*)`. Again, global equality is Corollary 1.15.6, later than the
-   proposition currently targeted.
+4. **Concrete strongest-operator bridge — RESOLVED in the source-required
+   direction.** `SquareSummableConvergenceCLM` is generated by
+   `(Σ ‖a ξ_i‖²)^(1/2)`. Singleton families give its continuous identity to
+   SOT, and positive diagonal coefficient series give the continuous identity
+   from intrinsic `s(B(H),B(H)_*)`. Global equality remains correctly deferred
+   to Corollary 1.15.6.
 
 5. **Relative Kaplansky closure — RESOLVED.**
    `kaplansky_density_of_testWeakClosure_eq` accepts the closure target
@@ -296,12 +336,12 @@ prematurely proving all of the later trace-class theory.
    `isClosed_pointwise_of_isClosed_wot` for the easy implication and the
    Kaplansky closure result for the reverse implication.
 
-6. **Complete for concrete σ-WOT in the required direction.** Its source test
+6. **Complete for both remaining one-sided comparisons.** Concrete σ-WOT's source test
    family is represented by the existing weak-bilinear machinery without a
-   topology synonym. Represent the strongest-operator topology with existing
-   induced/seminorm machinery if possible and prove only the comparison needed
-   for Proposition 1.15.1. Do not claim global equality with `σ(B(H),P)` or
-   `s(B(H),P)` until the later Corollary 1.15.6 infrastructure is proved.
+   topology synonym. The strongest-operator topology uses the dedicated
+   square-summable seminorm carrier and only the comparison needed for
+   Proposition 1.15.1. No global equality with `σ(B(H),P)` or `s(B(H),P)` is
+   claimed before the later Corollary 1.15.6 infrastructure.
 
 7. Package the final theorem as equivalence of five global closedness
    predicates for a self-adjoint subalgebra, preserving the source's lack of an
@@ -310,7 +350,7 @@ prematurely proving all of the later trace-class theory.
 
 This route uses the current Sak-AI semantic core and avoids duplicating WOT,
 SOT, compatible-dual closure, or Kaplansky machinery. The coefficient/predual
-instantiation and the source-required one-sided coefficient-series comparison
-are now complete, as is the ambient-relative WOT-closure density argument. The
-irreducible remaining work is the concrete ultrastrong predicate and its
-required comparison, followed by the final source-faithful closedness assembly.
+instantiation, the source-required one-sided coefficient-series and
+ultrastrong comparisons, and the ambient-relative WOT-closure density argument
+are now complete. The irreducible remaining work is the final source-faithful
+closedness assembly.

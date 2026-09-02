@@ -419,6 +419,12 @@ For bounded operators, `LeanOA.Ultraweak.BoundedOperatorWOTClosure` identifies
 the finite-coefficient test-weak closure with Mathlib WOT, and
 `LeanOA.Ultraweak.BoundedOperatorRelativeKaplansky` exposes the concrete
 rewrite theorem {name}`Ultraweak.kaplansky_density_wotClosure`.
+`LeanOA.Mathlib.Analysis.LocallyConvex.SquareSummableConvergenceCLM` supplies
+the generic square-summable convergence carrier and its continuous identity
+to pointwise convergence.  `LeanOA.Ultraweak.BoundedOperatorUltrastrong`
+identifies each of its defining $`B(H)` seminorms with the GNS seminorm of a
+positive diagonal coefficient-series functional and exposes the continuous
+identity from intrinsic strong convergence.
 
 # Portability rule
 

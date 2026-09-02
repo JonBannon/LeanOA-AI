@@ -362,6 +362,40 @@ at this stage: the reverse identity, equality of the two topologies, and a
 single-series representation of every predual element are not asserted.
 :::
 
+:::theorem "thm:bounded_operator_ultrastrong_bridge" (parent := "operator-topologies") (lean := "ContinuousLinearMap.squareSummableSeminorm_apply_eq_sqrt_tsum, SquareSummableConvergenceCLM.toPointwiseConvergenceCLM, SquareSummableConvergenceCLM.isClosed_squareSummable_of_isClosed_pointwise, ContinuousLinearMap.vectorFunctionalDiagonalSeriesUltraweakP, BoundedOperatorUltrastrong.gnsSeminorm_vectorFunctionalDiagonalSeriesUltraweakP, BoundedOperatorUltrastrong.toSquareSummableL, BoundedOperatorUltrastrong.isClosed_strong_of_isClosed_squareSummable") (uses := "thm:vector_functional_series_predual_bridge")
+For normed spaces $`E,F`, continuous linear maps carry the topology generated
+by
+$`
+  T\longmapsto
+  \left(\sum_n\lVert T\xi_n\rVert^2\right)^{1/2}
+`
+over square-summable families $`(\xi_n)`.  This topology maps continuously to
+pointwise convergence.  On $`B(\mathcal H)`, it is Sakai's strongest, or
+ultrastrong, operator topology.  Relative to the concrete vector-functional
+predual, the intrinsic strong topology maps continuously to it:
+$`
+  s(B(\mathcal H),P_{\mathcal H})
+    \longrightarrow \operatorname{USOT}(B(\mathcal H))
+    \longrightarrow \operatorname{SOT}(B(\mathcal H)).
+`
+:::
+
+:::proof "thm:bounded_operator_ultrastrong_bridge"
+Coordinatewise application sends an $`\ell^2` family to an $`\ell^2` family;
+pulling back the $`\ell^2` norm gives the displayed seminorm.  Families
+supported at one coordinate prove the continuous identity from ultrastrong
+to pointwise convergence.  For $`\xi\in\ell^2(\mathbb N,\mathcal H)`, the
+diagonal coefficient series
+$`
+  T\longmapsto\sum_n\langle\xi_n,T\xi_n\rangle
+`
+is a positive ultraweakly continuous functional, and its GNS seminorm is
+exactly the concrete square-summable seminorm.  Thus every defining
+ultrastrong seminorm is already an intrinsic strong seminorm.  No converse
+map or equality of topologies is asserted; that requires Sakai's later
+representation theorem for positive normal functionals.
+:::
+
 :::theorem "thm:wot_relative_kaplansky" (parent := "operator-topologies") (lean := "Ultraweak.testWeakClosure_vectorFunctionalPredualSpan_eq_wotClosure, Ultraweak.ultraweak_closure_unitBall_eq_wotClosure_unitBall, Ultraweak.kaplansky_density_wotClosure") (uses := "thm:vector_functionals_wot, thm:vector_functional_closure_predual, thm:kaplansky_density_Sak_1_9_1")
 Let $`H` be a complex Hilbert space, let $`A` be a possibly nonunital
 self-adjoint subalgebra of $`B(H)`, and write

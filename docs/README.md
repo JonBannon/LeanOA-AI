@@ -59,7 +59,7 @@ formalization program is complete.
 All 87 active legacy LeanBlueprint nodes and 141 statement-dependency edges moved to Verso. The
 development through Sakai 1.14.4 and the finite vector-functional WOT, norm-closed-predual, and
 square-summable coefficient-series and ambient-relative WOT-closure bridges extends the current
-graph to 125 nodes and 228
+graph, together with the concrete ultrastrong/intrinsic-strong comparison, to 126 nodes and 229
 statement-dependency edges.
 Declaration links cover the
 Section 1.10,
@@ -67,5 +67,5 @@ spectral-approximation, fixed-projection, strong lower-spectral-projection, elem
 decomposition, source-normality, arbitrary orthogonal-projection-sum, projection-chain,
 complete-additivity, normal-positive-functional-support, norm-orthogonality, functional-Jordan,
 general functional-polar, vector-functional WOT, norm-closed-predual, and coefficient-series
-test-space, and ambient-relative Kaplansky-density APIs. The legacy sources
+test-space, ambient-relative Kaplansky-density, and concrete-ultrastrong APIs. The legacy sources
 remain available in Git history.

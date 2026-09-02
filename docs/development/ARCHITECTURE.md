@@ -141,10 +141,13 @@ carrier canonically isometric to it so the established `Predual` class remains u
 project-wide synthesis depth. The source series-test space is the span of exactly the countable
 separately square-summable series and receives a continuous identity from the full predual
 topology; no converse is claimed. The ultrastrong comparison map and relative Kaplansky closure
-machinery were kept as separate transactions. The relative layer is now complete: a transported
+machinery were kept as separate transactions. Both layers are now complete in exactly the
+source-required directions: a transported
 `testWeakClosure` stays on the original carrier, the generic theorem accepts an explicit target
 star subalgebra equal to that closure, and the finite coefficient core identifies the target with
 Mathlib's WOT closure on $B(H)$. Its unit ball is the ultraweak and Mackey closure of the source
-unit ball. The concrete ultrastrong comparison remains missing; current Mathlib also has no
-complete double-commutant bridge. IQ-010 owns this OPEN / RED boundary. No Verso node claims the source
+unit ball. The dedicated square-summable carrier maps continuously to pointwise/SOT, and positive
+diagonal coefficient series give the continuous identity from intrinsic strong to that carrier.
+The converse topology equality remains deferred; current Mathlib also has no complete
+double-commutant bridge. IQ-010 owns the remaining OPEN / RED final assembly. No Verso node claims the source
 proposition, and the public frontier remains Proposition 1.15.1.

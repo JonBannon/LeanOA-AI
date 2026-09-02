@@ -41,6 +41,7 @@ public import LeanOA.Mathlib.Analysis.LocallyConvex.Bipolar
 public import LeanOA.Mathlib.Analysis.LocallyConvex.Bounded
 public import LeanOA.Mathlib.Analysis.LocallyConvex.IsCompatibleDual
 public import LeanOA.Mathlib.Analysis.LocallyConvex.Polar
+public import LeanOA.Mathlib.Analysis.LocallyConvex.SquareSummableConvergenceCLM
 public import LeanOA.Mathlib.Analysis.LocallyConvex.WeakBilin
 public import LeanOA.Mathlib.Analysis.LocallyConvex.WeakOperatorTopology
 public import LeanOA.Mathlib.Analysis.LocallyConvex.WithSeminorms
@@ -74,6 +75,7 @@ public import LeanOA.Ultraweak.BoundedOperator
 public import LeanOA.Ultraweak.BoundedOperatorCoefficientSeries
 public import LeanOA.Ultraweak.BoundedOperatorInvariantTestSpace
 public import LeanOA.Ultraweak.BoundedOperatorRelativeKaplansky
+public import LeanOA.Ultraweak.BoundedOperatorUltrastrong
 public import LeanOA.Ultraweak.BoundedOperatorWOTClosure
 public import LeanOA.Ultraweak.CentralSupport
 public import LeanOA.Ultraweak.CompleteAdditivity

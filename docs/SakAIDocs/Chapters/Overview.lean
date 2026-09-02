@@ -164,8 +164,11 @@ the converse representation theorem is intentionally deferred.  The
 ambient-relative Kaplansky bridge is now proved against an explicit
 test-weak-closure target and instantiated with Mathlib's WOT closure on
 $`B(\mathcal H)`.  In particular, the source unit ball is Mackey dense in
-the unit ball of its WOT closure.  The concrete ultrastrong comparison remains
-the next source-critical bridge.
+the unit ball of its WOT closure.  The concrete ultrastrong bridge is now
+proved in the exact one-way form needed here: intrinsic strong maps
+continuously to square-summable-vector ultrastrong convergence, which maps
+continuously to pointwise/SOT.  The final five-way global closedness assembly
+is the next source-critical transaction.
 
 Sakai Proposition 1.15.1: NOT SOURCE-FORMALIZED
 

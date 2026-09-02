@@ -136,10 +136,10 @@ Strong.isClosed_iff_image_toUltraweakEquiv [real-convex intrinsic bridge; GREEN]
   + [GREEN] full-predual topology → series-test topology
   ↓
 [DEFERRED to Cor. 1.15.5--1.15.6] converse series representation / topology equality
-  + [RED] concrete ultrastrong ↔ intrinsic s comparison
+  + [GREEN] intrinsic s → concrete ultrastrong → pointwise/SOT
   + [GREEN] relative Kaplansky density in Mathlib's WOT closure
   ↓
-Sakai Proposition 1.15.1 [NOT SOURCE-FORMALIZED; relative-density Verso node complete]
+Sakai Proposition 1.15.1 [NOT SOURCE-FORMALIZED; final five-way assembly next]
 ```
 
 ## Current junction nodes
@@ -344,13 +344,18 @@ test-weak closure with Mathlib WOT, and instantiates the result for bounded oper
 Mathlib commit
 `476ab284693e554a6b48c5f5210cb4fb5ae51252` supplies the concrete WOT and pointwise/SOT synonyms;
 the mirrored local modules contribute the continuous SOT-to-WOT identity, the coefficient API,
-and the exact weak-pairing/WOT identification. Original LeanOA commit
+and the exact weak-pairing/WOT identification. The sixth transaction adds the general
+square-summable convergence carrier, proves its continuous identity to pointwise/SOT, and realizes
+each defining $`B(H)` seminorm as the GNS seminorm of a positive diagonal coefficient series. This
+gives only the source-required identity from intrinsic strong to concrete ultrastrong. Original
+LeanOA commit
 `cb811c1006ae78a0ff1d175253200e1859843370` contributes no concrete operator-topology bridge.
 Current Mathlib still supplies neither this concrete $B(H)$
-predual/double-commutant bridge nor the missing source comparisons; the predual bridge is local
-Sak-AI infrastructure. The intrinsic `σ`, `s`, and
+predual/double-commutant bridge nor an ultrastrong carrier; these are local Sak-AI infrastructure.
+The intrinsic `σ`, `s`, and
 Mackey APIs therefore remain distinct from concrete WOT, SOT, $\sigma$-WOT, and ultrastrong
-topologies until named compatibility theorems are proved.
+carriers and are related only by the named compatibility theorems actually proved; no global
+topology identification is implicit.
 
 ## Cartography fields for a major concept
 
