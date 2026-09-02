@@ -387,3 +387,42 @@ authority for public mathematical completion claims.
   infinite-dimensional operator-ideal representation.
 - **Decision:** `CONTINUE` — the next transaction is source mapping, not an architectural choice,
   and requires no escalation.
+
+## 2026-09-02 — AUT-010 — Sakai Theorem 1.15.3 source and API audit
+
+- **Starting HEAD:** `d3ec966f341b6db9ff03b1090c1854f8aad208c7`.
+- **Ending HEAD:** `ec4b9dd6182125e2ab04ca02ab0e0528d5a0752b`.
+- **Target:** reconstruct Theorem 1.15.3 and its preceding operator-ideal development directly
+  from Sakai, then identify the shortest honest route through current Mathlib and Sak-AI.
+- **Source:** Sakai, Theorem 1.15.3, printed page 39 / PDF page 51; Hilbert--Schmidt, positive
+  trace, and trace-class prerequisites on printed pages 35--38 / PDF pages 47--50.
+- **Result:** fixed the exact arbitrary-complex-Hilbert-space theorem: the independently defined
+  trace-class Banach space is linearly and isometrically identified with the existing concrete
+  vector-functional predual by `a ↦ (x ↦ Tr(xa))`, and positivity is preserved and reflected. The
+  source imposes no separability hypothesis and uses the printed multiplication order `Tr(xa)`.
+  The prerequisite chain and translation conventions are recorded in
+  `reports/SAKAI_1_15_3_SOURCE_AND_API.md`. The theorem is **NOT SOURCE-FORMALIZED**.
+- **Classification:** `SOURCE_MAP`; the statement is **SOURCE-CHECKED** and its prerequisites are
+  **SOURCE-MAPPED**.
+- **Overlap/API audit:** neither pinned Mathlib, audited current Mathlib, original LeanOA, nor
+  Sak-AI supplies an infinite-dimensional Hilbert--Schmidt, positive-trace, trace-class/Schatten,
+  or nuclear-operator carrier. Mathlib's general `LinearMap.trace` falls back to zero outside its
+  finite-basis setting and cannot be reused. The future theorem must target the existing
+  `ContinuousLinearMap.VectorFunctionalPredual` and reuse its coefficient-series, multiplier,
+  positivity, and polar-decomposition APIs rather than create a second predual.
+- **Architecture:** a Hilbert--Schmidt-first implementation and a source-faithful predual-range
+  proof are both viable permanent designs; choosing between them is deferred. The compact
+  spectral-sum route is suitable as a later characterization, not the primary carrier. No choice
+  is needed for the next representation-neutral prerequisite.
+- **Validation:** full 3,204-job theorem build; `lake lint`; `mk_all --check`; clean 3,566-job
+  Verso elaboration and canonical site build/check; proof-debt, conflict, and diff scans passed.
+  The unchanged generated graph has 131 nodes, 242 statement edges, 391 unique linked Lean
+  declarations, and 635 manifest/cache entries with zero graph errors. Only known pinned
+  Verso/SubVerso warnings remain.
+- **Blockers discovered:** no blocker to the next transaction. Selecting the permanent public
+  positive-trace/trace-class semantic core will later require an architectural decision.
+- **Next target:** prove the arbitrary-index `RCLike` ENNReal Hilbert-basis operator-energy
+  equality, adjoint invariance, and basis independence without introducing an operator-ideal
+  carrier.
+- **Decision:** `CONTINUE` — the next infrastructure seam is source-relevant, reversible,
+  carrier-neutral, and already cleanly scratch-proved.
