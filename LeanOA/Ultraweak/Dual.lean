@@ -298,4 +298,88 @@ noncomputable def closedSubmodulePredual (N : Submodule 𝕜 M)
     Predual 𝕜 N (P ⧸ preannihilator (P := P) N) :=
   ⟨closedSubmoduleEquivDual N hN⟩
 
+section ClosedSubmoduleTopology
+
+variable (N : Submodule 𝕜 M)
+  (hN : IsClosed (ofSubmodule (P := P) N : Set (σ(M, P)_𝕜)))
+
+/-- Evaluation of the quotient predual induced on a closed submodule agrees with evaluation in
+the ambient dual pairing on representatives. -/
+@[simp]
+lemma closedSubmoduleEquivDual_apply_mk (x : N) (p : P) :
+    closedSubmoduleEquivDual (P := P) N hN x
+        (Submodule.Quotient.mk p : P ⧸ preannihilator (P := P) N) =
+      Predual.equivDual (𝕜 := 𝕜) (M := M) (P := P) x.1 p := by
+  simpa [closedSubmoduleEquivDual, closedSubmoduleEquivAnnihilator,
+    submoduleToAnnihilatorₗᵢ] using
+      (Submodule.dualQuotientEquivAnnihilator_apply_apply
+        (preannihilator (P := P) N)
+        ((preannihilator (P := P) N).dualQuotientEquivAnnihilator.symm
+          (closedSubmoduleEquivAnnihilator (P := P) N hN x)) p).symm
+
+/-- The quotient predual gives an ultraweakly closed submodule exactly the topology induced from
+the ambient ultraweak space. -/
+noncomputable def closedSubmoduleUltraweakEquiv :
+    @Ultraweak 𝕜 N (P ⧸ preannihilator (P := P) N) _ _ _ _ _
+        (closedSubmodulePredual (P := P) N hN) ≃L[𝕜]
+      ofSubmodule (P := P) N := by
+  letI : Predual 𝕜 N (P ⧸ preannihilator (P := P) N) :=
+    ⟨closedSubmoduleEquivDual (P := P) N hN⟩
+  have hequiv :
+      Predual.equivDual (𝕜 := 𝕜) (M := N)
+          (P := P ⧸ preannihilator (P := P) N) =
+        closedSubmoduleEquivDual (P := P) N hN := rfl
+  exact
+    { toLinearEquiv :=
+        { toFun := fun x ↦
+            ⟨toUltraweak 𝕜 P (ofUltraweak x).1, (ofUltraweak x).2⟩
+          invFun := fun x ↦
+            toUltraweak 𝕜 (P ⧸ preannihilator (P := P) N)
+              ⟨ofUltraweak x.1, mem_ofSubmodule N x.1 |>.mp x.2⟩
+          left_inv := fun _ ↦ rfl
+          right_inv := fun _ ↦ rfl
+          map_add' := fun _ _ ↦ rfl
+          map_smul' := fun _ _ ↦ rfl }
+      continuous_toFun := by
+        apply Continuous.subtype_mk
+        apply continuous_of_continuous_eval
+        intro p
+        convert
+          (eval_continuous (𝕜 := 𝕜) (M := N)
+            (P := P ⧸ preannihilator (P := P) N)
+            (Submodule.Quotient.mk p : P ⧸ preannihilator (P := P) N)) using 1
+        funext x
+        simpa only [ofUltraweak_toUltraweak, hequiv] using
+          (closedSubmoduleEquivDual_apply_mk N hN (ofUltraweak x) p).symm
+      continuous_invFun := by
+        apply continuous_of_continuous_eval
+        intro q
+        obtain ⟨p, rfl⟩ := Submodule.mkQ_surjective
+          (preannihilator (P := P) N) q
+        convert
+          (eval_continuous (𝕜 := 𝕜) (M := M) (P := P) p).comp
+            continuous_subtype_val using 1
+        funext x
+        simpa only [ofUltraweak_toUltraweak, Function.comp_apply, hequiv,
+          Submodule.mkQ_apply] using
+          (closedSubmoduleEquivDual_apply_mk N hN
+            ⟨ofUltraweak x.1, mem_ofSubmodule N x.1 |>.mp x.2⟩ p) }
+
+@[simp]
+lemma closedSubmoduleUltraweakEquiv_apply
+    (x : @Ultraweak 𝕜 N (P ⧸ preannihilator (P := P) N) _ _ _ _ _
+      (closedSubmodulePredual (P := P) N hN)) :
+    (closedSubmoduleUltraweakEquiv N hN x).1 =
+      toUltraweak 𝕜 P x.1 :=
+  rfl
+
+@[simp]
+lemma closedSubmoduleUltraweakEquiv_symm_apply
+    (x : ofSubmodule (P := P) N) :
+    (show N from closedSubmoduleUltraweakEquiv N hN |>.symm x) =
+      ⟨ofUltraweak x.1, mem_ofSubmodule N x.1 |>.mp x.2⟩ :=
+  rfl
+
+end ClosedSubmoduleTopology
+
 end Ultraweak
