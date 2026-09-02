@@ -1,6 +1,7 @@
 module
 
 public import Mathlib.Analysis.Convex.Topology
+public import Mathlib.Analysis.Convex.Extreme
 public import Mathlib.Analysis.Normed.Module.Convex
 public import Mathlib.Analysis.Normed.Module.RCLike.Real
 
@@ -53,3 +54,43 @@ theorem Convex.closure_inter_unitClosedBall {E : Type*}
     closure (C ∩ Metric.closedBall (0 : E) 1) =
       closure C ∩ Metric.closedBall (0 : E) 1 :=
   hC.closure_inter_closedBall h0 zero_lt_one
+
+namespace Submodule
+
+/-- Extreme points of the unit ball of a real subspace are exactly the extreme points of its
+ambient unit-ball carrier. -/
+theorem coe_mem_extremePoints_unitClosedBall_iff
+    {E : Type*} [SeminormedAddCommGroup E] [NormedSpace ℝ E]
+    (T : Submodule ℝ E) (x : T) :
+    (x : E) ∈ extremePoints ℝ ((T : Set E) ∩ Metric.closedBall 0 1) ↔
+      x ∈ extremePoints ℝ (Metric.closedBall 0 1) := by
+  let e : T →ₗ[ℝ] E := T.subtype
+  simp only [mem_extremePoints_iff_left, mem_inter_iff, mem_closedBall_zero_iff]
+  constructor
+  · rintro ⟨⟨_, hxnorm⟩, hx⟩
+    refine ⟨hxnorm, ?_⟩
+    intro y hy z hz hxyz
+    apply Subtype.ext
+    apply hx (y : E) ⟨y.property, hy⟩ (z : E) ⟨z.property, hz⟩
+    have himage := image_openSegment ℝ e.toAffineMap y z
+    have hximage : e.toAffineMap x ∈ e.toAffineMap '' openSegment ℝ y z :=
+      ⟨x, hxyz, rfl⟩
+    rw [himage] at hximage
+    simpa [e] using hximage
+  · rintro ⟨hxnorm, hx⟩
+    refine ⟨⟨x.property, hxnorm⟩, ?_⟩
+    intro y ⟨hyT, hynorm⟩ z ⟨hzT, hznorm⟩ hxyz
+    let yT : T := ⟨y, hyT⟩
+    let zT : T := ⟨z, hzT⟩
+    have hxyz' : x ∈ openSegment ℝ yT zT := by
+      have himage := image_openSegment ℝ e.toAffineMap yT zT
+      have hxyzE : e.toAffineMap x ∈
+          openSegment ℝ (e.toAffineMap yT) (e.toAffineMap zT) := by
+        simpa [e, yT, zT] using hxyz
+      rw [← himage] at hxyzE
+      obtain ⟨w, hw, hweq⟩ := hxyzE
+      have hwx : w = x := Subtype.ext (by simpa [e] using hweq)
+      rwa [← hwx]
+    exact congrArg Subtype.val (hx yT hynorm zT hznorm hxyz')
+
+end Submodule

@@ -73,6 +73,8 @@ public import LeanOA.Ultraweak.Bornology
 public import LeanOA.Ultraweak.BoundedOperator
 public import LeanOA.Ultraweak.BoundedOperatorCoefficientSeries
 public import LeanOA.Ultraweak.BoundedOperatorInvariantTestSpace
+public import LeanOA.Ultraweak.BoundedOperatorRelativeKaplansky
+public import LeanOA.Ultraweak.BoundedOperatorWOTClosure
 public import LeanOA.Ultraweak.CentralSupport
 public import LeanOA.Ultraweak.CompleteAdditivity
 public import LeanOA.Ultraweak.ContinuousFunctionalCalculus
@@ -103,6 +105,7 @@ public import LeanOA.Ultraweak.PredualUniqueness
 public import LeanOA.Ultraweak.ProjectionChain
 public import LeanOA.Ultraweak.ProjectionDecomposition
 public import LeanOA.Ultraweak.ProjectionLattice
+public import LeanOA.Ultraweak.RelativeKaplanskyDensity
 public import LeanOA.Ultraweak.SeparatingDual
 public import LeanOA.Ultraweak.SpectralApproximation
 public import LeanOA.Ultraweak.SpectralBand

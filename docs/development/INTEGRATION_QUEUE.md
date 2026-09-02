@@ -230,10 +230,13 @@ in their workstream.
   Sakai's countable series contains that core, and the full concrete-predual topology maps
   continuously to its restricted weak topology. Hence series-test closed sets are ultraweakly
   closed. No converse representation or topology equality is claimed.
-- **Missing edges:** comparison of the
-  concrete ultrastrong topology with intrinsic `s`; and a relative Kaplansky theorem giving unit-
-  ball/closure density inside the WOT closure rather than only for a subalgebra dense in the whole
-  ambient algebra. The converse coefficient-series representation is deliberately deferred to
+- **Fifth transaction:** transported test-weak closure is exposed as a set closure on the original
+  algebra carrier. The relative Kaplansky theorem accepts an explicit target star subalgebra equal
+  to that closure, and the finite coefficient core identifies the target with Mathlib's WOT
+  closure. The source unit ball is therefore ultraweakly and Mackey dense in the target unit ball.
+  No second topology, predual, or generic closure-algebra constructor is introduced.
+- **Missing edges:** comparison of the concrete ultrastrong topology with intrinsic `s`. The
+  converse coefficient-series representation is deliberately deferred to
   Sakai Corollaries 1.15.5--1.15.6. Current Mathlib also lacks the concrete
   $B(H)$/double-commutant bridge.
 - **Overlap evidence:** pinned Mathlib is
@@ -245,7 +248,7 @@ in their workstream.
   concrete topology families explicitly distinct. Add no source-theorem Verso node for
   Proposition 1.15.1 while the proposition is unproved; independently useful proved
   infrastructure may be documented as such.
-- **Next bounded action:** prove the ambient-relative Kaplansky theorem whose right side is the
-  test-weak closure's unit ball inside the original ambient algebra, then instantiate it with the
-  finite coefficient core/WOT bridge. Keep the concrete ultrastrong comparison separate. The
+- **Next bounded action:** construct the concrete square-summable-vector ultrastrong interface and
+  compare it with intrinsic `s(B(H),B(H)_*)` at exactly the strength needed for the global
+  closedness theorem. Keep the later coefficient-series representation theorem separate. The
   public frontier remains Proposition 1.15.1.

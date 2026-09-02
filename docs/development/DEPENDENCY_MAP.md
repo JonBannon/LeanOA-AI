@@ -137,9 +137,9 @@ Strong.isClosed_iff_image_toUltraweakEquiv [real-convex intrinsic bridge; GREEN]
   ↓
 [DEFERRED to Cor. 1.15.5--1.15.6] converse series representation / topology equality
   + [RED] concrete ultrastrong ↔ intrinsic s comparison
-  + [RED] relative Kaplansky density in a WOT closure
+  + [GREEN] relative Kaplansky density in Mathlib's WOT closure
   ↓
-Sakai Proposition 1.15.1 [NOT SOURCE-FORMALIZED; no Verso theorem node]
+Sakai Proposition 1.15.1 [NOT SOURCE-FORMALIZED; relative-density Verso node complete]
 ```
 
 ## Current junction nodes
@@ -338,7 +338,9 @@ evaluation as an isometric dual equivalence and specified predual. The fourth pr
 summability and evaluation for separately square-summable coefficients, packages the invariant
 finite core, forms Sakai's countable series-test span, and proves the full-predual-to-series-test
 continuous identity. It closes only the source-safe direction of the coefficient-series edge; the
-later converse representation, ultrastrong comparison, and relative-closure edges remain. Pinned
+later converse representation and ultrastrong comparison remain. The fifth transaction proves
+ambient-relative unit-ball density in an explicit test-weak closure, identifies the finite-core
+test-weak closure with Mathlib WOT, and instantiates the result for bounded operators. Pinned
 Mathlib commit
 `476ab284693e554a6b48c5f5210cb4fb5ae51252` supplies the concrete WOT and pointwise/SOT synonyms;
 the mirrored local modules contribute the continuous SOT-to-WOT identity, the coefficient API,

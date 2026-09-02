@@ -169,21 +169,29 @@ theorem kaplanskyTransform_mem_nonUnitalStarSubalgebra
   rw [hrewrite]
   exact S.nsmul_mem (S.sub_mem ha (S.mul_mem ha he_mem)) 2
 
-/-- Sakai's contraction transform fixes every extreme point of the closed unit ball. -/
-theorem kaplanskyTransform_eq_self_of_mem_extremePoints_unitClosedBall {a : A}
-    (ha : a ∈ extremePoints ℝ (closedBall 0 1)) : kaplanskyTransform a = a := by
+omit [PartialOrder A] [StarOrderedRing A] in
+/-- Sakai's contraction transform fixes every element satisfying the cubic partial-isometry
+identity. -/
+theorem kaplanskyTransform_eq_self_of_star_self_conjugate_eq_self {a : A}
+    (ha : a * star a * a = a) : kaplanskyTransform a = a := by
   let p : A := star a * a
-  have hp : IsStarProjection p :=
-    isStarProjection_star_mul_self_of_mem_extremePoints_unitClosedBall ha
-  have hp_idem : p * p = p := hp.isIdempotentElem.eq
+  have hp_idem : p * p = p := by
+    dsimp only [p]
+    calc
+      (star a * a) * (star a * a) = star a * (a * star a * a) := by
+        noncomm_ring
+      _ = star a * a := by rw [ha]
   let q : A := 1 - (1 / 2 : ℂ) • p
   have hmul : (1 + p) * q = 1 := by
     dsimp only [q]
     rw [mul_sub, mul_one, add_mul, one_mul, mul_smul_comm, hp_idem]
     module
+  have hmul' : q * (1 + p) = 1 := by
+    dsimp only [q]
+    rw [sub_mul, one_mul, smul_mul_assoc, mul_add, mul_one, hp_idem]
+    module
   have hu : IsUnit (1 + p) := by
-    dsimp only [p]
-    exact isUnit_one_add_star_mul_self a
+    exact isUnit_iff_exists.mpr ⟨q, hmul, hmul'⟩
   have hinv : (1 + p)⁻¹ʳ = q := by
     calc
       (1 + p)⁻¹ʳ = (1 + p)⁻¹ʳ * 1 := by rw [mul_one]
@@ -191,14 +199,20 @@ theorem kaplanskyTransform_eq_self_of_mem_extremePoints_unitClosedBall {a : A}
       _ = q := by rw [← mul_assoc, Ring.inverse_mul_cancel _ hu, one_mul]
   have hap : a * p = a := by
     dsimp only [p]
-    simpa only [mul_assoc] using
-      star_self_conjugate_eq_self_of_mem_extremePoints_unitClosedBall ha
+    simpa only [mul_assoc] using ha
   rw [kaplanskyTransform, kaplanskyResolvent]
   change (2 : ℕ) • (a * (1 + p)⁻¹ʳ) = a
   rw [hinv]
   dsimp only [q]
   rw [mul_sub, mul_one, mul_smul_comm, hap]
   module
+
+omit [PartialOrder A] [StarOrderedRing A] in
+/-- Sakai's contraction transform fixes every extreme point of the closed unit ball. -/
+theorem kaplanskyTransform_eq_self_of_mem_extremePoints_unitClosedBall {a : A}
+    (ha : a ∈ extremePoints ℝ (closedBall 0 1)) : kaplanskyTransform a = a :=
+  kaplanskyTransform_eq_self_of_star_self_conjugate_eq_self
+    (star_self_conjugate_eq_self_of_mem_extremePoints_unitClosedBall ha)
 
 
 end CStarAlgebra

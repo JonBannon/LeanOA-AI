@@ -75,6 +75,14 @@ concrete-predual topology to the series-test weak topology. The prose must state
 the converse representation and topology equality are not proved; the frontier now retains the
 concrete ultrastrong and ambient-relative Kaplansky bridges.
 
+The fifth transaction is a stable ambient-relative Kaplansky infrastructure node, still not
+Proposition 1.15.1. It records the transported test-weak closure, the explicit-target relative
+unit-ball theorem, the exact identification of the finite-coefficient test-weak closure with
+Mathlib WOT, and the concrete Mackey-density endpoint. The prose must not turn this bounded-set
+density result into the five-way global closedness theorem. The frontier now retains only the concrete
+ultrastrong/intrinsic-strong bridge among the immediate Proposition 1.15.1 implementation edges;
+the converse coefficient-series representation remains deferred to the later source results.
+
 If the general topology bridges are mentioned later in the library/API path, distinguish them
 precisely: Mathlib's `ContinuousLinearMapWOT` is concrete WOT;
 `PointwiseConvergenceCLM` is pointwise/SOT; Sak-AI's `σ(M,P)`, `s(M,P)`, and Mackey topology are

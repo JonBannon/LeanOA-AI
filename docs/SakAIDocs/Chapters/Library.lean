@@ -5,6 +5,7 @@ import LeanOA.Mathlib.RingTheory.Annihilator
 import LeanOA.Ultraweak.Annihilator
 import LeanOA.Ultraweak.CentralSupport
 import LeanOA.Ultraweak.CompleteAdditivity
+import LeanOA.Ultraweak.BoundedOperatorRelativeKaplansky
 import LeanOA.Ultraweak.KaplanskyDensity
 import LeanOA.Ultraweak.NormalOrder
 import LeanOA.Ultraweak.Opposite
@@ -17,6 +18,7 @@ import LeanOA.Ultraweak.PredualUniqueness
 import LeanOA.Ultraweak.ProjectionDecomposition
 import LeanOA.Ultraweak.ProjectionChain
 import LeanOA.Ultraweak.ProjectionLattice
+import LeanOA.Ultraweak.RelativeKaplanskyDensity
 import LeanOA.Ultraweak.SpectralApproximation
 import LeanOA.Ultraweak.SpectralBand
 import LeanOA.Ultraweak.SpectralProjectionStrong
@@ -409,6 +411,14 @@ The Kaplansky density implementation is split between the reusable C-star algebr
 transform in `LeanOA.CStarAlgebra.KaplanskyDensity` and the duality/topology
 argument in `LeanOA.Ultraweak.KaplanskyDensity`.  The endpoint is
 {name}`Ultraweak.SakaiInvariantTestSpace.kaplansky_density_Sak_1_9_1`.
+The ambient-relative layer in
+`LeanOA.Ultraweak.RelativeKaplanskyDensity` keeps the target closure explicit;
+its endpoint is
+{name}`Ultraweak.SakaiInvariantTestSpace.kaplansky_density_of_testWeakClosure_eq`.
+For bounded operators, `LeanOA.Ultraweak.BoundedOperatorWOTClosure` identifies
+the finite-coefficient test-weak closure with Mathlib WOT, and
+`LeanOA.Ultraweak.BoundedOperatorRelativeKaplansky` exposes the concrete
+rewrite theorem {name}`Ultraweak.kaplansky_density_wotClosure`.
 
 # Portability rule
 

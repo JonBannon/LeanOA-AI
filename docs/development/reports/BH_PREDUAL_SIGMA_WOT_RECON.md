@@ -5,10 +5,10 @@
 This began as the nonproduction reconnaissance report for WS-15F, which
 introduced no Lean declaration. Sections 8--12 now also record the later
 production outcome: the coefficient-completion predual and the source-safe
-one-sided coefficient-series topology comparison have been kernel-proved.
-The report still does **not** claim equality of sigma-WOT with the full
-predual topology, relative Kaplansky density, or that Sakai Proposition
-1.15.1 has been formalized.
+one-sided coefficient-series topology comparison have been kernel-proved, as
+has ambient-relative Kaplansky density in Mathlib's WOT closure. The report
+still does **not** claim equality of sigma-WOT with the full predual topology
+or that Sakai Proposition 1.15.1 has been formalized.
 
 The audit compares:
 
@@ -637,44 +637,38 @@ and uses Kaplansky density for \(N\subseteq N_1\). In general \(N\) is not
 WOT-dense in all of \(B(H)\), so the existing theorem cannot be applied merely
 with `M := B(H)`.
 
-### Recommended public theorem
+### Implemented public theorem
 
 Let `testWeakClosure V S` denote the carrier obtained by transporting the
-closure of `S` in the weak topology induced by `V` back to `M`. The desired
-ambient-relative theorem is schematically:
+closure of `S` in the weak topology induced by `V` back to `M`. The production
+theorem keeps the closure target explicit:
 
 ```lean
-theorem kaplansky_density_in_testWeakClosure
+theorem kaplansky_density_of_testWeakClosure_eq
     {V : Submodule ℂ P}
     (hV : SakaiInvariantTestSpace (M := M) V)
-    (S : NonUnitalStarSubalgebra ℂ M) :
+    (S T : NonUnitalStarSubalgebra ℂ M)
+    (hST : testWeakClosure (M := M) V (S : Set M) = (T : Set M)) :
     closure
       (ofMackey ⁻¹' ((S : Set M) ∩ Metric.closedBall (0 : M) 1) :
         Set (SakaiMackey (M := M) (⊤ : Submodule ℂ P))) =
     (ofMackey ⁻¹'
-      (testWeakClosure (M := M) V S ∩ Metric.closedBall (0 : M) 1) :
+      ((T : Set M) ∩ Metric.closedBall (0 : M) 1) :
         Set (SakaiMackey (M := M) (⊤ : Submodule ℂ P)))
 ```
 
-This signature is **PROPOSED / UNPROVED**. It states both sides inside the
-original ambient dual pair and does not force the closure carrier to expose a
-second predual publicly. For the concrete coefficient test space, the WOT
-identification should rewrite `testWeakClosure V S` to ordinary WOT closure.
+This signature is **AVAILABLE / KERNEL-CHECKED**. It states both sides inside
+the original ambient dual pair and does not force the closure carrier to expose
+a second predual publicly. The proof derives norm and ultraweak closedness of
+the explicit target from `hST`, performs the Krein--Milman argument in the
+target subtype, removes source norm-closedness by a closure reduction, and
+uses compatible convex-closure transfer for the Mackey conclusion.
 
-The proof may internally reuse current Sak-AI:
-
-1. show the transported test-weak closure is a norm-closed self-adjoint
-   algebraic carrier and is ultraweakly closed;
-2. use `Ultraweak.closedSubmodulePredual` for its quotient predual;
-3. use `CStarAlgebra.isUnital_of_isClosed_submodule` if a unital
-   `CStarAlgebra` carrier is needed;
-4. descend the image of `V` to a dense invariant test space in that quotient;
-5. apply the existing ambient-density theorem there;
-6. transport the unit-ball closure statement back to `M`.
-
-Alternatively, generalize the existing Krein--Milman proof directly to the
-test-weak closure. The public endpoint should remain ambient-relative
-whichever proof is shorter.
+For the concrete coefficient test space,
+`testWeakClosure_vectorFunctionalPredualSpan_eq_wotClosure` identifies the
+target with ordinary Mathlib WOT closure, and
+`kaplansky_density_wotClosure` supplies the resulting bounded-operator
+endpoint.
 
 The formal theorem should use the closed unit ball, matching current Sak-AI.
 Sakai says “unit sphere” in the inspected prose, but the existing source audit
@@ -735,11 +729,12 @@ Explicit exclusions:
 - no claim of global sigma-WOT/predual-topology equality;
 - no claim that Proposition 1.15.1 is complete.
 
-The next transaction should prove
-`kaplansky_density_in_testWeakClosure` and instantiate it for coefficients.
-Separating these transactions keeps concrete duality independent of the
-operator-algebraic relative-closure proof and gives a clear review point for the
-only new foundational carrier.
+The follow-up relative-closure transaction is now complete.  The generic
+`kaplansky_density_of_testWeakClosure_eq` theorem keeps the target star
+subalgebra explicit, and `kaplansky_density_wotClosure` instantiates it using
+the finite-coefficient identification with Mathlib WOT.  The construction
+therefore reuses the existing concrete predual and WOT carrier rather than
+adding another foundational topology.
 
 ## Bottom line
 
@@ -754,8 +749,9 @@ The audit materially narrows the frontier:
 - the source-safe sigma-WOT inclusion is now an elementary Hölder/tail
   argument in the norm-closed coefficient carrier, while equality remains the
   later coefficient-representation theorem;
-- the remaining source-critical algebraic blocker is an ambient-relative
-  Kaplansky theorem targeting the test-weak/WOT closure.
+- the ambient-relative Kaplansky theorem targeting Mathlib's WOT closure is
+  now kernel-checked; the remaining source-critical bridge for Proposition
+  1.15.1 is the concrete square-summable-vector ultrastrong comparison.
 
 Accordingly:
 

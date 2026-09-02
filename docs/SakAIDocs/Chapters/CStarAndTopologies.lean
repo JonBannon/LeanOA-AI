@@ -362,6 +362,40 @@ at this stage: the reverse identity, equality of the two topologies, and a
 single-series representation of every predual element are not asserted.
 :::
 
+:::theorem "thm:wot_relative_kaplansky" (parent := "operator-topologies") (lean := "Ultraweak.testWeakClosure_vectorFunctionalPredualSpan_eq_wotClosure, Ultraweak.ultraweak_closure_unitBall_eq_wotClosure_unitBall, Ultraweak.kaplansky_density_wotClosure") (uses := "thm:vector_functionals_wot, thm:vector_functional_closure_predual, thm:kaplansky_density_Sak_1_9_1")
+Let $`H` be a complex Hilbert space, let $`A` be a possibly nonunital
+self-adjoint subalgebra of $`B(H)`, and write
+$`\overline A^{\mathrm{WOT}}` for its closure in Mathlib's weak operator
+topology.  Relative to the concrete vector-functional predual,
+write $`S_{B(H)}=\{T\in B(H):\lVert T\rVert\leq 1\}` for the closed unit ball.  Then
+
+$`
+  \overline{A\cap S_{B(H)}}^{\,\sigma}
+    =\overline A^{\mathrm{WOT}}\cap S_{B(H)},
+  \qquad
+  \overline{A\cap S_{B(H)}}^{\,\tau}
+    =\overline A^{\mathrm{WOT}}\cap S_{B(H)}.
+`
+
+Thus the unit ball of $`A` is Mackey dense in the unit ball of its WOT
+closure.  This is the ambient-relative Kaplansky bridge needed in Sakai's
+proof of Proposition 1.15.1; it is not itself the five-way global
+closedness equivalence asserted by that proposition.
+:::
+
+:::proof "thm:wot_relative_kaplansky"
+The finite vector-functional core inside the concrete predual induces
+Mathlib WOT, so its transported test-weak closure of $`A` is exactly
+$`\overline A^{\mathrm{WOT}}`.  The relative Kaplansky theorem keeps this
+closure as an explicit target star subalgebra.  For a closed source, the
+Kaplansky transform puts every extreme point of the target unit ball in the
+ultraweak closure of the source unit ball; the extreme-point argument is
+performed in the target subtype and then transported through the general
+real-submodule interface.  Krein--Milman gives the ultraweak equality.  A
+norm-closure reduction removes closedness of $`A`, and compatible convex
+closure transfers the equality to the full-predual Mackey topology.
+:::
+
 :::proposition "prop:loc_cvx_result" (parent := "operator-topologies") (lean := "Ultraweak.predualDualEquiv")
 The ultraweakly continuous complex-linear functionals on $`M` are precisely
 those represented by the specified predual $`M_*`.

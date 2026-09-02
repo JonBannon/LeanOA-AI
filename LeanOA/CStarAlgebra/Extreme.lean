@@ -4,6 +4,7 @@ public import LeanOA.CFC
 public import LeanOA.IsUnital
 public import LeanOA.Mathlib.Analysis.CStarAlgebra.ApproximateUnit
 public import LeanOA.Mathlib.Analysis.CStarAlgebra.ContinuousFunctionalCalculus.Order
+public import LeanOA.Mathlib.Analysis.Convex.Topology
 public import Mathlib.Analysis.Convex.Extreme
 public import Mathlib.Analysis.Convex.Strict.Extreme
 public import Mathlib.Analysis.CStarAlgebra.Extreme
@@ -44,6 +45,19 @@ In particular, we show that in a C⋆-algebra :
 -/
 
 open Set Metric CFC CStarAlgebra Unitization
+
+namespace NonUnitalStarSubalgebra
+
+/-- The extreme-point transfer for real subspaces, specialized to a nonunital star subalgebra. -/
+theorem coe_mem_extremePoints_unitClosedBall_iff
+    {A : Type*} [CStarAlgebra A]
+    (T : NonUnitalStarSubalgebra ℂ A) (x : T) :
+    (x : A) ∈ extremePoints ℝ ((T : Set A) ∩ closedBall 0 1) ↔
+      x ∈ extremePoints ℝ (closedBall 0 1) := by
+  let TR := T.toNonUnitalSubalgebra.toSubmodule.restrictScalars ℝ
+  exact Submodule.coe_mem_extremePoints_unitClosedBall_iff TR x
+
+end NonUnitalStarSubalgebra
 
 open scoped ComplexStarModule in
 lemma CStarAlgebra.one_mem_extremePoints_unitClosedBall {A : Type*} [CStarAlgebra A] :

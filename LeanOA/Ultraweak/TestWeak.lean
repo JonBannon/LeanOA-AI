@@ -19,7 +19,7 @@ noncomputable section
 
 namespace Ultraweak
 
-variable {M P : Type*} [CStarAlgebra M]
+variable {M P : Type*} [NormedAddCommGroup M] [NormedSpace ℂ M]
   [NormedAddCommGroup P] [NormedSpace ℂ P] [Predual ℂ M P]
 
 /-- The canonical continuous linear identity from the full specified-predual topology to the weak
@@ -46,5 +46,18 @@ theorem isClosed_ultraweak_of_isClosed_testWeak (V : Submodule ℂ P) (S : Set M
   change ofUltraweak x ∈ S ↔
     WeakBilin.linearEquiv ℂ (testPairing (M := M) V) (toTestWeakL V x) ∈ S
   simp only [toTestWeakL_apply]
+
+/-- A transported test-weak closure is ultraweakly closed in the original specified predual. -/
+theorem isClosed_ultraweak_testWeakClosure (V : Submodule ℂ P) (S : Set M) :
+    IsClosed (ofUltraweak ⁻¹' testWeakClosure (M := M) V S : Set σ(M, P)) :=
+  isClosed_ultraweak_of_isClosed_testWeak V _
+    (isClosed_preimage_testWeakClosure V S)
+
+/-- A transported test-weak closure is norm closed in the original ambient algebra. -/
+theorem isClosed_testWeakClosure (V : Submodule ℂ P) (S : Set M) :
+    IsClosed (testWeakClosure (M := M) V S) := by
+  have h := (isClosed_ultraweak_testWeakClosure (M := M) (P := P) V S).preimage
+    (continuous_toUltraweak (𝕜 := ℂ) (M := M) (P := P))
+  simpa only [Set.preimage_preimage, ofUltraweak_toUltraweak, Set.preimage_id'] using h
 
 end Ultraweak

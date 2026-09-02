@@ -366,7 +366,11 @@ coefficient series now converge in that predual, evaluate by their source
 series, and give the source-safe continuous identity from the full
 concrete-predual topology to the series-test topology.  The converse
 topology comparison remains deferred to Sakai's later representation
-theorem.  The next bounded implementation step is the ambient-relative
-Kaplansky-closure bridge; the concrete ultrastrong comparison also remains.
+theorem.  The ambient-relative Kaplansky bridge is now complete: the finite
+coefficient test-weak closure is exactly Mathlib's WOT closure, and the unit
+ball of a self-adjoint subalgebra is Mackey dense in the unit ball of that
+closure.  This supplies the relative-density step in Sakai's reverse
+closedness argument.  The concrete ultrastrong comparison is the next
+bounded implementation step.
 
 Sakai Proposition 1.15.1: NOT SOURCE-FORMALIZED

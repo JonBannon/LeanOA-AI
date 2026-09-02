@@ -71,7 +71,7 @@ the local bridge described below; the latter comparisons remain open.
 | `PointwiseConvergenceCLM` | `PINNED VERSION ALREADY HAS IT` | Reuse it as pointwise/SOT |
 | Compatible-dual convex closure transport | `PINNED VERSION ALREADY HAS IT` | Reuse through the established Sak-AI intrinsic bridge |
 | Continuous identity from pointwise/SOT to WOT | `LOCAL BRIDGE NEEDED` | Added without a new topology type |
-| Concrete coefficient-completion predual and relative closure theorem | `LOCAL BRIDGE NEEDED` | The predual is implemented; the relative closure theorem remains under IQ-010 |
+| Concrete coefficient-completion predual and relative closure theorem | `LOCAL BRIDGE ADDED` | Reuse the completed predual, explicit-target relative theorem, and Mathlib-WOT instantiation |
 | Current-Mathlib API renamings not changing the available mathematics | `NOT RELEVANT` | Do not update the dependency for naming alone |
 | Upstream replacement for the local pointwise-to-WOT bridge | `FUTURE MATHLIB MIGRATION CANDIDATE` | None found now; remove the local declaration if one appears upstream |
 
@@ -101,8 +101,8 @@ These are reusable dependencies for a proof. The coefficient-completion
 predual is now connected to the intrinsic construction by a local `Predual`
 instance, but this is not by itself a formalization of the source proposition:
 the required one-sided concrete coefficient-series comparison is proved, while
-the concrete strongest-operator topology and relative closure argument remain
-unconnected.
+the relative Mathlib-WOT closure argument is also proved. The concrete
+strongest-operator topology remains unconnected.
 
 ## Present public APIs and their exact force
 
@@ -247,12 +247,13 @@ showing that it suffices for global closedness of the subalgebra.
    `s(B(H),B(H)_*)`. Again, global equality is Corollary 1.15.6, later than the
    proposition currently targeted.
 
-5. **Relative Kaplansky closure.** Current `WeakTestSpace`, `SakaiMackey`, and
-   Kaplansky results must be instantiated with the concrete `B(H)` test space,
-   including all separation, completeness, invariance, and density hypotheses.
-   The available theorem assumes density in the whole ambient algebra, whereas
-   Sakai applies density to `N` inside its WOT closure `N₁`; this needs a
-   relative theorem or a certified concrete predual instance for `N₁`.
+5. **Relative Kaplansky closure — RESOLVED.**
+   `kaplansky_density_of_testWeakClosure_eq` accepts the closure target
+   explicitly, `testWeakClosure_vectorFunctionalPredualSpan_eq_wotClosure`
+   identifies the finite-core test-weak closure with Mathlib WOT closure, and
+   `kaplansky_density_wotClosure` gives the concrete Mackey-density endpoint.
+   This is a bounded unit-ball closure theorem, not yet the proposition's
+   five-way global closedness equivalence.
 
 6. **Carrier transport.** Closedness statements must be transported across
    the synonym/equivalence carriers without silently changing the underlying
@@ -284,10 +285,11 @@ prematurely proving all of the later trace-class theory.
    `s(M,P)`, `WeakTestSpace`, and `SakaiMackey` APIs. It has deliberately not
    been identified with trace class.
 
-4. Prove the relative form of the existing Kaplansky/Mackey closure theorem and
-   instantiate it for the concrete self-adjoint subalgebra inside its WOT
-   closure. This is the central reverse implication and the step that genuinely
-   uses the source hypotheses.
+4. **Complete.** The relative Kaplansky/Mackey closure theorem accepts an
+   explicit test-weak-closure target and is instantiated for the concrete
+   self-adjoint subalgebra inside its Mathlib-WOT closure. This is the central
+   relative-density step in the reverse implication and genuinely uses the
+   source hypotheses.
 
 5. Connect the already exact concrete endpoints: Mathlib WOT and
    pointwise/SOT, using `toWOT` and
@@ -309,6 +311,6 @@ prematurely proving all of the later trace-class theory.
 This route uses the current Sak-AI semantic core and avoids duplicating WOT,
 SOT, compatible-dual closure, or Kaplansky machinery. The coefficient/predual
 instantiation and the source-required one-sided coefficient-series comparison
-are now complete; the irreducible remaining work is the ambient-relative
-Kaplansky argument, the concrete ultrastrong predicate and its required
-comparison, and the final source-faithful closedness assembly.
+are now complete, as is the ambient-relative WOT-closure density argument. The
+irreducible remaining work is the concrete ultrastrong predicate and its
+required comparison, followed by the final source-faithful closedness assembly.

@@ -641,3 +641,30 @@ claiming the later representation theorem.
 Collision rule: do not add a `SigmaWOT` synonym or reverse the topology map without the later
 representation theorem. The next bounded transaction is ambient-relative Kaplansky density in the
 test-weak closure.
+
+### Section 1.15.1 fifth ambient-relative Kaplansky transaction
+
+This transaction starts from `db9e2a5` and closes the relative-density edge without claiming the
+remaining concrete ultrastrong comparison.
+
+- **WS-15M, generic relative density:** COMPLETE / GREEN. `testWeakClosure` is the ordinary closure
+  in the selected weak realization, transported back to the original algebra carrier. Given source
+  and target nonunital star subalgebras with the target carrier equal to this closure, the source
+  unit ball has the target unit ball as both its ultraweak and full-predual Mackey closure. The
+  closed-source Krein--Milman proof and nonclosed norm-closure reduction are kernel-checked.
+- **WS-15N, concrete WOT target:** COMPLETE / GREEN. Mathlib's `ContinuousLinearMapWOT` is given its
+  canonical star-algebra equivalence with bounded operators; WOT closure is packaged as an existing
+  nonunital star subalgebra; and the finite coefficient predual span's test-weak closure is proved
+  equal to that WOT closure. The generic relative theorem then yields
+  `Ultraweak.kaplansky_density_wotClosure`.
+- **Generality review:** COMPLETE / GREEN. The geometric subtype step is proved once for an arbitrary
+  real submodule of a seminormed real vector space; the C-star-algebra theorem is only a thin
+  specialization. The Kaplansky transform is fixed under the reusable cubic identity
+  `a * star a * a = a`, with the old extreme-point endpoint now a corollary.
+- **Source and Verso status:** this is certified infrastructure with a dedicated relative-density
+  node. Sakai Proposition 1.15.1 remains **not source-formalized**. The concrete
+  square-summable-vector ultrastrong comparison is the next source-critical transaction.
+
+Collision rule: reuse Mathlib WOT and the established concrete predual; do not introduce a generic
+test-weak closure algebra merely to repackage the already available concrete WOT target. The next
+bounded transaction is the concrete ultrastrong/intrinsic-strong interface.

@@ -161,8 +161,11 @@ square-summable coefficient series now converge in that predual and generate
 a test space receiving a continuous identity from the full concrete-predual
 topology.  This proves only the required one-sided $`\sigma`-WOT comparison;
 the converse representation theorem is intentionally deferred.  The
-concrete ultrastrong comparison and ambient-relative Kaplansky-closure bridge
-remain to be proved.
+ambient-relative Kaplansky bridge is now proved against an explicit
+test-weak-closure target and instantiated with Mathlib's WOT closure on
+$`B(\mathcal H)`.  In particular, the source unit ball is Mackey dense in
+the unit ball of its WOT closure.  The concrete ultrastrong comparison remains
+the next source-critical bridge.
 
 Sakai Proposition 1.15.1: NOT SOURCE-FORMALIZED
 
