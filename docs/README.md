@@ -63,9 +63,9 @@ graph, together with the concrete ultrastrong/intrinsic-strong comparison and th
 five-way closedness theorem of Sakai Proposition 1.15.1, the induced quotient-predual subspace
 topology, and the weak-family closed-ball clause of Proposition 1.15.2, to 129 nodes and 238
 statement-dependency edges in the preceding validated build. The strong-family clause and exact
-source-order package complete Proposition 1.15.2 in the current generated graph, which has 131
-nodes and 242 statement-dependency edges.
-Declaration links cover the
+source-order package complete Proposition 1.15.2, and the new carrier-neutral operator-energy
+node begins the Theorem 1.15.3 prerequisites. The current generated graph has 132
+nodes and 242 statement-dependency edges. Declaration links cover the
 Section 1.10,
 spectral-approximation, fixed-projection, strong lower-spectral-projection, element-polar-
 decomposition, source-normality, arbitrary orthogonal-projection-sum, projection-chain,

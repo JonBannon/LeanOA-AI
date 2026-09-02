@@ -181,9 +181,12 @@ is complete. Its exact target is the arbitrary-Hilbert-space linear isometric id
 `a ↦ (x ↦ Tr(xa))` of the independently defined trace-class Banach space with the existing
 concrete predual, including preservation and reflection of positivity. Neither pinned nor audited
 current Mathlib supplies the required infinite-dimensional Hilbert--Schmidt, positive-trace, or
-trace-class layer. The next bounded transaction is the carrier-neutral arbitrary-index `RCLike`
-operator-energy/adjoint identity in `ℝ≥0∞`; no trace-class carrier has been selected and Theorem
-1.15.3 is not source-formalized.
+trace-class layer. The carrier-neutral prerequisite is now kernel-proved:
+`HilbertBasis.operatorEnergy` takes values in `ℝ≥0∞`, uses arbitrary basis index types, agrees
+with adjoint energy, and is independent of the domain Hilbert basis. No separability or summability
+hypothesis and no operator-ideal carrier were introduced. Theorem 1.15.3 is not source-formalized.
+The next boundary is the durable choice between a Hilbert--Schmidt-first positive-trace core and a
+source-faithful predual-range construction.
 
 The implemented public design is:
 
@@ -479,9 +482,11 @@ arbitrary-filter convergence corollaries. The strong-family proof follows Sakai'
 route through the already formalized weak family. Its generic intrinsic carrier assumes only
 ultraweak closedness, equivalent here to the source WOT-closedness hypothesis; it does not claim
 global topology equality, invoke trace class, reduce to sequences, or strengthen the source to a
-unital algebra or factor. The next bounded transaction is exact paired source packaging and Verso
-integration for Proposition 1.15.2. Mathlib's WOT and pointwise/SOT objects and Sak-AI's intrinsic
-topology objects remain unchanged. Revisit a public PVM/integral interface only when
+unital algebra or factor. Proposition 1.15.2 has since been packaged in exact source order, and
+the direct Theorem 1.15.3 audit plus the carrier-neutral extended operator-energy prerequisite are
+complete. The theorem itself remains not source-formalized; the next step must select the permanent
+positive-trace/trace-class semantic core. Mathlib's WOT and pointwise/SOT objects and Sak-AI's
+intrinsic topology objects remain unchanged. Revisit a public PVM/integral interface only when
 coherent mathematics or new primary evidence fixes it.
 
 Before each substantial proof, search the current Sak-AI tree, pinned Mathlib, current Mathlib

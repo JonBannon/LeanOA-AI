@@ -116,8 +116,12 @@ topology carriers; it does not assert any global topology equality. The exact nu
 Theorem 1.15.3. Its direct source/API audit is complete: it fixes the arbitrary-Hilbert-space
 trace-pairing isometry and its two-way positivity clause, while recording that the
 infinite-dimensional positive trace, Hilbert--Schmidt, and trace-class layers are absent from
-current Mathlib. The next bounded architectural step is the carrier-neutral arbitrary-index
-`RCLike` operator-energy identity in `ℝ≥0∞`.
+current Mathlib. The carrier-neutral arbitrary-index `RCLike` operator-energy identity is now
+implemented in `LeanOA.Mathlib.Analysis.InnerProductSpace.HilbertBasis`: it is extended-real,
+agrees for any explicit adjoint pair, specializes to Mathlib's adjoint, is independent of the
+domain basis, and exposes finiteness as ordinary square summability. It introduces no
+operator-ideal carrier. The next durable step is the architectural choice of the public
+positive-trace and trace-class semantic core.
 
 The first Section 1.15 transaction fixes the topology boundary without filling it by notation.
 Mathlib's `ContinuousLinearMapWOT` is the concrete weak operator topology, and
@@ -187,6 +191,7 @@ source-order package is now
 API audit of Theorem 1.15.3 is complete. The exact source target is a linear isometric
 identification `a ↦ (x ↦ Tr(xa))` with the existing coefficient predual, including preservation
 and reflection of positivity, for an arbitrary complex Hilbert space. No permanent trace-class
-carrier is yet selected. Before the later architectural choice between a Hilbert--Schmidt-first
-construction and a source-faithful predual-range proof, the common next step is a
-basis-independent extended-real operator-energy theorem at arbitrary-index `RCLike` generality.
+carrier is yet selected. The common prerequisite is complete: `HilbertBasis.operatorEnergy` is
+basis-independent at arbitrary-index `RCLike` generality and its completeness-free core accepts
+any explicit adjoint pair. The next step must choose between a Hilbert--Schmidt-first construction
+and a source-faithful predual-range proof for the permanent positive-trace/trace-class semantics.

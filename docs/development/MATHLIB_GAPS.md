@@ -297,6 +297,13 @@ positive-trace, trace-class/Schatten, or nuclear-operator carrier. In particular
 trace. The exact source statement and prerequisite chain are fixed, but the theorem remains not
 source-formalized and no permanent trace-class carrier has been chosen.
 
+Sak-AI now supplies the first representation-neutral local bridge in
+`LeanOA.Mathlib.Analysis.InnerProductSpace.HilbertBasis`. The arbitrary-index ENNReal operator
+energy satisfies Parseval/Tonelli adjoint invariance, domain-basis independence, and the exact
+finiteness/square-summability equivalence. This closes the basis-energy gap only: it does not fill
+Mathlib's missing positive trace, Hilbert--Schmidt ideal, trace class, trace norm, or cyclicity
+infrastructure.
+
 ### Finite vector-functional layer and completion reconnaissance
 
 Pinned Mathlib has no bundled functional `T ↦ ⟪η,Tξ⟫`, so Sak-AI now composes the existing

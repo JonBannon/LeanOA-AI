@@ -34,6 +34,7 @@ public import LeanOA.Mathlib.Analysis.CStarAlgebra.PositiveLinearMap
 public import LeanOA.Mathlib.Analysis.CStarAlgebra.Projection
 public import LeanOA.Mathlib.Analysis.Complex.Basic
 public import LeanOA.Mathlib.Analysis.Convex.Topology
+public import LeanOA.Mathlib.Analysis.InnerProductSpace.HilbertBasis
 public import LeanOA.Mathlib.Analysis.InnerProductSpace.OperatorPredual
 public import LeanOA.Mathlib.Analysis.InnerProductSpace.OperatorPredualSeries
 public import LeanOA.Mathlib.Analysis.InnerProductSpace.WeakOperatorTopology

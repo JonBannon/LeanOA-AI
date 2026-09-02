@@ -32,9 +32,12 @@ arbitrary-filter convergence corollaries. These bounded-set results do not claim
 of the topologies. The direct source and API audit of Theorem 1.15.3 is complete: the target is the
 nonseparable linear isometric identification of trace-class operators with the existing concrete
 predual, with positivity preserved and reflected. Current Mathlib supplies no infinite-dimensional
-Hilbert--Schmidt or trace-class carrier. The next bounded step is the representation-neutral,
-arbitrary-index `RCLike` Hilbert--Schmidt energy identity in extended nonnegative reals; Theorem
-1.15.3 itself is not yet source-formalized.
+Hilbert--Schmidt or trace-class carrier. The representation-neutral prerequisite is now
+kernel-proved: `HilbertBasis.operatorEnergy` is an arbitrary-index, extended-nonnegative-real
+energy over `RCLike`, equal to the corresponding adjoint energy and independent of the chosen
+domain Hilbert basis. It assumes neither separability nor summability and introduces no
+operator-ideal carrier. Theorem 1.15.3 itself is not yet source-formalized; selecting the permanent
+positive-trace/trace-class semantic core is the next architectural boundary.
 
 - [Sak-AI documentation site](https://jonbannon.github.io/Sak-AI/)
 - [API documentation](https://jonbannon.github.io/Sak-AI/docs/)
@@ -46,7 +49,7 @@ The primary documentation source and deployed project site are the first-class V
 package in [`docs/`](docs/). It supplies a mathematical reading path, checked declaration links,
 dependency graph, formalization summary, full-text search, and index. The retired LeanBlueprint
 sources remain recoverable from Git history; all 87 former nodes and 141 dependency edges remain
-represented in Verso, whose current graph has 131 nodes and 242 statement-dependency edges. Exact
+represented in Verso, whose current graph has 132 nodes and 242 statement-dependency edges. Exact
 generated build audit data is recorded in
 [`VERSO_STATUS.md`](VERSO_STATUS.md).
 

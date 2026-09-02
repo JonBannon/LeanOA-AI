@@ -472,8 +472,11 @@ Proposition 1.15.2.  The direct source/API audit of Theorem 1.15.3 is now
 complete: its exact arbitrary-Hilbert-space trace-pairing isometry and
 two-way positivity clause are fixed, the missing infinite-dimensional
 operator-ideal prerequisites are recorded, and the theorem remains not
-source-formalized.  The next library step is the carrier-neutral
-arbitrary-index extended-real operator-energy identity.
+source-formalized.  The carrier-neutral arbitrary-index extended operator-
+energy layer is now public: it proves equality for explicit adjoint pairs,
+Mathlib-adjoint invariance, domain-basis independence, and finiteness exactly
+under ordinary square summability.  The next library boundary is the
+permanent positive-trace/trace-class architecture.
 
 # Portability rule
 

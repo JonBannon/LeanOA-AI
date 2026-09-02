@@ -285,7 +285,14 @@ in their workstream.
   concrete predual, with positivity preserved and reflected. The prerequisite chain and current
   Mathlib/Sak-AI gaps are recorded in `reports/SAKAI_1_15_3_SOURCE_AND_API.md`. This is a source
   map, not a theorem proof.
-- **Next bounded action:** prove the representation-neutral arbitrary-index `RCLike`
-  Hilbert--Schmidt operator-energy/adjoint equality in `ℝ≥0∞`, first in scratch and then in the
-  weakest useful production layer if its API is clean. Do not introduce a trace-class carrier in
-  this transaction. No bounded-ball result is to be advertised as a global topology equality.
+- **Carrier-neutral operator energy:** COMPLETE.
+  `HilbertBasis.operatorEnergy` is an arbitrary-index `RCLike` sum in `ℝ≥0∞`. Parseval and
+  unrestricted ENNReal Tonelli prove equality for any explicit adjoint pair; Mathlib's adjoint and
+  domain-basis independence are corollaries. Finiteness is exactly ordinary square summability.
+  No separability, summability hypothesis, Hilbert--Schmidt predicate, or trace-class carrier was
+  introduced.
+- **Architectural frontier:** select the public positive-trace/trace-class semantic core. The two
+  viable routes are a source-order Hilbert--Schmidt-first construction and a source-faithful
+  predual-range construction that defines `Tr(|a|) < ∞` independently and proves its range
+  equivalence with the existing coefficient predual. No bounded-ball result is to be advertised
+  as a global topology equality.

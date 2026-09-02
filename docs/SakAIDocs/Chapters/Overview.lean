@@ -183,9 +183,11 @@ $`a \mapsto (x \mapsto \operatorname{Tr}(xa))` for an arbitrary complex
 Hilbert space, with positivity preserved and reflected.  The prerequisites
 are source-mapped, but the theorem is not source-formalized and current
 Mathlib supplies no infinite-dimensional Hilbert--Schmidt or trace-class
-carrier.  The next bounded step is the representation-neutral,
-arbitrary-index extended-real operator-energy identity; it selects no
-trace-class semantics.
+carrier.  The first representation-neutral prerequisite is now
+kernel-proved: arbitrary-index extended operator energy agrees with adjoint
+energy, is independent of the domain Hilbert basis, and is finite exactly
+under ordinary square summability.  It selects no trace-class semantics.
+The next boundary is the permanent positive-trace/trace-class architecture.
 
 Sakai Proposition 1.15.1: SOURCE-FORMALIZED
 Sakai Proposition 1.15.2(1): SOURCE-FORMALIZED

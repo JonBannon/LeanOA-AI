@@ -774,10 +774,18 @@ This audit starts from `76b84e9` and fixes the exact target before topology impl
   current Mathlib contain no infinite-dimensional Hilbert--Schmidt, positive-trace, trace-class,
   Schatten, or nuclear-operator layer. See `reports/SAKAI_1_15_3_SOURCE_AND_API.md`. This status is
   `SOURCE-CHECKED` / `SOURCE-MAPPED`, not `SOURCE-FORMALIZED`.
-- **Next bounded transaction:** scratch-test and, if clean, promote the arbitrary-index `RCLike`
-  ENNReal operator-energy/adjoint identity. It is common representation-neutral infrastructure;
-  it must not introduce a Hilbert--Schmidt or trace-class carrier. Choosing the permanent
-  trace-class semantic core remains a later architectural decision.
+- **WS-15AA, arbitrary-index extended operator energy:** COMPLETE.
+  `HilbertBasis.operatorEnergy` takes values in ENNReal and has no separability or summability
+  hypothesis. Public Parseval lemmas prove equality for any explicit adjoint pair without
+  completeness; the Mathlib-adjoint theorem and domain-basis independence are corollaries for
+  complete Hilbert spaces. Energy is finite exactly when the real squared-norm family is
+  summable. The codomain of the raw definition is only seminormed, and no Hilbert--Schmidt or
+  trace-class carrier is introduced.
+- **Next architectural transaction:** choose the permanent positive-trace/trace-class semantic
+  core. A Hilbert--Schmidt-first route follows Sakai's source order; a shorter predual-range route
+  can reuse the existing coefficient predual and polar decompositions, but must still define
+  `Tr(|a|) < ∞` independently and kernel-prove the range equivalence. This is a durable design
+  choice, not routine proof engineering.
 
 Collision rule: do not introduce another predual class or topology synonym, do not use the
 choice-based W-star predual as a substitute for the explicit quotient restriction map, and do not

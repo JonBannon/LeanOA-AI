@@ -376,9 +376,12 @@ API audit is complete: Sakai identifies the independently defined
 trace-class Banach space with the existing concrete predual by
 $`a \mapsto (x \mapsto \operatorname{Tr}(xa))` and includes a two-way
 positivity clause, with no separability hypothesis.  The prerequisites are
-source-mapped, but the theorem is not source-formalized.  The next bounded
-step is the carrier-neutral arbitrary-index extended-real operator-energy
-identity.
+source-mapped, but the theorem is not source-formalized.  The carrier-neutral
+arbitrary-index extended operator-energy identity is now kernel-proved,
+including explicit-adjoint-pair equality, Mathlib-adjoint invariance,
+domain-basis independence, and the finiteness/square-summability bridge.  It
+introduces no operator-ideal carrier.  The next boundary is the permanent
+positive-trace/trace-class architecture.
 
 Sakai Proposition 1.15.1: SOURCE-FORMALIZED
 Sakai Proposition 1.15.2(1): SOURCE-FORMALIZED

@@ -4,11 +4,12 @@ Last updated: 2026-09-02
 
 ## Current state
 
-The current fully validated Verso Blueprint build generates a multi-page site with 131 active
+The current fully validated Verso Blueprint build generates a multi-page site with 132 active
 nodes and 242 statement-dependency edges. It includes all 87 nodes and 141 edges from the generated
 legacy LeanBlueprint graph, the connected development through Sakai 1.14.4, Proposition 1.15.1,
-and the exact two-clause bounded-topology package of Proposition 1.15.2. The manifest and HTML
-cache each have 635 entries, including 391 unique linked Lean declarations, and report no unknown
+the exact two-clause bounded-topology package of Proposition 1.15.2, and the carrier-neutral
+Hilbert-basis operator-energy prerequisite for Theorem 1.15.3. The manifest and HTML
+cache each have 642 entries, including 396 unique linked Lean declarations, and report no unknown
 dependency references or missing external Lean declarations.
 
 The apparent historical count of 88 came from counting textual `\label` occurrences: one of those
@@ -52,9 +53,10 @@ from that quotient predual. The strong comparison reduces arbitrary-filter conve
 convergence of the bounded positive-square errors $(x_i-x)^*(x_i-x)$ and reuses the weak-family
 homeomorphisms. No global topology equality is claimed. The direct source/API audit of Theorem
 1.15.3 is complete: the exact nonseparable isometric and positivity statement is source-checked,
-its prerequisites are source-mapped, and the theorem is not yet source-formalized. The next safe
-prerequisite is the arbitrary-index extended-real Hilbert--Schmidt operator-energy identity; it
-commits to no trace-class carrier.
+its prerequisites are source-mapped, and the theorem is not yet source-formalized. The
+arbitrary-index extended-real operator-energy identity is now kernel-proved, including adjoint
+invariance and domain-basis independence. It commits to no trace-class carrier; choosing the
+permanent positive-trace/trace-class semantic core is the next architectural boundary.
 Scratch checks a nontrivial
 refinement-plus-mesh filter and the complete competing-resolution support/uniqueness chain under an
 explicit left-endpoint moment limit. The public document accurately stops before those candidate
@@ -83,7 +85,7 @@ test -f _out/site/html-multi/-verso-data/blueprint-manifest.json
 test -f _out/site/html-multi/-verso-data/blueprint-html-cache.json
 ```
 
-All checks passed on 2026-09-02. `vbp check` reports `ok: true`, zero errors, and 635 manifest/cache
+All checks passed on 2026-09-02. `vbp check` reports `ok: true`, zero errors, and 642 manifest/cache
 entries. The build replays warnings from three pinned upstream Verso or SubVerso modules;
 Sak-AI's own documentation modules elaborate without warnings.
 
@@ -109,9 +111,11 @@ longer part of the build or deployment.
    not infer a global topology equality from these bounded results. The direct source/API audit of
    Theorem 1.15.3 is complete and records the exact arbitrary-Hilbert-space isometry, its two-way
    positivity clause, and the missing infinite-dimensional operator-ideal infrastructure. The
-   next bounded slice is the representation-neutral arbitrary-index `RCLike` operator-energy
-   identity in extended nonnegative reals. No trace-class carrier is selected by that step, and
-   Theorem 1.15.3 remains not source-formalized. No resolution, integral, or PVM structure becomes
+   representation-neutral arbitrary-index `RCLike` operator-energy identity in extended
+   nonnegative reals is now kernel-proved, with adjoint invariance and basis independence. No
+   trace-class carrier is selected by that result, and Theorem 1.15.3 remains not
+   source-formalized. The next architectural boundary is the permanent positive-trace/trace-class
+   semantic core. No resolution, integral, or PVM structure becomes
    public before a genuine
    mathematical interface fixes it.
 

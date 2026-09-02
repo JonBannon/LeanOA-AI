@@ -59,8 +59,10 @@ global topology equality. The direct source/API audit of Theorem 1.15.3 is compl
 arbitrary-Hilbert-space isometry and two-way positivity clause are source-checked, its
 prerequisites are source-mapped, and the theorem is not source-formalized. Do not create a
 source-theorem node for it before the independent positive trace and trace-class statement are
-kernel-proved. The next safe production candidate is the carrier-neutral arbitrary-index ENNReal
-operator-energy identity.
+kernel-proved. The carrier-neutral arbitrary-index ENNReal operator-energy theorem now has its own
+infrastructure node, linked to the basis-independent production API; it must not be presented as
+part of the unproved source theorem. The next source node remains blocked on an independently
+defined positive trace and trace-class carrier.
 
 The first Section 1.15 transaction completes the direct source and API audit but does not complete
 Proposition 1.15.1. Do not create a theorem node or declaration link for it. The public current

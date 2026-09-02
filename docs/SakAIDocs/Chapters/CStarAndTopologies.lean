@@ -573,6 +573,41 @@ without adding a topology or changing their hypotheses, in the exact order
 of the two printed clauses.
 :::
 
+:::theorem "thm:hilbert_basis_operator_energy" (parent := "operator-topologies") (lean := "HilbertBasis.operatorEnergy, HilbertBasis.operatorEnergy_ne_top_iff_summable_norm_sq, HilbertBasis.operatorEnergy_eq_of_isAdjointPair, HilbertBasis.operatorEnergy_eq_adjoint, HilbertBasis.operatorEnergy_basis_independent")
+Let $`E` and $`F` be complete Hilbert spaces over a real- or complex-like
+scalar field.  For an arbitrary-index Hilbert basis $`e=(e_i)` of $`E`, set
+
+$`
+  \mathcal E_e(T)=\sum_i \lVert T e_i\rVert^2\in[0,\infty].
+`
+
+For every Hilbert basis $`f=(f_j)` of $`F` and every bounded operator
+$`T:E\to F`, one has
+
+$`
+  \mathcal E_e(T)=\mathcal E_f(T^\dagger).
+`
+
+Consequently $`\mathcal E_e(T)` is independent of the Hilbert basis of the
+domain, and it is finite exactly when the real family
+$`i\mapsto\lVert T e_i\rVert^2` is summable.  The index types are arbitrary,
+and the equality is extended-real: there is no separability or summability
+assumption.  This is
+representation-neutral infrastructure for Sakai's Hilbert--Schmidt and
+positive-trace development, not a definition of a Hilbert--Schmidt or
+trace-class carrier.
+:::
+
+:::proof "thm:hilbert_basis_operator_energy"
+Parseval expands each squared norm into the extended sum of the squared
+matrix coefficients $`\lvert\langle f_j,T e_i\rangle\rvert^2`.  Tonelli's
+theorem for nonnegative extended sums exchanges the two arbitrary index
+types.  The adjoint identity converts the resulting coefficient to
+$`\langle e_i,T^\dagger f_j\rangle`, and a second use of Parseval gives the
+adjoint energy.  Applying the same identity to two domain bases and one
+chosen codomain basis proves basis independence.
+:::
+
 :::proposition "prop:loc_cvx_result" (parent := "operator-topologies") (lean := "Ultraweak.predualDualEquiv")
 The ultraweakly continuous complex-linear functionals on $`M` are precisely
 those represented by the specified predual $`M_*`.
