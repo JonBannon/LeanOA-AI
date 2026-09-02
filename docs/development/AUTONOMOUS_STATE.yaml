@@ -7,7 +7,7 @@ governor:
 repository:
   path: /Users/jonbannon/LeanRepos/LeanOA-AI
   branch: master
-  last_validated_mathematical_head: ec4b9dd6182125e2ab04ca02ab0e0528d5a0752b
+  last_validated_mathematical_head: 0bb4e52de6ce128618ff0a49cd15816e3893403d
   worktree_at_activation: clean
   origin_ahead_at_activation: 44
   origin_behind_at_activation: 0
@@ -19,30 +19,32 @@ active_source:
   section: "1.15"
   theorem: Theorem 1.15.3
   status: STATEMENT SOURCE-CHECKED; PREREQUISITES SOURCE-MAPPED; NOT SOURCE-FORMALIZED
-  target_area: arbitrary-index ENNReal Hilbert-basis operator energy and adjoint invariance
+  target_area: permanent positive-trace and trace-class semantic core
 
-status: active
+status: awaiting_architectural_decision
 
 last_mathematical_transaction:
-  commit: ec4b9dd6182125e2ab04ca02ab0e0528d5a0752b
-  classification: SOURCE_MAP
+  commit: 0bb4e52de6ce128618ff0a49cd15816e3893403d
+  classification: INFRASTRUCTURE
   summary: >-
-    Directly verified the exact arbitrary-Hilbert-space statement of Sakai
-    Theorem 1.15.3: trace class is identified isometrically with the existing
-    concrete predual by a map to the functional x ↦ Tr(xa), with positivity
-    preserved and reflected. Mapped the source prerequisite chain, audited
-    pinned/current Mathlib and Sak-AI, and recorded the absence of an
-    infinite-dimensional positive trace, Hilbert--Schmidt, or trace-class
-    carrier. No trace-class semantics were selected and the theorem remains
-    not source-formalized.
-  source_reference: Sakai Theorem 1.15.3, printed page 39 / PDF page 51
+    Added arbitrary-index RCLike ENNReal operator energy with reusable
+    Parseval lemmas, a completeness-free explicit-adjoint-pair equality,
+    Mathlib-adjoint invariance, domain-basis independence, zero, and the exact
+    finite-energy/square-summability bridge. No separability or summability
+    hypothesis and no Hilbert--Schmidt or trace-class carrier were introduced.
+  source_reference: Sakai Hilbert--Schmidt preparation, printed page 35 / PDF page 47
   checks:
     build: pass
     lint: pass
     docs: pass
     proof_debt_scan: pass
 
-current_blockers: []
+current_blockers:
+  - category: E3
+    summary: >-
+      The permanent positive-trace/trace-class semantic core can honestly be
+      Hilbert--Schmidt-first or a source-faithful predual-range hybrid. The
+      choice has durable public-API and dependency-order consequences.
 
 last_source_audit:
   commit: ec4b9dd6182125e2ab04ca02ab0e0528d5a0752b
@@ -61,34 +63,34 @@ last_source_audit:
 next_transaction:
   classification: INFRASTRUCTURE
   target: >-
-    Kernel-prove the arbitrary-index RCLike ENNReal Hilbert-basis operator
-    energy identity, its equality with adjoint energy, and basis independence,
-    without introducing a Hilbert--Schmidt or trace-class carrier.
-  scratch_targets:
-    - Scratch/Aut011ParsevalProbe.lean
-  enables: a basis-independent positive trace and either honest route to Sakai Theorem 1.15.3
-  confidence: high
+    After the architectural decision, implement the independent
+    basis-independent positive trace and begin the selected trace-class route.
+  scratch_targets: []
+  enables: Sakai Theorem 1.15.3
+  confidence: medium
 
 next_candidates:
-  - target: arbitrary-index ENNReal Hilbert-basis operator energy
-    reason: this is common source-faithful infrastructure for every viable Theorem 1.15.3 route
+  - target: Hilbert--Schmidt-first positive trace and trace class
+    reason: highest source-order fidelity and broadest immediate operator-ideal API
     confidence: high
-  - target: choose the permanent positive-trace and trace-class semantic core
-    reason: after operator energy, the Hilbert--Schmidt-first and predual-range routes become a durable architectural fork
-    confidence: medium
+  - target: source-faithful predual-range trace-class identification
+    reason: shortest honest route that reuses the stable coefficient predual and polar decompositions
+    confidence: high
   - target: direct SOT-ultrastrong comparison on arbitrary norm-bounded operator sets
     reason: this removes the closed-algebra hypothesis from a reusable concrete bounded-set API
     confidence: medium
 
 continuation:
-  decision: continue
+  decision: escalate
   rationale: >-
-    Theorem 1.15.3 is now source-checked and source-mapped. The arbitrary-index
-    ENNReal energy identity has a clean carrier-neutral proof design and is a
-    reversible prerequisite common to every honest trace-class route, so it
-    can proceed before the later architectural decision.
+    The carrier-neutral common prerequisite is complete. Further progress now
+    selects a permanent public positive-trace/trace-class semantic core from
+    two substantially different viable designs, triggering E3.
 
 escalation:
-  required: false
-  category: null
-  question: null
+  required: true
+  category: E3
+  question: >-
+    Should Sak-AI use Sakai's Hilbert--Schmidt-first semantic core, or the
+    recommended source-faithful predual-range hybrid, for the permanent
+    positive-trace and trace-class architecture?

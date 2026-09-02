@@ -426,3 +426,47 @@ authority for public mathematical completion claims.
   carrier.
 - **Decision:** `CONTINUE` — the next infrastructure seam is source-relevant, reversible,
   carrier-neutral, and already cleanly scratch-proved.
+
+## 2026-09-02 — AUT-011 — arbitrary-index extended operator energy
+
+- **Starting HEAD:** `ebe0e72faeeda09b591fae9e7b93f80fceaee4f8`.
+- **Ending HEAD:** `0bb4e52de6ce128618ff0a49cd15816e3893403d`.
+- **Target:** prove the representation-neutral Hilbert-basis energy prerequisite common to every
+  honest implementation of Sakai's Hilbert--Schmidt and trace-class development.
+- **Source:** Sakai's Hilbert--Schmidt preparation, printed page 35 / PDF page 47; this is
+  infrastructure for, not a completion claim about, Theorem 1.15.3.
+- **Result:** `HilbertBasis.operatorEnergy` is the arbitrary-index ENNReal sum of squared norms.
+  Public Parseval lemmas identify vector norm with the corresponding ENNReal coefficient sum.
+  `operatorEnergy_eq_of_isAdjointPair` proves energy equality for any explicit adjoint pair with
+  no completeness assumption; `operatorEnergy_eq_adjoint` specializes to Mathlib's adjoint, and
+  `operatorEnergy_basis_independent` proves independence of the domain Hilbert basis.
+  `operatorEnergy_ne_top_iff_summable_norm_sq` connects finite energy exactly to the real square-
+  summability required by the existing coefficient-series predual API.
+- **Classification:** `INFRASTRUCTURE`.
+- **Imminent theorem enabled:** an independent basis-invariant positive trace and either honest
+  construction route to Sakai Theorem 1.15.3.
+- **Generality and reuse:** the scalar is arbitrary `RCLike`; both basis index types are arbitrary;
+  no separability, countability, nonemptiness, or summability hypothesis occurs. The raw energy
+  accepts a seminormed codomain. Completeness appears only in the Mathlib-adjoint corollary, while
+  the explicit-adjoint-pair core needs none. Divergence is represented honestly by ENNReal top.
+- **Important declarations:** `HilbertBasis.hasSum_sq_norm_inner_right`,
+  `HilbertBasis.tsum_sq_enorm_inner_right`, `HilbertBasis.operatorEnergy`,
+  `HilbertBasis.operatorEnergy_ne_top_iff_summable_norm_sq`,
+  `HilbertBasis.operatorEnergy_eq_of_isAdjointPair`,
+  `HilbertBasis.operatorEnergy_eq_adjoint`, and
+  `HilbertBasis.operatorEnergy_basis_independent`.
+- **Validation:** focused kernel probes; full 3,205-job theorem build; `lake lint`;
+  `mk_all --check`; clean 3,567-job Verso elaboration and canonical site build/check; proof-debt,
+  conflict, stale-status, unbounded-option, axiom, and diff scans passed. The generated site has
+  132 nodes, 242 statement edges, 396 unique linked Lean declarations, and 642 manifest/cache
+  entries with zero graph errors. The principal declarations depend only on `propext`,
+  `Classical.choice`, and `Quot.sound`; only known pinned Verso/SubVerso warnings remain.
+- **Blocker discovered:** **E3 architectural fork**. A source-order Hilbert--Schmidt-first core and
+  a source-faithful predual-range hybrid are both viable and impose different durable public APIs
+  and dependency order. The compact spectral route is not viable as the primary carrier with
+  current Mathlib.
+- **Next target:** after the PI selects the semantic core, construct the independent
+  basis-invariant positive trace and begin the selected trace-class route.
+- **Decision:** `ESCALATE (E3)` — the common carrier-neutral work is complete; do not silently
+  choose the permanent positive-trace/trace-class architecture. The decision packet is
+  `reports/SAKAI_1_15_3_TRACE_CLASS_ARCHITECTURE_ESCALATION.md`.
