@@ -213,9 +213,29 @@ as the reusable closedness equivalence between Sak-AI's two specified-predual sy
 declarations introduce no topology and do not identify a concrete operator topology with an
 intrinsic one.
 
-Proposition 1.15.1 is **not source-formalized**. Pinned and current Mathlib do not supply the
-concrete predual of $B(H)$ or the missing $\sigma$-WOT/ultrastrong identifications, and current Sak-AI
-does not yet bridge its intrinsic predual topology or relative Kaplansky argument to the concrete
-WOT closure. IQ-010 owns that boundary. No human decision is requested now: the approved next
-bounded work is the concrete coefficient/predual bridge, with the proposition kept as the exact
-source frontier.
+Proposition 1.15.1 is **not source-formalized**. At this first-transaction checkpoint, pinned and
+current Mathlib did not supply the concrete predual of $B(H)$ or the missing
+$\sigma$-WOT/ultrastrong identifications, and Sak-AI had not yet bridged its intrinsic predual
+topology or relative Kaplansky argument to the concrete WOT closure. IQ-010 owns that boundary.
+The then-approved next bounded work was the concrete coefficient/predual bridge, with the
+proposition kept as the exact source frontier.
+
+## Accepted API review for the Sakai 1.15.1 coefficient-predual transaction
+
+The finite vector-functional span now has its exact norm formula and dense isometric inclusion in
+its operator-dual norm closure. Canonical evaluation is an isometry without a completeness
+assumption on the Hilbert codomain; completeness enters only for the Fréchet--Riesz recovery that
+proves surjectivity. The resulting duality theorem is deliberately general: the operator domain is
+only seminormed, while the codomain is a complete Hilbert space over an `RCLike` scalar.
+
+The operator-algebra assembly installs the existing `Predual` class only at the naturally normed
+domain boundary. A short carrier is canonically linearly isometric to the actual closure subtype;
+this wrapper is an elaboration boundary, not a competing mathematical predual, and fresh-import
+probes confirm that direct and opposite predual instances synthesize at the project default. The
+duality equivalence uses the explicit Riesz recovery map as its inverse, rather than a
+choice-generated inverse.
+
+This infrastructure is accepted and has a Verso node. It is not Sakai Proposition 1.15.1: the
+square-summable coefficient-series comparison, concrete ultrastrong comparison, and relative
+Kaplansky closure argument remain OPEN / RED under IQ-010. The approved next bounded work is the
+coefficient-series API and its one-sided specified-predual topology comparison.

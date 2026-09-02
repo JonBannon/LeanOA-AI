@@ -218,9 +218,15 @@ in their workstream.
   star and fixed-multiplier stability, proves a bidirectional identity equivalence with Mathlib
   WOT, and identifies it with all WOT-continuous linear functionals. It uses the existing
   `WeakBilin`/`LinearMap.IsWeak` core and introduces no topology synonym.
-- **Missing edges:** a norm completion of the coefficient span certified as a concrete predual of
-  $B(H)$ and an embedding that instantiates `SakaiInvariantTestSpace`;
-  comparison of Sakai's $\sigma$-WOT with the intrinsic predual weak topology; comparison of the
+- **Third transaction:** the coefficient norm is computed exactly, the coefficient span is embedded
+  densely in its norm closure, and canonical evaluation is proved to be an isometric equivalence
+  from all bounded maps into a complete Hilbert space onto the dual of that closure. The normed-
+  domain specialization installs a short carrier canonically isometric to the closure as the
+  existing specified `Predual`; in particular this supplies the concrete predual of $B(H)$ without
+  a parallel trace-class definition or a second semantic construction.
+- **Missing edges:** an invariant dense coefficient subspace packaged for the existing
+  `SakaiInvariantTestSpace` consumers; comparison of Sakai's $\sigma$-WOT with the intrinsic
+  predual weak topology; comparison of the
   concrete ultrastrong topology with intrinsic `s`; and a relative Kaplansky theorem giving unit-
   ball/closure density inside the WOT closure rather than only for a subalgebra dense in the whole
   ambient algebra. Current Mathlib also lacks the concrete $B(H)$ predual/double-commutant bridge.
@@ -233,8 +239,8 @@ in their workstream.
   concrete topology families explicitly distinct. Add no source-theorem Verso node for
   Proposition 1.15.1 while the proposition is unproved; independently useful proved
   infrastructure may be documented as such.
-- **Next bounded action:** construct the completion-first candidate `P_H` from the norm closure of
-  the coefficient span in `B(H)*` and prove the evaluation map
-  `B(H) ≃ₗᵢ StrongDual ℂ P_H`, while keeping trace-class identification as a later theorem. In
-  parallel, specify the relative Kaplansky theorem whose right side is the test-weak closure's unit
-  ball inside the original ambient algebra. The public frontier remains Proposition 1.15.1.
+- **Next bounded action:** prove that summable families of vector coefficients define elements of
+  the norm-closed coefficient predual, then use this API to compare Sakai's $\sigma$-WOT with the
+  intrinsic weak topology from the new specified predual. In parallel, retain the relative
+  Kaplansky target whose right side is the test-weak closure's unit ball inside the original ambient
+  algebra. The public frontier remains Proposition 1.15.1.

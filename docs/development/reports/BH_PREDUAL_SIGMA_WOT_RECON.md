@@ -2,10 +2,11 @@
 
 ## Status and evidence policy
 
-This is the nonproduction reconnaissance report for WS-15F. It introduces no
-Lean definition or theorem and does **not** claim that the concrete predual of
-`B(H)`, sigma-WOT, relative Kaplansky density, or Sakai Proposition 1.15.1 has
-been formalized.
+This began as the nonproduction reconnaissance report for WS-15F, which
+introduced no Lean declaration. Sections 8--12 now also record the later
+production outcome: the coefficient-completion predual has been kernel-proved.
+The report still does **not** claim sigma-WOT, relative Kaplansky density, or
+Sakai Proposition 1.15.1 has been formalized.
 
 The audit compares:
 
@@ -411,15 +412,15 @@ abstract identification of the same predual.
 
 ### Carrier
 
-Assume the coefficient workstream supplies the finite coefficient span
+The coefficient workstream supplies the finite coefficient span
 
 ```lean
 V_H : Submodule ℂ (StrongDual ℂ (H →L[ℂ] H))
 ```
 
-with coefficient, norm-bound, star, left/right invariance, separation, and WOT
-identification lemmas. This report does not assert that those declarations are
-already integrated.
+with coefficient, exact norm, star, left/right invariance, separation, and WOT
+identification lemmas. These declarations are integrated at the more general
+`RCLike` / continuous-linear-map level.
 
 Define the predual carrier to be the actual operator-norm closure in the norm
 dual:
@@ -442,49 +443,45 @@ viewed as a subtype/closed submodule of
 The copy of the finite coefficient span inside `P_H` should use the canonical
 inclusion into the closure, not a second span.
 
-### Direct sesquilinear recovery
+### Direct conjugate-linear Riesz recovery
 
 The shortest implementation route discovered in this audit does **not** need
 Sakai's WOT-compactness/Mackey argument and does not need trace class.
 
-For
+The production theorem is more general than the endomorphism case.  For a
+seminormed $`E`, a complete Hilbert space $`F`, and
 
 ```lean
-g : StrongDual ℂ P_H
+g : StrongDual 𝕜 (ContinuousLinearMap.vectorFunctionalClosure
+  (𝕜 := 𝕜) (E := E) (F := F))
 ```
 
 define
 
 \[
-B_g(\eta,\xi)=g(\omega_{\xi,\eta}).
+L_g(\xi)(\eta)=\overline{g(\omega_{\xi,\eta})}.
 \]
 
-The coefficient norm bound gives
+The exact coefficient norm formula gives
 
 \[
-|B_g(\eta,\xi)|
+|L_g(\xi)(\eta)|
 \leq \lVert g\rVert\,\lVert\eta\rVert\,\lVert\xi\rVert.
 \]
 
-Moreover \(B_g\) is conjugate-linear in \(\eta\) and linear in \(\xi\), so it
+Moreover \(L_g\) is conjugate-linear in \(\xi\) and linear in \(\eta\), so it
 can be bundled as
 
 ```lean
-H →L⋆[ℂ] H →L[ℂ] ℂ
+E →L⋆[𝕜] StrongDual 𝕜 F
 ```
 
-Pinned Mathlib's `InnerProductSpace.continuousLinearMapOfBilin` turns this into
-an operator \(S_g\) satisfying
-
-\[
-\langle S_g\eta,\xi\rangle=B_g(\eta,\xi).
-\]
-
-Set \(T_g=S_g^*\). The adjoint identity gives
+Composing this with the conjugate-linear inverse
+`(InnerProductSpace.toDual 𝕜 F).symm` gives a linear operator $`T_g:E\to F`.
+Conjugate symmetry and Fréchet--Riesz give
 
 \[
 \langle\eta,T_g\xi\rangle
-=\langle S_g\eta,\xi\rangle
 =g(\omega_{\xi,\eta}).
 \]
 
@@ -493,17 +490,18 @@ finite span, and then on all of `P_H` by density and continuity. This proves
 surjectivity of canonical evaluation. The same estimates in both directions
 prove isometry.
 
-This proof is **PROPOSED / UNPROVED**. Its ingredients exist in pinned and
-current Mathlib, but the construction and density argument have not been
-written or kernel-checked in this transaction. It should be scratch-tested
-before a public name is selected.
+This proof is **KERNEL-CHECKED / PROVED** in
+`LeanOA.Mathlib.Analysis.InnerProductSpace.OperatorPredual`.  It needs no
+inner product or completeness on $`E` and no nontriviality assumption.  The
+normed-domain specialization is installed as the existing `Predual` class in
+`LeanOA.Ultraweak.BoundedOperator`.
 
 This route is preferable to reproducing Sakai's WOT-unit-ball compactness
 argument or first constructing trace class/a completed projective tensor
 product. Those remain honest fallback routes but introduce much more
 infrastructure.
 
-## 9. Exact completion theorem required
+## 9. Exact completion theorem implemented
 
 The canonical map is evaluation:
 
@@ -511,49 +509,58 @@ The canonical map is evaluation:
 J:T\longmapsto[\varphi\mapsto\varphi(T)].
 \]
 
-The required kernel-checked endpoint is schematically
+The kernel-checked endpoint is
 
 ```lean
-noncomputable def boundedOperatorPredualEquiv :
-    (H →L[ℂ] H) ≃ₗᵢ[ℂ] StrongDual ℂ P_H
+ContinuousLinearMap.vectorFunctionalClosureEquivDual :
+    (E →L[𝕜] F) ≃ₗᵢ[𝕜]
+      StrongDual 𝕜 (ContinuousLinearMap.vectorFunctionalClosure
+        (𝕜 := 𝕜) (E := E) (F := F))
 ```
 
 with an application theorem
 
 ```lean
-boundedOperatorPredualEquiv_apply_apply (T) (φ) :
-  boundedOperatorPredualEquiv T φ =
-    (φ : StrongDual ℂ (H →L[ℂ] H)) T
+ContinuousLinearMap.vectorFunctionalClosureEquivDual_apply_apply (T) (φ) :
+  ContinuousLinearMap.vectorFunctionalClosureEquivDual T φ =
+    (φ : StrongDual 𝕜 (E →L[𝕜] F)) T
 ```
 
-and preferably a separately named surjectivity theorem for the evaluation
-isometry so the hard mathematical step is discoverable. The resulting
-instance is
+The separately named theorem
+`vectorFunctionalClosureEvaluation_surjective` makes the hard mathematical
+step discoverable. For stable downstream typeclass synthesis, the assembly
+layer exposes a short carrier `VectorFunctionalPredual 𝕜 E F` together with
+the canonical isometry `vectorFunctionalPredualEquivClosure` to the actual
+closure. The resulting instance is
 
 ```lean
-Predual ℂ (H →L[ℂ] H) P_H
+Predual ℂ (H →L[ℂ] H)
+  (ContinuousLinearMap.VectorFunctionalPredual ℂ H H)
 ```
 
-using `boundedOperatorPredualEquiv` as `Predual.equivDual`.
+using `vectorFunctionalPredualEquivDual` as `Predual.equivDual`. This wrapper
+does not change the mathematical carrier up to the displayed canonical
+linear isometry and introduces no second predual semantics.
 
-The proof should expose reusable pieces:
+The proof exposes reusable pieces:
 
 1. coefficient inclusion into `P_H` and its dense range;
 2. evaluation on `P_H` as a continuous linear map;
 3. evaluation is an isometry (coefficients are norming);
-4. `g` produces the bounded sesquilinear form `B_g`;
-5. Riesz/adjoint recovery `predualFunctionalOperator g`;
+4. `g` produces the bounded conjugate-linear form
+   `vectorFunctionalClosureRecoveryForm g`;
+5. two-conjugate-map Riesz recovery `vectorFunctionalClosureRecover g`;
 6. recovery on each vector coefficient;
 7. recovery on all of `P_H` by density;
 8. surjectivity and the final linear isometric equivalence.
 
-The theorem is valid for the zero Hilbert space. The construction should not
+The theorem is valid for the zero Hilbert space. The construction does not
 add `Nontrivial H`; zero-space branches are needed only where an operator-norm
 witness argument chooses a nonzero vector.
 
-This completion theorem is the genuine missing concrete-predual theorem. The
-definition of `P_H` alone is scaffolding and must not be advertised as a
-predual until evaluation is proved onto.
+This completion theorem was the genuine missing concrete-predual theorem. The
+definition of `P_H` alone would have been scaffolding; its predual status is
+now justified by the proved surjectivity of evaluation.
 
 ## 10. Expected sigma-WOT/predual relation
 
@@ -672,38 +679,50 @@ Sakai says “unit sphere” in the inspected prose, but the existing source aud
 already flags that terminology and the modern theorem is the closed-ball
 statement.
 
-## 12. Exact recommended next bounded transaction
+## 12. Coefficient-closure transaction outcome and next bounded transaction
 
-### Coefficient-closure predual by sesquilinear recovery
+### Completed endpoint: coefficient predual by sesquilinear recovery
 
-Do not begin trace-class or Hilbert--Schmidt production yet. Once the
-coefficient-span and WOT interfaces from WS-15D/WS-15E are integrated, perform
-one bounded transaction whose endpoint is
+The production transaction obtained the more general endpoint
 
 ```lean
-(H →L[ℂ] H) ≃ₗᵢ[ℂ]
-  StrongDual ℂ (vectorCoefficientSpan H).topologicalClosure
+(E →L[𝕜] F) ≃ₗᵢ[𝕜]
+  StrongDual 𝕜 (ContinuousLinearMap.vectorFunctionalClosure
+    (𝕜 := 𝕜) (E := E) (F := F))
 ```
 
-Required gates:
+for an `RCLike` scalar, a seminormed operator domain, and a complete Hilbert
+codomain. The project-level `Predual` instance uses the naturally required
+normed operator domain.
 
-1. scratch-test `continuousLinearMapOfBilin` plus adjoint recovery with the
-   exact Mathlib coefficient convention;
-2. define the norm-closed coefficient carrier at the lowest natural
+Completed gates:
+
+1. the final two-conjugate-map Riesz recovery route was kernel-tested with the
+   exact Mathlib coefficient convention (an earlier scratch test also checked
+   `continuousLinearMapOfBilin` in the endomorphism case);
+2. the norm-closed coefficient carrier is defined at the lowest natural
    Hilbert/operator level;
-3. prove completeness and density of the embedded finite span using closure
+3. completeness and density of the embedded finite span use closure
    APIs;
-4. define canonical evaluation and prove it is isometric;
-5. construct the inverse operator from a predual functional by the bounded
+4. canonical evaluation is proved isometric;
+5. the inverse operator is constructed from a predual functional by the bounded
    sesquilinear form above;
-6. prove recovery first on coefficients, then on the closure by density;
-7. package the `Predual` instance without changing Sak-AI's foundational
+6. recovery is proved first on coefficients, then on the closure by density;
+7. the `Predual` instance is packaged without changing Sak-AI's foundational
    class;
-8. map the coefficient span into the completed predual and prove
-   `SakaiInvariantTestSpace` from the star/left/right formulas;
-9. prove square-summable series membership and only the one-sided topology
-   comparison needed by Proposition 1.15.1;
-10. run the full theorem-library validation and axiom/placeholder audit.
+
+### Next bounded endpoint: coefficient-series integration
+
+The next transaction should:
+
+1. package the coefficient span inside the completed predual in the invariant
+   form required by `SakaiInvariantTestSpace`;
+2. prove norm summability and predual membership for square-summable pairs of
+   coefficient-vector families;
+3. prove the corresponding evaluation/series formula;
+4. derive only the one-sided concrete σ-WOT/predual-topology comparison needed
+   at this point in Proposition 1.15.1;
+5. run full theorem-library, Verso, axiom, and placeholder validation.
 
 Explicit exclusions:
 
@@ -713,7 +732,7 @@ Explicit exclusions:
 - no claim of global sigma-WOT/predual-topology equality;
 - no claim that Proposition 1.15.1 is complete.
 
-The immediately following bounded transaction should prove
+The transaction after coefficient-series integration should prove
 `kaplansky_density_in_testWeakClosure` and instantiate it for coefficients.
 Separating these transactions keeps concrete duality independent of the
 operator-algebraic relative-closure proof and gives a clear review point for the

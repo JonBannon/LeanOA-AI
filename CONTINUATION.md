@@ -66,15 +66,22 @@ Last updated: 2026-09-01
   subalgebra of $B(H)$ across WOT, $\sigma$-WOT, SOT, the square-summable-vector ultrastrong
   topology, and $\sigma(B(H),B(H)_*)$. Mathlib's concrete WOT and pointwise/SOT objects are now
   connected by a canonical continuous identity and one-way closedness theorem; Sak-AI's intrinsic
-  strong/ultraweak convex closedness equivalence is also packaged explicitly. Concrete predual,
-  coefficient-series, ultrastrong, and relative Kaplansky-closure bridges remain missing, so no
-  source theorem or source-theorem Verso node is claimed.
+  strong/ultraweak convex closedness equivalence is also packaged explicitly. At that checkpoint,
+  the concrete predual, coefficient-series, ultrastrong, and relative Kaplansky-closure bridges
+  remained missing, so no source theorem or source-theorem Verso node was claimed.
 - The second Proposition 1.15.1 transaction constructs Sakai's finite vector-functional space at
   general continuous-linear-map/Hilbert-space level. Its algebraic span separates operators, is
   stable under intrinsic star and fixed multiplication, induces Mathlib WOT in both directions,
   and is linearly equivalent to the full WOT-continuous dual. It does not claim that this span is
-  norm complete or already a specified predual. The next determined step is its norm closure and
-  the canonical evaluation duality theorem.
+  norm complete or already a specified predual.
+- The third Proposition 1.15.1 transaction computes the exact coefficient norm, constructs the
+  norm closure with its dense finite-span inclusion, and proves canonical evaluation to be a
+  linear isometric equivalence onto the closure's full dual. The theorem is maximally generalized
+  to maps from a seminormed space into a complete Hilbert space; the normed-domain specialization
+  installs a short carrier canonically isometric to the closure through Sak-AI's existing
+  `Predual` class. This certifies the concrete $B(H)$ predual without introducing trace class or a
+  competing predual semantics. The next determined step is the square-summable coefficient-series
+  bridge for $\sigma$-WOT.
 - The theorem package had no uncommitted changes at the start of the orchestration work.
 - Jireh Loreaux's LeanOA and Mathlib are read-only references. The original LeanOA checkout has
   not been modified.
@@ -141,9 +148,10 @@ Every normal functional `g` also has a unique Sakai polar pair `(v, |g|)` with
 `v * star v = s(|g⋆|)`. Proposition 1.15.1 is the current source target. Its direct audit is
 complete and distinguishes global subalgebra closedness from Proposition 1.15.2's bounded-sphere
 topology equivalences. The finite coefficient/WOT bridge is complete. The next bounded
-implementation target is the norm-closed coefficient carrier and canonical evaluation equivalence
-that certifies the concrete $B(H)$ predual; no source package should be attempted before that
-duality and the subsequent $\sigma$-WOT and ultrastrong comparisons are proved.
+coefficient norm-closure and canonical evaluation duality are also complete, certifying the
+concrete $B(H)$ predual. The next bounded implementation target is square-summable coefficient
+series and the resulting $\sigma$-WOT comparison; no source package should be attempted before
+that comparison and the subsequent ultrastrong and relative-density bridges are proved.
 
 The implemented public design is:
 
@@ -403,6 +411,16 @@ The completed implementation layers are:
     - the exact `LinearMap.IsWeak` certificate and representation of every WOT-continuous linear
       functional by the finite span;
     - no norm-completion, specified-predual, or sigma-WOT equality claim.
+23. Section 1.15.1 third norm-closed-predual transaction (begun at baseline
+    `21332383a82bff3f2d4a217d8d86b07c92591e18`, completed on 2026-09-01):
+    - the sharp norm formula `‖ω_{ξ,η}‖ = ‖ξ‖ ‖η‖` without completeness or
+      nontriviality assumptions;
+    - the norm-closed coefficient carrier and dense isometric finite-span inclusion;
+    - isometric canonical evaluation and surjectivity by generalized conjugate-linear
+      Fréchet--Riesz recovery;
+    - an isometric dual equivalence for maps from any seminormed space into a complete Hilbert
+      space, with a thin `Predual` instance at the naturally normed-domain boundary;
+    - no coefficient-series, sigma-WOT, ultrastrong, relative-density, or source-theorem claim.
 
 The source audit has closed the 1.11.3 review question with LEVEL C rather than an accepted
 definition. Do not promote `atTop ⊓ comap divisionMesh (nhds 0)` as Sakai's meaning. Canonical
@@ -413,10 +431,10 @@ complete through the production projection-chain and complete-additivity modules
 complete through the general normal-functional polar decomposition of Theorem 1.14.4. The
 Proposition 1.15.1 source/API audit is complete, but the proposition is not source-formalized. The
 finite coefficient/WOT bridge is also complete. The next bounded transaction constructs the
-norm-closed coefficient carrier and proves the canonical evaluation duality needed for the
-concrete $B(H)$ predual, while retaining Mathlib's WOT and pointwise/SOT objects and Sak-AI's
-intrinsic topology objects unchanged. Revisit a public PVM/integral interface only when coherent
-mathematics or new primary evidence fixes it.
+square-summable coefficient-series API inside the now-certified concrete $B(H)$ predual and uses
+it toward the $\sigma$-WOT comparison, while retaining Mathlib's WOT and pointwise/SOT objects and
+Sak-AI's intrinsic topology objects unchanged. Revisit a public PVM/integral interface only when
+coherent mathematics or new primary evidence fixes it.
 
 Before each substantial proof, search the current Sak-AI tree, pinned Mathlib, current Mathlib
 master/review history, and current LeanOA for an equivalent or more general declaration.
@@ -424,10 +442,11 @@ master/review history, and current LeanOA for an equivalent or more general decl
 ## Documentation continuation
 
 The Verso package preserves all 87 active nodes and 141 statement-dependency edges in the generated
-legacy graph and extends them to 122 nodes and 222 edges through the exact strong-topology,
+legacy graph and extends them to 123 nodes and 223 edges through the exact strong-topology,
 fixed-projection, spectral-approximation, element-polar-decomposition, completed Section 1.13,
 normal-positive-functional-support, norm-orthogonality, functional-Jordan, and general
-functional-polar edges. The exact manifest count and audit state are recorded in
+functional-polar edges, followed by the vector-functional WOT and norm-closed-predual edge. The
+exact manifest count and audit state are recorded in
 `VERSO_STATUS.md`. The legacy
 sources remain recoverable from Git history. New mathematical documentation must be authored in
 Verso first.

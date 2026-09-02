@@ -583,3 +583,35 @@ Collision rule: the next transaction must extend `vectorFunctionalSpan` through 
 completion/embedding and prove its predual property. It must not identify the algebraic span with
 `B(H)_*`, define σ-WOT by the intrinsic topology, or import trace-class conclusions from Sakai
 Theorem 1.15.3 before proving them.
+
+## Sakai 1.15 third norm-closed-predual transaction
+
+> **Read and obey `docs/development/SAKAI_DESIGN_CONTRACT.md` and the authoritative Sak-AI specifications it references. These requirements govern this workstream. Do not introduce designs inconsistent with them.**
+
+This transaction starts from `21332383a82bff3f2d4a217d8d86b07c92591e18`. It constructs the
+canonical norm-closed coefficient predual without importing trace-class theory or claiming Sakai
+Proposition 1.15.1.
+
+- **WS-15G, coefficient norm and closed carrier:** COMPLETE / GREEN. The generic operator module
+  proves the sharp formula `‖vectorFunctional ξ η‖ = ‖ξ‖ * ‖η‖`, defines
+  `vectorFunctionalClosure` as the operator-dual norm closure of the finite coefficient span, and
+  packages the span inclusion as a dense linear isometry. The coefficient norm theorem keeps the
+  seminormed operator domain and needs no artificial completeness or nontriviality assumption.
+- **WS-15H, generalized recovery:** COMPLETE / GREEN. Canonical evaluation from operators into the
+  strong dual of the closed coefficient carrier is an isometry. A functional on the carrier is
+  recovered as an operator by a bounded sesquilinear form and the Hilbert-space Riesz equivalence;
+  equality is proved first on coefficient vectors and then on the closure by density. Domain-side
+  Hilbert and completeness assumptions are absent because the mathematics does not require them.
+- **WS-15I, project predual assembly:** COMPLETE / GREEN. For a normed operator domain and complete
+  Hilbert codomain, `LeanOA.Ultraweak.BoundedOperator` installs the resulting equivalence as the
+  existing root `Predual` structure through a short carrier canonically isometric to the closure.
+  No competing predual class, operator topology, or
+  trace-class synonym is introduced.
+- **Source and Verso status:** this is certified infrastructure and has a dedicated Verso theorem
+  node. Sakai Proposition 1.15.1 remains **not source-formalized**: coefficient-series σ-WOT,
+  concrete ultrastrong comparison, and the relative Kaplansky closure argument remain open.
+
+Collision rule: subsequent §1.15 work must reuse `vectorFunctionalClosure` and its proved predual
+equivalence. The next bounded transaction should establish square-summable coefficient-series
+membership and the resulting one-sided topology comparison. It must not introduce trace class or
+identify concrete σ-WOT with the predual topology by definition.

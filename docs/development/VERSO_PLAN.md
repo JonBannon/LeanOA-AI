@@ -52,15 +52,21 @@ should now point to the Section 1.15 topology/API audit and Proposition 1.15.1.
 
 The first Section 1.15 transaction completes the direct source and API audit but does not complete
 Proposition 1.15.1. Do not create a theorem node or declaration link for it. The public current
-frontier remains Proposition 1.15.1 and should state that the concrete $B(H)$ predual,
-$\sigma$-WOT/ultrastrong identifications, and relative Kaplansky closure machinery are still
+frontier remains Proposition 1.15.1; at that checkpoint the concrete $B(H)$ predual,
+$\sigma$-WOT/ultrastrong identifications, and relative Kaplansky closure machinery were still
 missing.
 
 The second transaction may be presented as a stable infrastructure node, not as Proposition
 1.15.1: the finite vector-functional span is star/multiplier invariant, induces Mathlib WOT in both
-directions, and is the full WOT-continuous dual. The frontier text should now say that the finite
-coefficient/WOT layer is complete while the norm-completed predual, coefficient-series σ-WOT,
-ultrastrong comparison, and relative Kaplansky theorem remain missing.
+directions, and is the full WOT-continuous dual. At that checkpoint the frontier text recorded that
+the norm-completed predual, coefficient-series σ-WOT, ultrastrong comparison, and relative
+Kaplansky theorem remained missing.
+
+The third transaction is another stable infrastructure node, still not Proposition 1.15.1.  It
+computes the coefficient norm, takes the actual norm closure, and proves canonical evaluation is
+an isometric equivalence onto its dual by generalized Fréchet--Riesz recovery.  The frontier text
+should say that the concrete predual is complete while coefficient-series σ-WOT, ultrastrong, and
+relative Kaplansky bridges remain missing.
 
 If the general topology bridges are mentioned later in the library/API path, distinguish them
 precisely: Mathlib's `ContinuousLinearMapWOT` is concrete WOT;

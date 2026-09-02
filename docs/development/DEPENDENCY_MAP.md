@@ -130,8 +130,9 @@ Strong.isClosed_iff_image_toUltraweakEquiv [real-convex intrinsic bridge; GREEN]
 
 [GREEN] finite vector-coefficient realization of WOT
   ↓
-[RED] norm completion and concrete predual of B(H)
-  + [RED] concrete σ-WOT ↔ intrinsic σ comparison
+[GREEN] norm closure and concrete predual of B(H)
+  ↓
+[RED] concrete σ-WOT ↔ intrinsic σ comparison
   + [RED] concrete ultrastrong ↔ intrinsic s comparison
   + [RED] relative Kaplansky density in a WOT closure
   ↓
@@ -328,15 +329,18 @@ The next dependency reconnaissance was the Section 1.15 topology/API audit, with
 
 The first Section 1.15 transaction completes that direct source and overlap audit. The second
 constructs the finite coefficient span, proves that its induced weak topology is exactly Mathlib
-WOT in both directions, and identifies it with all WOT-continuous linear functionals. It closes the
-finite coefficient edge but not the completion/predual or relative-closure edges above. Pinned
+WOT in both directions, and identifies it with all WOT-continuous linear functionals. The third
+computes the exact coefficient norm, constructs its norm closure, and certifies canonical
+evaluation as an isometric dual equivalence and specified predual. It closes the finite coefficient
+and completion/predual edges but not the coefficient-series or relative-closure edges above. Pinned
 Mathlib commit
 `476ab284693e554a6b48c5f5210cb4fb5ae51252` supplies the concrete WOT and pointwise/SOT synonyms;
 the mirrored local modules contribute the continuous SOT-to-WOT identity, the coefficient API,
 and the exact weak-pairing/WOT identification. Original LeanOA commit
 `cb811c1006ae78a0ff1d175253200e1859843370` contributes no concrete operator-topology bridge.
-Current Mathlib still supplies neither a concrete $B(H)$
-predual/double-commutant bridge nor the missing source comparisons. The intrinsic `σ`, `s`, and
+Current Mathlib still supplies neither this concrete $B(H)$
+predual/double-commutant bridge nor the missing source comparisons; the predual bridge is local
+Sak-AI infrastructure. The intrinsic `σ`, `s`, and
 Mackey APIs therefore remain distinct from concrete WOT, SOT, $\sigma$-WOT, and ultrastrong
 topologies until named compatibility theorems are proved.
 

@@ -133,9 +133,11 @@ ultrastrong topology. Likewise, Sakai's separately defined $\sigma$-weak operato
 be identified definitionally with `σ(B(H),B(H)_*)`; the source proves only the relevant closedness
 equivalence here and postpones global topology identifications.
 
-The direct source audit of Proposition 1.15.1 and its finite WOT coefficient layer are complete,
-but the proposition is not source-formalized. The norm completion of the coefficient space and its
-certification as a concrete $B(H)$ predual, the $\sigma$-WOT and ultrastrong comparison maps, and
-relative Kaplansky closure machinery remain missing; current Mathlib also has no concrete $B(H)$
-predual/double-commutant bridge. IQ-010 owns this OPEN / RED boundary. No Verso node claims the
-source proposition, and the public frontier remains Proposition 1.15.1.
+The direct source audit of Proposition 1.15.1, its finite WOT coefficient layer, and the norm-closed
+coefficient predual are complete, but the proposition is not source-formalized. The generic
+duality theorem uses the actual closure subtype; the operator-algebra assembly exposes a short
+carrier canonically isometric to it so the established `Predual` class remains usable at the
+project-wide synthesis depth. The coefficient-series $\sigma$-WOT and ultrastrong comparison maps
+and relative Kaplansky closure machinery remain missing; current Mathlib also has no complete
+double-commutant bridge. IQ-010 owns this OPEN / RED boundary. No Verso node claims the source
+proposition, and the public frontier remains Proposition 1.15.1.

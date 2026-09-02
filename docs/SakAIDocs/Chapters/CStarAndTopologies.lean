@@ -304,8 +304,34 @@ Mathlib's coefficient characterization of WOT for the generators.  The
 resulting continuous linear equivalence yields the `LinearMap.IsWeak`
 certificate on the WOT carrier, and the general weak representation theorem
 identifies its continuous dual with the coefficient span.  This is an
-algebraic/topological-dual result, not yet the norm-completed predual of
-$`B(\mathcal H)`.
+algebraic/topological-dual result; the following theorem performs the
+distinct norm-completion step.
+:::
+
+:::theorem "thm:vector_functional_closure_predual" (parent := "operator-topologies") (lean := "ContinuousLinearMap.norm_vectorFunctional, ContinuousLinearMap.denseRange_vectorFunctionalSpanToClosure, ContinuousLinearMap.vectorFunctionalClosureEquivDual, ContinuousLinearMap.vectorFunctionalPredualEquivClosure, ContinuousLinearMap.vectorFunctionalPredual_predualEquivDual_apply_apply") (uses := "thm:vector_functionals_wot")
+Let $`E` be a seminormed space and $`F` a complete Hilbert space over an
+$`\mathbb R`- or $`\mathbb C`-like scalar field.  Let $`P(E,F)` be the norm
+closure, inside $`\mathcal L(E,F)^*`, of the finite span of the vector
+functionals $`T\mapsto\langle\eta,T\xi\rangle`.  Canonical evaluation is a
+linear isometric equivalence
+$`\mathcal L(E,F)\cong P(E,F)^*`.  When $`E` is normed, this equivalence
+installs a short carrier canonically isometric to $`P(E,F)` as a specified
+predual; in particular it gives the concrete vector-functional predual of
+$`B(\mathcal H)` without forcing downstream users to unfold the nested
+closure subtype.
+:::
+
+:::proof "thm:vector_functional_closure_predual"
+Hahn--Banach and a rank-one operator give the sharp coefficient formula
+$`\lVert\omega_{\xi,\eta}\rVert=\lVert\xi\rVert\lVert\eta\rVert`, so the
+finite coefficient span embeds densely into its norm closure and evaluation
+is isometric.  For a functional $`g\in P(E,F)^*`, the bounded form
+$`(\xi,\eta)\mapsto\overline{g(\omega_{\xi,\eta})}` is conjugate-linear in
+$`\xi` and linear in $`\eta`.  Composing it with the conjugate-linear
+Fréchet--Riesz equivalence for $`F` recovers an operator $`T_g:E\to F`
+satisfying $`\langle\eta,T_g\xi\rangle=g(\omega_{\xi,\eta})`.  Span
+induction and continuity extend this equality from the generators to the
+whole norm closure, proving surjectivity.
 :::
 
 :::proposition "prop:loc_cvx_result" (parent := "operator-topologies") (lean := "Ultraweak.predualDualEquiv")

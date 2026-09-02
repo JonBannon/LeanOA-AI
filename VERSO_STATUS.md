@@ -4,11 +4,12 @@ Last updated: 2026-09-01
 
 ## Current state
 
-The Verso Blueprint package in `docs/` builds and generates a multi-page site with 122 active nodes
-and 222 statement-dependency edges. It includes all 87 nodes and 141 edges from the generated
+The Verso Blueprint package in `docs/` builds and generates a multi-page site with 123 active nodes
+and 223 statement-dependency edges. It includes all 87 nodes and 141 edges from the generated
 legacy LeanBlueprint graph, the connected development through Sakai 1.14.4, and the finite
-vector-functional WOT infrastructure at the current Section 1.15 frontier. The manifest has 576
-entries and reports no unknown dependency references or missing external Lean declarations.
+vector-functional WOT and norm-closed-predual infrastructure at the current Section 1.15 frontier.
+The manifest has 583 entries and reports no unknown dependency references or missing external Lean
+declarations.
 
 The apparent historical count of 88 came from counting textual `\label` occurrences: one of those
 labels belongs to a fully commented-out proposal about recovering the norm from states. It was
@@ -41,10 +42,11 @@ self-adjoint subalgebra of $B(H)$, not equality of the topologies or a bounded-b
 Pinned Mathlib supplies concrete WOT and pointwise/SOT, while Sak-AI supplies intrinsic predual
 weak, strong, and Mackey topologies. A new infrastructure node records the proved fact that the
 finite vector-functional span induces Mathlib WOT exactly and exhausts its continuous dual. The
-norm-completed concrete predual, $\sigma$-weak coefficient-series, and ultrastrong identifications
-required to join the remaining interfaces are still absent. The public document therefore
-continues to identify Proposition 1.15.1 as the current source frontier rather than displaying a
-false completion.
+norm closure is now proved to be a concrete predual, exposed through a short canonically isometric
+carrier for stable downstream elaboration. The $\sigma$-weak coefficient-series and ultrastrong
+identifications required to join the remaining interfaces are still absent. The public document
+therefore continues to identify Proposition 1.15.1 as the current source frontier rather than
+displaying a false completion.
 Scratch checks a nontrivial
 refinement-plus-mesh filter and the complete competing-resolution support/uniqueness chain under an
 explicit left-endpoint moment limit. The public document accurately stops before those candidate
@@ -73,7 +75,7 @@ test -f _out/site/html-multi/-verso-data/blueprint-manifest.json
 test -f _out/site/html-multi/-verso-data/blueprint-html-cache.json
 ```
 
-All checks passed on 2026-09-01. `vbp check` reports `ok: true`, zero errors, and 576 manifest/cache
+All checks passed on 2026-09-01. `vbp check` reports `ok: true`, zero errors, and 583 manifest/cache
 entries. The build replays warnings from three pinned upstream Verso or
 SubVerso modules; Sak-AI's own documentation modules elaborate without warnings.
 
@@ -94,9 +96,9 @@ longer part of the build or deployment.
    support, exact norm orthogonality, its support characterization, and the unique orthogonal
    Jordan decomposition, followed by the exact general functional polar decomposition of Theorem
    1.14.4. The concrete operator-topology audit and finite coefficient/WOT bridge for Proposition
-   1.15.1 are complete. The next bounded slice is the norm closure of that coefficient span and
-   the isometric evaluation theorem certifying it as the concrete $B(H)$ predual. Proposition
-   1.15.1 remains the source frontier until the resulting coefficient-series and ultrastrong
+   1.15.1 are complete, as is the coefficient norm-closure predual. The next bounded slice is the
+   square-summable coefficient-series API and its one-sided comparison with the specified-predual
+   weak topology. Proposition 1.15.1 remains the source frontier until that comparison, ultrastrong
    identifications and the relative Kaplansky-closure step are kernel-proved. No resolution,
    integral, or PVM structure becomes public before a genuine mathematical interface fixes it.
 

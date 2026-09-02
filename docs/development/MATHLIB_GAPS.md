@@ -232,8 +232,9 @@ topology or adding Hilbert-space assumptions.
 
 Classification: the two topology-bearing types and compatible-dual closure engine are
 `PINNED VERSION ALREADY HAS IT`; the continuous pointwise/SOT-to-WOT map was `LOCAL BRIDGE
-NEEDED`; the concrete predual/coefficient and relative-closure layers remain `LOCAL BRIDGE
-NEEDED`. Current naming-only changes are `NOT RELEVANT`. No currently available upstream theorem
+NEEDED`; the concrete predual layer was `LOCAL BRIDGE NEEDED` and is now implemented in Sak-AI,
+while coefficient-series and relative-closure layers remain `LOCAL BRIDGE NEEDED`. Current
+naming-only changes are `NOT RELEVANT`. No currently available upstream theorem
 is `USABLE NOW` beyond the pinned APIs. An eventual upstream replacement for the local bridge is a
 `FUTURE MATHLIB MIGRATION CANDIDATE`, but none was found in the audited current tree.
 
@@ -252,11 +253,11 @@ real-convex closure theorem. It does not identify intrinsic strong with concrete
 ultrastrong topology. Likewise, concrete $\sigma$-WOT must not be silently identified with
 `σ(B(H),B(H)_*)`.
 
-The main remaining infrastructure is therefore semantic rather than notational: take the now
-constructed finite coefficient span to its norm closure, certify that closure as the concrete
-$B(H)$ predual, prove the concrete/intrinsic $\sigma$-weak and ultrastrong comparisons, and
-generalize the existing Kaplansky density engine to relative closure. Until those pieces exist,
-Sakai Proposition 1.15.1 remains **not source-formalized**.
+The main remaining infrastructure is therefore semantic rather than notational. Sak-AI now takes
+the finite coefficient span to its norm closure and certifies that closure as the concrete $B(H)$
+predual. It remains to prove the coefficient-series concrete/intrinsic $\sigma$-weak and
+ultrastrong comparisons and generalize the existing Kaplansky density engine to relative closure.
+Until those pieces exist, Sakai Proposition 1.15.1 remains **not source-formalized**.
 
 ### Finite vector-functional layer and completion reconnaissance
 
@@ -274,12 +275,13 @@ tensor products, and projective seminorm machinery; current `SingularValues` rem
 finite-dimensional and explicitly leaves infinite-dimensional approximation numbers as future
 work. These are ingredients, not a concrete predual.
 
-The shortest source-faithful next construction is therefore completion-first: take the norm
-closure/completion `P_H` of the finite coefficient span inside the norm dual and prove the hard
-isometric evaluation equivalence `B(H) ≃ₗᵢ StrongDual ℂ P_H`. Sakai identifies this predual with
-trace-class operators only later in Theorem 1.15.3, so trace class should not be made a prerequisite
-for Proposition 1.15.1. Exact reconnaissance and official-current links are recorded in
-`reports/BH_PREDUAL_SIGMA_WOT_RECON.md`.
+The completion-first construction is now implemented: `P_H` is the norm closure of the finite
+coefficient span inside the norm dual, and canonical evaluation gives
+`B(H) ≃ₗᵢ StrongDual ℂ P_H`. Sakai identifies this predual with trace-class operators only later in
+Theorem 1.15.3, so trace class remains correctly absent from Proposition 1.15.1 infrastructure.
+Exact reconnaissance and official-current links are recorded in
+`reports/BH_PREDUAL_SIGMA_WOT_RECON.md`; the next gap is coefficient-series membership and topology
+comparison.
 
 ## Radon--Stieltjes refinement audit
 

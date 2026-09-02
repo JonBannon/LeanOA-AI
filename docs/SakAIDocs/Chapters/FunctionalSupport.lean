@@ -360,10 +360,10 @@ subalgebra of $`B(\mathcal H)` in WOT, $`\sigma`-WOT, SOT, Sakai's
 square-summable-vector “strongest” (ultrastrong) topology, and
 $`\sigma(B(\mathcal H),B(\mathcal H)_*)`.  The proposition is not yet
 source-formalized.  The next bounded implementation step is the concrete
-$`B(\mathcal H)` predual-completion bridge.  The finite vector-functional
-span now induces Mathlib WOT exactly and exhausts its continuous dual; what
-remains is to complete that span in the correct norm, certify the resulting
-specified predual, and build the coefficient-series and relative-density
-bridges.
+$`B(\mathcal H)` coefficient-series bridge.  The finite vector-functional
+span now induces Mathlib WOT exactly and exhausts its continuous dual, and
+its norm closure is certified as a specified predual by canonical
+evaluation.  What remains is to build the square-summable coefficient-series,
+ultrastrong, and relative-density bridges.
 
 Sakai Proposition 1.15.1: NOT SOURCE-FORMALIZED

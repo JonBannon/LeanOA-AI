@@ -32,8 +32,8 @@ Lean side by continuous linear endomorphisms, schematically
 | Weak operator topology (WOT) | Seminorms \(a\mapsto |(a\xi,\eta)|\) | Mathlib `ContinuousLinearMapWOT`; the local bridge uses `E →WOT[𝕜] F` | Exact for continuous linear maps once the scalar/dual pairing is instantiated |
 | Strong operator topology (SOT) | Seminorms \(a\mapsto\lVert a\xi\rVert\) | Mathlib `PointwiseConvergenceCLM`; the local notation is `E →Lₚₜ[𝕜] F` | Exact pointwise-convergence model for the source SOT |
 | “Strongest operator topology” | Seminorms \(a\mapsto(\sum_i\lVert a\xi_i\rVert^2)^{1/2}\) for square-summable \((\xi_i)\) | Current Sak-AI `Ultraweak.Strong`, written `s(M,P)` | Not yet an exact concrete match: `s(M,P)` is an intrinsic compatible-dual strong topology, and no theorem currently identifies it with Sakai's square-summable-vector topology on `B(H)` |
-| \(\sigma\)-weak operator topology | Seminorms \(a\mapsto|\sum_i(a\xi_i,\eta_i)|\) for two square-summable vector sequences | Closest target is current Sak-AI `Ultraweak`, written `σ(M,P)` | Not yet an exact concrete match: the coefficient-series topology and the concrete predual pairing have not been identified |
-| \(\sigma(B(H),B(H)_*)\) | Weak topology induced by the predual | Current Sak-AI intrinsic `σ(M,P)` after choosing a predual `P` | Exact abstract pattern, but not instantiated by a constructed concrete `B(H)_*` |
+| \(\sigma\)-weak operator topology | Seminorms \(a\mapsto|\sum_i(a\xi_i,\eta_i)|\) for two square-summable vector sequences | Closest target is current Sak-AI `Ultraweak`, written `σ(M,P)` | Not yet an exact concrete match: the square-summable coefficient-series topology has not been compared with the newly constructed predual pairing |
+| \(\sigma(B(H),B(H)_*)\) | Weak topology induced by the predual | Sak-AI intrinsic `σ(M,P)`, instantiated with `ContinuousLinearMap.vectorFunctionalClosure` | Concrete completion model and predual equivalence are proved; identification with Sakai's later trace-class realization is not yet claimed |
 
 The source's fifth condition and its second condition must remain distinct in
 the formalization plan. Condition (2) is defined concretely from
@@ -61,8 +61,9 @@ at the beginning of the statement:
 It also supplies compatible-dual/locally-convex closure machinery that can
 transport closure of convex sets when the two topologies have been proved to
 have the same continuous dual. This is a useful proof engine, but it does not
-itself construct the concrete predual of `B(H)` or identify the operator
-topologies in Sakai's statement.
+itself construct the coefficient-completion predual of `B(H)` or identify the
+operator topologies in Sakai's statement. The former has now been supplied by
+the local bridge described below; the latter comparisons remain open.
 
 | Finding | Classification | Decision |
 |---|---|---|
@@ -70,7 +71,7 @@ topologies in Sakai's statement.
 | `PointwiseConvergenceCLM` | `PINNED VERSION ALREADY HAS IT` | Reuse it as pointwise/SOT |
 | Compatible-dual convex closure transport | `PINNED VERSION ALREADY HAS IT` | Reuse through the established Sak-AI intrinsic bridge |
 | Continuous identity from pointwise/SOT to WOT | `LOCAL BRIDGE NEEDED` | Added without a new topology type |
-| Concrete `B(H)` predual, coefficient completion, and relative closure theorem | `LOCAL BRIDGE NEEDED` | IQ-010; do not replace with an assumption |
+| Concrete coefficient-completion predual and relative closure theorem | `LOCAL BRIDGE NEEDED` | The predual is implemented; the relative closure theorem remains under IQ-010 |
 | Current-Mathlib API renamings not changing the available mathematics | `NOT RELEVANT` | Do not update the dependency for naming alone |
 | Upstream replacement for the local pointwise-to-WOT bridge | `FUTURE MATHLIB MIGRATION CANDIDATE` | None found now; remove the local declaration if one appears upstream |
 
@@ -96,9 +97,11 @@ Current Sak-AI has substantially more of the abstract proof architecture:
 - compatible-dual closure transport between the intrinsic strong and
   ultraweak models.
 
-These are reusable dependencies for a proof. They are not, by themselves, a
-formalization of the source proposition because the concrete square-summable
-topologies and the concrete `B(H)` predual have not been connected to them.
+These are reusable dependencies for a proof. The coefficient-completion
+predual is now connected to the intrinsic construction by a local `Predual`
+instance, but this is not by itself a formalization of the source proposition:
+the concrete square-summable topologies and relative closure argument remain
+unconnected.
 
 ## Present public APIs and their exact force
 
@@ -216,14 +219,18 @@ showing that it suffices for global closedness of the subalgebra.
 
 ## Precise blockers
 
-1. **Concrete predual.** There is no instantiated Lean object and pairing
-   certified as Sakai's `B(H)_*` for arbitrary complex Hilbert `H`.
+1. **Concrete predual — RESOLVED at the completion-model level.**
+   `ContinuousLinearMap.vectorFunctionalClosure` is complete, its canonical
+   evaluation is isometrically equivalent to the operator space, and the
+   existing root `Predual` structure is instantiated. Identification of
+   this model with the trace-class realization used later by Sakai remains a
+   later theorem, not an assumption here.
 
-2. **WOT test space and completion.** The concrete finite vector-coefficient
-   functionals must be packaged as Sakai's `V`, and their norm completion must
-   be related to the chosen predual. Density, self-adjointness, and left/right
-   invariance must be available in the exact form required by the current
-   Kaplansky API.
+2. **WOT test-space integration.** The concrete finite vector-coefficient
+   span and its norm closure are packaged, and the span embeds densely and
+   isometrically in the chosen predual. The remaining task is to package the
+   already proved star/left/right formulas in the exact invariant-test-space
+   form required by the current Kaplansky API.
 
 3. **Concrete σ-WOT bridge.** The topology generated by square-summable
    coefficient series must be defined and compared with `σ(B(H),B(H)_*)`.
@@ -257,17 +264,19 @@ showing that it suffices for global closedness of the subalgebra.
 The shortest route should reuse the current intrinsic infrastructure without
 prematurely proving all of the later trace-class theory.
 
-1. Define the concrete WOT coefficient test space `V` on `H →L[ℂ] H`, reusing
-   `ContinuousLinearMapWOT` rather than introducing a second WOT.
+1. **Complete.** Define the concrete WOT coefficient test space `V` on
+   `H →L[ℂ] H`, reusing `ContinuousLinearMapWOT` rather than introducing a
+   second WOT.
 
-2. Prove the elementary coefficient facts needed by the source: separation,
-   involution stability, left/right invariance, and the norm convergence of
-   square-summable coefficient-series partial sums.
+2. **Partly complete.** Separation, involution stability, left/right
+   invariance, and the sharp coefficient norm formula are proved. Norm
+   convergence of square-summable coefficient-series partial sums is the next
+   bounded endpoint.
 
-3. Construct or select the completion/predual object `P` needed by the current
-   intrinsic `σ(M,P)`, `s(M,P)`, `WeakTestSpace`, and `SakaiMackey` APIs. Record
-   explicitly whether `P` is only Sakai's completion model at this stage or has
-   already been identified with trace class.
+3. **Complete as a completion model.** `vectorFunctionalClosure` supplies the
+   complete predual object `P` needed by the current intrinsic `σ(M,P)`,
+   `s(M,P)`, `WeakTestSpace`, and `SakaiMackey` APIs. It has deliberately not
+   been identified with trace class.
 
 4. Prove the relative form of the existing Kaplansky/Mackey closure theorem and
    instantiate it for the concrete self-adjoint subalgebra inside its WOT
@@ -292,6 +301,7 @@ prematurely proving all of the later trace-class theory.
    formalized.
 
 This route uses the current Sak-AI semantic core and avoids duplicating WOT,
-SOT, compatible-dual closure, or Kaplansky machinery. Its irreducible work is
-the concrete `B(H)` coefficient/predual instantiation and the proof that all
-five source predicates are the predicates being transported.
+SOT, compatible-dual closure, or Kaplansky machinery. The coefficient/predual
+instantiation is now complete; the irreducible remaining work is to prove that
+the concrete coefficient-series, ultrastrong, and relative-closure predicates
+are exactly the source predicates being transported.
