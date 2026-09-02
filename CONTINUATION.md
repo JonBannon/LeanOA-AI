@@ -68,7 +68,13 @@ Last updated: 2026-09-01
   connected by a canonical continuous identity and one-way closedness theorem; Sak-AI's intrinsic
   strong/ultraweak convex closedness equivalence is also packaged explicitly. Concrete predual,
   coefficient-series, ultrastrong, and relative Kaplansky-closure bridges remain missing, so no
-  source theorem or Verso node is claimed.
+  source theorem or source-theorem Verso node is claimed.
+- The second Proposition 1.15.1 transaction constructs Sakai's finite vector-functional space at
+  general continuous-linear-map/Hilbert-space level. Its algebraic span separates operators, is
+  stable under intrinsic star and fixed multiplication, induces Mathlib WOT in both directions,
+  and is linearly equivalent to the full WOT-continuous dual. It does not claim that this span is
+  norm complete or already a specified predual. The next determined step is its norm closure and
+  the canonical evaluation duality theorem.
 - The theorem package had no uncommitted changes at the start of the orchestration work.
 - Jireh Loreaux's LeanOA and Mathlib are read-only references. The original LeanOA checkout has
   not been modified.
@@ -134,10 +140,10 @@ Every normal functional `g` also has a unique Sakai polar pair `(v, |g|)` with
 `g(x) = |g|(x * v)`, equal norm, `star v * v = s(|g|)`, and
 `v * star v = s(|g⋆|)`. Proposition 1.15.1 is the current source target. Its direct audit is
 complete and distinguishes global subalgebra closedness from Proposition 1.15.2's bounded-sphere
-topology equivalences. The next bounded implementation target is the concrete $B(H)$
-coefficient/predual bridge required to compare $\sigma$-WOT and ultrastrong convergence with the
-appropriate intrinsic dual-pair topologies; no source package should be attempted before those
-comparisons are proved.
+topology equivalences. The finite coefficient/WOT bridge is complete. The next bounded
+implementation target is the norm-closed coefficient carrier and canonical evaluation equivalence
+that certifies the concrete $B(H)$ predual; no source package should be attempted before that
+duality and the subsequent $\sigma$-WOT and ultrastrong comparisons are proved.
 
 The implemented public design is:
 
@@ -388,6 +394,15 @@ The completed implementation layers are:
       equivalence;
     - no new topology, no concrete/intrinsic identification, and no source-facing theorem;
     - exact blockers recorded under IQ-010, with Proposition 1.15.1 retained as the frontier.
+22. Section 1.15.1 second vector-functional transaction (begun at baseline
+    `2932d54c12e0f559f980b18173d290cc6695af6e`, completed on 2026-09-01):
+    - the generic coefficient `T ↦ ⟪η, T ξ⟫` assembled from existing Mathlib maps;
+    - raw/span separation, intrinsic-star stability, and fixed left/right multiplier invariance;
+    - a bidirectional continuous identity between the span-induced `WeakBilin` topology and
+      Mathlib WOT;
+    - the exact `LinearMap.IsWeak` certificate and representation of every WOT-continuous linear
+      functional by the finite span;
+    - no norm-completion, specified-predual, or sigma-WOT equality claim.
 
 The source audit has closed the 1.11.3 review question with LEVEL C rather than an accepted
 definition. Do not promote `atTop ⊓ comap divisionMesh (nhds 0)` as Sakai's meaning. Canonical
@@ -397,10 +412,11 @@ CFC/support/ultraweak-compactness chain followed by algebraic uniqueness. Sectio
 complete through the production projection-chain and complete-additivity modules. Section 1.14 is
 complete through the general normal-functional polar decomposition of Theorem 1.14.4. The
 Proposition 1.15.1 source/API audit is complete, but the proposition is not source-formalized. The
-next bounded transaction constructs the concrete $B(H)$ coefficient/predual bridge needed for
-$\sigma$-WOT and ultrastrong comparisons, while retaining Mathlib's WOT and pointwise/SOT objects
-and Sak-AI's intrinsic topology objects unchanged. Revisit a public PVM/integral interface only
-when coherent mathematics or new primary evidence fixes it.
+finite coefficient/WOT bridge is also complete. The next bounded transaction constructs the
+norm-closed coefficient carrier and proves the canonical evaluation duality needed for the
+concrete $B(H)$ predual, while retaining Mathlib's WOT and pointwise/SOT objects and Sak-AI's
+intrinsic topology objects unchanged. Revisit a public PVM/integral interface only when coherent
+mathematics or new primary evidence fixes it.
 
 Before each substantial proof, search the current Sak-AI tree, pinned Mathlib, current Mathlib
 master/review history, and current LeanOA for an equivalent or more general declaration.
@@ -408,7 +424,7 @@ master/review history, and current LeanOA for an equivalent or more general decl
 ## Documentation continuation
 
 The Verso package preserves all 87 active nodes and 141 statement-dependency edges in the generated
-legacy graph and extends them to 121 nodes and 222 edges through the exact strong-topology,
+legacy graph and extends them to 122 nodes and 222 edges through the exact strong-topology,
 fixed-projection, spectral-approximation, element-polar-decomposition, completed Section 1.13,
 normal-positive-functional-support, norm-orthogonality, functional-Jordan, and general
 functional-polar edges. The exact manifest count and audit state are recorded in

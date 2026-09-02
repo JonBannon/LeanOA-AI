@@ -75,6 +75,11 @@ shared foundational API changes remain integration-owned.  Coordination records 
 architecture only: Verso Blueprint blocks and `uses` references remain the sole mathematical-status
 and theorem-dependency source.
 
+Autonomous transactions additionally follow `docs/development/SAK_AI_AUTONOMOUS_GOVERNOR.md`.
+`AUTONOMOUS_STATE.yaml` and `AUTONOMOUS_LEDGER.md` record only operational continuation, recovery
+points, and validation. They do not certify source-theorem completion or duplicate Verso's
+mathematical dependency graph.
+
 ## Spectral cutoffs and projections
 
 For a fixed self-adjoint element, the scalar cutoff `(r • 1 - a)⁺` and its norm continuity live

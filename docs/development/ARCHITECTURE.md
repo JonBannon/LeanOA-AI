@@ -43,8 +43,9 @@ duplicate public foundations, and runs the full relevant build. Useful worker pr
 while their local wrappers are removed. Worktrees are disposable; accepted mathematics enters the
 main branch only through reviewed commits.
 
-The orchestration documents track work ownership and architecture only. Mathematical status and
-dependency truth remain in Verso Blueprint blocks and `uses` references.
+The orchestration documents track work ownership and architecture only. The autonomous state and
+ledger additionally record operational continuation, commit recovery points, and validation.
+Mathematical status and dependency truth remain in Verso Blueprint blocks and `uses` references.
 
 At the current Sakai 1.11.3 frontier, fixed-projection ultraweak decomposition is a reusable
 downstream theorem layer. The source audit establishes that Sakai states the representation in his

@@ -68,7 +68,9 @@ in their workstream.
 
 - **Status:** RESOLVED
 - **Decision:** coordination files may track ownership, interface stability, and architectural
-  dependencies, but Verso remains the only theorem-status/dependency registry.
+  dependencies. `AUTONOMOUS_STATE.yaml` and `AUTONOMOUS_LEDGER.md` may also track operational
+  continuation, recovery commits, and validation, but Verso remains the only
+  theorem-status/dependency registry.
 
 ## IQ-005 — element polar-decomposition packaging
 

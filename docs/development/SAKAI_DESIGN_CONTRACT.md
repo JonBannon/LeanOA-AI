@@ -7,6 +7,11 @@ record unless the human maintainer decides otherwise.
 
 ## Authoritative sources
 
+- [`SAK_AI_AUTONOMOUS_GOVERNOR.md`](SAK_AI_AUTONOMOUS_GOVERNOR.md): transaction, safety,
+  anti-stagnation, escalation, and unattended-operation policy.
+- [`AUTONOMOUS_STATE.yaml`](AUTONOMOUS_STATE.yaml) and
+  [`AUTONOMOUS_LEDGER.md`](AUTONOMOUS_LEDGER.md): concise continuation pointer and operational
+  recovery log. They do not replace Verso theorem status.
 - [`ARCHITECTURE.md`](../../ARCHITECTURE.md): durable library and documentation decisions.
 - [`STYLE_GUIDE.md`](../../STYLE_GUIDE.md): Lean, proof, naming, generality, and Verso practice.
 - [`CONTINUATION.md`](../../CONTINUATION.md): current mathematical frontier and implementation
