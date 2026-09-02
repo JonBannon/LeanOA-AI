@@ -280,6 +280,86 @@ theorem IsUltraweakClosed.inducedAmbientUltraweakClosedBallHomeomorph_symm_apply
       ofUltraweak T.1 :=
   rfl
 
+/-- On every closed norm ball in an ultraweakly closed concrete self-adjoint operator algebra,
+the intrinsic quotient-predual topology agrees with Sakai's coefficient-series sigma-WOT. -/
+def IsUltraweakClosed.inducedUltraweakSigmaWOTClosedBallHomeomorph
+    {N : NonUnitalStarSubalgebra ℂ BH}
+    (hN : N.IsUltraweakClosed (P := BHPredual)) (r : ℝ) :
+    InducedUltraweakClosedBall N hN r ≃ₜ SigmaWOTClosedBall (N : Set BH) r :=
+  (hN.inducedAmbientUltraweakClosedBallHomeomorph N r).trans
+    (hN.ambientUltraweakSigmaWOTClosedBallHomeomorph N r)
+
+/-- On every closed norm ball in an ultraweakly closed concrete self-adjoint operator algebra,
+the intrinsic quotient-predual topology agrees with WOT. -/
+def IsUltraweakClosed.inducedUltraweakWOTClosedBallHomeomorph
+    {N : NonUnitalStarSubalgebra ℂ BH}
+    (hN : N.IsUltraweakClosed (P := BHPredual)) (r : ℝ) :
+    InducedUltraweakClosedBall N hN r ≃ₜ WOTClosedBall (N : Set BH) r :=
+  (hN.inducedAmbientUltraweakClosedBallHomeomorph N r).trans
+    (hN.ambientUltraweakWOTClosedBallHomeomorph N r)
+
+@[simp]
+theorem IsUltraweakClosed.inducedUltraweakSigmaWOTClosedBallHomeomorph_apply
+    {N : NonUnitalStarSubalgebra ℂ BH}
+    (hN : N.IsUltraweakClosed (P := BHPredual)) (r : ℝ)
+    (T : InducedUltraweakClosedBall N hN r) :
+    ((hN.inducedUltraweakSigmaWOTClosedBallHomeomorph r T).1 : BH) =
+      ((show N from T.1) : BH) :=
+  rfl
+
+@[simp]
+theorem IsUltraweakClosed.inducedUltraweakSigmaWOTClosedBallHomeomorph_symm_apply
+    {N : NonUnitalStarSubalgebra ℂ BH}
+    (hN : N.IsUltraweakClosed (P := BHPredual)) (r : ℝ)
+    (T : SigmaWOTClosedBall (N : Set BH) r) :
+    ((show N from ((hN.inducedUltraweakSigmaWOTClosedBallHomeomorph r).symm T).1) : BH) =
+      (T.1 : BH) :=
+  rfl
+
+@[simp]
+theorem IsUltraweakClosed.inducedUltraweakWOTClosedBallHomeomorph_apply
+    {N : NonUnitalStarSubalgebra ℂ BH}
+    (hN : N.IsUltraweakClosed (P := BHPredual)) (r : ℝ)
+    (T : InducedUltraweakClosedBall N hN r) :
+    (hN.inducedUltraweakWOTClosedBallHomeomorph r T).1.toCLM =
+      ((show N from T.1) : BH) :=
+  rfl
+
+@[simp]
+theorem IsUltraweakClosed.inducedUltraweakWOTClosedBallHomeomorph_symm_apply
+    {N : NonUnitalStarSubalgebra ℂ BH}
+    (hN : N.IsUltraweakClosed (P := BHPredual)) (r : ℝ)
+    (T : WOTClosedBall (N : Set BH) r) :
+    ((show N from ((hN.inducedUltraweakWOTClosedBallHomeomorph r).symm T).1) : BH) =
+      T.1.toCLM :=
+  rfl
+
+/-- Arbitrary-filter form of the intrinsic sigma-WOT closed-ball equivalence under the minimal
+ultraweak-closedness hypothesis. -/
+theorem IsUltraweakClosed.tendsto_sigmaWOT_iff_inducedUltraweak
+    {N : NonUnitalStarSubalgebra ℂ BH}
+    (hN : N.IsUltraweakClosed (P := BHPredual)) (r : ℝ)
+    {I : Type*} {l : Filter I}
+    (f : I → InducedUltraweakClosedBall N hN r)
+    (x : InducedUltraweakClosedBall N hN r) :
+    Tendsto ((hN.inducedUltraweakSigmaWOTClosedBallHomeomorph r) ∘ f) l
+        (nhds (hN.inducedUltraweakSigmaWOTClosedBallHomeomorph r x)) ↔
+      Tendsto f l (nhds x) :=
+  (hN.inducedUltraweakSigmaWOTClosedBallHomeomorph r).isInducing.tendsto_nhds_iff.symm
+
+/-- Arbitrary-filter form of the intrinsic WOT closed-ball equivalence under the minimal
+ultraweak-closedness hypothesis. -/
+theorem IsUltraweakClosed.tendsto_wot_iff_inducedUltraweak
+    {N : NonUnitalStarSubalgebra ℂ BH}
+    (hN : N.IsUltraweakClosed (P := BHPredual)) (r : ℝ)
+    {I : Type*} {l : Filter I}
+    (f : I → InducedUltraweakClosedBall N hN r)
+    (x : InducedUltraweakClosedBall N hN r) :
+    Tendsto ((hN.inducedUltraweakWOTClosedBallHomeomorph r) ∘ f) l
+        (nhds (hN.inducedUltraweakWOTClosedBallHomeomorph r x)) ↔
+      Tendsto f l (nhds x) :=
+  (hN.inducedUltraweakWOTClosedBallHomeomorph r).isInducing.tendsto_nhds_iff.symm
+
 /-- Sakai, Proposition 1.15.2(1): on every closed norm ball in a WOT-closed self-adjoint
 operator algebra, the intrinsic weak-star topology `sigma(N, N_*)` agrees with Sakai's
 coefficient-series sigma-WOT. -/
@@ -287,16 +367,14 @@ def IsWOTClosed.inducedUltraweakSigmaWOTClosedBallHomeomorph
     {N : NonUnitalStarSubalgebra ℂ BH} (hN : N.IsWOTClosed) (r : ℝ) :
     InducedUltraweakClosedBall N hN.isUltraweakClosed r ≃ₜ
       SigmaWOTClosedBall (N : Set BH) r :=
-  (hN.isUltraweakClosed.inducedAmbientUltraweakClosedBallHomeomorph N r).trans
-    (hN.isUltraweakClosed.ambientUltraweakSigmaWOTClosedBallHomeomorph N r)
+  hN.isUltraweakClosed.inducedUltraweakSigmaWOTClosedBallHomeomorph r
 
 /-- Sakai, Proposition 1.15.2(1): on every closed norm ball in a WOT-closed self-adjoint
 operator algebra, the intrinsic weak-star topology `sigma(N, N_*)` agrees with WOT. -/
 def IsWOTClosed.inducedUltraweakWOTClosedBallHomeomorph
     {N : NonUnitalStarSubalgebra ℂ BH} (hN : N.IsWOTClosed) (r : ℝ) :
     InducedUltraweakClosedBall N hN.isUltraweakClosed r ≃ₜ WOTClosedBall (N : Set BH) r :=
-  (hN.isUltraweakClosed.inducedAmbientUltraweakClosedBallHomeomorph N r).trans
-    (hN.isUltraweakClosed.ambientUltraweakWOTClosedBallHomeomorph N r)
+  hN.isUltraweakClosed.inducedUltraweakWOTClosedBallHomeomorph r
 
 @[simp]
 theorem IsWOTClosed.inducedUltraweakSigmaWOTClosedBallHomeomorph_apply

@@ -53,8 +53,13 @@ addition should follow a direct source/API audit of its bounded-sphere and induc
 interfaces. That audit is now complete: “bounded spheres” means norm-closed balls, and the exact
 statement is topology-level and net-general. The generic quotient-predual subspace-topology bridge
 and the weak-family closed-ball theorem now kernel-check and have a deliberately partial public
-node labeled Proposition 1.15.2(1). The public frontier remains at Proposition 1.15.2 until the
-strong-family positive-square half also kernel-checks; no full-proposition claim appears early.
+node labeled Proposition 1.15.2(1). The positive-square strong-family comparison now also
+kernel-checks for arbitrary filters and source-formalizes Proposition 1.15.2(2) on the same
+norm-closed balls. Its public node should link the intrinsic-strong/SOT,
+ultrastrong/SOT, and intrinsic-strong/ultrastrong homeomorphisms while explicitly denying global
+topology equality. The public frontier remains Proposition 1.15.2 until a following transaction
+packages the two clauses in Sakai's exact printed order; do not label the full proposition
+source-formalized before that declaration exists.
 
 The first Section 1.15 transaction completes the direct source and API audit but does not complete
 Proposition 1.15.1. Do not create a theorem node or declaration link for it. The public current
@@ -111,10 +116,12 @@ precisely: Mathlib's `ContinuousLinearMapWOT` is concrete WOT;
 intrinsic specified-predual constructions. `PointwiseConvergenceCLM.toWOT`, its WOT-closed-to-SOT-
 closed corollary, and `Strong.isClosed_iff_image_toUltraweakEquiv` do not identify $\sigma$-WOT or
 ultrastrong topology with the intrinsic types. The dedicated square-summable carrier is related
-only by the proved chain intrinsic strong → concrete ultrastrong → pointwise/SOT. Likewise,
-`WeakBilin.restrictRightL` and its coefficient-series specialization prove only the continuous
-identity in the displayed direction. The source theorem uses these one-way maps only to compare
-closed self-adjoint subalgebras; it does not convert them into topology equalities.
+globally only by the proved chain intrinsic strong → concrete ultrastrong → pointwise/SOT. On the
+norm-closed balls of Proposition 1.15.2(2), the new positive-square argument proves the three
+restricted homeomorphisms. Likewise, `WeakBilin.restrictRightL` and its coefficient-series
+specialization prove only a global continuous identity, while Proposition 1.15.2(1) supplies the
+restricted weak-family homeomorphisms. None of these bounded-carrier results converts the ambient
+topologies into global equalities.
 
 ## Work that must wait
 

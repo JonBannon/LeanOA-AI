@@ -26,6 +26,17 @@ open scoped ComplexOrder ENNReal NNReal lp
 
 noncomputable section
 
+namespace lp
+
+variable {ι E : Type*} [NormedAddCommGroup E]
+
+/-- The squared norms of an `ℓ²` family are summable. -/
+theorem summable_norm_sq (ξ : ℓ²(ι, E)) : Summable (fun i ↦ ‖ξ i‖ ^ 2) := by
+  simpa only [ENNReal.toReal_ofNat, Real.rpow_two] using
+    (lp.memℓp ξ).summable (by norm_num : 0 < (2 : ℝ≥0∞).toReal)
+
+end lp
+
 namespace ContinuousLinearMap
 
 variable {ι 𝕜 E F : Type*} [NontriviallyNormedField 𝕜]

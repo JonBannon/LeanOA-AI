@@ -20,7 +20,7 @@ expressions are transported through `ofStrong`, keeping the topology-bearing typ
 the C-star-algebra structure on `M`.
 -/
 
-open Metric Set Topology
+open Metric Set Filter Topology
 open scoped ComplexOrder ComplexStarModule NNReal Ultraweak
 
 namespace Ultraweak
@@ -85,6 +85,76 @@ instance : LocallyConvexSpace ℂ s(M, P) :=
   let _ : Module ℝ s(M, P) := RestrictScalars.module ℝ ℂ s(M, P)
   let _ : IsScalarTower ℝ ℂ s(M, P) := RestrictScalars.isScalarTower ℝ ℂ s(M, P)
   .to_rclike ℂ s(M, P) withSeminorms.toLocallyConvexSpace
+
+/-- Strong convergence, together with an eventual norm bound on the positive-square errors,
+implies ultraweak convergence of those errors to zero. -/
+theorem tendsto_star_sub_mul_self_of_tendsto_of_eventually_norm_le [CompleteSpace P]
+    {I : Type*} {l : Filter I} {f : I → s(M, P)} {x : s(M, P)} {R : ℝ}
+    (hR : ∀ᶠ i in l,
+      ‖star (ofStrong (f i) - ofStrong x) * (ofStrong (f i) - ofStrong x)‖ ≤ R)
+    (hf : Tendsto f l (nhds x)) :
+    Tendsto (fun i ↦ toUltraweak ℂ P
+        (star (ofStrong (f i) - ofStrong x) * (ofStrong (f i) - ofStrong x)))
+        l (nhds 0) := by
+  apply Ultraweak.tendsto_of_forall_posCLM_of_eventually hR
+  intro phi
+  rw [show phi (0 : σ(M, P)) = 0 by simp]
+  apply tendsto_zero_iff_norm_tendsto_zero.mpr
+  have hdiff : Tendsto (fun i ↦ f i - x) l (nhds 0) := by
+    simpa using hf.sub
+      (tendsto_const_nhds : Tendsto (fun _ : I ↦ x) l (nhds x))
+  have hsem : Tendsto (fun i ↦ seminorm phi (f i - x)) l (nhds 0) := by
+    have hsem' := (withSeminorms.continuous_seminorm phi).tendsto 0 |>.comp hdiff
+    convert hsem' using 1
+    · rfl
+    · simp
+  convert hsem.pow 2 using 1
+  · funext i
+    rw [seminorm_apply, Real.sq_sqrt (norm_nonneg _)]
+    rfl
+  · norm_num
+
+/-- Ultraweak convergence to zero of the positive-square errors implies strong convergence. No
+norm-bound hypothesis is needed in this direction. -/
+theorem tendsto_of_tendsto_star_sub_mul_self
+    {I : Type*} {l : Filter I} {f : I → s(M, P)} {x : s(M, P)}
+    (hsq : Tendsto (fun i ↦ toUltraweak ℂ P
+      (star (ofStrong (f i) - ofStrong x) * (ofStrong (f i) - ofStrong x)))
+      l (nhds 0)) :
+    Tendsto f l (nhds x) := by
+  rw [withSeminorms.tendsto_nhds]
+  intro phi epsilon hepsilon
+  have hphi := (phi.continuous.tendsto (0 : σ(M, P))).comp hsq
+  have hphinorm : Tendsto (fun i ↦ ‖phi (toUltraweak ℂ P
+      (star (ofStrong (f i) - ofStrong x) * (ofStrong (f i) - ofStrong x)))‖)
+      l (nhds 0) := by
+    convert hphi.norm using 1 <;> simp
+  have hsqrt : Tendsto (fun i ↦ √‖phi (toUltraweak ℂ P
+      (star (ofStrong (f i) - ofStrong x) * (ofStrong (f i) - ofStrong x)))‖)
+      l (nhds 0) := by
+    have hsqrt' := (Continuous.tendsto Real.continuous_sqrt 0).comp hphinorm
+    convert hsqrt' using 1
+    · funext i
+      rfl
+    · simp
+  have hevent := hsqrt.eventually (Iio_mem_nhds hepsilon)
+  convert hevent using 1
+  funext i
+  rw [seminormFamily, seminorm_apply]
+  rfl
+
+/-- On a family whose positive-square differences are eventually norm bounded, strong
+convergence is equivalent to ultraweak convergence of those positive squares to zero. -/
+theorem tendsto_iff_tendsto_star_sub_mul_self_of_eventually_norm_le [CompleteSpace P]
+    {I : Type*} {l : Filter I} {f : I → s(M, P)} {x : s(M, P)} {R : ℝ}
+    (hR : ∀ᶠ i in l,
+      ‖star (ofStrong (f i) - ofStrong x) * (ofStrong (f i) - ofStrong x)‖ ≤ R) :
+    Tendsto f l (nhds x) ↔
+      Tendsto (fun i ↦ toUltraweak ℂ P
+        (star (ofStrong (f i) - ofStrong x) * (ofStrong (f i) - ofStrong x)))
+        l (nhds 0) :=
+  ⟨tendsto_star_sub_mul_self_of_tendsto_of_eventually_norm_le hR,
+    tendsto_of_tendsto_star_sub_mul_self⟩
 
 /-! ## Explicit comparison maps -/
 

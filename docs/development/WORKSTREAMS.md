@@ -748,12 +748,23 @@ This audit starts from `76b84e9` and fixes the exact target before topology impl
 - **WS-15W, weak-family production half:** COMPLETE. Compact-to-Hausdorff gives canonical
   homeomorphisms among intrinsic $`\sigma(N,N_*)`, coefficient-series $`\sigma`-WOT, and WOT on
   every zero-centered norm-closed ball, together with arbitrary-filter convergence equivalences.
-- **WS-15X, strong-family production half:** NEXT. Prove the reusable filter-general
-  positive-square convergence bridge, then compare intrinsic strong, concrete ultrastrong, and
-  SOT on the same balls. Trace-class representation and global topology equality remain later
-  source results.
-- **Source status:** Proposition 1.15.2(1) is **SOURCE-FORMALIZED**; Proposition 1.15.2(2) is
-  **NOT SOURCE-FORMALIZED**; Proposition 1.15.2 is **NOT SOURCE-FORMALIZED**.
+- **WS-15X, strong-family production half:** COMPLETE. Filter-general positive-square criteria
+  compare pointwise/SOT and coefficient-series ultrastrong convergence with weak convergence of
+  `(x_i - x)^* (x_i - x)`. On every zero-centered norm-closed ball, the existing weak-family
+  theorem then gives canonical homeomorphisms and arbitrary-filter convergence equivalences among
+  intrinsic strong, concrete ultrastrong, and SOT. No sequence restriction, trace-class
+  representation, or global topology equality is used.
+- **WS-15Y, exact source-order packaging:** NEXT. Package clauses (1) and (2), in Sakai's printed
+  order, as one exact Proposition 1.15.2 interface without collapsing the six topology carriers.
+- **Generality review:** COMPLETE / GREEN. `InducedStrong` is defined for any ultraweakly closed
+  self-adjoint subalgebra of a dual $C^*$-algebra. The SOT and ultrastrong closed-ball carriers are
+  generic over normed spaces and scalars. The source specialization assumes ultraweak closedness,
+  which is equivalent here to Sakai's WOT-closed hypothesis by Proposition 1.15.1. A direct
+  SOT/ultrastrong theorem for arbitrary operator-norm-bounded sets, without a closed-algebra
+  hypothesis, remains a worthwhile generality extension but is not needed for the source clause.
+- **Source status:** Proposition 1.15.2(1) and Proposition 1.15.2(2) are each
+  **SOURCE-FORMALIZED**. Proposition 1.15.2 as a single exact two-clause package is **NOT
+  SOURCE-FORMALIZED** until WS-15Y is complete.
 
 Collision rule: do not introduce another predual class or topology synonym, do not use the
 choice-based W-star predual as a substitute for the explicit quotient restriction map, and do not

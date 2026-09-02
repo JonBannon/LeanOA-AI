@@ -108,7 +108,9 @@ support_le_iff_apply_eq_apply_one + support-zero implies norm orthogonality [GRE
         ↓
       Proposition 1.15.2 weak-family bounded-ball comparison [GREEN]
         ↓
-      Proposition 1.15.2 strong-family bounded-ball comparison [frontier]
+      Proposition 1.15.2 strong-family bounded-ball comparison [GREEN]
+        ↓
+      Proposition 1.15.2 exact source-order two-clause package [frontier]
 ```
 
 ```text
@@ -156,9 +158,14 @@ ultraweakly-closed-submodule quotient-predual topology bridge [GREEN; `RCLike`]
   ↓
 weak-family equivalence on norm-closed balls [Sakai 1.15.2(1); GREEN]
   ↓
-positive-square strong-family equivalence [Sakai 1.15.2(2); frontier]
+filter-general positive-square criteria
+  + intrinsic strong on any ultraweakly closed dual-C*-subalgebra [GREEN]
+  + generic SOT/USOT closed-ball carriers over normed spaces/scalars [GREEN]
   ↓
-Sakai Proposition 1.15.2 [clause (1) SOURCE-FORMALIZED; clause (2) frontier; NOT SOURCE-FORMALIZED]
+positive-square strong-family equivalence on norm-closed balls [Sakai 1.15.2(2); GREEN]
+  ↓
+Sakai Proposition 1.15.2 [both clauses SOURCE-FORMALIZED separately;
+  exact source-order two-clause package frontier; NOT SOURCE-FORMALIZED as a whole]
 ```
 
 ## Current junction nodes

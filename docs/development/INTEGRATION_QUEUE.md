@@ -264,6 +264,17 @@ in their workstream.
   evaluation and relative-ultraweak equivalence are reusable at `RCLike` generality. The concrete
   theorem uses compact-to-Hausdorff to identify intrinsic weak-star, coefficient-series sigma-WOT,
   and WOT on each norm-closed ball, with arbitrary-filter corollaries.
-- **Next bounded action:** implement the reusable positive-square convergence bridge and use it
-  to formalize the strong-family closed-ball half of Proposition 1.15.2. The public frontier
-  remains Proposition 1.15.2 until both clauses are complete.
+- **Strong-family production half:** COMPLETE. Generic arbitrary-filter positive-square criteria
+  reduce SOT and coefficient-series ultrastrong convergence to the already integrated weak-family
+  comparison. The resulting canonical homeomorphisms compare intrinsic strong, concrete
+  ultrastrong, and SOT on every zero-centered norm-closed ball. `InducedStrong` itself requires
+  only an ultraweakly closed self-adjoint subalgebra of a dual $C^*$-algebra; the SOT and
+  ultrastrong ball carriers are generic over normed spaces and scalars. The source theorem is
+  stated under ultraweak closedness, equivalent here to its WOT-closed hypothesis.
+- **Deferred generality opportunity:** prove SOT = ultrastrong on an arbitrary
+  operator-norm-bounded set, with no closed-algebra hypothesis. The current source proof does not
+  need that stronger interface, so it is not a blocker.
+- **Next bounded action:** package the separately source-formalized weak and strong clauses in
+  Sakai's exact printed order. Proposition 1.15.2 remains **NOT SOURCE-FORMALIZED** as a whole
+  until that two-clause package exists. No bounded-ball result is to be advertised as a global
+  topology equality.

@@ -98,8 +98,12 @@ Last updated: 2026-09-02
   quotient-predual topology of an ultraweakly closed submodule is now identified with the ambient ultraweak
   subspace topology at `RCLike` generality. For a WOT-closed operator algebra, the intrinsic
   quotient-predual topology, coefficient-series sigma-WOT, and WOT are canonically homeomorphic
-  on each closed ball, with arbitrary-filter convergence corollaries. This source-formalizes
-  clause (1); clause (2), the positive-square strong-family comparison, remains next.
+  on each closed ball, with arbitrary-filter convergence corollaries. The positive-square route
+  now also identifies intrinsic strong, concrete ultrastrong, and SOT on each closed ball, again
+  by canonical homeomorphisms with arbitrary-filter corollaries. The intrinsic strong carrier is
+  defined under the minimal ultraweak-closedness hypothesis; source WOT closedness supplies it by
+  Proposition 1.15.1. Clauses (1) and (2) are SOURCE-FORMALIZED. The full proposition remains NOT
+  SOURCE-FORMALIZED only until its exact two-clause source-facing package is added.
 - The theorem package had no uncommitted changes at the start of the orchestration work.
 - Jireh Loreaux's LeanOA and Mathlib are read-only references. The original LeanOA checkout has
   not been modified.
@@ -167,10 +171,13 @@ Every normal functional `g` also has a unique Sakai polar pair `(v, |g|)` with
 closedness predicates remain distinct, and the reverse implication uses relative Kaplansky
 density plus unit-ball normalization rather than a later global topology equality. Proposition
 1.15.2 is now the current source target. Clause (1) is source-formalized through the canonical
-quotient predual and compact-to-Hausdorff homeomorphisms on every norm-closed ball. Clause (2)
-remains: prove the filter-general positive-square bridge and identify intrinsic strong, concrete
-ultrastrong, and SOT on bounded balls. The series topology remains the existing weak pairing
-against Sakai's raw coefficient series, not a new synonym.
+quotient predual and compact-to-Hausdorff homeomorphisms on every norm-closed ball. Clause (2) is
+also source-formalized through filter-general positive-square bridges and canonical bounded-ball
+homeomorphisms among intrinsic strong, concrete ultrastrong, and SOT. This does not assert global
+equality of those topologies, use a trace-class representation theorem, weaken nets to sequences,
+or add an unitality or factor hypothesis. The series topology remains the existing weak pairing
+against Sakai's raw coefficient series, not a new synonym. The remaining bounded transaction is
+the exact paired packaging of clauses (1) and (2), followed by source-facing Verso integration.
 
 The implemented public design is:
 
@@ -459,12 +466,16 @@ polar-decomposition theorem 1.12.1 and is complete through an independent
 CFC/support/ultraweak-compactness chain followed by algebraic uniqueness. Section 1.13 is now
 complete through the production projection-chain and complete-additivity modules. Section 1.14 is
 complete through the general normal-functional polar decomposition of Theorem 1.14.4.
-Proposition 1.15.1 and the weak-family clause of Proposition 1.15.2 are source-formalized. The
-ultraweakly-closed-submodule quotient-predual bridge is reusable at `RCLike` generality, and the source-facing
-weak-family theorem is topology-level and arbitrary-filter. The next bounded transaction is the
-positive-square strong-family clause of Proposition 1.15.2. Mathlib's WOT and pointwise/SOT
-objects and Sak-AI's intrinsic topology objects remain unchanged. Revisit a public PVM/integral
-interface only when
+Proposition 1.15.1 and both clauses of Proposition 1.15.2 are source-formalized. The
+ultraweakly-closed-submodule quotient-predual bridge is reusable at `RCLike` generality, and both
+bounded topology families are represented by canonical closed-ball homeomorphisms with
+arbitrary-filter convergence corollaries. The strong-family proof follows Sakai's positive-square
+route through the already formalized weak family. Its generic intrinsic carrier assumes only
+ultraweak closedness, equivalent here to the source WOT-closedness hypothesis; it does not claim
+global topology equality, invoke trace class, reduce to sequences, or strengthen the source to a
+unital algebra or factor. The next bounded transaction is exact paired source packaging and Verso
+integration for Proposition 1.15.2. Mathlib's WOT and pointwise/SOT objects and Sak-AI's intrinsic
+topology objects remain unchanged. Revisit a public PVM/integral interface only when
 coherent mathematics or new primary evidence fixes it.
 
 Before each substantial proof, search the current Sak-AI tree, pinned Mathlib, current Mathlib

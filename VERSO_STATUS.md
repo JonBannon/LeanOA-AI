@@ -4,11 +4,11 @@ Last updated: 2026-09-02
 
 ## Current state
 
-The Verso Blueprint package in `docs/` builds and generates a multi-page site with 129 active nodes
-and 238 statement-dependency edges. It includes all 87 nodes and 141 edges from the generated
+The current fully validated Verso Blueprint build generates a multi-page site with 130 active
+nodes and 240 statement-dependency edges. It includes all 87 nodes and 141 edges from the generated
 legacy LeanBlueprint graph, the connected development through Sakai 1.14.4, Proposition 1.15.1,
-and the weak-family clause of Proposition 1.15.2.
-The manifest and HTML cache each have 624 entries, including 384 unique linked Lean declarations,
+and both bounded-topology clauses of Proposition 1.15.2.
+The manifest and HTML cache each have 632 entries, including 390 unique linked Lean declarations,
 and report no unknown dependency references or missing external Lean declarations.
 
 The apparent historical count of 88 came from counting textual `\label` occurrences: one of those
@@ -43,14 +43,16 @@ concrete-predual ultraweak topology distinct; it does not claim their global equ
 relative Kaplansky unit-ball theorem and scalar normalization supply the difficult reverse
 implication.
 
-Proposition 1.15.2 is the current numbered frontier. Its weak-family clause is source-formalized:
-the canonical quotient-predual topology of a WOT-closed subalgebra, coefficient-series sigma-WOT,
-and WOT agree on every zero-centered norm-closed ball. The reusable foundation first identifies
-the quotient-predual weak-star topology of an arbitrary ultraweakly closed submodule with its ambient
-ultraweak subspace topology at real- or complex-like scalar generality. Canonical homeomorphisms
-and arbitrary-filter corollaries then give the source result. The strong-family clause remains
-unformalized, so the full proposition is not marked complete and no global topology equality is
-claimed.
+Proposition 1.15.2 is the current numbered frontier, now at exact two-clause packaging. Its
+weak-family clause is source-formalized: the canonical quotient-predual topology of a WOT-closed
+subalgebra, coefficient-series sigma-WOT, and WOT agree on every zero-centered norm-closed ball.
+Its strong-family clause is source-formalized as well: intrinsic strong, concrete ultrastrong, and
+SOT agree on the same balls. The reusable foundations identify the quotient-predual weak-star
+topology with the ambient ultraweak subspace topology and construct the intrinsic strong topology
+from that quotient predual. The strong comparison reduces arbitrary-filter convergence to weak
+convergence of the bounded positive-square errors $(x_i-x)^*(x_i-x)$ and reuses the weak-family
+homeomorphisms. The full proposition is not yet marked source-formalized until its two printed
+clauses are packaged together exactly. No global topology equality is claimed.
 Scratch checks a nontrivial
 refinement-plus-mesh filter and the complete competing-resolution support/uniqueness chain under an
 explicit left-endpoint moment limit. The public document accurately stops before those candidate
@@ -79,9 +81,9 @@ test -f _out/site/html-multi/-verso-data/blueprint-manifest.json
 test -f _out/site/html-multi/-verso-data/blueprint-html-cache.json
 ```
 
-All checks passed on 2026-09-02. `vbp check` reports `ok: true`, zero errors, and 624 manifest/cache
-entries. The build replays warnings from three pinned upstream Verso or
-SubVerso modules; Sak-AI's own documentation modules elaborate without warnings.
+All checks passed on 2026-09-02. `vbp check` reports `ok: true`, zero errors, and 632 manifest/cache
+entries. The build replays warnings from three pinned upstream Verso or SubVerso modules;
+Sak-AI's own documentation modules elaborate without warnings.
 
 The theorem package also passes `lake build` and `lake lint`. The legacy documentation is no
 longer part of the build or deployment.
@@ -99,11 +101,12 @@ longer part of the build or deployment.
    additivity. Section 1.14 is complete through functional
    support, exact norm orthogonality, its support characterization, and the unique orthogonal
    Jordan decomposition, followed by the exact general functional polar decomposition of Theorem
-   1.14.4. Proposition 1.15.1 is source-formalized, and Proposition 1.15.2(1) is source-formalized
-   on every norm-closed ball through the explicit quotient predual, canonical homeomorphisms, and
-   arbitrary-filter convergence. The next bounded slice is the positive-square strong-family
-   clause of Proposition 1.15.2. No resolution, integral, or PVM structure becomes public before
-   a genuine mathematical interface fixes it.
+   1.14.4. Proposition 1.15.1 is source-formalized, and both clauses of Proposition 1.15.2 are
+   source-formalized on every norm-closed ball through the explicit quotient predual, canonical
+   homeomorphisms, arbitrary-filter convergence, and the positive-square reduction. The next
+   bounded slice is exact source-facing packaging of the two clauses as Proposition 1.15.2. Do not
+   infer a global topology equality from these bounded results. No resolution, integral, or PVM
+   structure becomes public before a genuine mathematical interface fixes it.
 
 Do not create a second theorem-status registry: Verso blocks and `uses` references are the
 documentation source of truth.

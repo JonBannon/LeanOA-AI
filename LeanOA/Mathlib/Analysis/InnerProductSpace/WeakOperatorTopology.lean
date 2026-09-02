@@ -4,6 +4,7 @@ public import LeanOA.Mathlib.Topology.Algebra.Module.WeakBilin
 public import Mathlib.Analysis.InnerProductSpace.WeakOperatorTopology
 public import Mathlib.Analysis.Normed.Operator.Mul
 public import Mathlib.Topology.Algebra.Star.LinearMap
+public import Mathlib.Topology.Algebra.Module.Spaces.PointwiseConvergenceCLM
 
 /-!
 # Vector functionals on continuous linear maps
@@ -18,6 +19,9 @@ separation, linear-span, and intrinsic-star APIs.
 
 It also identifies the weak topology induced by the vector-functional span with Mathlib's weak
 operator topology. No new topology-bearing type is introduced.
+
+Finally, it gives the filter-general positive-square criterion relating pointwise (strong
+operator) convergence to weak-operator convergence.
 -/
 
 @[expose] public section
@@ -382,3 +386,183 @@ lemma vectorFunctionalWeakEquiv_symm_apply (T : E →WOT[𝕜] F) :
   rfl
 
 end ContinuousLinearMapWOT
+
+namespace ContinuousLinearMap
+
+section PositiveSquare
+
+variable {𝕜 E F I : Type*} [RCLike 𝕜]
+  [NormedAddCommGroup E] [InnerProductSpace 𝕜 E] [CompleteSpace E]
+  [NormedAddCommGroup F] [InnerProductSpace 𝕜 F] [CompleteSpace F]
+
+/-- A matrix coefficient of `D† ∘L D` is the corresponding inner product of images under `D`. -/
+lemma inner_adjoint_comp_self (D : E →L[𝕜] F) (x y : E) :
+    ⟪y, ((D†).comp D) x⟫_𝕜 = ⟪D y, D x⟫_𝕜 := by
+  rw [comp_apply, adjoint_inner_right]
+
+/-- If two operators have respective norm bounds `rT` and `rA`, then their positive-square
+difference has norm at most `(rT + rA) ^ 2`. No separate nonnegativity assumptions on the
+bounds are needed. -/
+theorem norm_adjoint_comp_sub_self_le_add_sq {rT rA : ℝ} {T A : E →L[𝕜] F}
+    (hT : ‖T‖ ≤ rT) (hA : ‖A‖ ≤ rA) :
+    ‖((T - A)†).comp (T - A)‖ ≤ (rT + rA) ^ 2 := by
+  rw [norm_adjoint_comp_self]
+  have hrT : 0 ≤ rT := (norm_nonneg T).trans hT
+  have hrA : 0 ≤ rA := (norm_nonneg A).trans hA
+  have hD : ‖T - A‖ ≤ rT + rA := by
+    calc
+      ‖T - A‖ ≤ ‖T‖ + ‖A‖ := norm_sub_le T A
+      _ ≤ rT + rA := add_le_add hT hA
+  calc
+    ‖T - A‖ * ‖T - A‖ ≤ (rT + rA) * (rT + rA) :=
+      mul_le_mul hD hD (norm_nonneg _) (by positivity)
+    _ = (rT + rA) ^ 2 := by ring
+
+/-- The eventual version of `norm_adjoint_comp_sub_self_le_add_sq`, used to place a
+positive-square error family in one fixed norm ball. -/
+theorem eventually_norm_adjoint_comp_sub_self_le_add_sq
+    {l : Filter I} {rT rA : ℝ} {T : I → E →L[𝕜] F} {A : E →L[𝕜] F}
+    (hT : ∀ᶠ i in l, ‖T i‖ ≤ rT) (hA : ‖A‖ ≤ rA) :
+    ∀ᶠ i in l, ‖((T i - A)†).comp (T i - A)‖ ≤ (rT + rA) ^ 2 :=
+  hT.mono fun _ hi ↦ norm_adjoint_comp_sub_self_le_add_sq hi hA
+
+end PositiveSquare
+
+end ContinuousLinearMap
+
+namespace ContinuousLinearMapWOT
+
+section PositiveSquare
+
+variable {𝕜 E F I : Type*} [RCLike 𝕜]
+  [NormedAddCommGroup E] [InnerProductSpace 𝕜 E] [CompleteSpace E]
+  [NormedAddCommGroup F] [InnerProductSpace 𝕜 F] [CompleteSpace F]
+
+/-- Pointwise convergence of operators is equivalent to weak-operator convergence to zero of
+their positive-square errors. This holds for arbitrary filters and requires no uniform operator
+norm bound. -/
+theorem tendsto_pointwise_iff_tendsto_wot_adjoint_comp_self
+    {l : Filter I} {T : I → E →L[𝕜] F} {A : E →L[𝕜] F} :
+    (∀ x, Filter.Tendsto (fun i ↦ T i x) l (nhds (A x))) ↔
+      Filter.Tendsto
+        (fun i ↦ ContinuousLinearMapWOT.ofCLM
+          (((T i - A)†).comp (T i - A)))
+        l (nhds 0) := by
+  constructor
+  · intro h
+    rw [tendsto_iff_forall_inner_apply_tendsto]
+    intro x y
+    have hx : Filter.Tendsto (fun i ↦ (T i - A) x) l (nhds 0) := by
+      change Filter.Tendsto (fun i ↦ T i x - A x) l (nhds 0)
+      simpa only [sub_self] using (h x).sub_const (A x)
+    have hy : Filter.Tendsto (fun i ↦ (T i - A) y) l (nhds 0) := by
+      change Filter.Tendsto (fun i ↦ T i y - A y) l (nhds 0)
+      simpa only [sub_self] using (h y).sub_const (A y)
+    have hinner : Filter.Tendsto
+        (fun i ↦ ⟪(T i - A) y, (T i - A) x⟫_𝕜) l (nhds ⟪(0 : F), 0⟫_𝕜) :=
+      hy.inner hx
+    convert hinner using 1
+    · funext i
+      exact ContinuousLinearMap.inner_adjoint_comp_self (T i - A) x y
+    · simp
+  · intro h x
+    rw [tendsto_iff_forall_inner_apply_tendsto] at h
+    have hdiag : Filter.Tendsto
+        (fun i ↦ ⟪x, (((T i - A)†).comp (T i - A)) x⟫_𝕜)
+        l (nhds 0) := by
+      simpa only [coe_ofCLM, zero_apply, inner_zero_right] using h x x
+    have hre : Filter.Tendsto
+        (fun i ↦ RCLike.re ⟪x, (((T i - A)†).comp (T i - A)) x⟫_𝕜)
+        l (nhds 0) := by
+      change Filter.Tendsto
+        (RCLike.re ∘ fun i ↦ ⟪x, (((T i - A)†).comp (T i - A)) x⟫_𝕜)
+        l (nhds 0)
+      simpa only [map_zero] using
+        RCLike.continuous_re.continuousAt.tendsto.comp hdiag
+    have hsqrt : Filter.Tendsto
+        (fun i ↦ Real.sqrt (RCLike.re
+          ⟪x, (((T i - A)†).comp (T i - A)) x⟫_𝕜))
+        l (nhds 0) := by
+      change Filter.Tendsto
+        (Real.sqrt ∘ fun i ↦ RCLike.re
+          ⟪x, (((T i - A)†).comp (T i - A)) x⟫_𝕜)
+        l (nhds 0)
+      simpa only [Real.sqrt_zero] using
+        Real.continuous_sqrt.continuousAt.tendsto.comp hre
+    have hnorm : Filter.Tendsto (fun i ↦ ‖(T i - A) x‖) l (nhds 0) := by
+      simpa only [ContinuousLinearMap.apply_norm_eq_sqrt_inner_adjoint_right,
+        Function.comp_def] using hsqrt
+    have hzero : Filter.Tendsto (fun i ↦ (T i - A) x) l (nhds 0) :=
+      tendsto_zero_iff_norm_tendsto_zero.mpr hnorm
+    exact tendsto_sub_nhds_zero_iff.mp hzero
+
+section Endomorphism
+
+variable {H : Type*}
+  [NormedAddCommGroup H] [InnerProductSpace 𝕜 H] [CompleteSpace H]
+
+/-- The endomorphism-star form of
+`ContinuousLinearMapWOT.tendsto_pointwise_iff_tendsto_wot_adjoint_comp_self`. -/
+theorem tendsto_pointwise_iff_tendsto_wot_star_mul_self
+    {l : Filter I} {T : I → H →L[𝕜] H} {A : H →L[𝕜] H} :
+    (∀ x, Filter.Tendsto (fun i ↦ T i x) l (nhds (A x))) ↔
+      Filter.Tendsto
+        (fun i ↦ ContinuousLinearMapWOT.ofCLM
+          (star (T i - A) * (T i - A)))
+        l (nhds 0) := by
+  simpa only [ContinuousLinearMap.star_eq_adjoint, ContinuousLinearMap.mul_def] using
+    (tendsto_pointwise_iff_tendsto_wot_adjoint_comp_self
+      (l := l) (T := T) (A := A))
+
+end Endomorphism
+
+end PositiveSquare
+
+end ContinuousLinearMapWOT
+
+namespace PointwiseConvergenceCLM
+
+section PositiveSquare
+
+variable {𝕜 E F I : Type*} [RCLike 𝕜]
+  [NormedAddCommGroup E] [InnerProductSpace 𝕜 E] [CompleteSpace E]
+  [NormedAddCommGroup F] [InnerProductSpace 𝕜 F] [CompleteSpace F]
+
+/-- Strong-operator convergence is equivalent to weak-operator convergence to zero of the
+positive-square errors. The source and target Hilbert spaces may differ, and the statement is
+filter-general. -/
+theorem tendsto_iff_wot_adjoint_comp_self
+    {l : Filter I} {T : I → E →Lₚₜ[𝕜] F} {A : E →Lₚₜ[𝕜] F} :
+    Filter.Tendsto T l (nhds A) ↔
+      Filter.Tendsto
+        (fun i ↦ ContinuousLinearMapWOT.ofCLM
+          (((((T i : E →L[𝕜] F) - (A : E →L[𝕜] F))†).comp
+            ((T i : E →L[𝕜] F) - (A : E →L[𝕜] F)))))
+        l (nhds 0) := by
+  rw [PointwiseConvergenceCLM.tendsto_iff_forall_tendsto]
+  exact ContinuousLinearMapWOT.tendsto_pointwise_iff_tendsto_wot_adjoint_comp_self
+    (T := fun i ↦ (T i : E →L[𝕜] F)) (A := (A : E →L[𝕜] F))
+
+section Endomorphism
+
+variable {H : Type*}
+  [NormedAddCommGroup H] [InnerProductSpace 𝕜 H] [CompleteSpace H]
+
+/-- The endomorphism-star form of `PointwiseConvergenceCLM.tendsto_iff_wot_adjoint_comp_self`. -/
+theorem tendsto_iff_wot_star_mul_self
+    {l : Filter I} {T : I → H →Lₚₜ[𝕜] H} {A : H →Lₚₜ[𝕜] H} :
+    Filter.Tendsto T l (nhds A) ↔
+      Filter.Tendsto
+        (fun i ↦
+          let D : H →L[𝕜] H := (T i : H →L[𝕜] H) - (A : H →L[𝕜] H)
+          ContinuousLinearMapWOT.ofCLM (star D * D))
+        l (nhds 0) := by
+  rw [PointwiseConvergenceCLM.tendsto_iff_forall_tendsto]
+  exact ContinuousLinearMapWOT.tendsto_pointwise_iff_tendsto_wot_star_mul_self
+    (T := fun i ↦ (T i : H →L[𝕜] H)) (A := (A : H →L[𝕜] H))
+
+end Endomorphism
+
+end PositiveSquare
+
+end PointwiseConvergenceCLM

@@ -2,11 +2,12 @@
 
 ## Status
 
-**SOURCE AUDIT COMPLETE; CLAUSE (1) SOURCE-FORMALIZED; PROPOSITION NOT SOURCE-FORMALIZED.**
+**SOURCE AUDIT COMPLETE; CLAUSES (1) AND (2) SOURCE-FORMALIZED; PROPOSITION NOT YET SOURCE-FORMALIZED.**
 
-This report fixes the translation target, records the implemented weak-family
-clause, and retains the shortest visible route to the strong-family clause. It
-does not claim a Lean proof or source-equivalence certification for clause (2).
+This report fixes the translation target and records the implemented weak- and
+strong-family clauses. The exact two-clause proposition has not yet been
+packaged as one source-facing declaration, so the full Proposition 1.15.2 is
+not yet marked source-formalized.
 
 The source inspected directly was Shoichiro Sakai, *C\*-Algebras and
 W\*-Algebras* (1971), local scan
@@ -240,8 +241,8 @@ needed here are Sak-AI additions and should be reused rather than recreated.
 
 ## API implementation status
 
-No missing source theorem has been identified. The carrier and weak-topology
-interfaces are implemented; the strong-family interfaces remain.
+No missing source theorem has been identified. Both bounded-ball topology
+families and their filter-general convergence interfaces are implemented.
 
 1. **Induced-predual packaging for the algebra subtype — COMPLETE.**
    `NonUnitalStarSubalgebra.toSubmoduleLinearIsometryEquiv` and
@@ -260,26 +261,36 @@ interfaces are implemented; the strong-family interfaces remain.
    homeomorphisms; their `tendsto_*_iff_inducedUltraweak` corollaries are
    arbitrary-filter statements.
 
-4. **Positive-square SOT/WOT bridge.** Prove a reusable, filter-general theorem
-   identifying pointwise/SOT convergence of `x_alpha` to `x` with WOT
-   convergence of `(x_alpha - x)^* (x_alpha - x)` to zero. This should not
-   assume sequentiality.
+4. **Positive-square SOT/WOT bridge — COMPLETE.** The reusable theorem is
+   filter-general and identifies pointwise/SOT convergence with WOT
+   convergence of `(x_alpha - x)^* (x_alpha - x)` to zero. It is proved at
+   the generic continuous-linear-map boundary rather than only for operator
+   algebras.
 
-5. **Positive-square concrete ultrastrong bridge.** Relate the
-   square-summable application seminorms to diagonal coefficient-series tests
-   of the positive square on `N`.
+5. **Positive-square concrete ultrastrong bridge — COMPLETE.** The existing
+   square-summable-vector carrier is related to the existing coefficient-
+   series weak carrier by evaluation on the same positive square. The
+   convergence equivalence is filter-general and introduces no new series
+   topology.
 
-6. **Positive-square intrinsic strong bridge.** Relate convergence in
-   `s(N,N_*)` to convergence of the positive squares against positive
-   predual functionals, then to `sigma(N,N_*)` convergence on the bounded
-   square family.
+6. **Positive-square intrinsic strong bridge — COMPLETE.** Intrinsic strong
+   convergence under an eventual norm bound is equivalent to intrinsic
+   ultraweak convergence of the positive-square family. Applying clause (1)
+   on the closed ball of radius `(2 * r)^2` then gives the strong-family
+   comparison on the original radius-`r` ball.
 
-7. **Intrinsic-strong restriction to concrete ultrastrong.** The existing
-   ambient `B(H)` map uses `P_H`; the proposition needs the corresponding map
-   from the intrinsic strong topology defined by the induced predual of `N`.
+7. **Intrinsic strong carrier and bounded-ball transport — COMPLETE.**
+   `NonUnitalStarSubalgebra.InducedStrong` is a generic induced-predual
+   carrier requiring only ultraweak closedness. Its closed-ball realization
+   is canonically homeomorphic to both the concrete SOT and ultrastrong
+   realizations, and all three pairwise comparisons have arbitrary-filter
+   convergence corollaries. At the source boundary, WOT closedness supplies
+   the required ultraweak closedness by Proposition 1.15.1; no stronger
+   foundational hypothesis is baked into the carrier.
 
-These are engineering and abstraction tasks, not evidence that the source
-statement is uncertain.
+This is exactly the positive-square route in Sakai's proof. It does not use a
+global topology equality, a trace-class or coefficient-representation
+theorem, a sequence reduction, or an added unitality or factor hypothesis.
 
 ## Forbidden overclaims
 
@@ -325,7 +336,7 @@ This transaction is implemented by the general ultraweakly-closed-submodule brid
 `LeanOA.Ultraweak.NonUnitalStarSubalgebra`, and the source-facing closed-ball
 homeomorphisms in `LeanOA.Ultraweak.BoundedOperatorTopology`.
 
-### Transaction B — positive squares and strong-family bounded balls
+### Transaction B — positive squares and strong-family bounded balls — COMPLETE
 
 1. Prove the reusable SOT/positive-square-WOT convergence theorem.
 2. Prove the concrete ultrastrong/diagonal-series square interface.
@@ -334,7 +345,12 @@ homeomorphisms in `LeanOA.Ultraweak.BoundedOperatorTopology`.
 5. Publish the strong-family topology equivalence and its filter-general
    convergence corollaries.
 
-### Transaction C — final source packaging and documentation
+The implementation keeps the intrinsic carrier generic over the minimal
+ultraweak-closedness assumption. The source-facing theorem specializes along
+the previously proved equivalence between WOT and ultraweak closedness for
+self-adjoint operator subalgebras of `B(H)`.
+
+### Transaction C — final source packaging and documentation — NEXT
 
 Package the two parts as the exact two-clause Proposition 1.15.2 theorem,
 link it from Verso, and advance the source frontier only after both clauses
@@ -345,6 +361,9 @@ induced quotient-predual theorem rather than a replacement for it.
 
 ```text
 Sakai Proposition 1.15.2(1): SOURCE-FORMALIZED
-Sakai Proposition 1.15.2(2): NOT SOURCE-FORMALIZED
+Sakai Proposition 1.15.2(2): SOURCE-FORMALIZED
 Sakai Proposition 1.15.2: NOT SOURCE-FORMALIZED
 ```
+
+The last line records only the missing exact paired packaging; it does not
+indicate a mathematical or proof gap in either clause.

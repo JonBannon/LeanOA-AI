@@ -272,12 +272,23 @@ predual. Restriction from the coefficient-series test space to the finite core s
 remaining WOT comparison, while relative unit-ball density plus scalar normalization proves the
 reverse closedness implication. Sakai Proposition 1.15.1 is therefore **source-formalized** even
 though the later global topology equalities remain unavailable. The Proposition 1.15.2 audit
-shows that the next gap is not construction of another predual: Sak-AI already has the canonical
-quotient predual of an ultraweakly closed submodule. What is missing is the general theorem that
-its weak-star topology is the ambient ultraweak subspace topology, followed by the concrete
-weak-family closed-ball comparison and the strong-family positive-square bridge. The first two
-interfaces are now implemented in Sak-AI at reusable generality; the strong-family bridge remains
-absent from pinned and audited current Mathlib, original LeanOA, and Sak-AI.
+confirmed that another predual was not needed: Sak-AI already has the canonical quotient predual
+of an ultraweakly closed submodule. The general weak-star/ambient-ultraweak subspace theorem and
+the concrete weak-family closed-ball comparison are now implemented at reusable generality. The
+strong-family bridge is implemented locally as well: `InducedStrong` works for any ultraweakly
+closed self-adjoint subalgebra of a dual $C^*$-algebra, the concrete SOT and ultrastrong closed-ball
+carriers are generic over normed spaces and scalars, and filter-general positive-square criteria
+yield the three source closed-ball homeomorphisms. This bridge remains absent from pinned and
+audited current Mathlib and original LeanOA. It is a bounded-set theorem only; no global topology
+equality is inferred.
+
+One generality opportunity remains deliberately deferred: the concrete SOT/ultrastrong
+homeomorphism should plausibly hold on an arbitrary operator-norm-bounded set, without assuming
+that the set is a closed self-adjoint algebra. The source-specific route instead uses ultraweak
+closedness—equivalent to WOT closedness in this setting—to reuse the weak-family square-ball
+comparison. This is a future Mathlib-portability improvement, not a blocker for the separately
+source-formalized Proposition 1.15.2(2). The immediate source gap is only the exact source-order
+two-clause package for the full proposition.
 
 ### Finite vector-functional layer and completion reconnaissance
 

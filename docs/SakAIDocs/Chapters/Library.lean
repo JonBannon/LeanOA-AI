@@ -6,6 +6,7 @@ import LeanOA.Ultraweak.Annihilator
 import LeanOA.Ultraweak.CentralSupport
 import LeanOA.Ultraweak.CompleteAdditivity
 import LeanOA.Ultraweak.BoundedOperatorClosedness
+import LeanOA.Ultraweak.BoundedOperatorStrongTopology
 import LeanOA.Ultraweak.BoundedOperatorTopology
 import LeanOA.Ultraweak.BoundedOperatorRelativeKaplansky
 import LeanOA.Ultraweak.KaplanskyDensity
@@ -15,6 +16,7 @@ import LeanOA.Ultraweak.ElementPolarDecomposition
 import LeanOA.Ultraweak.FunctionalJordanDecomposition
 import LeanOA.Ultraweak.FunctionalPolarDecomposition
 import LeanOA.Ultraweak.FunctionalSupport
+import LeanOA.Ultraweak.InducedStrong
 import LeanOA.Ultraweak.OrthogonalProjectionSum
 import LeanOA.Ultraweak.PredualUniqueness
 import LeanOA.Ultraweak.ProjectionDecomposition
@@ -441,8 +443,25 @@ interface from Sakai Proposition 1.15.2(1).  It reuses the general
 ultraweakly-closed-submodule quotient-predual equivalence, then packages canonical
 homeomorphisms and arbitrary-filter convergence equivalences among intrinsic
 $`\sigma(N,N_*)`, coefficient-series $`\sigma`-WOT, and WOT on each
-zero-centered norm-closed ball.  It does not claim the proposition's
-strong-family clause or any global equality of topologies.
+zero-centered norm-closed ball.
+
+`LeanOA.Ultraweak.InducedStrong` constructs the intrinsic strong carrier
+from the quotient predual of an arbitrary ultraweakly closed self-adjoint
+subalgebra; the construction is independent of a concrete Hilbert-space
+representation.  `LeanOA.Ultraweak.BoundedOperatorStrongTopology` then adds
+the strong-family interface from Sakai Proposition 1.15.2(2).  Its primary
+closed-ball equivalences are
+{name}`NonUnitalStarSubalgebra.IsUltraweakClosed.inducedStrongSOTClosedBallHomeomorph`,
+{name}`NonUnitalStarSubalgebra.IsUltraweakClosed.usotSOTClosedBallHomeomorph`,
+and
+{name}`NonUnitalStarSubalgebra.IsUltraweakClosed.inducedStrongUSOTClosedBallHomeomorph`.
+The corresponding arbitrary-filter criteria are
+{name}`NonUnitalStarSubalgebra.IsUltraweakClosed.tendsto_sot_iff_inducedStrong`,
+{name}`NonUnitalStarSubalgebra.IsUltraweakClosed.tendsto_sot_iff_usot`, and
+{name}`NonUnitalStarSubalgebra.IsUltraweakClosed.tendsto_usot_iff_inducedStrong`.
+Their proof reduces convergence to weak convergence of bounded
+positive-square errors and reuses the weak-family theorem.  These are
+closed-ball comparisons, not global equalities of operator topologies.
 
 # Portability rule
 

@@ -514,6 +514,42 @@ bijection from the compact source to its Hausdorff target is therefore a
 homeomorphism.
 :::
 
+:::proposition "prop:operator_topology_closed_ball_strong_family_Sak_1_15_2" (parent := "operator-topologies") (lean := "NonUnitalStarSubalgebra.IsUltraweakClosed.inducedStrongSOTClosedBallHomeomorph, NonUnitalStarSubalgebra.IsUltraweakClosed.usotSOTClosedBallHomeomorph, NonUnitalStarSubalgebra.IsUltraweakClosed.inducedStrongUSOTClosedBallHomeomorph, NonUnitalStarSubalgebra.IsUltraweakClosed.tendsto_sot_iff_inducedStrong, NonUnitalStarSubalgebra.IsUltraweakClosed.tendsto_sot_iff_usot, NonUnitalStarSubalgebra.IsUltraweakClosed.tendsto_usot_iff_inducedStrong") (uses := "prop:operator_topology_closed_ball_weak_family_Sak_1_15_2, thm:bounded_operator_ultrastrong_bridge")
+Let $`H` be a complex Hilbert space and let $`N` be a WOT-closed,
+possibly nonunital self-adjoint subalgebra of $`B(H)`, with canonical
+quotient predual $`N_*=B(H)_*/N^\perp`.  On every zero-centered norm-closed
+ball of $`N`, the following three topologies agree:
+
+1. the intrinsic strong topology $`s(N,N_*)`;
+2. Sakai's coefficient-series ultrastrong operator topology;
+3. the strong operator topology.
+
+The formal API gives all three canonical closed-ball homeomorphisms and
+their arbitrary-filter convergence criteria.  This is exactly the
+strong-family clause of Sakai, Proposition 1.15.2.  It is a bounded-set
+statement and does not assert equality of these topologies on all of $`N`.
+:::
+
+:::proof "prop:operator_topology_closed_ball_strong_family_Sak_1_15_2"
+For a net $`(x_i)` in the radius-$`r` ball and a proposed limit $`x`, form
+the positive-square error
+
+$`
+  q_i=(x_i-x)^*(x_i-x).
+`
+
+The C-star identity bounds every $`q_i` by $`(2r)^2`.  Pointwise/SOT
+convergence of $`x_i` to $`x` is equivalent to WOT convergence of $`q_i`
+to zero.  Concrete ultrastrong convergence is equivalently
+coefficient-series $`\sigma`-WOT convergence of the same errors, while
+intrinsic strong convergence is equivalently intrinsic ultraweak convergence
+of those errors.  The weak-family closed-ball theorem identifies the three
+error convergences on the $`(2r)^2` ball.  Combining these filter-general
+criteria gives the three homeomorphisms without a trace-class representation
+theorem and without promoting the bounded comparison to a global topology
+equality.
+:::
+
 :::proposition "prop:loc_cvx_result" (parent := "operator-topologies") (lean := "Ultraweak.predualDualEquiv")
 The ultraweakly continuous complex-linear functionals on $`M` are precisely
 those represented by the specified predual $`M_*`.

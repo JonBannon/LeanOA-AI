@@ -107,12 +107,12 @@ because Sakai names the unique positive factor $|g|$ and the final-projection cl
 $s(|g^*|)$; no choice-based polar element or decomposition structure is introduced.
 
 Section 1.14 and Proposition 1.15.1 are complete. Proposition 1.15.2 remains the exact numbered
-source frontier, with its weak-family clause now source-formalized. Sakai's “bounded spheres” are
-zero-centered norm-closed balls, and the implemented theorem gives equality of the restricted
-topologies for arbitrary filters/nets. The quotient predual is identified with the ambient
-ultraweak subspace topology at general ultraweakly-closed-submodule and `RCLike` generality. The
-positive-square strong-family argument remains a separate transaction, so the whole proposition
-is not yet complete.
+source frontier. Both its weak-family and strong-family clauses are now source-formalized
+separately. Sakai's “bounded spheres” are zero-centered norm-closed balls, and the implemented
+theorems give equality of the restricted topologies for arbitrary filters/nets. The quotient
+predual is identified with the ambient ultraweak subspace topology at general
+ultraweakly-closed-submodule and `RCLike` generality. The whole proposition is not yet
+source-formalized because its two clauses have not yet been packaged in the exact printed order.
 
 The first Section 1.15 transaction fixes the topology boundary without filling it by notation.
 Mathlib's `ContinuousLinearMapWOT` is the concrete weak operator topology, and
@@ -162,3 +162,19 @@ operator-algebra wrapper preserves this explicit quotient, and the source-specif
 closed-ball comparison sits downstream in `Ultraweak.BoundedOperatorTopology`. Do not use the
 choice-based `WStarAlgebra.predual N` as the primary construction, because it hides the restriction
 map needed by the proof.
+
+The strong-family layer follows the same carrier-safe design. `NonUnitalStarSubalgebra.InducedStrong`
+is defined for any ultraweakly closed self-adjoint subalgebra of a dual $C^*$-algebra, independent
+of a Hilbert-space representation. `BoundedOperatorTopology.SOTClosedBall` and
+`BoundedOperatorTopology.USOTClosedBall` are generic over normed spaces and scalars. Only the
+source comparison specializes to self-adjoint subalgebras of $B(H)$; it assumes ultraweak
+closedness, which Proposition 1.15.1 identifies here with Sakai's WOT-closed hypothesis.
+Filter-general positive-square criteria transport convergence through the already proved weak
+closed-ball comparison and produce the three canonical strong-family homeomorphisms. These are
+restricted-space results, not a global equality of intrinsic strong, ultrastrong, and SOT.
+
+A cleaner direct proof that SOT and ultrastrong agree on every arbitrary operator-norm-bounded
+subset—without any closed-algebra hypothesis—would improve the reusable concrete API. It is
+deliberately deferred because the present source-faithful route is complete without it. The next
+architectural transaction is instead the exact source-order two-clause package for Proposition
+1.15.2.

@@ -362,16 +362,18 @@ Kaplansky unit-ball theorem followed by scalar normalization.  The proof uses
 only the one-way comparison maps available at this point in Sakai and does
 not claim the later equality of the operator topologies.
 
-The current exact numbered frontier remains Proposition 1.15.2.  Its
-weak-family clause is now source-formalized: on each norm-closed ball of a
-WOT-closed self-adjoint subalgebra, WOT, coefficient-series $`\sigma`-WOT,
-and the intrinsic topology $`\sigma(N,N_*)` for the quotient predual agree.
-The theorem is stated by canonical homeomorphisms and arbitrary-filter
-convergence, not only for sequences.  The remaining strong-family clause
-requires the separate positive-square bridge comparing SOT, concrete
-ultrastrong convergence, and $`s(N,N_*)` on the same balls.
+The current exact numbered frontier remains Proposition 1.15.2, now at its
+exact two-clause packaging step.  Both clauses are source-formalized.  On
+each norm-closed ball of a WOT-closed self-adjoint subalgebra, WOT,
+coefficient-series $`\sigma`-WOT, and the intrinsic topology
+$`\sigma(N,N_*)` agree; on the same ball, SOT, concrete ultrastrong
+convergence, and the intrinsic topology $`s(N,N_*)` agree.  Both results are
+stated by canonical homeomorphisms and arbitrary-filter convergence, not
+only for sequences.  The full proposition is not yet marked
+source-formalized until the two printed clauses are packaged together
+exactly, and no global equality of these topologies is claimed.
 
 Sakai Proposition 1.15.1: SOURCE-FORMALIZED
 Sakai Proposition 1.15.2(1): SOURCE-FORMALIZED
-Sakai Proposition 1.15.2(2): NOT SOURCE-FORMALIZED
+Sakai Proposition 1.15.2(2): SOURCE-FORMALIZED
 Sakai Proposition 1.15.2: NOT SOURCE-FORMALIZED

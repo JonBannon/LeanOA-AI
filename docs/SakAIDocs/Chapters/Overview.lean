@@ -123,6 +123,15 @@ The connected frontier targets completed so far are:
     $`vv^*=s(\lvert g^*\rvert)`.  This is the exact right-translation,
     norm, support, and uniqueness content of Sakai 1.14.4, and closes
     Section 1.14.
+19. for a possibly nonunital self-adjoint subalgebra of $`B(\mathcal H)`,
+    closedness in WOT, coefficient-series $`\sigma`-WOT, SOT, concrete
+    ultrastrong convergence, and concrete-predual ultraweak convergence are
+    equivalent, exactly as in Sakai 1.15.1;
+20. on every zero-centered norm-closed ball of a WOT-closed such algebra,
+    the intrinsic weak-star, coefficient-series $`\sigma`-WOT, and WOT
+    topologies agree, and the intrinsic strong, concrete ultrastrong, and SOT
+    topologies agree.  Both clauses of Sakai 1.15.2 are represented by
+    canonical homeomorphisms and arbitrary-filter convergence theorems.
 
 The source audit found an important correction and a genuine ambiguity.
 Sakai prints the strong $`s(M,M_*)` topology, not the ultraweak
@@ -156,18 +165,21 @@ closure transport, and relative Kaplansky density in the WOT closure.  It
 does not assume the converse series representation or either topology
 equality later stated in Corollary 1.15.6.
 
-The current exact numbered frontier remains Proposition 1.15.2.  Its
-weak-family clause is now source-formalized: on each norm-closed ball of a
-WOT-closed self-adjoint subalgebra, WOT, coefficient-series $`\sigma`-WOT,
-and the intrinsic topology $`\sigma(N,N_*)` for the quotient predual agree.
-The theorem is stated by canonical homeomorphisms and arbitrary-filter
-convergence, not only for sequences.  The remaining strong-family clause
-requires the separate positive-square bridge comparing SOT, concrete
-ultrastrong convergence, and $`s(N,N_*)` on the same balls.
+The current exact numbered frontier remains Proposition 1.15.2, now at its
+final source-facing packaging step.  Both constituent clauses are
+source-formalized.  On each norm-closed ball of a WOT-closed self-adjoint
+subalgebra, WOT, coefficient-series $`\sigma`-WOT, and the intrinsic topology
+$`\sigma(N,N_*)` agree; on the same ball, SOT, concrete ultrastrong
+convergence, and the intrinsic topology $`s(N,N_*)` agree.  The statements
+use canonical homeomorphisms and arbitrary-filter convergence, not only
+sequences.  The full proposition is not yet marked source-formalized until
+its two printed clauses are packaged together exactly.  In particular, the
+bounded-ball results do not assert global equality of any of these
+topologies.
 
 Sakai Proposition 1.15.1: SOURCE-FORMALIZED
 Sakai Proposition 1.15.2(1): SOURCE-FORMALIZED
-Sakai Proposition 1.15.2(2): NOT SOURCE-FORMALIZED
+Sakai Proposition 1.15.2(2): SOURCE-FORMALIZED
 Sakai Proposition 1.15.2: NOT SOURCE-FORMALIZED
 
 # Migration parity
@@ -191,8 +203,10 @@ fixed-projection ultraweak decomposition used in Sakai 1.11.3, and the
 element polar decomposition of Sakai 1.12.1, the exact normality theorem of
 Sakai 1.13.2, arbitrary orthogonal projection sums, and the complete-additivity
 characterization closing Sakai 1.13, the functional-support theory of Sakai
-1.14.2, the orthogonal Jordan decomposition of Sakai 1.14.3, and the general
-functional polar decomposition of Sakai 1.14.4, together
+1.14.2, the orthogonal Jordan decomposition of Sakai 1.14.3, the general
+functional polar decomposition of Sakai 1.14.4, the five-way closedness
+theorem of Sakai 1.15.1, and both bounded-topology clauses of Sakai 1.15.2,
+together
 with $`C^*`-algebra foundations, operator topologies,
 positive separation, Stonean spectra and real rank zero, normality and
 predual uniqueness, Kaplansky density, projection lattices, and element

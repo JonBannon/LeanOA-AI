@@ -9,6 +9,24 @@ namespace CStarRing
 
 variable {A : Type*} [NonUnitalCStarAlgebra A]
 
+section NormBounds
+
+variable {R : Type*} [NonUnitalNormedRing R] [StarRing R] [CStarRing R]
+
+/-- In a C-star ring, if `a` and `x` have respective norm bounds `ra` and `rx`, then the
+positive square of their difference has norm at most `(ra + rx) ^ 2`. -/
+lemma norm_star_sub_mul_self_le_add_sq
+    {a x : R} {ra rx : ℝ} (ha : ‖a‖ ≤ ra) (hx : ‖x‖ ≤ rx) :
+    ‖star (a - x) * (a - x)‖ ≤ (ra + rx) ^ 2 := by
+  have hra : 0 ≤ ra := (norm_nonneg a).trans ha
+  have hrx : 0 ≤ rx := (norm_nonneg x).trans hx
+  have hdiff : ‖a - x‖ ≤ ra + rx :=
+    (norm_sub_le a x).trans (add_le_add ha hx)
+  rw [CStarRing.norm_star_mul_self, pow_two]
+  nlinarith [norm_nonneg (a - x)]
+
+end NormBounds
+
 /-- An off-diagonal element of a C⋆-algebra has the same norm as its selfadjoint
 dilation. -/
 lemma norm_add_star_of_mul_self_eq_zero {a : A} (ha : a * a = 0) :

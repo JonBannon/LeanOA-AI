@@ -76,6 +76,7 @@ public import LeanOA.Ultraweak.BoundedOperatorClosedness
 public import LeanOA.Ultraweak.BoundedOperatorCoefficientSeries
 public import LeanOA.Ultraweak.BoundedOperatorInvariantTestSpace
 public import LeanOA.Ultraweak.BoundedOperatorRelativeKaplansky
+public import LeanOA.Ultraweak.BoundedOperatorStrongTopology
 public import LeanOA.Ultraweak.BoundedOperatorTopology
 public import LeanOA.Ultraweak.BoundedOperatorUltrastrong
 public import LeanOA.Ultraweak.BoundedOperatorWOTClosure
@@ -90,6 +91,7 @@ public import LeanOA.Ultraweak.FunctionalJordanDecomposition
 public import LeanOA.Ultraweak.FunctionalPolarDecomposition
 public import LeanOA.Ultraweak.FunctionalSupport
 public import LeanOA.Ultraweak.Ideal
+public import LeanOA.Ultraweak.InducedStrong
 public import LeanOA.Ultraweak.IsUnital
 public import LeanOA.Ultraweak.KaplanskyDensity
 public import LeanOA.Ultraweak.LUB

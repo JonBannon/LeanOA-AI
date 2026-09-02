@@ -23,13 +23,13 @@ functional, including its canonical absolute value, norm identity, and initial/f
 equations. Sakai Proposition 1.15.1 is now source-formalized: global closedness in WOT,
 coefficient-series $\sigma$-WOT, SOT, concrete ultrastrong convergence, and the concrete-predual
 ultraweak topology is equivalent for a possibly nonunital self-adjoint subalgebra of $B(H)$.
-The weak-family clause of Proposition 1.15.2 is also source-formalized. For a WOT-closed such
-subalgebra, its canonical quotient-predual topology, coefficient-series $\sigma$-WOT, and WOT
-agree on every zero-centered norm-closed ball, with canonical homeomorphisms and arbitrary-filter
-convergence corollaries. The proposition remains the current source frontier because its
-strong-family clause—comparing intrinsic strong, concrete ultrastrong, and SOT on bounded
-balls—still requires the positive-square bridge. No global equality of these topologies is
-claimed.
+Both clauses of Proposition 1.15.2 are now source-formalized. For a WOT-closed such subalgebra,
+its canonical quotient-predual topology, coefficient-series $\sigma$-WOT, and WOT agree on every
+zero-centered norm-closed ball. On the same balls, its intrinsic strong topology, concrete
+ultrastrong topology, and SOT agree. The API supplies canonical homeomorphisms and arbitrary-filter
+convergence corollaries. The proposition remains the current source frontier only for exact
+two-clause packaging; the full proposition is not yet marked source-formalized. These bounded-set
+results do not claim global equality of the topologies.
 
 - [Sak-AI documentation site](https://jonbannon.github.io/Sak-AI/)
 - [API documentation](https://jonbannon.github.io/Sak-AI/docs/)
@@ -40,9 +40,10 @@ claimed.
 The primary documentation source and deployed project site are the first-class Verso Blueprint
 package in [`docs/`](docs/). It supplies a mathematical reading path, checked declaration links,
 dependency graph, formalization summary, full-text search, and index. The retired LeanBlueprint
-sources remain recoverable from Git history; all 87 former nodes and 141 dependency edges are in
-Verso, whose current graph has 129 nodes and 238 statement-dependency edges. Exact build audit data
-is recorded in [`VERSO_STATUS.md`](VERSO_STATUS.md).
+sources remain recoverable from Git history; all 87 former nodes and 141 dependency edges remain
+represented in Verso, whose current graph has 130 nodes and 240 statement-dependency edges. Exact
+generated build audit data is recorded in
+[`VERSO_STATUS.md`](VERSO_STATUS.md).
 
 Local theorem verification:
 
