@@ -266,3 +266,44 @@ authority for public mathematical completion claims.
   compact-to-Hausdorff weak-family closed-ball homeomorphisms.
 - **Decision:** `CONTINUE` — the source theorem's remaining construction is fixed and locally
   prototyped.
+
+## 2026-09-02 — AUT-007B — Sakai Proposition 1.15.2 weak-family closed balls
+
+- **Starting HEAD:** `fac24e1d8d423e0b9d350534c4733ad526afe98a`.
+- **Ending HEAD:** `f3ad6f01856e90f4a374c7f01a5e7a4562b36ed5`.
+- **Target:** source-formalize the weak-family clause of Proposition 1.15.2 on every
+  zero-centered norm-closed ball, using the existing quotient predual and concrete topology APIs.
+- **Source:** Sakai, Proposition 1.15.2(1), Section 1.15, printed page 35 / PDF page 47.
+- **Result:** for a WOT-closed, possibly nonunital self-adjoint subalgebra `N` of `B(H)`, proved
+  canonical closed-ball homeomorphisms from intrinsic `sigma(N,N_*)` to coefficient-series
+  sigma-WOT and to Mathlib WOT, together with arbitrary-filter convergence equivalences. The
+  proof follows Sakai's compact-to-Hausdorff sandwich and uses
+  `N_* = P_H / Ultraweak.preannihilator N`. The algebra carrier is connected to the general
+  closed-submodule theorem by an explicit induced predual and continuous linear equivalence; no
+  choice-based predual, trace-class realization, or global topology equality is introduced.
+- **Classification:** `SOURCE_RESULT` for clause (1). Proposition 1.15.2 as a whole remains
+  **NOT SOURCE-FORMALIZED**.
+- **Generality and reuse:** the algebra/submodule linear isometry now reuses Mathlib's carrier
+  equivalence at `NonUnitalSeminormedRing` generality. The compact bounded-topology comparison is
+  stated for arbitrary ultraweakly closed subsets of `B(H)` in the dedicated
+  `BoundedOperatorTopology` namespace. The nonunital-algebra API is a downstream wrapper with
+  carrier simp lemmas.
+- **Important declarations:**
+  `NonUnitalStarSubalgebra.IsUltraweakClosed.inducedPredual`,
+  `NonUnitalStarSubalgebra.IsUltraweakClosed.inducedAmbientUltraweakEquiv`,
+  `BoundedOperatorTopology.ambientUltraweakSigmaWOTClosedBallHomeomorph`,
+  `BoundedOperatorTopology.sigmaWOTWOTClosedBallHomeomorph`,
+  `NonUnitalStarSubalgebra.IsWOTClosed.inducedUltraweakSigmaWOTClosedBallHomeomorph`,
+  `NonUnitalStarSubalgebra.IsWOTClosed.inducedUltraweakWOTClosedBallHomeomorph`, and the two
+  `tendsto_*_iff_inducedUltraweak` corollaries.
+- **Validation:** focused kernel checks; full 3,200-job theorem build; `lake lint`;
+  `mk_all --check`; precise-import, proof-debt, conflict, unbounded-option, axiom, and diff checks;
+  and a full 3,562-job Verso build/check passed. The generated site has 129 nodes, 238 statement
+  edges, 384 unique linked Lean declarations, and 624 manifest/cache entries with zero graph
+  warnings. Only the known pinned Verso/SubVerso warnings remain.
+- **Blockers discovered:** none. The strong-family clause still needs the reusable
+  filter-general positive-square comparison; this is mathematical engineering, not source
+  uncertainty or missing quotient-predual infrastructure.
+- **Next target:** source-formalize Proposition 1.15.2(2), comparing intrinsic strong, concrete
+  ultrastrong, and SOT on norm-closed balls, then package the exact two-clause proposition.
+- **Decision:** `CONTINUE` — the source route is fixed and no escalation is required.
