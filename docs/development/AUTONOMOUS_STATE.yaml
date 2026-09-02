@@ -7,7 +7,7 @@ governor:
 repository:
   path: /Users/jonbannon/LeanRepos/LeanOA-AI
   branch: master
-  last_validated_mathematical_head: 966f56ddda385db7e67a7af3a0cca4ecd1c25df2
+  last_validated_mathematical_head: 0e91336d4267219d96bd4adf000650114087fa40
   worktree_at_activation: clean
   origin_ahead_at_activation: 44
   origin_behind_at_activation: 0
@@ -19,25 +19,24 @@ active_source:
   section: "1.15"
   theorem: Proposition 1.15.2
   status: SOURCE-AUDITED; NOT SOURCE-FORMALIZED
-  target_area: induced quotient-predual topology bridge and weak-family closed balls
+  target_area: nonunital induced predual and weak-family closed-ball equivalence
 
 status: active
 
 last_mathematical_transaction:
-  commit: 966f56ddda385db7e67a7af3a0cca4ecd1c25df2
-  classification: SOURCE_THEOREM
+  commit: 0e91336d4267219d96bd4adf000650114087fa40
+  classification: INFRASTRUCTURE
   summary: >-
-    Formalized Sakai Proposition 1.15.1 as the exact five-way global
-    closedness equivalence for a possibly nonunital self-adjoint subalgebra of
-    B(H): WOT, coefficient-series sigma-WOT, SOT, concrete ultrastrong, and
-    concrete-predual ultraweak closedness. The proof uses only source-required
-    one-way comparison maps and relative Kaplansky density; it does not claim
-    equality of the underlying topologies.
-  source_reference: Sakai section 1.15, printed page 35
+    Proved at arbitrary RCLike closed-submodule generality that the canonical
+    quotient predual induces exactly the ambient ultraweak subspace topology,
+    with evaluation and forward/inverse carrier simp lemmas. This is the
+    missing general seam required by Sakai Proposition 1.15.2 part 1; the
+    source proposition itself remains unformalized.
+  source_reference: infrastructure for Sakai Proposition 1.15.2, printed page 35
   checks:
     build: pass
     lint: pass
-    docs: pass
+    docs: not_required
     proof_debt_scan: pass
 
 current_blockers: []
@@ -60,16 +59,14 @@ last_source_audit:
 next_transaction:
   classification: SOURCE_THEOREM_PART
   target: >-
-    Prove at general RCLike closed-submodule generality that the canonical
-    quotient predual induces exactly the ambient ultraweak subspace topology,
-    package it safely for a WOT-closed possibly nonunital star subalgebra of
-    B(H), and formalize the WOT, coefficient-series sigma-WOT, and intrinsic
-    sigma(N,N_*) equivalence on every norm-closed ball.
+    Package the canonical quotient predual for an ultraweakly closed
+    nonunital star subalgebra, then formalize homeomorphisms on every
+    norm-closed ball between intrinsic sigma(N,N_*), coefficient-series
+    sigma-WOT, and WOT for a WOT-closed subalgebra of B(H).
   scratch_targets:
-    - Scratch/WS15WClosedSubmodulePredualProbe.lean
-    - Scratch/WS15XWeakBallProbe.lean
+    - /tmp/WS15XWeakBallProbe.lean
   enables: Sakai Proposition 1.15.2 part 1 and the weak-square dependency for part 2
-  confidence: medium
+  confidence: high
 
 next_candidates:
   - target: positive-square strong-family closed-ball equivalence
@@ -82,10 +79,10 @@ next_candidates:
 continuation:
   decision: continue
   rationale: >-
-    The source and API audit removed the only statement-level uncertainty.
-    The quotient predual already exists, the missing topology bridge has a
-    canonical general formulation, and the weak-family proof is determined by
-    compactness and the established one-way concrete topology maps.
+    The general quotient-predual topology bridge now kernel-checks and is
+    validated repository-wide. The remaining weak-family proof has a
+    compiling ambient closed-ball prototype and follows Sakai's compact to
+    Hausdorff argument; only carrier-safe source packaging remains.
 
 escalation:
   required: false

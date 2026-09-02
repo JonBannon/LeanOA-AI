@@ -242,3 +242,27 @@ authority for public mathematical completion claims.
   positive-square transaction.
 - **Decision:** `CONTINUE` — source meaning and architecture are fixed, so implementation can
   proceed without escalation.
+
+## 2026-09-02 — AUT-007A — Induced quotient-predual subspace topology
+
+- **Starting HEAD:** `5f73be7ddc383c0a377fa6cbd4323524cea8f5d9`.
+- **Ending HEAD:** `0e91336d4267219d96bd4adf000650114087fa40`.
+- **Target:** remove the general topology blocker in Sakai Proposition 1.15.2 by identifying the
+  quotient-predual weak-star topology of a closed submodule with its ambient ultraweak subspace
+  topology.
+- **Result:** at arbitrary `RCLike` generality, proved the quotient-representative evaluation
+  formula and constructed the canonical continuous linear equivalence
+  `Ultraweak.closedSubmoduleUltraweakEquiv`, together with forward and inverse carrier simp
+  formulas. No competing topology or predual definition was introduced.
+- **Classification:** `INFRASTRUCTURE`.
+- **Imminent theorem enabled:** Sakai Proposition 1.15.2 part 1, comparing intrinsic
+  `sigma(N,N_*)`, coefficient-series sigma-WOT, and WOT on every closed norm ball.
+- **Validation:** focused kernel check, full 3,199-job theorem build, `lake lint`, proof-debt scan,
+  and `git diff --check` passed.
+- **Blockers discovered:** none. Since the closedness proof `hN` is not inferable from the predual
+  result type, the canonical predual instance is explicit in the equivalence's domain; this is an
+  elaboration constraint, not an architectural fork.
+- **Next target:** thin induced-predual packaging for a closed nonunital star subalgebra and the
+  compact-to-Hausdorff weak-family closed-ball homeomorphisms.
+- **Decision:** `CONTINUE` — the source theorem's remaining construction is fixed and locally
+  prototyped.
