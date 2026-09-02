@@ -35,6 +35,13 @@ characterization, and the unique orthogonal Jordan decomposition of a self-adjoi
 functional, including the exact norm sum. It now closes Section 1.14 with the unique general
 normal-functional polar decomposition, canonical functional absolute value, norm identity, and
 initial/final support equations.
+The direct source and API audit for Proposition 1.15.1 is complete, but no theorem node has been
+added. Sakai's five conditions concern global closedness of a self-adjoint subalgebra of $B(H)$,
+not equality of the topologies or a bounded-ball statement. Pinned Mathlib supplies concrete WOT
+and pointwise/SOT, while Sak-AI supplies intrinsic predual weak, strong, and Mackey topologies; the
+concrete predual, $\sigma$-weak coefficient-series, and ultrastrong identifications required to join
+those interfaces are still absent. The public document therefore continues to identify
+Proposition 1.15.1 as the current source frontier rather than displaying a false completion.
 Scratch checks a nontrivial
 refinement-plus-mesh filter and the complete competing-resolution support/uniqueness chain under an
 explicit left-endpoint moment limit. The public document accurately stops before those candidate
@@ -83,9 +90,12 @@ longer part of the build or deployment.
    additivity. Section 1.14 is complete through functional
    support, exact norm orthogonality, its support characterization, and the unique orthogonal
    Jordan decomposition, followed by the exact general functional polar decomposition of Theorem
-   1.14.4. The next bounded slice is the concrete operator-topology audit leading to Proposition
-   1.15.1. No resolution, integral, or PVM structure becomes public before a
-   genuine mathematical interface fixes it.
+   1.14.4. The concrete operator-topology audit for Proposition 1.15.1 is complete. The next
+   bounded slice is the concrete $B(H)$ coefficient/predual bridge needed to relate Mathlib's WOT
+   and pointwise/SOT objects to $\sigma$-weak, ultrastrong, and Sak-AI's intrinsic specified-predual
+   topologies. Proposition 1.15.1 remains the source frontier until those identifications and the
+   relative Kaplansky-closure step are kernel-proved. No resolution, integral, or PVM structure
+   becomes public before a genuine mathematical interface fixes it.
 
 Do not create a second theorem-status registry: Verso blocks and `uses` references are the
 documentation source of truth.

@@ -214,6 +214,50 @@ Sakai's final-projection identity as support of the absolute value of the adjoin
 element, normal-functional bundle, or general ordered-dual absolute value is added. The next
 overlap audit is Section 1.15's topology and API boundary, beginning with Proposition 1.15.1.
 
+## Section 1.15.1 concrete operator-topology audit
+
+Pinned Mathlib commit `476ab284693e554a6b48c5f5210cb4fb5ae51252` already provides the two
+concrete topology-bearing types that should be reused:
+
+- `ContinuousLinearMapWOT`, with coefficientwise convergence and the Hilbert-space inner-product
+  API, is the weak operator topology;
+- `PointwiseConvergenceCLM` is pointwise convergence of continuous linear maps and is the strong
+  operator topology in the concrete Hilbert-space specialization.
+
+The mirrored Sak-AI Mathlib module adds only the missing general comparison:
+`PointwiseConvergenceCLM.toWOT` and
+`PointwiseConvergenceCLM.isClosed_pointwise_of_isClosed_wot`. These declarations state the
+continuous SOT-to-WOT identity and its WOT-closed-to-SOT-closed consequence without defining a new
+topology or adding Hilbert-space assumptions.
+
+Classification: the two topology-bearing types and compatible-dual closure engine are
+`PINNED VERSION ALREADY HAS IT`; the continuous pointwise/SOT-to-WOT map was `LOCAL BRIDGE
+NEEDED`; the concrete predual/coefficient and relative-closure layers remain `LOCAL BRIDGE
+NEEDED`. Current naming-only changes are `NOT RELEVANT`. No currently available upstream theorem
+is `USABLE NOW` beyond the pinned APIs. An eventual upstream replacement for the local bridge is a
+`FUTURE MATHLIB MIGRATION CANDIDATE`, but none was found in the audited current tree.
+
+Neither pinned nor the official Mathlib `master` tree inspected on 2026-09-01 supplies a concrete
+predual of $B(H)$, a bridge from the concrete von Neumann algebra/double-commutant presentation to
+the abstract $W^*$-predual
+presentation, a concrete $\sigma$-weak operator topology, or the square-summable-vector
+ultrastrong topology. Current Mathlib's von Neumann algebra file continues to list the
+abstract/concrete equivalence and double-commutant theorem as future work. Original LeanOA commit
+`cb811c1006ae78a0ff1d175253200e1859843370` adds no concrete topology or predual bridge.
+
+Sak-AI already owns the abstract specified-predual topologies `Ultraweak` (`σ(M,P)`),
+`Ultraweak.Strong` (`s(M,P)`), and its Mackey/test-space machinery. The new intrinsic
+`Strong.isClosed_iff_image_toUltraweakEquiv` merely packages the existing compatible-dual
+real-convex closure theorem. It does not identify intrinsic strong with concrete SOT or
+ultrastrong topology. Likewise, concrete $\sigma$-WOT must not be silently identified with
+`σ(B(H),B(H)_*)`.
+
+The main remaining infrastructure is therefore semantic rather than notational: construct or
+reuse the concrete $B(H)$ predual and vector-coefficient embedding, prove the concrete/intrinsic
+$\sigma$-weak and ultrastrong comparisons, and generalize the existing Kaplansky density engine to
+relative closure. Until those pieces exist, Sakai Proposition 1.15.1 remains **not
+source-formalized**.
+
 ## Radon--Stieltjes refinement audit
 
 The exact audit in `reports/RIEMANN_STIELTJES_EXTERNAL_AUDIT.md` confirms that pinned Mathlib already

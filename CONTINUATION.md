@@ -61,6 +61,14 @@ Last updated: 2026-09-01
   `v * star v = support |g⋆|`. The canonical positive factor is `Ultraweak.functionalAbs`.
   `PositiveLinearMap.conjugate` is C-star-general and support transport reuses the intrinsic
   functional-support API. No new partial-isometry predicate or second support hierarchy was added.
+- The first Proposition 1.15.1 transaction has completed the direct source and topology audit, not
+  the source theorem. The proposition is global closedness equivalence for a self-adjoint
+  subalgebra of $B(H)$ across WOT, $\sigma$-WOT, SOT, the square-summable-vector ultrastrong
+  topology, and $\sigma(B(H),B(H)_*)$. Mathlib's concrete WOT and pointwise/SOT objects are now
+  connected by a canonical continuous identity and one-way closedness theorem; Sak-AI's intrinsic
+  strong/ultraweak convex closedness equivalence is also packaged explicitly. Concrete predual,
+  coefficient-series, ultrastrong, and relative Kaplansky-closure bridges remain missing, so no
+  source theorem or Verso node is claimed.
 - The theorem package had no uncommitted changes at the start of the orchestration work.
 - Jireh Loreaux's LeanOA and Mathlib are read-only references. The original LeanOA checkout has
   not been modified.
@@ -124,9 +132,12 @@ functionals it is equivalent to `s(φ) * s(ψ) = 0`. Every self-adjoint normal f
 unique orthogonal normal positive/negative decomposition with the exact additive norm identity.
 Every normal functional `g` also has a unique Sakai polar pair `(v, |g|)` with
 `g(x) = |g|(x * v)`, equal norm, `star v * v = s(|g|)`, and
-`v * star v = s(|g⋆|)`. The next bounded source target is the concrete operator-topology setup
-and Proposition 1.15.1; it requires an API audit of WOT, SOT, ultrastrong, sigma-weak, and predual
-topologies before implementation.
+`v * star v = s(|g⋆|)`. Proposition 1.15.1 is the current source target. Its direct audit is
+complete and distinguishes global subalgebra closedness from Proposition 1.15.2's bounded-sphere
+topology equivalences. The next bounded implementation target is the concrete $B(H)$
+coefficient/predual bridge required to compare $\sigma$-WOT and ultrastrong convergence with the
+appropriate intrinsic dual-pair topologies; no source package should be attempted before those
+comparisons are proved.
 
 The implemented public design is:
 
@@ -367,6 +378,16 @@ The completed implementation layers are:
       `v * star v = s(|g⋆|)`;
     - no competing functional-polar namespace, partial-isometry predicate, support object, or
       chosen-predual leak in the intrinsic support bridge.
+21. Section 1.15.1 first operator-topology transaction (begun at baseline
+    `ce2018a780034ce3f93134a000919dcfe9f95c4f`, completed on 2026-09-01):
+    - direct reconstruction of the exact five global closedness conditions and Sakai's proof;
+    - pinned/current Mathlib, original LeanOA, and current Sak-AI topology audit;
+    - a general canonical continuous identity from pointwise/SOT convergence to WOT and its
+      WOT-closed-implies-SOT-closed consequence;
+    - an explicit closedness iff for real-convex sets under Sak-AI's intrinsic strong-to-ultraweak
+      equivalence;
+    - no new topology, no concrete/intrinsic identification, and no source-facing theorem;
+    - exact blockers recorded under IQ-010, with Proposition 1.15.1 retained as the frontier.
 
 The source audit has closed the 1.11.3 review question with LEVEL C rather than an accepted
 definition. Do not promote `atTop ⊓ comap divisionMesh (nhds 0)` as Sakai's meaning. Canonical
@@ -374,9 +395,11 @@ Lemma 1.11.1 is now source-formalized. Section 1.12 contains the single element
 polar-decomposition theorem 1.12.1 and is complete through an independent
 CFC/support/ultraweak-compactness chain followed by algebraic uniqueness. Section 1.13 is now
 complete through the production projection-chain and complete-additivity modules. Section 1.14 is
-complete through the general normal-functional polar decomposition of Theorem 1.14.4. The next
-bounded transaction is a source/API audit of the five concrete operator topologies preceding
-Proposition 1.15.1 and of Mathlib's current concrete-operator topology support. Revisit a public PVM/integral interface only
+complete through the general normal-functional polar decomposition of Theorem 1.14.4. The
+Proposition 1.15.1 source/API audit is complete, but the proposition is not source-formalized. The
+next bounded transaction constructs the concrete $B(H)$ coefficient/predual bridge needed for
+$\sigma$-WOT and ultrastrong comparisons, while retaining Mathlib's WOT and pointwise/SOT objects
+and Sak-AI's intrinsic topology objects unchanged. Revisit a public PVM/integral interface only
 when coherent mathematics or new primary evidence fixes it.
 
 Before each substantial proof, search the current Sak-AI tree, pinned Mathlib, current Mathlib

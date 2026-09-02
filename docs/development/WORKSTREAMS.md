@@ -509,3 +509,41 @@ functional with the exact source orientation and normalizations.
 Collision rule: Section 1.15 work may consume `functionalAbs` and the exact polar theorem, but must
 not create another functional absolute value, normal-functional wrapper, or topology merely to
 match source notation.
+
+## Sakai 1.15 first topology transaction
+
+> **Read and obey `docs/development/SAKAI_DESIGN_CONTRACT.md` and the authoritative Sak-AI specifications it references. These requirements govern this workstream. Do not introduce designs inconsistent with them.**
+
+This transaction starts from `ce2018a780034ce3f93134a000919dcfe9f95c4f`. It certifies the source
+statement and maps the existing topology APIs, but it does not claim Proposition 1.15.1.
+
+- **WS-15A, direct source audit:** COMPLETE. Sakai's five global closedness conditions for a
+  self-adjoint subalgebra of $B(H)$ are WOT, $\sigma$-WOT, SOT, the strongest/ultrastrong operator
+  topology, and `σ(B(H),B(H)_*)`. The uniform topology is surrounding context rather than a sixth
+  condition, and bounded-sphere topology equivalences belong to Proposition 1.15.2. The audit
+  deliberately distinguishes $\sigma$-WOT from the predual weak topology and strongest operator
+  topology from both intrinsic `s` and Mackey topology.
+- **WS-15B, pinned/current/original topology audit and intrinsic bridge:** COMPLETE / GREEN for the
+  narrow intrinsic bridge only. Pinned Mathlib `476ab284693e554a6b48c5f5210cb4fb5ae51252` supplies WOT as
+  `ContinuousLinearMapWOT` and pointwise/SOT as `PointwiseConvergenceCLM`; current Mathlib still
+  lacks the concrete $B(H)$ predual and double-commutant/closedness bridge. Original LeanOA
+  `cb811c1006ae78a0ff1d175253200e1859843370` adds no concrete topology infrastructure.
+  `Strong.isClosed_iff_image_toUltraweakEquiv` is the only new intrinsic theorem: it derives
+  closedness equivalence for real-convex sets directly from the existing closure-image theorem.
+- **WS-15C, general concrete comparison bridge:** COMPLETE / GREEN. The mirrored Mathlib module
+  adds `PointwiseConvergenceCLM.toWOT` and
+  `PointwiseConvergenceCLM.isClosed_pointwise_of_isClosed_wot`. Both reuse Mathlib's existing
+  topology-bearing synonyms and are independent of Hilbert-space, algebra, predual, and Sakai
+  assumptions. They establish only SOT-to-WOT continuity and WOT-closed-to-SOT-closedness.
+- **Architecture outcome:** no WOT, SOT, $\sigma$-WOT, ultrastrong, ultraweak, strong, or Mackey
+  topology type is introduced. The concrete and intrinsic topology families remain connected only
+  by proved named bridges. A concrete $B(H)$ predual/coefficient realization, the $\sigma$-WOT and
+  ultrastrong identifications, and a relative form of Kaplansky density for the WOT closure remain
+  OPEN / RED under IQ-010.
+- **Source and Verso status:** Proposition 1.15.1 is **not source-formalized**. There is no Verso
+  theorem node for it. The public frontier remains Proposition 1.15.1 rather than advancing to
+  Proposition 1.15.2.
+
+Collision rule: further Section 1.15 work must reuse Mathlib's WOT and pointwise/SOT types and
+Sak-AI's intrinsic `σ`/`s`/Mackey APIs. It must not equate concrete and intrinsic topologies by
+reducibility or introduce a local substitute for the missing $B(H)$ predual.

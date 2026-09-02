@@ -20,8 +20,11 @@ cutdown, and faithfulness interfaces. Sakai's norm orthogonality and the unique 
 decomposition of a self-adjoint normal functional are now formalized through Theorem 1.14.3.
 Theorem 1.14.4 completes Section 1.14 with the unique polar decomposition of an arbitrary normal
 functional, including its canonical absolute value, norm identity, and initial/final support
-equations. The next checkpoint is the concrete operator-topology audit leading to Sakai
-Proposition 1.15.1.
+equations. The direct audit of Sakai Proposition 1.15.1 is complete. The proposition remains the
+current source frontier: its exact proof needs concrete $B(H)$ predual, $\sigma$-weak, and
+ultrastrong bridges that are not yet present in pinned Mathlib or Sak-AI. The library now exposes
+the canonical continuous identity from pointwise/SOT convergence to WOT and the corresponding
+one-way closedness implication without conflating those missing topologies.
 
 - [Sak-AI documentation site](https://jonbannon.github.io/Sak-AI/)
 - [API documentation](https://jonbannon.github.io/Sak-AI/docs/)

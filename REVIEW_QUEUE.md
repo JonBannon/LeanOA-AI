@@ -193,3 +193,29 @@ The review rejected a second functional-polar namespace, a normal-functional wra
 support/carrier construction, and a new `IsPartialIsometry` predicate. The source equation
 `star v * v = s(φ)` already provides the established projection-based partial-isometry semantics.
 Section 1.14 is complete. No human design gate blocks the Section 1.15 concrete-topology audit.
+
+## Accepted API review for the Sakai 1.15.1 first transaction
+
+The direct source audit establishes that Proposition 1.15.1 is a global closedness theorem for a
+self-adjoint, not explicitly unital, subalgebra of $B(H)$ over a complex Hilbert space. Its five
+conditions use WOT, $\sigma$-WOT, SOT, Sakai's square-summable-vector “strongest operator topology”
+(modern ultrastrong), and $\sigma(B(H),B(H)_*)$. The last two named topologies are not the
+strong-star and Mackey topologies, respectively, and the separately defined $\sigma$-WOT must not be
+identified with the predual weak topology before the later source corollary proves that equality.
+
+The accepted public additions are deliberately one-way and representation-neutral:
+`PointwiseConvergenceCLM.toWOT` gives the canonical continuous identity from Mathlib's
+pointwise/SOT realization to its WOT realization, and
+`PointwiseConvergenceCLM.isClosed_pointwise_of_isClosed_wot` gives the immediate closedness
+consequence at arbitrary normed-field generality. The intrinsic theorem
+`Ultraweak.Strong.isClosed_iff_image_toUltraweakEquiv` packages an existing convex closure result
+as the reusable closedness equivalence between Sak-AI's two specified-predual synonyms. These
+declarations introduce no topology and do not identify a concrete operator topology with an
+intrinsic one.
+
+Proposition 1.15.1 is **not source-formalized**. Pinned and current Mathlib do not supply the
+concrete predual of $B(H)$ or the missing $\sigma$-WOT/ultrastrong identifications, and current Sak-AI
+does not yet bridge its intrinsic predual topology or relative Kaplansky argument to the concrete
+WOT closure. IQ-010 owns that boundary. No human decision is requested now: the approved next
+bounded work is the concrete coefficient/predual bridge, with the proposition kept as the exact
+source frontier.

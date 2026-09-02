@@ -146,11 +146,15 @@ quantifiers.  Section 1.14 is now complete.  Its functional-support theory
 feeds the support characterization of Sakai's norm orthogonality, the unique
 orthogonal positive/negative decomposition of a self-adjoint normal
 functional, and the unique right polar decomposition of an arbitrary normal
-functional.  The current bounded checkpoint begins Section 1.15, *Concrete
-$`C^*`-Algebras and $`W^*`-Algebras*: audit the concrete operator topologies
-on $`B(\mathcal H)` and then formalize Proposition 1.15.1, the equivalence of
-closedness for self-adjoint subalgebras in the weak, $`\sigma`-weak, strong,
-strongest, and $`\sigma(B(\mathcal H),B(\mathcal H)_*)` topologies.
+functional.  The current source frontier is Proposition 1.15.1 in *Concrete
+$`C^*`-Algebras and $`W^*`-Algebras*.  The direct audit establishes that it
+compares global closedness of a self-adjoint subalgebra of $`B(\mathcal H)`
+in WOT, $`\sigma`-WOT, SOT, the square-summable-vector ultrastrong topology,
+and $`\sigma(B(\mathcal H),B(\mathcal H)_*)`.  It is not yet
+source-formalized: the concrete predual, coefficient-series, ultrastrong,
+and relative Kaplansky-closure bridges needed to connect Mathlib's concrete
+operator topologies to Sak-AI's intrinsic dual-pair topologies remain to be
+proved.
 
 # Migration parity
 

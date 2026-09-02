@@ -105,6 +105,26 @@ is the established semantic certificate. The choice-based `Ultraweak.functionalA
 because Sakai names the unique positive factor $|g|$ and the final-projection clause needs
 $s(|g^*|)$; no choice-based polar element or decomposition structure is introduced.
 
-Section 1.14 is complete. The next bounded frontier is a source, topology, and existing-API audit
-of Section 1.15 followed, if the statement is certifiable against current infrastructure, by
-Proposition 1.15.1.
+Section 1.14 is complete. Proposition 1.15.1 remains the next source frontier; its first bounded
+transaction is the completed source, topology, and existing-API audit recorded below.
+
+The first Section 1.15 transaction fixes the topology boundary without filling it by notation.
+Mathlib's `ContinuousLinearMapWOT` is the concrete weak operator topology, and
+`PointwiseConvergenceCLM` is its pointwise-convergence presentation of the strong operator
+topology. The mirrored Mathlib bridge may therefore expose only the continuous identity
+`PointwiseConvergenceCLM.toWOT` and the consequence that WOT-closed subsets of the underlying
+continuous-linear-map space are pointwise/SOT closed. It introduces no new topology type.
+
+Sak-AI's `Ultraweak` topology `σ(M,P)`, intrinsic `Strong` topology `s(M,P)`, and Mackey topology
+remain abstract specified-predual constructions. The intrinsic theorem
+`Strong.isClosed_iff_image_toUltraweakEquiv` is a direct corollary of the established real-convex
+closure-image theorem. It must not be read as an identification of `s(M,P)` with concrete SOT or
+ultrastrong topology. Likewise, Sakai's separately defined $\sigma$-weak operator topology must not
+be identified definitionally with `σ(B(H),B(H)_*)`; the source proves only the relevant closedness
+equivalence here and postpones global topology identifications.
+
+The direct source audit of Proposition 1.15.1 is complete, but the proposition is not
+source-formalized. A concrete $B(H)$ predual/coefficient realization, the $\sigma$-WOT and
+ultrastrong comparison maps, and relative Kaplansky closure machinery remain missing; current
+Mathlib also has no concrete $B(H)$ predual/double-commutant bridge. IQ-010 owns this OPEN / RED
+boundary. No Verso theorem node is created, and the public frontier remains Proposition 1.15.1.

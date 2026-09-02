@@ -192,3 +192,40 @@ in their workstream.
   and the final-projection clause needs the support of the adjoint's absolute value.
 - **Outcome:** Section 1.14 is complete. The next bounded action is a direct source/topology/API
   audit of Section 1.15 followed by Proposition 1.15.1.
+
+## IQ-010 — Sakai 1.15.1 concrete operator topologies and relative closure
+
+- **Status:** OPEN / RED — source statement certified; proposition not source-formalized
+- **Affected streams:** concrete operator topologies, specified preduals, intrinsic strong/Mackey
+  topology, Kaplansky density, mirrored Mathlib staging, Verso
+- **Question:** How should the concrete WOT, $\sigma$-WOT, SOT, and ultrastrong topologies on
+  $B(H)$ be connected to Sak-AI's intrinsic `σ(B(H),P)`, `s(B(H),P)`, and Mackey interfaces so
+  that Sakai's global closedness equivalence can be proved without inventing parallel topology or
+  predual objects?
+- **Source decision:** Proposition 1.15.1 concerns a self-adjoint subalgebra of $B(H)$ and five
+  global closedness conditions. It does not assert global equality of all five topologies and is
+  not restricted to bounded spheres. The direct source audit is complete, but no source theorem is
+  claimed.
+- **Available bridges:** pinned Mathlib already owns WOT (`ContinuousLinearMapWOT`) and
+  pointwise/SOT (`PointwiseConvergenceCLM`). The accepted mirrored-Mathlib additions are the
+  general continuous identity `PointwiseConvergenceCLM.toWOT` and the theorem that WOT-closed sets
+  are pointwise/SOT closed. Within the specified-predual layer,
+  `Strong.isClosed_iff_image_toUltraweakEquiv` is a direct real-convex corollary of the existing
+  strong/ultraweak closure-image theorem. None of these declarations defines a topology or proves
+  Proposition 1.15.1.
+- **Missing edges:** a concrete predual of $B(H)$ and its vector-coefficient realization;
+  comparison of Sakai's $\sigma$-WOT with the intrinsic predual weak topology; comparison of the
+  concrete ultrastrong topology with intrinsic `s`; and a relative Kaplansky theorem giving unit-
+  ball/closure density inside the WOT closure rather than only for a subalgebra dense in the whole
+  ambient algebra. Current Mathlib also lacks the concrete $B(H)$ predual/double-commutant bridge.
+- **Overlap evidence:** pinned Mathlib is
+  `476ab284693e554a6b48c5f5210cb4fb5ae51252`; audited current Mathlib still has the same
+  representation gap; original LeanOA
+  `cb811c1006ae78a0ff1d175253200e1859843370` adds no concrete WOT/SOT/predual bridge.
+- **Decision so far:** introduce no new operator-topology synonym, no local replacement predual,
+  and no source-facing theorem assembled from stronger assumptions. Keep the intrinsic and
+  concrete topology families explicitly distinct. Add no Verso theorem node while the proposition
+  is unproved.
+- **Next bounded action:** isolate the smallest reusable coefficient/predual and relative-
+  Kaplansky interfaces that make the reverse WOT-closure implication honest, then re-evaluate all
+  five source conditions. The public frontier remains Proposition 1.15.1.

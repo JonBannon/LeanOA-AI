@@ -364,6 +364,15 @@ theorem image_closure_toUltraweakEquiv [CompleteSpace P]
   ext x
   rfl
 
+/-- A real-convex subset of the strong synonym is closed exactly when its image under the
+canonical equivalence to the ultraweak synonym is closed. -/
+theorem isClosed_iff_image_toUltraweakEquiv [CompleteSpace P]
+    {S : Set s(M, P)} (hS : Convex ℝ S) :
+    IsClosed S ↔ IsClosed (toUltraweakEquiv '' S) := by
+  rw [← closure_eq_iff_isClosed, ← closure_eq_iff_isClosed,
+    ← image_closure_toUltraweakEquiv hS,
+    (toUltraweakEquiv (M := M) (P := P)).injective.image_injective.eq_iff]
+
 /-- For `f : M →ₗ[ℂ] ℂ`, continuity of `x ↦ f (ofUltraweak x)` on `σ(M, P)` is
 equivalent to continuity of `x ↦ f (ofStrong x)` on `s(M, P)`. -/
 theorem continuous_ultraweak_iff_strong [CompleteSpace P] (f : M →ₗ[ℂ] ℂ) :

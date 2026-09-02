@@ -353,10 +353,12 @@ partial-isometry structure.
 # Next checkpoint
 
 Definitions 1.14.1--1.14.2 and Theorems 1.14.3--1.14.4 are complete, so
-Section 1.14 is closed.  The next bounded source checkpoint begins Section
-1.15, *Concrete $`C^*`-Algebras and $`W^*`-Algebras*.  It first audits the
-uniform, strong, strongest, weak, and $`\sigma`-weak operator topologies on
-$`B(\mathcal H)`, then targets Proposition 1.15.1: for a self-adjoint
-subalgebra of $`B(\mathcal H)`, closedness in the weak, $`\sigma`-weak,
-strong, strongest, and $`\sigma(B(\mathcal H),B(\mathcal H)_*)` topologies
-is equivalent.
+Section 1.14 is closed.  The current source frontier is Proposition 1.15.1
+in *Concrete $`C^*`-Algebras and $`W^*`-Algebras*.  Its source audit is
+complete: the proposition compares global closedness of a self-adjoint
+subalgebra of $`B(\mathcal H)` in WOT, $`\sigma`-WOT, SOT, Sakai's
+square-summable-vector “strongest” (ultrastrong) topology, and
+$`\sigma(B(\mathcal H),B(\mathcal H)_*)`.  The proposition is not yet
+source-formalized.  The next bounded implementation step is the concrete
+$`B(\mathcal H)` coefficient/predual bridge needed to relate these concrete
+operator topologies to Sak-AI's intrinsic dual-pair topologies.

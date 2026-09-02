@@ -50,6 +50,20 @@ right-action convention, norm, initial support, uniqueness, and final support of
 dependency, not the general theorem. Section 1.14 is complete, and the public current frontier
 should now point to the Section 1.15 topology/API audit and Proposition 1.15.1.
 
+The first Section 1.15 transaction completes the direct source and API audit but does not complete
+Proposition 1.15.1. Do not create a theorem node or declaration link for it. The public current
+frontier remains Proposition 1.15.1 and should state that the concrete $B(H)$ predual,
+$\sigma$-WOT/ultrastrong identifications, and relative Kaplansky closure machinery are still
+missing.
+
+If the general topology bridges are mentioned later in the library/API path, distinguish them
+precisely: Mathlib's `ContinuousLinearMapWOT` is concrete WOT;
+`PointwiseConvergenceCLM` is pointwise/SOT; Sak-AI's `σ(M,P)`, `s(M,P)`, and Mackey topology are
+intrinsic specified-predual constructions. `PointwiseConvergenceCLM.toWOT`, its WOT-closed-to-SOT-
+closed corollary, and `Strong.isClosed_iff_image_toUltraweakEquiv` introduce no new topology and do
+not identify $\sigma$-WOT or ultrastrong topology with the intrinsic types. No Verso mathematical
+status should be inferred from these connective API declarations alone.
+
 ## Work that must wait
 
 - Do not document a set-indexed spectral measure or spectral integral as formalized until IQ-001 is
