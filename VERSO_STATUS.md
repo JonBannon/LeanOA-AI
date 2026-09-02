@@ -1,14 +1,15 @@
 # Sak-AI Verso status
 
-Last updated: 2026-09-01
+Last updated: 2026-09-02
 
 ## Current state
 
-The Verso Blueprint package in `docs/` builds and generates a multi-page site with 123 active nodes
-and 223 statement-dependency edges. It includes all 87 nodes and 141 edges from the generated
+The Verso Blueprint package in `docs/` builds and generates a multi-page site with 124 active nodes
+and 225 statement-dependency edges. It includes all 87 nodes and 141 edges from the generated
 legacy LeanBlueprint graph, the connected development through Sakai 1.14.4, and the finite
-vector-functional WOT and norm-closed-predual infrastructure at the current Section 1.15 frontier.
-The manifest has 583 entries and reports no unknown dependency references or missing external Lean
+vector-functional WOT, norm-closed-predual, and square-summable coefficient-series infrastructure
+at the current Section 1.15 frontier.
+The manifest has 594 entries and reports no unknown dependency references or missing external Lean
 declarations.
 
 The apparent historical count of 88 came from counting textual `\label` occurrences: one of those
@@ -43,8 +44,11 @@ Pinned Mathlib supplies concrete WOT and pointwise/SOT, while Sak-AI supplies in
 weak, strong, and Mackey topologies. A new infrastructure node records the proved fact that the
 finite vector-functional span induces Mathlib WOT exactly and exhausts its continuous dual. The
 norm closure is now proved to be a concrete predual, exposed through a short canonically isometric
-carrier for stable downstream elaboration. The $\sigma$-weak coefficient-series and ultrastrong
-identifications required to join the remaining interfaces are still absent. The public document
+carrier for stable downstream elaboration. A further infrastructure node records norm convergence
+and evaluation of separately square-summable coefficient series, the invariant finite core, and
+the one-sided continuous identity from the full concrete-predual topology to the source
+series-test topology. The converse series representation is deliberately deferred, while the
+ultrastrong and ambient-relative Kaplansky interfaces are still absent. The public document
 therefore continues to identify Proposition 1.15.1 as the current source frontier rather than
 displaying a false completion.
 Scratch checks a nontrivial
@@ -75,7 +79,7 @@ test -f _out/site/html-multi/-verso-data/blueprint-manifest.json
 test -f _out/site/html-multi/-verso-data/blueprint-html-cache.json
 ```
 
-All checks passed on 2026-09-01. `vbp check` reports `ok: true`, zero errors, and 583 manifest/cache
+All checks passed on 2026-09-02. `vbp check` reports `ok: true`, zero errors, and 594 manifest/cache
 entries. The build replays warnings from three pinned upstream Verso or
 SubVerso modules; Sak-AI's own documentation modules elaborate without warnings.
 
@@ -96,10 +100,10 @@ longer part of the build or deployment.
    support, exact norm orthogonality, its support characterization, and the unique orthogonal
    Jordan decomposition, followed by the exact general functional polar decomposition of Theorem
    1.14.4. The concrete operator-topology audit and finite coefficient/WOT bridge for Proposition
-   1.15.1 are complete, as is the coefficient norm-closure predual. The next bounded slice is the
-   square-summable coefficient-series API and its one-sided comparison with the specified-predual
-   weak topology. Proposition 1.15.1 remains the source frontier until that comparison, ultrastrong
-   identifications and the relative Kaplansky-closure step are kernel-proved. No resolution,
+   1.15.1 are complete, as are the coefficient norm-closure predual and the source-safe one-sided
+   square-summable coefficient-series comparison. The next bounded slice is the ambient-relative
+   Kaplansky-closure theorem. Proposition 1.15.1 remains the source frontier until that theorem and
+   the concrete ultrastrong comparison are kernel-proved. No resolution,
    integral, or PVM structure becomes public before a genuine mathematical interface fixes it.
 
 Do not create a second theorem-status registry: Verso blocks and `uses` references are the

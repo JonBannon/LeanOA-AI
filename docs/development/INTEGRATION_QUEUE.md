@@ -224,12 +224,18 @@ in their workstream.
   domain specialization installs a short carrier canonically isometric to the closure as the
   existing specified `Predual`; in particular this supplies the concrete predual of $B(H)$ without
   a parallel trace-class definition or a second semantic construction.
-- **Missing edges:** an invariant dense coefficient subspace packaged for the existing
-  `SakaiInvariantTestSpace` consumers; comparison of Sakai's $\sigma$-WOT with the intrinsic
-  predual weak topology; comparison of the
+- **Fourth transaction:** separately square-summable coefficient families are norm summable in the
+  completed predual, obey the sharp Cauchy--Schwarz bound, and evaluate by the source scalar series.
+  The finite coefficient core is packaged as an invariant dense test space. The span of exactly
+  Sakai's countable series contains that core, and the full concrete-predual topology maps
+  continuously to its restricted weak topology. Hence series-test closed sets are ultraweakly
+  closed. No converse representation or topology equality is claimed.
+- **Missing edges:** comparison of the
   concrete ultrastrong topology with intrinsic `s`; and a relative Kaplansky theorem giving unit-
   ball/closure density inside the WOT closure rather than only for a subalgebra dense in the whole
-  ambient algebra. Current Mathlib also lacks the concrete $B(H)$ predual/double-commutant bridge.
+  ambient algebra. The converse coefficient-series representation is deliberately deferred to
+  Sakai Corollaries 1.15.5--1.15.6. Current Mathlib also lacks the concrete
+  $B(H)$/double-commutant bridge.
 - **Overlap evidence:** pinned Mathlib is
   `476ab284693e554a6b48c5f5210cb4fb5ae51252`; audited current Mathlib still has the same
   representation gap; original LeanOA
@@ -239,8 +245,7 @@ in their workstream.
   concrete topology families explicitly distinct. Add no source-theorem Verso node for
   Proposition 1.15.1 while the proposition is unproved; independently useful proved
   infrastructure may be documented as such.
-- **Next bounded action:** prove that summable families of vector coefficients define elements of
-  the norm-closed coefficient predual, then use this API to compare Sakai's $\sigma$-WOT with the
-  intrinsic weak topology from the new specified predual. In parallel, retain the relative
-  Kaplansky target whose right side is the test-weak closure's unit ball inside the original ambient
-  algebra. The public frontier remains Proposition 1.15.1.
+- **Next bounded action:** prove the ambient-relative Kaplansky theorem whose right side is the
+  test-weak closure's unit ball inside the original ambient algebra, then instantiate it with the
+  finite coefficient core/WOT bridge. Keep the concrete ultrastrong comparison separate. The
+  public frontier remains Proposition 1.15.1.

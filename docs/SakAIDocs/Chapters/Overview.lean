@@ -156,9 +156,12 @@ span is invariant under star and fixed multiplication, induces Mathlib WOT
 in both directions, and is the full WOT-continuous dual.  The norm-completed
 coefficient space is now proved to be a specified predual of
 $`B(\mathcal H)` by a more general isometric duality theorem for bounded maps
-into any complete Hilbert space.  The coefficient-series $`\sigma`-WOT,
-ultrastrong, and relative Kaplansky-closure bridges needed to connect the
-concrete operator topologies to Sak-AI's intrinsic dual-pair topologies
+into any complete Hilbert space.  The source's countable, separately
+square-summable coefficient series now converge in that predual and generate
+a test space receiving a continuous identity from the full concrete-predual
+topology.  This proves only the required one-sided $`\sigma`-WOT comparison;
+the converse representation theorem is intentionally deferred.  The
+concrete ultrastrong comparison and ambient-relative Kaplansky-closure bridge
 remain to be proved.
 
 Sakai Proposition 1.15.1: NOT SOURCE-FORMALIZED

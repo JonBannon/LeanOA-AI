@@ -608,10 +608,36 @@ Proposition 1.15.1.
   No competing predual class, operator topology, or
   trace-class synonym is introduced.
 - **Source and Verso status:** this is certified infrastructure and has a dedicated Verso theorem
-  node. Sakai Proposition 1.15.1 remains **not source-formalized**: coefficient-series σ-WOT,
-  concrete ultrastrong comparison, and the relative Kaplansky closure argument remain open.
+  node. At that checkpoint Sakai Proposition 1.15.1 remained **not source-formalized**:
+  coefficient-series σ-WOT, concrete ultrastrong comparison, and the relative Kaplansky closure
+  argument were open.
 
-Collision rule: subsequent §1.15 work must reuse `vectorFunctionalClosure` and its proved predual
-equivalence. The next bounded transaction should establish square-summable coefficient-series
-membership and the resulting one-sided topology comparison. It must not introduce trace class or
-identify concrete σ-WOT with the predual topology by definition.
+Collision rule recorded at that checkpoint: subsequent §1.15 work must reuse
+`vectorFunctionalClosure` and its proved predual equivalence. The next transaction was required
+to establish square-summable coefficient-series membership and only the one-sided topology
+comparison, without trace class or definitional identification.
+
+### Section 1.15.1 fourth coefficient-series transaction
+
+This transaction starts from `26d5c01` and closes the source-safe coefficient-series edge without
+claiming the later representation theorem.
+
+- **WS-15J, generic series API:** COMPLETE / GREEN. Two separately square-summable families over an
+  arbitrary index type give a norm-summable coefficient family in the completed predual, with the
+  sharp Hölder/Cauchy--Schwarz norm bound and the exact evaluation formula. No codomain
+  completeness is needed.
+- **WS-15K, invariant finite core:** COMPLETE / GREEN. The canonical finite coefficient span inside
+  the short predual carrier is norm dense and satisfies the existing
+  `SakaiInvariantTestSpace` star and left/right multiplier conditions.
+- **WS-15L, source test topology:** COMPLETE / GREEN. The source-facing span uses exactly
+  $\mathbb N$-indexed, separately square-summable series. It contains the finite core and receives
+  the canonical continuous identity from the full concrete-predual topology through the general
+  `WeakBilin.restrictRightL` API. Series-test closed therefore implies ultraweak closed.
+- **Source and Verso status:** this is certified infrastructure with a dedicated node. Sakai
+  Proposition 1.15.1 remains **not source-formalized**. The converse series representation is
+  deferred to Corollaries 1.15.5--1.15.6; concrete ultrastrong comparison and ambient-relative
+  Kaplansky density remain open.
+
+Collision rule: do not add a `SigmaWOT` synonym or reverse the topology map without the later
+representation theorem. The next bounded transaction is ambient-relative Kaplansky density in the
+test-weak closure.

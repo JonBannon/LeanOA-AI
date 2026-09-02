@@ -35,6 +35,7 @@ public import LeanOA.Mathlib.Analysis.CStarAlgebra.Projection
 public import LeanOA.Mathlib.Analysis.Complex.Basic
 public import LeanOA.Mathlib.Analysis.Convex.Topology
 public import LeanOA.Mathlib.Analysis.InnerProductSpace.OperatorPredual
+public import LeanOA.Mathlib.Analysis.InnerProductSpace.OperatorPredualSeries
 public import LeanOA.Mathlib.Analysis.InnerProductSpace.WeakOperatorTopology
 public import LeanOA.Mathlib.Analysis.LocallyConvex.Bipolar
 public import LeanOA.Mathlib.Analysis.LocallyConvex.Bounded
@@ -70,6 +71,8 @@ public import LeanOA.Ultraweak.Annihilator
 public import LeanOA.Ultraweak.Basic
 public import LeanOA.Ultraweak.Bornology
 public import LeanOA.Ultraweak.BoundedOperator
+public import LeanOA.Ultraweak.BoundedOperatorCoefficientSeries
+public import LeanOA.Ultraweak.BoundedOperatorInvariantTestSpace
 public import LeanOA.Ultraweak.CentralSupport
 public import LeanOA.Ultraweak.CompleteAdditivity
 public import LeanOA.Ultraweak.ContinuousFunctionalCalculus
@@ -111,6 +114,7 @@ public import LeanOA.Ultraweak.Strong
 public import LeanOA.Ultraweak.StrongProjection
 public import LeanOA.Ultraweak.Support
 public import LeanOA.Ultraweak.TaggedSpectralSum
+public import LeanOA.Ultraweak.TestWeak
 public import LeanOA.Ultraweak.TruncatedSpectralSum
 public import LeanOA.Ultraweak.TwoSidedIdeal
 public import LeanOA.Ultraweak.Uniformity

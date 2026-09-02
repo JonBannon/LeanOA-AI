@@ -57,12 +57,14 @@ Keep the public `Current frontier` subsection in the project overview up to date
 formalization program is complete.
 
 All 87 active legacy LeanBlueprint nodes and 141 statement-dependency edges moved to Verso. The
-development through Sakai 1.14.4 and the finite vector-functional WOT and norm-closed-predual
-bridges bring the current graph to 123 nodes and 223 edges, with 583 manifest/cache entries.
+development through Sakai 1.14.4 and the finite vector-functional WOT, norm-closed-predual, and
+square-summable coefficient-series bridges extends the current graph to 124 nodes and 225
+statement-dependency edges.
 Declaration links cover the
 Section 1.10,
 spectral-approximation, fixed-projection, strong lower-spectral-projection, element-polar-
 decomposition, source-normality, arbitrary orthogonal-projection-sum, projection-chain,
 complete-additivity, normal-positive-functional-support, norm-orthogonality, functional-Jordan,
-general functional-polar, vector-functional WOT, and norm-closed-predual APIs. The legacy sources
+general functional-polar, vector-functional WOT, norm-closed-predual, and coefficient-series
+test-space APIs. The legacy sources
 remain available in Git history.

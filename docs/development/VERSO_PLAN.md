@@ -68,12 +68,21 @@ an isometric equivalence onto its dual by generalized Fréchet--Riesz recovery. 
 should say that the concrete predual is complete while coefficient-series σ-WOT, ultrastrong, and
 relative Kaplansky bridges remain missing.
 
+The fourth transaction is a stable coefficient-series infrastructure node, still not Proposition
+1.15.1. It records arbitrary-index norm summability and evaluation, the invariant finite core, the
+span of exactly Sakai's countable series, and the continuous identity from the full
+concrete-predual topology to the series-test weak topology. The prose must state explicitly that
+the converse representation and topology equality are not proved; the frontier now retains the
+concrete ultrastrong and ambient-relative Kaplansky bridges.
+
 If the general topology bridges are mentioned later in the library/API path, distinguish them
 precisely: Mathlib's `ContinuousLinearMapWOT` is concrete WOT;
 `PointwiseConvergenceCLM` is pointwise/SOT; Sak-AI's `σ(M,P)`, `s(M,P)`, and Mackey topology are
 intrinsic specified-predual constructions. `PointwiseConvergenceCLM.toWOT`, its WOT-closed-to-SOT-
 closed corollary, and `Strong.isClosed_iff_image_toUltraweakEquiv` introduce no new topology and do
-not identify $\sigma$-WOT or ultrastrong topology with the intrinsic types. No Verso mathematical
+not identify $\sigma$-WOT or ultrastrong topology with the intrinsic types. Likewise,
+`WeakBilin.restrictRightL` and its coefficient-series specialization prove only the continuous
+identity in the displayed direction. No Verso mathematical
 status should be inferred from these connective API declarations alone.
 
 ## Work that must wait

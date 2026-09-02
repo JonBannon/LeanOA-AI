@@ -55,6 +55,35 @@ theorem continuous_of_continuous_eval' {α : Type*} [TopologicalSpace α] {g : �
     (h : ∀ y, Continuous fun a => pairing B (g a) y) : Continuous g :=
   continuous_induced_rng.2 (continuous_pi_iff.mpr h)
 
+/-- Restricting the right test space of a bilinear pairing gives a canonical continuous linear
+identity from the original weak topology to the weak topology induced by the smaller family of
+tests. -/
+noncomputable def restrictRightL (B : E →ₗ[𝕜] F →ₗ[𝕜] 𝕜) (i : F' →ₗ[𝕜] F) :
+    WeakBilin B →L[𝕜] WeakBilin ((B.flip.comp i).flip) where
+  toLinearMap :=
+    (linearEquiv 𝕜 ((B.flip.comp i).flip)).symm.toLinearMap.comp
+      (linearEquiv 𝕜 B).toLinearMap
+  cont := by
+    apply continuous_of_continuous_eval
+    intro y
+    convert eval_continuous B (i y) using 1
+    funext x
+    rfl
+
+lemma linearEquiv_restrictRightL (B : E →ₗ[𝕜] F →ₗ[𝕜] 𝕜) (i : F' →ₗ[𝕜] F)
+    (x : WeakBilin B) :
+    linearEquiv 𝕜 ((B.flip.comp i).flip) (restrictRightL B i x) =
+      linearEquiv 𝕜 B x :=
+  rfl
+
+/-- Restricting the right test space evaluates by applying the original pairing to the included
+test vector. -/
+@[simp]
+lemma pairing_restrictRightL (B : E →ₗ[𝕜] F →ₗ[𝕜] 𝕜) (i : F' →ₗ[𝕜] F)
+    (x : WeakBilin B) (y : F') :
+    pairing ((B.flip.comp i).flip) (restrictRightL B i x) y = pairing B x (i y) :=
+  rfl
+
 lemma isInducing (B : E →ₗ[𝕜] F →ₗ[𝕜] 𝕜) :
     Topology.IsInducing (fun x i ↦ pairing B x i) where
   eq_induced := rfl

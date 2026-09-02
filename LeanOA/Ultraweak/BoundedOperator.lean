@@ -14,6 +14,8 @@ the operator-algebra-facing assembly layer.
 
 @[expose] public section
 
+open scoped InnerProduct InnerProductSpace
+
 noncomputable section
 
 namespace ContinuousLinearMap
@@ -64,6 +66,101 @@ def vectorFunctionalPredualEquivClosure :
       vectorFunctionalClosure (𝕜 := 𝕜) (E := E) (F := F) :=
   LinearIsometryEquiv.refl 𝕜 _
 
+omit [CompleteSpace F] in
+/-- A vector functional, regarded as an element of the short concrete-predual carrier. -/
+def vectorFunctionalInPredual (xi : E) (eta : F) :
+    VectorFunctionalPredual 𝕜 E F :=
+  (vectorFunctionalPredualEquivClosure
+    (𝕜 := 𝕜) (E := E) (F := F)).symm (vectorFunctionalInClosure xi eta)
+
+omit [CompleteSpace F] in
+@[simp]
+lemma vectorFunctionalPredualEquivClosure_vectorFunctionalInPredual (xi : E) (eta : F) :
+    vectorFunctionalPredualEquivClosure
+        (vectorFunctionalInPredual (𝕜 := 𝕜) xi eta) =
+      vectorFunctionalInClosure xi eta :=
+  rfl
+
+omit [CompleteSpace F] in
+@[simp]
+lemma norm_vectorFunctionalInPredual (xi : E) (eta : F) :
+    ‖vectorFunctionalInPredual (𝕜 := 𝕜) xi eta‖ = ‖xi‖ * ‖eta‖ := by
+  change ‖(vectorFunctionalPredualEquivClosure
+    (𝕜 := 𝕜) (E := E) (F := F)).symm (vectorFunctionalInClosure xi eta)‖ = _
+  rw [(vectorFunctionalPredualEquivClosure
+    (𝕜 := 𝕜) (E := E) (F := F)).symm.norm_map,
+    norm_vectorFunctionalInClosure]
+
+/-! ## The dense finite-coefficient core -/
+
+/-- The canonical isometric inclusion of the finite vector-functional span into the short
+predual carrier. -/
+def vectorFunctionalSpanToPredualₗᵢ :
+    vectorFunctionalSpan (𝕜 := 𝕜) (E := E) (F := F) →ₗᵢ[𝕜]
+      VectorFunctionalPredual 𝕜 E F :=
+  (vectorFunctionalPredualEquivClosure
+    (𝕜 := 𝕜) (E := E) (F := F)).symm.toLinearIsometry.comp
+      (vectorFunctionalSpanToClosureₗᵢ (𝕜 := 𝕜) (E := E) (F := F))
+
+/-- The continuous-linear inclusion of the finite vector-functional span into the short predual
+carrier. -/
+def vectorFunctionalSpanToPredual :
+    vectorFunctionalSpan (𝕜 := 𝕜) (E := E) (F := F) →L[𝕜]
+      VectorFunctionalPredual 𝕜 E F :=
+  vectorFunctionalSpanToPredualₗᵢ.toContinuousLinearMap
+
+omit [CompleteSpace F] in
+@[simp]
+lemma vectorFunctionalSpanToPredual_vectorFunctional (xi : E) (eta : F) :
+    vectorFunctionalSpanToPredual
+        (⟨vectorFunctional (𝕜 := 𝕜) xi eta,
+          vectorFunctional_mem_span xi eta⟩ :
+          vectorFunctionalSpan (𝕜 := 𝕜) (E := E) (F := F)) =
+      vectorFunctionalInPredual xi eta :=
+  rfl
+
+omit [CompleteSpace F] in
+@[simp]
+lemma vectorFunctionalPredualEquivClosure_spanToPredual
+    (f : vectorFunctionalSpan (𝕜 := 𝕜) (E := E) (F := F)) :
+    vectorFunctionalPredualEquivClosure (vectorFunctionalSpanToPredual f) =
+      vectorFunctionalSpanToClosure f :=
+  rfl
+
+omit [CompleteSpace F] in
+@[simp]
+lemma coe_vectorFunctionalSpanToPredual
+    (f : vectorFunctionalSpan (𝕜 := 𝕜) (E := E) (F := F)) :
+    (vectorFunctionalPredualEquivClosure (vectorFunctionalSpanToPredual f) :
+      (E →L[𝕜] F) →L[𝕜] 𝕜) = f := by
+  rw [vectorFunctionalPredualEquivClosure_spanToPredual,
+    vectorFunctionalSpanToClosure_apply]
+
+omit [CompleteSpace F] in
+/-- The finite vector-functional span has dense image in the short predual carrier. -/
+theorem denseRange_vectorFunctionalSpanToPredual :
+    DenseRange (vectorFunctionalSpanToPredual
+      (𝕜 := 𝕜) (E := E) (F := F)) := by
+  let e := vectorFunctionalPredualEquivClosure (𝕜 := 𝕜) (E := E) (F := F)
+  have he : DenseRange e.symm := e.symm.surjective.denseRange
+  have hi := denseRange_vectorFunctionalSpanToClosure (𝕜 := 𝕜) (E := E) (F := F)
+  have hcomp := he.comp hi e.symm.continuous
+  change DenseRange (fun f ↦ e.symm (vectorFunctionalSpanToClosure f))
+  exact hcomp
+
+/-- The copy of the finite vector-functional span inside the short predual carrier. -/
+def vectorFunctionalPredualSpan : Submodule 𝕜 (VectorFunctionalPredual 𝕜 E F) :=
+  LinearMap.range (vectorFunctionalSpanToPredual
+    (𝕜 := 𝕜) (E := E) (F := F)).toLinearMap
+
+omit [CompleteSpace F] in
+/-- The finite coefficient core is norm dense in the short predual carrier. -/
+theorem dense_vectorFunctionalPredualSpan :
+    Dense (vectorFunctionalPredualSpan (𝕜 := 𝕜) (E := E) (F := F) :
+      Set (VectorFunctionalPredual 𝕜 E F)) := by
+  change DenseRange (vectorFunctionalSpanToPredual (𝕜 := 𝕜) (E := E) (F := F))
+  exact denseRange_vectorFunctionalSpanToPredual
+
 /-- Bounded maps into a complete Hilbert space are canonically the dual of the short
 vector-functional predual carrier. -/
 def vectorFunctionalPredualEquivDual :
@@ -83,6 +180,16 @@ lemma vectorFunctionalPredual_predualEquivDual_apply_apply (T : E →L[𝕜] F)
       (M := E →L[𝕜] F)
       (P := VectorFunctionalPredual 𝕜 E F) T f =
         (vectorFunctionalPredualEquivClosure f).1 T :=
+  rfl
+
+@[simp]
+lemma vectorFunctionalPredualEvaluation_vectorFunctionalInPredual
+    (T : E →L[𝕜] F) (xi : E) (eta : F) :
+    Predual.equivDual (𝕜 := 𝕜)
+      (M := E →L[𝕜] F) (P := VectorFunctionalPredual 𝕜 E F) T
+      (vectorFunctionalInPredual xi eta) = ⟪eta, T xi⟫_𝕜 := by
+  rw [vectorFunctionalPredual_predualEquivDual_apply_apply,
+    vectorFunctionalPredualEquivClosure_vectorFunctionalInPredual]
   rfl
 
 end ContinuousLinearMap

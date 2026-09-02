@@ -132,7 +132,10 @@ Strong.isClosed_iff_image_toUltraweakEquiv [real-convex intrinsic bridge; GREEN]
   ↓
 [GREEN] norm closure and concrete predual of B(H)
   ↓
-[RED] concrete σ-WOT ↔ intrinsic σ comparison
+[GREEN] countable coefficient-series test space
+  + [GREEN] full-predual topology → series-test topology
+  ↓
+[DEFERRED to Cor. 1.15.5--1.15.6] converse series representation / topology equality
   + [RED] concrete ultrastrong ↔ intrinsic s comparison
   + [RED] relative Kaplansky density in a WOT closure
   ↓
@@ -331,8 +334,11 @@ The first Section 1.15 transaction completes that direct source and overlap audi
 constructs the finite coefficient span, proves that its induced weak topology is exactly Mathlib
 WOT in both directions, and identifies it with all WOT-continuous linear functionals. The third
 computes the exact coefficient norm, constructs its norm closure, and certifies canonical
-evaluation as an isometric dual equivalence and specified predual. It closes the finite coefficient
-and completion/predual edges but not the coefficient-series or relative-closure edges above. Pinned
+evaluation as an isometric dual equivalence and specified predual. The fourth proves norm
+summability and evaluation for separately square-summable coefficients, packages the invariant
+finite core, forms Sakai's countable series-test span, and proves the full-predual-to-series-test
+continuous identity. It closes only the source-safe direction of the coefficient-series edge; the
+later converse representation, ultrastrong comparison, and relative-closure edges remain. Pinned
 Mathlib commit
 `476ab284693e554a6b48c5f5210cb4fb5ae51252` supplies the concrete WOT and pointwise/SOT synonyms;
 the mirrored local modules contribute the continuous SOT-to-WOT identity, the coefficient API,

@@ -4,9 +4,11 @@
 
 This began as the nonproduction reconnaissance report for WS-15F, which
 introduced no Lean declaration. Sections 8--12 now also record the later
-production outcome: the coefficient-completion predual has been kernel-proved.
-The report still does **not** claim sigma-WOT, relative Kaplansky density, or
-Sakai Proposition 1.15.1 has been formalized.
+production outcome: the coefficient-completion predual and the source-safe
+one-sided coefficient-series topology comparison have been kernel-proved.
+The report still does **not** claim equality of sigma-WOT with the full
+predual topology, relative Kaplansky density, or that Sakai Proposition
+1.15.1 has been formalized.
 
 The audit compares:
 
@@ -711,18 +713,19 @@ Completed gates:
 7. the `Predual` instance is packaged without changing Sak-AI's foundational
    class;
 
-### Next bounded endpoint: coefficient-series integration
+### Completed endpoint: coefficient-series integration
 
-The next transaction should:
+The fourth transaction:
 
-1. package the coefficient span inside the completed predual in the invariant
-   form required by `SakaiInvariantTestSpace`;
-2. prove norm summability and predual membership for square-summable pairs of
-   coefficient-vector families;
-3. prove the corresponding evaluation/series formula;
-4. derive only the one-sided concrete σ-WOT/predual-topology comparison needed
-   at this point in Proposition 1.15.1;
-5. run full theorem-library, Verso, axiom, and placeholder validation.
+1. packages the finite coefficient span inside the completed predual in the
+   invariant form required by `SakaiInvariantTestSpace`;
+2. proves norm summability, the sharp Cauchy--Schwarz bound, and predual
+   membership for separately square-summable coefficient-vector families;
+3. proves the corresponding evaluation/series formula;
+4. defines the test submodule as the span of exactly Sakai's
+   $\mathbb N$-indexed raw series and proves that it contains the finite core;
+5. derives only the one-sided continuous identity from the full
+   concrete-predual topology to that series-test weak topology.
 
 Explicit exclusions:
 
@@ -732,7 +735,7 @@ Explicit exclusions:
 - no claim of global sigma-WOT/predual-topology equality;
 - no claim that Proposition 1.15.1 is complete.
 
-The transaction after coefficient-series integration should prove
+The next transaction should prove
 `kaplansky_density_in_testWeakClosure` and instantiate it for coefficients.
 Separating these transactions keeps concrete duality independent of the
 operator-algebraic relative-closure proof and gives a clear review point for the
@@ -748,8 +751,9 @@ The audit materially narrows the frontier:
 - the canonical closed coefficient submodule is the correct carrier;
 - Mathlib's Riesz/sesquilinear and adjoint APIs offer a short direct proof of
   the duality equivalence;
-- sigma-WOT inclusion is then an elementary `lp` tail argument, while equality
-  remains the later coefficient-representation theorem;
+- the source-safe sigma-WOT inclusion is now an elementary Hölder/tail
+  argument in the norm-closed coefficient carrier, while equality remains the
+  later coefficient-representation theorem;
 - the remaining source-critical algebraic blocker is an ambient-relative
   Kaplansky theorem targeting the test-weak/WOT closure.
 

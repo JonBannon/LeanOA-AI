@@ -359,11 +359,14 @@ complete: the proposition compares global closedness of a self-adjoint
 subalgebra of $`B(\mathcal H)` in WOT, $`\sigma`-WOT, SOT, Sakai's
 square-summable-vector “strongest” (ultrastrong) topology, and
 $`\sigma(B(\mathcal H),B(\mathcal H)_*)`.  The proposition is not yet
-source-formalized.  The next bounded implementation step is the concrete
-$`B(\mathcal H)` coefficient-series bridge.  The finite vector-functional
-span now induces Mathlib WOT exactly and exhausts its continuous dual, and
-its norm closure is certified as a specified predual by canonical
-evaluation.  What remains is to build the square-summable coefficient-series,
-ultrastrong, and relative-density bridges.
+source-formalized.  The finite vector-functional span now induces Mathlib WOT
+exactly and exhausts its continuous dual, and its norm closure is certified
+as a specified predual by canonical evaluation.  Separately square-summable
+coefficient series now converge in that predual, evaluate by their source
+series, and give the source-safe continuous identity from the full
+concrete-predual topology to the series-test topology.  The converse
+topology comparison remains deferred to Sakai's later representation
+theorem.  The next bounded implementation step is the ambient-relative
+Kaplansky-closure bridge; the concrete ultrastrong comparison also remains.
 
 Sakai Proposition 1.15.1: NOT SOURCE-FORMALIZED

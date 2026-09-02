@@ -334,6 +334,34 @@ induction and continuity extend this equality from the generators to the
 whole norm closure, proving surjectivity.
 :::
 
+:::theorem "thm:vector_functional_series_predual_bridge" (parent := "operator-topologies") (lean := "ContinuousLinearMap.summable_vectorFunctionalInClosure_of_summable_sq, ContinuousLinearMap.summable_inner_apply_of_summable_sq, ContinuousLinearMap.norm_vectorFunctionalSeries_le, ContinuousLinearMap.vectorFunctionalPredualEvaluation_vectorFunctionalSeriesInPredual, ContinuousLinearMap.vectorFunctionalPredualSpan_sakaiInvariant, ContinuousLinearMap.vectorFunctionalPredualSpan_le_seriesSpan, ContinuousLinearMap.vectorFunctionalSeriesWeakOfUltraweakL, ContinuousLinearMap.vectorFunctionalSeriesTestWeakL_comp_weakOfUltraweakL, Ultraweak.isClosed_ultraweak_of_isClosed_vectorFunctionalSeriesWeak") (uses := "thm:vector_functionals_wot, thm:vector_functional_closure_predual")
+Let $`(\xi_n)` and $`(\eta_n)` be separately square-summable vector families.
+Then $`\sum_n\omega_{\xi_n,\eta_n}` converges in the norm-closed
+vector-functional predual, evaluates on $`T` as
+$`\sum_n\langle\eta_n,T\xi_n\rangle`, and satisfies the expected
+Cauchy--Schwarz norm bound.  For a complex Hilbert space, let $`V_\Sigma`
+be the span of exactly the $`\mathbb N`-indexed series occurring in Sakai's
+definition.  The finite coefficient core embeds in $`V_\Sigma`, while the
+full concrete-predual topology maps continuously to the weak topology
+induced by $`V_\Sigma`.  Consequently every $`V_\Sigma`-weakly closed subset
+of $`B(\mathcal H)` is closed for the full specified-predual ultraweak
+topology.
+:::
+
+:::proof "thm:vector_functional_series_predual_bridge"
+The exact coefficient norm reduces norm summability to Hölder's inequality
+with conjugate exponents $`2` and $`2`; continuity of evaluation commutes the
+resulting `tsum` with operator evaluation.  Single-support vector families
+place every ordinary vector functional among the countable series
+generators.  Their finite span is norm dense and is separately certified as
+stable under the predual involution and fixed left and right multipliers.
+At the topology level, restricting the right test space of a `WeakBilin`
+pairing gives a continuous identity from the full predual weak topology to
+the series-test topology.  This proves only the source-safe direction used
+at this stage: the reverse identity, equality of the two topologies, and a
+single-series representation of every predual element are not asserted.
+:::
+
 :::proposition "prop:loc_cvx_result" (parent := "operator-topologies") (lean := "Ultraweak.predualDualEquiv")
 The ultraweakly continuous complex-linear functionals on $`M` are precisely
 those represented by the specified predual $`M_*`.

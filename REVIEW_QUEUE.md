@@ -235,7 +235,24 @@ probes confirm that direct and opposite predual instances synthesize at the proj
 duality equivalence uses the explicit Riesz recovery map as its inverse, rather than a
 choice-generated inverse.
 
-This infrastructure is accepted and has a Verso node. It is not Sakai Proposition 1.15.1: the
-square-summable coefficient-series comparison, concrete ultrastrong comparison, and relative
-Kaplansky closure argument remain OPEN / RED under IQ-010. The approved next bounded work is the
-coefficient-series API and its one-sided specified-predual topology comparison.
+This infrastructure is accepted and has a Verso node. It is not Sakai Proposition 1.15.1.
+
+## Accepted API review for the Sakai 1.15.1 coefficient-series transaction
+
+The generic theorem accepts an arbitrary index type, an `RCLike` scalar, a normed operator
+domain, and an inner-product codomain; codomain completeness is unnecessary for norm summability,
+the sharp Hölder/Cauchy--Schwarz bound, or evaluation. The source-facing test space is deliberately
+narrower: it is the span of exactly the $\mathbb N$-indexed, separately square-summable series in
+Sakai's definition. Single-support families prove that it contains the finite coefficient core.
+
+The finite core, rather than a newly invented substitute, is packaged as the existing
+`SakaiInvariantTestSpace`. The general `WeakBilin.restrictRightL` map captures restriction of a
+test family at the natural additive-module level. Its concrete specialization gives only the
+continuous identity from the full concrete-predual topology to the series-test weak topology and
+the consequence that series-test closed sets are ultraweakly closed.
+
+This transaction is accepted and has its own Verso infrastructure node. It does **not** identify
+the two topologies, prove every predual functional has one two-sequence representation, or complete
+Sakai Proposition 1.15.1. The concrete ultrastrong comparison and ambient-relative Kaplansky
+closure argument remain OPEN / RED under IQ-010. The approved next bounded work is the relative
+Kaplansky-closure theorem.

@@ -80,8 +80,14 @@ Last updated: 2026-09-01
   to maps from a seminormed space into a complete Hilbert space; the normed-domain specialization
   installs a short carrier canonically isometric to the closure through Sak-AI's existing
   `Predual` class. This certifies the concrete $B(H)$ predual without introducing trace class or a
-  competing predual semantics. The next determined step is the square-summable coefficient-series
-  bridge for $\sigma$-WOT.
+  competing predual semantics.
+- The fourth Proposition 1.15.1 transaction proves norm summability, the sharp Cauchy--Schwarz
+  bound, and evaluation for separately square-summable coefficient families at arbitrary-index
+  `RCLike` generality. At the source-facing complex-Hilbert boundary, it forms the span of exactly
+  Sakai's $\mathbb N$-indexed series, embeds the finite coefficient core, packages that core for
+  `SakaiInvariantTestSpace`, and proves the continuous identity from the full concrete-predual
+  topology to the series-test weak topology. This is only the source-safe one-sided comparison;
+  no converse series representation or topology equality is claimed.
 - The theorem package had no uncommitted changes at the start of the orchestration work.
 - Jireh Loreaux's LeanOA and Mathlib are read-only references. The original LeanOA checkout has
   not been modified.
@@ -147,11 +153,12 @@ Every normal functional `g` also has a unique Sakai polar pair `(v, |g|)` with
 `g(x) = |g|(x * v)`, equal norm, `star v * v = s(|g|)`, and
 `v * star v = s(|g⋆|)`. Proposition 1.15.1 is the current source target. Its direct audit is
 complete and distinguishes global subalgebra closedness from Proposition 1.15.2's bounded-sphere
-topology equivalences. The finite coefficient/WOT bridge is complete. The next bounded
-coefficient norm-closure and canonical evaluation duality are also complete, certifying the
-concrete $B(H)$ predual. The next bounded implementation target is square-summable coefficient
-series and the resulting $\sigma$-WOT comparison; no source package should be attempted before
-that comparison and the subsequent ultrastrong and relative-density bridges are proved.
+topology equivalences. The finite coefficient/WOT bridge, coefficient norm-closure and canonical
+evaluation duality, and the one-sided square-summable coefficient-series comparison are complete.
+The series topology is represented by the existing weak pairing against the span of Sakai's raw
+series, not by a new synonym. The next bounded implementation target is the ambient-relative
+Kaplansky-closure theorem. The concrete ultrastrong bridge also remains, and no source package
+should be attempted before both are proved.
 
 The implemented public design is:
 
@@ -421,6 +428,17 @@ The completed implementation layers are:
     - an isometric dual equivalence for maps from any seminormed space into a complete Hilbert
       space, with a thin `Predual` instance at the naturally normed-domain boundary;
     - no coefficient-series, sigma-WOT, ultrastrong, relative-density, or source-theorem claim.
+24. Section 1.15.1 fourth coefficient-series transaction (begun at baseline
+    `26d5c01`, completed on 2026-09-01):
+    - arbitrary-index norm summability, evaluation, and sharp Cauchy--Schwarz estimates for two
+      separately square-summable vector families;
+    - the finite coefficient core embedded densely and certified through
+      `SakaiInvariantTestSpace`;
+    - the span of exactly the source's countable coefficient series, containing the finite core;
+    - the continuous identity from the full concrete-predual topology to the series-test weak
+      topology and its closed-set consequence;
+    - no converse representation, topology equality, trace-class, ultrastrong, relative-density,
+      or source-theorem claim.
 
 The source audit has closed the 1.11.3 review question with LEVEL C rather than an accepted
 definition. Do not promote `atTop ⊓ comap divisionMesh (nhds 0)` as Sakai's meaning. Canonical
@@ -430,10 +448,11 @@ CFC/support/ultraweak-compactness chain followed by algebraic uniqueness. Sectio
 complete through the production projection-chain and complete-additivity modules. Section 1.14 is
 complete through the general normal-functional polar decomposition of Theorem 1.14.4. The
 Proposition 1.15.1 source/API audit is complete, but the proposition is not source-formalized. The
-finite coefficient/WOT bridge is also complete. The next bounded transaction constructs the
-square-summable coefficient-series API inside the now-certified concrete $B(H)$ predual and uses
-it toward the $\sigma$-WOT comparison, while retaining Mathlib's WOT and pointwise/SOT objects and
-Sak-AI's intrinsic topology objects unchanged. Revisit a public PVM/integral interface only when
+finite coefficient/WOT bridge, concrete predual, and source-safe one-sided coefficient-series
+comparison are also complete. The next bounded transaction is the ambient-relative Kaplansky
+density theorem inside the test-weak closure; the concrete ultrastrong comparison remains a
+separate missing edge. Mathlib's WOT and pointwise/SOT objects and Sak-AI's intrinsic topology
+objects remain unchanged. Revisit a public PVM/integral interface only when
 coherent mathematics or new primary evidence fixes it.
 
 Before each substantial proof, search the current Sak-AI tree, pinned Mathlib, current Mathlib
@@ -442,7 +461,7 @@ master/review history, and current LeanOA for an equivalent or more general decl
 ## Documentation continuation
 
 The Verso package preserves all 87 active nodes and 141 statement-dependency edges in the generated
-legacy graph and extends them to 123 nodes and 223 edges through the exact strong-topology,
+legacy graph and extends them to 124 nodes and 225 edges through the exact strong-topology,
 fixed-projection, spectral-approximation, element-polar-decomposition, completed Section 1.13,
 normal-positive-functional-support, norm-orthogonality, functional-Jordan, and general
 functional-polar edges, followed by the vector-functional WOT and norm-closed-predual edge. The
