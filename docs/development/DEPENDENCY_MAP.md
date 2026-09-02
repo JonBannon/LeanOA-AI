@@ -106,7 +106,9 @@ support_le_iff_apply_eq_apply_one + support-zero implies norm orthogonality [GRE
         ↓
       Proposition 1.15.1 global operator-topology closedness [GREEN]
         ↓
-      Proposition 1.15.2 bounded-sphere topology comparison [frontier]
+      Proposition 1.15.2 weak-family bounded-ball comparison [GREEN]
+        ↓
+      Proposition 1.15.2 strong-family bounded-ball comparison [frontier]
 ```
 
 ```text
@@ -150,13 +152,13 @@ ultraweak closed → WOT closure equals source [unit-ball normalization; GREEN]
   ↓
 Sakai Proposition 1.15.1 [SOURCE-FORMALIZED; GREEN]
   ↓
-Sakai Proposition 1.15.2 [frontier; source/API audit complete]
-  ↑
-closed-submodule quotient-predual topology bridge [next]
+ultraweakly-closed-submodule quotient-predual topology bridge [GREEN; `RCLike`]
   ↓
-weak-family equivalence on norm-closed balls [next production half]
+weak-family equivalence on norm-closed balls [Sakai 1.15.2(1); GREEN]
   ↓
-positive-square strong-family equivalence [subsequent production half]
+positive-square strong-family equivalence [Sakai 1.15.2(2); frontier]
+  ↓
+Sakai Proposition 1.15.2 [clause (1) SOURCE-FORMALIZED; clause (2) frontier; NOT SOURCE-FORMALIZED]
 ```
 
 ## Current junction nodes

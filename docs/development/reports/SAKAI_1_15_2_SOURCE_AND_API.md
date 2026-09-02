@@ -2,11 +2,11 @@
 
 ## Status
 
-**SOURCE AUDIT COMPLETE; PROPOSITION NOT FORMALIZED.**
+**SOURCE AUDIT COMPLETE; CLAUSE (1) SOURCE-FORMALIZED; PROPOSITION NOT SOURCE-FORMALIZED.**
 
-This report fixes the translation target and records the shortest presently
-visible implementation route. It does not claim a Lean statement, a proof, or
-source-equivalence certification for any future formal theorem.
+This report fixes the translation target, records the implemented weak-family
+clause, and retains the shortest visible route to the strong-family clause. It
+does not claim a Lean proof or source-equivalence certification for clause (2).
 
 The source inspected directly was Shoichiro Sakai, *C\*-Algebras and
 W\*-Algebras* (1971), local scan
@@ -201,7 +201,7 @@ The shortest missing general lemma is the evaluation formula
 Together with quotient induction, this packages `sigma(N, P / N_perp)` as a
 continuous linear equivalence with the subtype
 `Ultraweak.ofSubmodule (P := P) N` of ambient `sigma(M,P)`. This seam belongs
-at arbitrary `RCLike` closed-submodule generality in `Ultraweak.Dual`, not in
+at arbitrary `RCLike` ultraweakly-closed-submodule generality in `Ultraweak.Dual`, not in
 the bounded-operator proof. `IsStarProjection.Corner.inducedPredual` is an
 existing project precedent for thin source-specific packaging of the same
 quotient construction.
@@ -238,26 +238,27 @@ the generic compact-to-Hausdorff homeomorphism theorem. The quotient-dual
 isometry, concrete predual, ultrastrong carrier, and induced-predual machinery
 needed here are Sak-AI additions and should be reused rather than recreated.
 
-## Missing APIs
+## API implementation status
 
-No missing source theorem has been identified, but several carrier and
-topology interfaces still need implementation.
+No missing source theorem has been identified. The carrier and weak-topology
+interfaces are implemented; the strong-family interfaces remain.
 
-1. **Induced-predual packaging for the algebra subtype.** The existing
-   quotient-predual theorem is stated for a closed `Submodule` subtype. A
-   public, carrier-safe equivalence or thin assembly theorem is needed for a
-   `NonUnitalStarSubalgebra` subtype, without relying on definitional equality
-   between the two subtype structures.
+1. **Induced-predual packaging for the algebra subtype — COMPLETE.**
+   `NonUnitalStarSubalgebra.toSubmoduleLinearIsometryEquiv` and
+   `IsUltraweakClosed.inducedPredual` package the existing ultraweakly-closed-submodule
+   quotient predual without a competing definition.
 
-2. **Intrinsic-to-concrete weak restriction maps.** Construct continuous
-   identity maps from `sigma(N,N_*)` to the restrictions of concrete
-   sigma-WOT and WOT, with evaluation lemmas expressed through the quotient
-   predual.
+2. **Intrinsic-to-concrete weak restriction maps — COMPLETE.**
+   `Ultraweak.closedSubmoduleUltraweakEquiv` identifies the quotient-predual
+   weak-star topology with the ambient ultraweak subtype, and the concrete
+   bounded-operator module composes it with the established one-way
+   coefficient-series and WOT maps.
 
-3. **Closed-ball carrier transport.** Package the same underlying norm ball
-   across the topology-bearing synonyms and use compact-to-Hausdorff to obtain
-   continuous equivalences or homeomorphisms. Avoid ad hoc repeated set
-   extensionality in the final theorem.
+3. **Closed-ball carrier transport — COMPLETE.**
+   `IsWOTClosed.inducedUltraweakSigmaWOTClosedBallHomeomorph` and
+   `IsWOTClosed.inducedUltraweakWOTClosedBallHomeomorph` package the canonical
+   homeomorphisms; their `tendsto_*_iff_inducedUltraweak` corollaries are
+   arbitrary-filter statements.
 
 4. **Positive-square SOT/WOT bridge.** Prove a reusable, filter-general theorem
    identifying pointwise/SOT convergence of `x_alpha` to `x` with WOT
@@ -307,7 +308,7 @@ with Corollary 1.15.6.
 
 ## Recommended bounded implementation split
 
-### Transaction A — induced predual and weak-family bounded balls
+### Transaction A — induced predual and weak-family bounded balls — COMPLETE
 
 1. Fix a WOT-closed `NonUnitalStarSubalgebra` `N` of `B(H)`.
 2. Reuse Proposition 1.15.1 to obtain ambient ultraweak closedness.
@@ -319,7 +320,10 @@ with Corollary 1.15.6.
 6. Publish the weak-family topology equivalence and filter-general convergence
    corollaries.
 
-This is the smallest source-faithful next transaction.
+This transaction is implemented by the general ultraweakly-closed-submodule bridge in
+`LeanOA.Ultraweak.Dual`, the algebra-carrier wrapper in
+`LeanOA.Ultraweak.NonUnitalStarSubalgebra`, and the source-facing closed-ball
+homeomorphisms in `LeanOA.Ultraweak.BoundedOperatorTopology`.
 
 ### Transaction B — positive squares and strong-family bounded balls
 
@@ -340,5 +344,7 @@ induced quotient-predual theorem rather than a replacement for it.
 ## Source status
 
 ```text
-Sakai Proposition 1.15.2: SOURCE AUDITED; NOT FORMALIZED
+Sakai Proposition 1.15.2(1): SOURCE-FORMALIZED
+Sakai Proposition 1.15.2(2): NOT SOURCE-FORMALIZED
+Sakai Proposition 1.15.2: NOT SOURCE-FORMALIZED
 ```

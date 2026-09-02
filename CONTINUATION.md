@@ -1,6 +1,6 @@
 # Sak-AI mathematical continuation
 
-Last updated: 2026-09-01
+Last updated: 2026-09-02
 
 ## Verified repository state
 
@@ -88,6 +88,18 @@ Last updated: 2026-09-01
   `SakaiInvariantTestSpace`, and proves the continuous identity from the full concrete-predual
   topology to the series-test weak topology. This is only the source-safe one-sided comparison;
   no converse series representation or topology equality is claimed.
+- The remaining Proposition 1.15.1 infrastructure and final assembly are complete. Relative
+  Kaplansky density inside the WOT closure and the concrete ultrastrong comparison supply the
+  source-safe one-way edges; unit-ball normalization proves the reverse implication. The exact
+  five-way global closedness theorem is source-formalized without claiming equality of the
+  topologies.
+- Proposition 1.15.2 has been source-audited. Its “bounded spheres” are zero-centered norm-closed
+  balls, and its equality-of-restricted-topologies statement is net-general. The canonical
+  quotient-predual topology of an ultraweakly closed submodule is now identified with the ambient ultraweak
+  subspace topology at `RCLike` generality. For a WOT-closed operator algebra, the intrinsic
+  quotient-predual topology, coefficient-series sigma-WOT, and WOT are canonically homeomorphic
+  on each closed ball, with arbitrary-filter convergence corollaries. This source-formalizes
+  clause (1); clause (2), the positive-square strong-family comparison, remains next.
 - The theorem package had no uncommitted changes at the start of the orchestration work.
 - Jireh Loreaux's LeanOA and Mathlib are read-only references. The original LeanOA checkout has
   not been modified.
@@ -151,14 +163,14 @@ functionals it is equivalent to `s(φ) * s(ψ) = 0`. Every self-adjoint normal f
 unique orthogonal normal positive/negative decomposition with the exact additive norm identity.
 Every normal functional `g` also has a unique Sakai polar pair `(v, |g|)` with
 `g(x) = |g|(x * v)`, equal norm, `star v * v = s(|g|)`, and
-`v * star v = s(|g⋆|)`. Proposition 1.15.1 is the current source target. Its direct audit is
-complete and distinguishes global subalgebra closedness from Proposition 1.15.2's bounded-sphere
-topology equivalences. The finite coefficient/WOT bridge, coefficient norm-closure and canonical
-evaluation duality, and the one-sided square-summable coefficient-series comparison are complete.
-The series topology is represented by the existing weak pairing against the span of Sakai's raw
-series, not by a new synonym. The next bounded implementation target is the ambient-relative
-Kaplansky-closure theorem. The concrete ultrastrong bridge also remains, and no source package
-should be attempted before both are proved.
+`v * star v = s(|g⋆|)`. Proposition 1.15.1 is source-formalized. The five concrete and intrinsic
+closedness predicates remain distinct, and the reverse implication uses relative Kaplansky
+density plus unit-ball normalization rather than a later global topology equality. Proposition
+1.15.2 is now the current source target. Clause (1) is source-formalized through the canonical
+quotient predual and compact-to-Hausdorff homeomorphisms on every norm-closed ball. Clause (2)
+remains: prove the filter-general positive-square bridge and identify intrinsic strong, concrete
+ultrastrong, and SOT on bounded balls. The series topology remains the existing weak pairing
+against Sakai's raw coefficient series, not a new synonym.
 
 The implemented public design is:
 
@@ -446,13 +458,13 @@ Lemma 1.11.1 is now source-formalized. Section 1.12 contains the single element
 polar-decomposition theorem 1.12.1 and is complete through an independent
 CFC/support/ultraweak-compactness chain followed by algebraic uniqueness. Section 1.13 is now
 complete through the production projection-chain and complete-additivity modules. Section 1.14 is
-complete through the general normal-functional polar decomposition of Theorem 1.14.4. The
-Proposition 1.15.1 source/API audit is complete, but the proposition is not source-formalized. The
-finite coefficient/WOT bridge, concrete predual, and source-safe one-sided coefficient-series
-comparison are also complete. The next bounded transaction is the ambient-relative Kaplansky
-density theorem inside the test-weak closure; the concrete ultrastrong comparison remains a
-separate missing edge. Mathlib's WOT and pointwise/SOT objects and Sak-AI's intrinsic topology
-objects remain unchanged. Revisit a public PVM/integral interface only when
+complete through the general normal-functional polar decomposition of Theorem 1.14.4.
+Proposition 1.15.1 and the weak-family clause of Proposition 1.15.2 are source-formalized. The
+ultraweakly-closed-submodule quotient-predual bridge is reusable at `RCLike` generality, and the source-facing
+weak-family theorem is topology-level and arbitrary-filter. The next bounded transaction is the
+positive-square strong-family clause of Proposition 1.15.2. Mathlib's WOT and pointwise/SOT
+objects and Sak-AI's intrinsic topology objects remain unchanged. Revisit a public PVM/integral
+interface only when
 coherent mathematics or new primary evidence fixes it.
 
 Before each substantial proof, search the current Sak-AI tree, pinned Mathlib, current Mathlib
@@ -461,11 +473,11 @@ master/review history, and current LeanOA for an equivalent or more general decl
 ## Documentation continuation
 
 The Verso package preserves all 87 active nodes and 141 statement-dependency edges in the generated
-legacy graph and extends them to 124 nodes and 225 edges through the exact strong-topology,
+legacy graph and extends them to 129 nodes and 238 edges through the exact strong-topology,
 fixed-projection, spectral-approximation, element-polar-decomposition, completed Section 1.13,
 normal-positive-functional-support, norm-orthogonality, functional-Jordan, and general
-functional-polar edges, followed by the vector-functional WOT and norm-closed-predual edge. The
-exact manifest count and audit state are recorded in
+functional-polar edges, followed by the Section 1.15 concrete-predual, closedness, induced-
+predual, and bounded weak-family edges. The exact manifest count and audit state are recorded in
 `VERSO_STATUS.md`. The legacy
 sources remain recoverable from Git history. New mathematical documentation must be authored in
 Verso first.

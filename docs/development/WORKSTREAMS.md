@@ -741,12 +741,19 @@ This audit starts from `76b84e9` and fixes the exact target before topology impl
 - **WS-15U, induced-predual audit:** COMPLETE. `Ultraweak.closedSubmodulePredual` already realizes
   $`N_*` as the ambient predual modulo the preannihilator. The missing reusable seam is the
   quotient evaluation formula and the continuous equivalence with the ambient ultraweak subtype;
-  it belongs at general closed-submodule and `RCLike` generality.
-- **WS-15V, implementation split:** FIXED. The next transaction proves that general seam and the
-  weak-family closed-ball equivalence by compact-to-Hausdorff. A subsequent transaction proves the
-  strong family through filter-general positive-square convergence. Trace-class representation
-  and global topology equality remain later source results.
-- **Source status:** Proposition 1.15.2 is **SOURCE-AUDITED; NOT SOURCE-FORMALIZED**.
+  it belongs at general ultraweakly-closed-submodule and `RCLike` generality.
+- **WS-15V, induced-predual bridge:** COMPLETE. Quotient-representative evaluation and the
+  continuous linear equivalence with the ambient ultraweak subtype are proved at general
+  ultraweakly-closed-submodule and `RCLike` generality, with no competing predual or topology.
+- **WS-15W, weak-family production half:** COMPLETE. Compact-to-Hausdorff gives canonical
+  homeomorphisms among intrinsic $`\sigma(N,N_*)`, coefficient-series $`\sigma`-WOT, and WOT on
+  every zero-centered norm-closed ball, together with arbitrary-filter convergence equivalences.
+- **WS-15X, strong-family production half:** NEXT. Prove the reusable filter-general
+  positive-square convergence bridge, then compare intrinsic strong, concrete ultrastrong, and
+  SOT on the same balls. Trace-class representation and global topology equality remain later
+  source results.
+- **Source status:** Proposition 1.15.2(1) is **SOURCE-FORMALIZED**; Proposition 1.15.2(2) is
+  **NOT SOURCE-FORMALIZED**; Proposition 1.15.2 is **NOT SOURCE-FORMALIZED**.
 
 Collision rule: do not introduce another predual class or topology synonym, do not use the
 choice-based W-star predual as a substitute for the explicit quotient restriction map, and do not

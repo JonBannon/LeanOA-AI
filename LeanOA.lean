@@ -76,6 +76,7 @@ public import LeanOA.Ultraweak.BoundedOperatorClosedness
 public import LeanOA.Ultraweak.BoundedOperatorCoefficientSeries
 public import LeanOA.Ultraweak.BoundedOperatorInvariantTestSpace
 public import LeanOA.Ultraweak.BoundedOperatorRelativeKaplansky
+public import LeanOA.Ultraweak.BoundedOperatorTopology
 public import LeanOA.Ultraweak.BoundedOperatorUltrastrong
 public import LeanOA.Ultraweak.BoundedOperatorWOTClosure
 public import LeanOA.Ultraweak.CentralSupport
@@ -125,5 +126,5 @@ public import LeanOA.Ultraweak.TruncatedSpectralSum
 public import LeanOA.Ultraweak.TwoSidedIdeal
 public import LeanOA.Ultraweak.Uniformity
 public import LeanOA.Ultraweak.WStarAlgebra
-public import LeanOA.WeakOperatorTopology
 public import LeanOA.WeakDual.UniformSpace
+public import LeanOA.WeakOperatorTopology

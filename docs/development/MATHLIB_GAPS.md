@@ -275,8 +275,9 @@ though the later global topology equalities remain unavailable. The Proposition 
 shows that the next gap is not construction of another predual: Sak-AI already has the canonical
 quotient predual of an ultraweakly closed submodule. What is missing is the general theorem that
 its weak-star topology is the ambient ultraweak subspace topology, followed by the concrete
-weak-family closed-ball comparison and the strong-family positive-square bridge. These interfaces
-are absent from pinned and audited current Mathlib and from original LeanOA.
+weak-family closed-ball comparison and the strong-family positive-square bridge. The first two
+interfaces are now implemented in Sak-AI at reusable generality; the strong-family bridge remains
+absent from pinned and audited current Mathlib, original LeanOA, and Sak-AI.
 
 ### Finite vector-functional layer and completion reconnaissance
 

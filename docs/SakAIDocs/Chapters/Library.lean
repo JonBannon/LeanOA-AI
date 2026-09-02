@@ -6,6 +6,7 @@ import LeanOA.Ultraweak.Annihilator
 import LeanOA.Ultraweak.CentralSupport
 import LeanOA.Ultraweak.CompleteAdditivity
 import LeanOA.Ultraweak.BoundedOperatorClosedness
+import LeanOA.Ultraweak.BoundedOperatorTopology
 import LeanOA.Ultraweak.BoundedOperatorRelativeKaplansky
 import LeanOA.Ultraweak.KaplanskyDensity
 import LeanOA.Ultraweak.NormalOrder
@@ -435,6 +436,13 @@ generic dependencies {name}`Ultraweak.testWeakRestrictionL` and
 {name}`Ultraweak.Strong.isClosed_ofStrong_preimage_iff_ofUltraweak_preimage`
 remain usable for arbitrary nested predual test spaces and arbitrary
 real-convex ambient subsets, respectively.
+`LeanOA.Ultraweak.BoundedOperatorTopology` adds the weak-family closed-ball
+interface from Sakai Proposition 1.15.2(1).  It reuses the general
+ultraweakly-closed-submodule quotient-predual equivalence, then packages canonical
+homeomorphisms and arbitrary-filter convergence equivalences among intrinsic
+$`\sigma(N,N_*)`, coefficient-series $`\sigma`-WOT, and WOT on each
+zero-centered norm-closed ball.  It does not claim the proposition's
+strong-family clause or any global equality of topologies.
 
 # Portability rule
 

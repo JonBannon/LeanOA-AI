@@ -260,7 +260,10 @@ in their workstream.
 - **Proposition 1.15.2 audit:** COMPLETE. “Bounded spheres” means zero-centered norm-closed balls;
   the source requires equality of the restricted topologies for arbitrary nets. The induced
   predual is the existing quotient by `Ultraweak.preannihilator`, not a new predual notion.
-- **Next bounded action:** prove the general closed-submodule quotient-predual evaluation and
-  relative-ultraweak equivalence, then use compact-to-Hausdorff to formalize the weak-family
-  closed-ball half of Proposition 1.15.2. Defer the strong-family positive-square argument to the
-  following transaction. The public frontier remains Proposition 1.15.2.
+- **Weak-family production half:** COMPLETE. The general ultraweakly-closed-submodule quotient-predual
+  evaluation and relative-ultraweak equivalence are reusable at `RCLike` generality. The concrete
+  theorem uses compact-to-Hausdorff to identify intrinsic weak-star, coefficient-series sigma-WOT,
+  and WOT on each norm-closed ball, with arbitrary-filter corollaries.
+- **Next bounded action:** implement the reusable positive-square convergence bridge and use it
+  to formalize the strong-family closed-ball half of Proposition 1.15.2. The public frontier
+  remains Proposition 1.15.2 until both clauses are complete.

@@ -362,12 +362,16 @@ Kaplansky unit-ball theorem followed by scalar normalization.  The proof uses
 only the one-way comparison maps available at this point in Sakai and does
 not claim the later equality of the operator topologies.
 
-The current exact numbered frontier is Proposition 1.15.2, which compares the
-weak-family and strong-family topologies on norm-closed balls of a weakly
-closed self-adjoint subalgebra.  Its direct source and API audit is complete:
-$`N_*` is the existing quotient predual by the preannihilator.  The next
-transaction proves the general relative-ultraweak subtype bridge and the
-weak-family closed-ball half before the strong-family positive-square half.
+The current exact numbered frontier remains Proposition 1.15.2.  Its
+weak-family clause is now source-formalized: on each norm-closed ball of a
+WOT-closed self-adjoint subalgebra, WOT, coefficient-series $`\sigma`-WOT,
+and the intrinsic topology $`\sigma(N,N_*)` for the quotient predual agree.
+The theorem is stated by canonical homeomorphisms and arbitrary-filter
+convergence, not only for sequences.  The remaining strong-family clause
+requires the separate positive-square bridge comparing SOT, concrete
+ultrastrong convergence, and $`s(N,N_*)` on the same balls.
 
 Sakai Proposition 1.15.1: SOURCE-FORMALIZED
+Sakai Proposition 1.15.2(1): SOURCE-FORMALIZED
+Sakai Proposition 1.15.2(2): NOT SOURCE-FORMALIZED
 Sakai Proposition 1.15.2: NOT SOURCE-FORMALIZED

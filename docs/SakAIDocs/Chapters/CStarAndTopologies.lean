@@ -464,6 +464,56 @@ closure equals $`N`.  This completes the five-way equivalence without using
 the converse coefficient-series or ultrastrong representation theorems.
 :::
 
+:::theorem "thm:closed_submodule_induced_ultraweak" (parent := "operator-topologies") (lean := "Ultraweak.closedSubmoduleEquivDual_apply_mk, Ultraweak.closedSubmoduleUltraweakEquiv")
+Let $`M` have a specified predual $`P`, and let $`E` be an ultraweakly
+closed normed submodule of $`M`.  Its canonical quotient predual is
+$`P/E^\perp`.  Evaluation on a quotient representative is ambient
+evaluation,
+
+$`
+  \langle x,[p]\rangle=\langle x,p\rangle,
+`
+
+and the resulting intrinsic weak-star topology
+$`\sigma(E,P/E^\perp)` is canonically continuously linearly equivalent to
+the ambient ultraweak subspace topology on $`E`.  This is proved for an
+arbitrary real- or complex-like scalar field and introduces neither a second
+predual nor a second subspace topology.
+:::
+
+:::proposition "prop:operator_topology_closed_ball_weak_family_Sak_1_15_2" (parent := "operator-topologies") (lean := "NonUnitalStarSubalgebra.IsWOTClosed.inducedUltraweakSigmaWOTClosedBallHomeomorph, NonUnitalStarSubalgebra.IsWOTClosed.inducedUltraweakWOTClosedBallHomeomorph, NonUnitalStarSubalgebra.IsWOTClosed.tendsto_sigmaWOT_iff_inducedUltraweak, NonUnitalStarSubalgebra.IsWOTClosed.tendsto_wot_iff_inducedUltraweak") (uses := "thm:closed_submodule_induced_ultraweak, prop:operator_topology_closedness_Sak_1_15_1, thm:vector_functional_series_predual_bridge, thm:Banach_Alaoglu, lem:homeo_of_cts_bij_cpt_haus")
+Let $`H` be a complex Hilbert space and let $`N` be a WOT-closed,
+possibly nonunital self-adjoint subalgebra of $`B(H)`.  Give $`N` the
+canonical predual
+
+$`
+  N_* = B(H)_*/N^\perp.
+`
+
+On every zero-centered norm-closed ball of $`N`, the following three
+topologies agree:
+
+1. the intrinsic weak-star topology $`\sigma(N,N_*)`;
+2. Sakai's coefficient-series $`\sigma`-weak operator topology;
+3. the weak operator topology.
+
+The formal statement supplies canonical homeomorphisms of the closed-ball
+carriers and arbitrary-filter convergence equivalences, so it is not
+restricted to sequences.  This is exactly the weak-family clause of Sakai,
+Proposition 1.15.2.  The strong-family clause is not asserted here.
+:::
+
+:::proof "prop:operator_topology_closed_ball_weak_family_Sak_1_15_2"
+Proposition 1.15.1 turns WOT closedness into concrete-predual ultraweak
+closedness.  The quotient-predual theorem then identifies the intrinsic
+weak-star ball with the ambient ultraweak subspace ball.  Banach--Alaoglu
+makes that ball compact.  The canonical identities from ambient ultraweak
+convergence to coefficient-series $`\sigma`-WOT and then to WOT are
+continuous, while both target topologies are Hausdorff.  Each continuous
+bijection from the compact source to its Hausdorff target is therefore a
+homeomorphism.
+:::
+
 :::proposition "prop:loc_cvx_result" (parent := "operator-topologies") (lean := "Ultraweak.predualDualEquiv")
 The ultraweakly continuous complex-linear functionals on $`M` are precisely
 those represented by the specified predual $`M_*`.

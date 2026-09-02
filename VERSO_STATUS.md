@@ -4,13 +4,12 @@ Last updated: 2026-09-02
 
 ## Current state
 
-The Verso Blueprint package in `docs/` builds and generates a multi-page site with 124 active nodes
-and 225 statement-dependency edges. It includes all 87 nodes and 141 edges from the generated
-legacy LeanBlueprint graph, the connected development through Sakai 1.14.4, and the finite
-vector-functional WOT, norm-closed-predual, and square-summable coefficient-series infrastructure
-at the current Section 1.15 frontier.
-The manifest has 594 entries and reports no unknown dependency references or missing external Lean
-declarations.
+The Verso Blueprint package in `docs/` builds and generates a multi-page site with 129 active nodes
+and 238 statement-dependency edges. It includes all 87 nodes and 141 edges from the generated
+legacy LeanBlueprint graph, the connected development through Sakai 1.14.4, Proposition 1.15.1,
+and the weak-family clause of Proposition 1.15.2.
+The manifest and HTML cache each have 624 entries, including 384 unique linked Lean declarations,
+and report no unknown dependency references or missing external Lean declarations.
 
 The apparent historical count of 88 came from counting textual `\label` occurrences: one of those
 labels belongs to a fully commented-out proposal about recovering the norm from states. It was
@@ -37,20 +36,21 @@ characterization, and the unique orthogonal Jordan decomposition of a self-adjoi
 functional, including the exact norm sum. It now closes Section 1.14 with the unique general
 normal-functional polar decomposition, canonical functional absolute value, norm identity, and
 initial/final support equations.
-The direct source and API audit for Proposition 1.15.1 is complete, but no source-theorem node for
-that proposition has been added. Sakai's five conditions concern global closedness of a
-self-adjoint subalgebra of $B(H)$, not equality of the topologies or a bounded-ball statement.
-Pinned Mathlib supplies concrete WOT and pointwise/SOT, while Sak-AI supplies intrinsic predual
-weak, strong, and Mackey topologies. A new infrastructure node records the proved fact that the
-finite vector-functional span induces Mathlib WOT exactly and exhausts its continuous dual. The
-norm closure is now proved to be a concrete predual, exposed through a short canonically isometric
-carrier for stable downstream elaboration. A further infrastructure node records norm convergence
-and evaluation of separately square-summable coefficient series, the invariant finite core, and
-the one-sided continuous identity from the full concrete-predual topology to the source
-series-test topology. The converse series representation is deliberately deferred, while the
-ultrastrong and ambient-relative Kaplansky interfaces are still absent. The public document
-therefore continues to identify Proposition 1.15.1 as the current source frontier rather than
-displaying a false completion.
+Proposition 1.15.1 is source-formalized by an exact five-way global closedness theorem for a
+possibly nonunital self-adjoint subalgebra of $B(H)$. Its proof keeps concrete WOT,
+coefficient-series sigma-WOT, pointwise/SOT, concrete ultrastrong convergence, and the intrinsic
+concrete-predual ultraweak topology distinct; it does not claim their global equality. The
+relative Kaplansky unit-ball theorem and scalar normalization supply the difficult reverse
+implication.
+
+Proposition 1.15.2 is the current numbered frontier. Its weak-family clause is source-formalized:
+the canonical quotient-predual topology of a WOT-closed subalgebra, coefficient-series sigma-WOT,
+and WOT agree on every zero-centered norm-closed ball. The reusable foundation first identifies
+the quotient-predual weak-star topology of an arbitrary ultraweakly closed submodule with its ambient
+ultraweak subspace topology at real- or complex-like scalar generality. Canonical homeomorphisms
+and arbitrary-filter corollaries then give the source result. The strong-family clause remains
+unformalized, so the full proposition is not marked complete and no global topology equality is
+claimed.
 Scratch checks a nontrivial
 refinement-plus-mesh filter and the complete competing-resolution support/uniqueness chain under an
 explicit left-endpoint moment limit. The public document accurately stops before those candidate
@@ -79,7 +79,7 @@ test -f _out/site/html-multi/-verso-data/blueprint-manifest.json
 test -f _out/site/html-multi/-verso-data/blueprint-html-cache.json
 ```
 
-All checks passed on 2026-09-02. `vbp check` reports `ok: true`, zero errors, and 594 manifest/cache
+All checks passed on 2026-09-02. `vbp check` reports `ok: true`, zero errors, and 624 manifest/cache
 entries. The build replays warnings from three pinned upstream Verso or
 SubVerso modules; Sak-AI's own documentation modules elaborate without warnings.
 
@@ -99,12 +99,11 @@ longer part of the build or deployment.
    additivity. Section 1.14 is complete through functional
    support, exact norm orthogonality, its support characterization, and the unique orthogonal
    Jordan decomposition, followed by the exact general functional polar decomposition of Theorem
-   1.14.4. The concrete operator-topology audit and finite coefficient/WOT bridge for Proposition
-   1.15.1 are complete, as are the coefficient norm-closure predual and the source-safe one-sided
-   square-summable coefficient-series comparison. The next bounded slice is the ambient-relative
-   Kaplansky-closure theorem. Proposition 1.15.1 remains the source frontier until that theorem and
-   the concrete ultrastrong comparison are kernel-proved. No resolution,
-   integral, or PVM structure becomes public before a genuine mathematical interface fixes it.
+   1.14.4. Proposition 1.15.1 is source-formalized, and Proposition 1.15.2(1) is source-formalized
+   on every norm-closed ball through the explicit quotient predual, canonical homeomorphisms, and
+   arbitrary-filter convergence. The next bounded slice is the positive-square strong-family
+   clause of Proposition 1.15.2. No resolution, integral, or PVM structure becomes public before
+   a genuine mathematical interface fixes it.
 
 Do not create a second theorem-status registry: Verso blocks and `uses` references are the
 documentation source of truth.

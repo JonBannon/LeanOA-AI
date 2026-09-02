@@ -253,4 +253,9 @@ theorem isWOTClosed_iff_isUltraweakClosed (N : NonUnitalStarSubalgebra ℂ BH) :
   ⟨fun hN ↦ hN.isSOTClosed.isUSOTClosed.isUltraweakClosed,
     IsUltraweakClosed.isWOTClosed⟩
 
+/-- WOT closedness supplies closedness for the concrete-predual ultraweak topology. -/
+theorem IsWOTClosed.isUltraweakClosed {N : NonUnitalStarSubalgebra ℂ BH}
+    (hN : N.IsWOTClosed) : N.IsUltraweakClosed (P := BHPredual) :=
+  (isWOTClosed_iff_isUltraweakClosed N).mp hN
+
 end NonUnitalStarSubalgebra
