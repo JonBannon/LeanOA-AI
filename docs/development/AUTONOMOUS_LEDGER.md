@@ -60,3 +60,37 @@ authority for public mathematical completion claims.
 - **Next target:** square-summable coefficient-series membership/evaluation, invariant-test-space
   packaging, and the one-sided sigma-WOT/predual-topology comparison.
 - **Decision:** `CONTINUE` — the next transaction is determined and requires no escalation.
+
+## 2026-09-02 — AUT-002 — square-summable coefficient-series bridge
+
+- **Starting HEAD:** `26d5c01a6c57f93de0b7f9e0f2f84adcbeda604a`.
+- **Ending HEAD:** `aab2c5724aacf48a5bf531e73098bd0b16eba755`.
+- **Target:** integrate Sakai's separately square-summable coefficient series into the completed
+  concrete predual and prove the source-safe topology comparison needed at this stage.
+- **Source:** Sakai, Section 1.15, printed page 35.
+- **Result:** proved arbitrary-index norm and scalar summability, exact series evaluation, and the
+  sharp Cauchy--Schwarz estimate; exposed canonical finite and series elements in the short
+  predual; certified the dense finite coefficient core as involution- and multiplier-invariant;
+  represented exactly the source's countable series-test space; and constructed the continuous
+  identity from the full concrete-predual topology to that weaker test topology. Consequently,
+  series-test closedness implies ultraweak closedness. No converse series representation,
+  topology equality, trace-class identification, or Proposition 1.15.1 completion was claimed.
+- **Classification:** `INFRASTRUCTURE`.
+- **Important declarations:**
+  `ContinuousLinearMap.summable_vectorFunctionalInClosure_of_summable_sq`,
+  `ContinuousLinearMap.norm_vectorFunctionalSeries_le`,
+  `ContinuousLinearMap.vectorFunctionalInPredual`,
+  `ContinuousLinearMap.vectorFunctionalPredualSpan_sakaiInvariant`,
+  `ContinuousLinearMap.vectorFunctionalSeriesSpan`,
+  `ContinuousLinearMap.vectorFunctionalSeriesWeakOfUltraweakL`, and
+  `Ultraweak.isClosed_ultraweak_of_isClosed_vectorFunctionalSeriesWeak`.
+- **Validation:** full 3,193-job theorem build, lint, direct default-depth downstream import probe,
+  Verso theorem build/site build/check, generated-artifact checks, principal axiom audit, and
+  proof-debt scan passed. Verso reports 124 nodes, 225 statement edges, and 594 manifest/cache
+  entries; its only warnings are replayed from pinned Verso/SubVerso dependencies.
+- **Blockers discovered:** none. The concrete ultrastrong bridge remains separate. The current
+  Kaplansky theorem assumes density in the whole ambient algebra, so its source use now requires
+  the planned ambient-relative generalization rather than a different mathematical assumption.
+- **Next target:** ambient-relative Kaplansky unit-ball density in a certified test-weak closure,
+  followed by the finite-coefficient/WOT-closure instantiation on `B(H)`.
+- **Decision:** `CONTINUE` — the target is fixed by Sakai's proof and requires no escalation.
