@@ -34,6 +34,7 @@ public import LeanOA.Mathlib.Analysis.CStarAlgebra.PositiveLinearMap
 public import LeanOA.Mathlib.Analysis.CStarAlgebra.Projection
 public import LeanOA.Mathlib.Analysis.Complex.Basic
 public import LeanOA.Mathlib.Analysis.Convex.Topology
+public import LeanOA.Mathlib.Analysis.InnerProductSpace.WeakOperatorTopology
 public import LeanOA.Mathlib.Analysis.LocallyConvex.Bipolar
 public import LeanOA.Mathlib.Analysis.LocallyConvex.Bounded
 public import LeanOA.Mathlib.Analysis.LocallyConvex.IsCompatibleDual
@@ -112,4 +113,5 @@ public import LeanOA.Ultraweak.TruncatedSpectralSum
 public import LeanOA.Ultraweak.TwoSidedIdeal
 public import LeanOA.Ultraweak.Uniformity
 public import LeanOA.Ultraweak.WStarAlgebra
+public import LeanOA.WeakOperatorTopology
 public import LeanOA.WeakDual.UniformSpace

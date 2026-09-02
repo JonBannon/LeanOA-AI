@@ -252,11 +252,34 @@ real-convex closure theorem. It does not identify intrinsic strong with concrete
 ultrastrong topology. Likewise, concrete $\sigma$-WOT must not be silently identified with
 `σ(B(H),B(H)_*)`.
 
-The main remaining infrastructure is therefore semantic rather than notational: construct or
-reuse the concrete $B(H)$ predual and vector-coefficient embedding, prove the concrete/intrinsic
-$\sigma$-weak and ultrastrong comparisons, and generalize the existing Kaplansky density engine to
-relative closure. Until those pieces exist, Sakai Proposition 1.15.1 remains **not
-source-formalized**.
+The main remaining infrastructure is therefore semantic rather than notational: take the now
+constructed finite coefficient span to its norm closure, certify that closure as the concrete
+$B(H)$ predual, prove the concrete/intrinsic $\sigma$-weak and ultrastrong comparisons, and
+generalize the existing Kaplansky density engine to relative closure. Until those pieces exist,
+Sakai Proposition 1.15.1 remains **not source-formalized**.
+
+### Finite vector-functional layer and completion reconnaissance
+
+Pinned Mathlib has no bundled functional `T ↦ ⟪η,Tξ⟫`, so Sak-AI now composes the existing
+`ContinuousLinearMap.apply` and `innerSL` APIs. The resulting algebraic span is proved to induce
+Mathlib WOT exactly, and Sak-AI's generic weak-representation theorem identifies it with the full
+WOT-continuous dual. Classification: `LOCAL BRIDGE NEEDED`, now implemented without a new topology
+type. The intrinsic dual involution reuses Mathlib's `WithConv` star rather than defining another
+dual-star operation.
+
+Neither pinned Mathlib nor the official `master` tree inspected on 2026-09-01 supplies a ready
+infinite-dimensional `TraceClass`, `HilbertSchmidt`, Schatten, or nuclear-operator ideal suitable
+as `B(H)_*`. Pinned Mathlib does supply rank-one maps, Hilbert-basis/ℓ² infrastructure, algebraic
+tensor products, and projective seminorm machinery; current `SingularValues` remains
+finite-dimensional and explicitly leaves infinite-dimensional approximation numbers as future
+work. These are ingredients, not a concrete predual.
+
+The shortest source-faithful next construction is therefore completion-first: take the norm
+closure/completion `P_H` of the finite coefficient span inside the norm dual and prove the hard
+isometric evaluation equivalence `B(H) ≃ₗᵢ StrongDual ℂ P_H`. Sakai identifies this predual with
+trace-class operators only later in Theorem 1.15.3, so trace class should not be made a prerequisite
+for Proposition 1.15.1. Exact reconnaissance and official-current links are recorded in
+`reports/BH_PREDUAL_SIGMA_WOT_RECON.md`.
 
 ## Radon--Stieltjes refinement audit
 

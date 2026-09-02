@@ -115,6 +115,15 @@ topology. The mirrored Mathlib bridge may therefore expose only the continuous i
 `PointwiseConvergenceCLM.toWOT` and the consequence that WOT-closed subsets of the underlying
 continuous-linear-map space are pointwise/SOT closed. It introduces no new topology type.
 
+The second Section 1.15 transaction constructs the finite vector-functional space at the generic
+continuous-linear-map level. `ContinuousLinearMap.vectorFunctionalSpan` is the algebraic span of
+`T ↦ ⟪η, T ξ⟫`; it separates operators and is stable under the intrinsic dual involution and fixed
+left/right multiplication. `ContinuousLinearMapWOT.vectorFunctionalWeakEquiv` proves both identity
+directions between its `WeakBilin` topology and Mathlib WOT. On the WOT carrier,
+`ContinuousLinearMapWOT.vectorFunctionalPairing_isWeak` is the exact compatibility certificate,
+and `vectorFunctionalSpanEquivDual` identifies the span with all WOT-continuous linear
+functionals. No completion or predual is inferred from that algebraic/topological-dual result.
+
 Sak-AI's `Ultraweak` topology `σ(M,P)`, intrinsic `Strong` topology `s(M,P)`, and Mackey topology
 remain abstract specified-predual constructions. The intrinsic theorem
 `Strong.isClosed_iff_image_toUltraweakEquiv` is a direct corollary of the established real-convex
@@ -123,8 +132,9 @@ ultrastrong topology. Likewise, Sakai's separately defined $\sigma$-weak operato
 be identified definitionally with `σ(B(H),B(H)_*)`; the source proves only the relevant closedness
 equivalence here and postpones global topology identifications.
 
-The direct source audit of Proposition 1.15.1 is complete, but the proposition is not
-source-formalized. A concrete $B(H)$ predual/coefficient realization, the $\sigma$-WOT and
-ultrastrong comparison maps, and relative Kaplansky closure machinery remain missing; current
-Mathlib also has no concrete $B(H)$ predual/double-commutant bridge. IQ-010 owns this OPEN / RED
-boundary. No Verso theorem node is created, and the public frontier remains Proposition 1.15.1.
+The direct source audit of Proposition 1.15.1 and its finite WOT coefficient layer are complete,
+but the proposition is not source-formalized. The norm completion of the coefficient space and its
+certification as a concrete $B(H)$ predual, the $\sigma$-WOT and ultrastrong comparison maps, and
+relative Kaplansky closure machinery remain missing; current Mathlib also has no concrete $B(H)$
+predual/double-commutant bridge. IQ-010 owns this OPEN / RED boundary. No Verso node claims the
+source proposition, and the public frontier remains Proposition 1.15.1.

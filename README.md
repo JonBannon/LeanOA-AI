@@ -24,7 +24,9 @@ equations. The direct audit of Sakai Proposition 1.15.1 is complete. The proposi
 current source frontier: its exact proof needs concrete $B(H)$ predual, $\sigma$-weak, and
 ultrastrong bridges that are not yet present in pinned Mathlib or Sak-AI. The library now exposes
 the canonical continuous identity from pointwise/SOT convergence to WOT and the corresponding
-one-way closedness implication without conflating those missing topologies.
+one-way closedness implication without conflating those missing topologies. It also constructs the
+finite vector-functional span and proves that its induced weak topology is exactly Mathlib WOT;
+the norm-completed predual and coefficient-series topology remain future work.
 
 - [Sak-AI documentation site](https://jonbannon.github.io/Sak-AI/)
 - [API documentation](https://jonbannon.github.io/Sak-AI/docs/)
@@ -36,7 +38,7 @@ The primary documentation source and deployed project site are the first-class V
 package in [`docs/`](docs/). It supplies a mathematical reading path, checked declaration links,
 dependency graph, formalization summary, full-text search, and index. The retired LeanBlueprint
 sources remain recoverable from Git history; all 87 former nodes and 141 dependency edges are in
-Verso, whose current graph has 121 nodes and 222 statement-dependency edges. Exact build audit data
+Verso, whose current graph has 122 nodes and 222 statement-dependency edges. Exact build audit data
 is recorded in [`VERSO_STATUS.md`](VERSO_STATUS.md).
 
 Local theorem verification:

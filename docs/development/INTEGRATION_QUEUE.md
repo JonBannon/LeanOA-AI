@@ -212,8 +212,12 @@ in their workstream.
   are pointwise/SOT closed. Within the specified-predual layer,
   `Strong.isClosed_iff_image_toUltraweakEquiv` is a direct real-convex corollary of the existing
   strong/ultraweak closure-image theorem. None of these declarations defines a topology or proves
-  Proposition 1.15.1.
-- **Missing edges:** a concrete predual of $B(H)$ and its vector-coefficient realization;
+  Proposition 1.15.1. The second transaction adds the algebraic vector-functional span, proves its
+  star and fixed-multiplier stability, proves a bidirectional identity equivalence with Mathlib
+  WOT, and identifies it with all WOT-continuous linear functionals. It uses the existing
+  `WeakBilin`/`LinearMap.IsWeak` core and introduces no topology synonym.
+- **Missing edges:** a norm completion of the coefficient span certified as a concrete predual of
+  $B(H)$ and an embedding that instantiates `SakaiInvariantTestSpace`;
   comparison of Sakai's $\sigma$-WOT with the intrinsic predual weak topology; comparison of the
   concrete ultrastrong topology with intrinsic `s`; and a relative Kaplansky theorem giving unit-
   ball/closure density inside the WOT closure rather than only for a subalgebra dense in the whole
@@ -224,8 +228,11 @@ in their workstream.
   `cb811c1006ae78a0ff1d175253200e1859843370` adds no concrete WOT/SOT/predual bridge.
 - **Decision so far:** introduce no new operator-topology synonym, no local replacement predual,
   and no source-facing theorem assembled from stronger assumptions. Keep the intrinsic and
-  concrete topology families explicitly distinct. Add no Verso theorem node while the proposition
-  is unproved.
-- **Next bounded action:** isolate the smallest reusable coefficient/predual and relative-
-  Kaplansky interfaces that make the reverse WOT-closure implication honest, then re-evaluate all
-  five source conditions. The public frontier remains Proposition 1.15.1.
+  concrete topology families explicitly distinct. Add no source-theorem Verso node for
+  Proposition 1.15.1 while the proposition is unproved; independently useful proved
+  infrastructure may be documented as such.
+- **Next bounded action:** construct the completion-first candidate `P_H` from the norm closure of
+  the coefficient span in `B(H)*` and prove the evaluation map
+  `B(H) ≃ₗᵢ StrongDual ℂ P_H`, while keeping trace-class identification as a later theorem. In
+  parallel, specify the relative Kaplansky theorem whose right side is the test-weak closure's unit
+  ball inside the original ambient algebra. The public frontier remains Proposition 1.15.1.

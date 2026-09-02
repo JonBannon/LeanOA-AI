@@ -112,6 +112,14 @@ Mathlib ContinuousLinearMapWOT [concrete WOT]
 PointwiseConvergenceCLM.toWOT
   + WOT-closed implies pointwise/SOT-closed [general mirrored-Mathlib bridges; GREEN]
 
+ContinuousLinearMap.vectorFunctional
+  + vectorFunctionalSpan [separating, intrinsic-star and multiplier invariant; GREEN]
+  ↓
+ContinuousLinearMapWOT.vectorFunctionalWeakEquiv [bidirectional raw/span WOT bridge; GREEN]
+  ↓
+ContinuousLinearMapWOT.vectorFunctionalPairing_isWeak
+  + vectorFunctionalSpanEquivDual [σ(B(E,F),V) = WOT and full WOT dual; GREEN]
+
 specified-predual Ultraweak σ(M,P)
   + intrinsic Strong s(M,P)
   + SakaiMackey / SakaiInvariantTestSpace / Kaplansky density
@@ -120,7 +128,9 @@ Strong.image_closure_toUltraweakEquiv
   ↓
 Strong.isClosed_iff_image_toUltraweakEquiv [real-convex intrinsic bridge; GREEN]
 
-[RED] concrete predual of B(H) and vector-coefficient realization
+[GREEN] finite vector-coefficient realization of WOT
+  ↓
+[RED] norm completion and concrete predual of B(H)
   + [RED] concrete σ-WOT ↔ intrinsic σ comparison
   + [RED] concrete ultrastrong ↔ intrinsic s comparison
   + [RED] relative Kaplansky density in a WOT closure
@@ -313,15 +323,19 @@ The canonical `functionalAbs` is introduced only after that uniqueness theorem, 
 names the positive factor and its adjoint support occurs in the final-projection clause. Initial
 support remains the partial-isometry certificate; no parallel predicate, bundled normal
 functional, chosen polar element, or second support object is introduced. Section 1.14 is GREEN.
-The next dependency reconnaissance is the Section 1.15 topology/API audit, with Proposition 1.15.1
-as the first bounded source target.
+The next dependency reconnaissance was the Section 1.15 topology/API audit, with Proposition
+1.15.1 as the first bounded source target.
 
-The first Section 1.15 transaction completes that direct source and overlap audit without closing
-the RED dependency edges above. Pinned Mathlib commit
+The first Section 1.15 transaction completes that direct source and overlap audit. The second
+constructs the finite coefficient span, proves that its induced weak topology is exactly Mathlib
+WOT in both directions, and identifies it with all WOT-continuous linear functionals. It closes the
+finite coefficient edge but not the completion/predual or relative-closure edges above. Pinned
+Mathlib commit
 `476ab284693e554a6b48c5f5210cb4fb5ae51252` supplies the concrete WOT and pointwise/SOT synonyms;
-the mirrored local module contributes only their general continuous identity and closed-set
-consequence. Original LeanOA commit `cb811c1006ae78a0ff1d175253200e1859843370` contributes no
-concrete operator-topology bridge. Current Mathlib still supplies neither a concrete $B(H)$
+the mirrored local modules contribute the continuous SOT-to-WOT identity, the coefficient API,
+and the exact weak-pairing/WOT identification. Original LeanOA commit
+`cb811c1006ae78a0ff1d175253200e1859843370` contributes no concrete operator-topology bridge.
+Current Mathlib still supplies neither a concrete $B(H)$
 predual/double-commutant bridge nor the missing source comparisons. The intrinsic `σ`, `s`, and
 Mackey APIs therefore remain distinct from concrete WOT, SOT, $\sigma$-WOT, and ultrastrong
 topologies until named compatibility theorems are proved.

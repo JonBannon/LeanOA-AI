@@ -151,10 +151,14 @@ $`C^*`-Algebras and $`W^*`-Algebras*.  The direct audit establishes that it
 compares global closedness of a self-adjoint subalgebra of $`B(\mathcal H)`
 in WOT, $`\sigma`-WOT, SOT, the square-summable-vector ultrastrong topology,
 and $`\sigma(B(\mathcal H),B(\mathcal H)_*)`.  It is not yet
-source-formalized: the concrete predual, coefficient-series, ultrastrong,
-and relative Kaplansky-closure bridges needed to connect Mathlib's concrete
-operator topologies to Sak-AI's intrinsic dual-pair topologies remain to be
-proved.
+source-formalized.  The finite vector-functional layer is now complete: its
+span is invariant under star and fixed multiplication, induces Mathlib WOT
+in both directions, and is the full WOT-continuous dual.  The norm-completed
+concrete predual, coefficient-series $`\sigma`-WOT, ultrastrong, and relative
+Kaplansky-closure bridges needed to connect the concrete operator topologies
+to Sak-AI's intrinsic dual-pair topologies remain to be proved.
+
+Sakai Proposition 1.15.1: NOT SOURCE-FORMALIZED
 
 # Migration parity
 

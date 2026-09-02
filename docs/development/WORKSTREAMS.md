@@ -547,3 +547,39 @@ statement and maps the existing topology APIs, but it does not claim Proposition
 Collision rule: further Section 1.15 work must reuse Mathlib's WOT and pointwise/SOT types and
 Sak-AI's intrinsic `σ`/`s`/Mackey APIs. It must not equate concrete and intrinsic topologies by
 reducibility or introduce a local substitute for the missing $B(H)$ predual.
+
+## Sakai 1.15 second vector-functional transaction
+
+> **Read and obey `docs/development/SAKAI_DESIGN_CONTRACT.md` and the authoritative Sak-AI specifications it references. These requirements govern this workstream. Do not introduce designs inconsistent with them.**
+
+This transaction starts from `2932d54c12e0f559f980b18173d290cc6695af6e`. It constructs Sakai's
+finite WOT test-functional space without claiming its norm completion or Proposition 1.15.1.
+
+- **WS-15D, vector-functional API:** COMPLETE / GREEN. The generic mirrored-Mathlib module defines
+  `ContinuousLinearMap.vectorFunctional` over `RCLike`, with a seminormed domain and Hilbert
+  codomain, and proves adjoint/star, composition, fixed multiplication, raw/span separation,
+  intrinsic-dual-star stability, and span-level multiplier invariance. No `Nontrivial` assumption
+  or competing dual-star operation is introduced.
+- **WS-15E, WOT/weak-pairing identification:** COMPLETE / GREEN. Restricted evaluation gives
+  `vectorFunctionalPairing`; `vectorFunctionalWeakEquiv` proves both continuous identity
+  directions between its `WeakBilin` topology and Mathlib WOT. On the WOT carrier,
+  `vectorFunctionalPairing_isWeak` is the exact topology certificate and
+  `vectorFunctionalSpanEquivDual` identifies the span with all WOT-continuous linear
+  functionals. This is the honest integration with Sak-AI's weak-pairing core.
+- **WS-15F, completion/predual reconnaissance:** COMPLETE / REPORT ONLY. No production predual or
+  σ-WOT object is introduced. The recommended route is the norm closure/completion of the finite
+  coefficient span followed by the isometric evaluation theorem; trace-class identification is a
+  later Sakai theorem. Existing relative Kaplansky machinery still assumes density in the whole
+  ambient algebra.
+- **Architecture outcome:** `Ultraweak.WeakTestSpace V` cannot be instantiated before a complete
+  specified predual `P` and an embedding `V ≤ P` exist. The new `WeakBilin` equivalence and
+  `LinearMap.IsWeak` instance reuse its semantic core without pretending the algebraic span is
+  already complete. No new WOT or predual synonym is introduced.
+- **Source and Verso status:** the finite coefficient/WOT layer of §1.15 is complete and may appear
+  as infrastructure. Sakai Proposition 1.15.1 remains **not source-formalized**, with no theorem
+  node claiming otherwise; the public frontier does not advance to Proposition 1.15.2.
+
+Collision rule: the next transaction must extend `vectorFunctionalSpan` through a named norm
+completion/embedding and prove its predual property. It must not identify the algebraic span with
+`B(H)_*`, define σ-WOT by the intrinsic topology, or import trace-class conclusions from Sakai
+Theorem 1.15.3 before proving them.

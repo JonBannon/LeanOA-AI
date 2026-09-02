@@ -286,6 +286,28 @@ The continuous dual and comparison of ultraweak, strong, and Mackey topologies.
 tag := "operator-topologies"
 %%%
 
+:::theorem "thm:vector_functionals_wot" (parent := "operator-topologies") (lean := "ContinuousLinearMapWOT.vectorFunctionalPairing_isWeak, ContinuousLinearMapWOT.vectorFunctionalSpanEquivDual")
+Let $`E` be a seminormed space and $`F` a complete Hilbert space over
+an $`\mathbb R`- or $`\mathbb C`-like scalar field.  The weak topology on
+$`\mathcal L(E,F)` induced by the algebraic span of the vector functionals
+$`T\mapsto\langle\eta,T\xi\rangle`, written in Mathlib's second-slot-linear
+inner-product convention, is exactly Mathlib's weak operator
+topology.  Moreover, this span is the full space of WOT-continuous linear
+functionals.
+:::
+
+:::proof "thm:vector_functionals_wot"
+One continuous identity sends the coefficient-induced `WeakBilin` carrier to
+Mathlib WOT because every generating coefficient is a test functional.  The
+reverse identity is continuous by induction over the linear span, using
+Mathlib's coefficient characterization of WOT for the generators.  The
+resulting continuous linear equivalence yields the `LinearMap.IsWeak`
+certificate on the WOT carrier, and the general weak representation theorem
+identifies its continuous dual with the coefficient span.  This is an
+algebraic/topological-dual result, not yet the norm-completed predual of
+$`B(\mathcal H)`.
+:::
+
 :::proposition "prop:loc_cvx_result" (parent := "operator-topologies") (lean := "Ultraweak.predualDualEquiv")
 The ultraweakly continuous complex-linear functionals on $`M` are precisely
 those represented by the specified predual $`M_*`.

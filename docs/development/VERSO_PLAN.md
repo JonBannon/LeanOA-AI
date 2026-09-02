@@ -56,6 +56,12 @@ frontier remains Proposition 1.15.1 and should state that the concrete $B(H)$ pr
 $\sigma$-WOT/ultrastrong identifications, and relative Kaplansky closure machinery are still
 missing.
 
+The second transaction may be presented as a stable infrastructure node, not as Proposition
+1.15.1: the finite vector-functional span is star/multiplier invariant, induces Mathlib WOT in both
+directions, and is the full WOT-continuous dual. The frontier text should now say that the finite
+coefficient/WOT layer is complete while the norm-completed predual, coefficient-series σ-WOT,
+ultrastrong comparison, and relative Kaplansky theorem remain missing.
+
 If the general topology bridges are mentioned later in the library/API path, distinguish them
 precisely: Mathlib's `ContinuousLinearMapWOT` is concrete WOT;
 `PointwiseConvergenceCLM` is pointwise/SOT; Sak-AI's `σ(M,P)`, `s(M,P)`, and Mackey topology are
