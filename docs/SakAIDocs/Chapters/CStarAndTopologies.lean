@@ -493,9 +493,9 @@ $`
 On every zero-centered norm-closed ball of $`N`, the following three
 topologies agree:
 
-1. the intrinsic weak-star topology $`\sigma(N,N_*)`;
+1. the weak operator topology;
 2. Sakai's coefficient-series $`\sigma`-weak operator topology;
-3. the weak operator topology.
+3. the intrinsic weak-star topology $`\sigma(N,N_*)`.
 
 The formal statement supplies canonical homeomorphisms of the closed-ball
 carriers and arbitrary-filter convergence equivalences, so it is not
@@ -520,9 +520,9 @@ possibly nonunital self-adjoint subalgebra of $`B(H)`, with canonical
 quotient predual $`N_*=B(H)_*/N^\perp`.  On every zero-centered norm-closed
 ball of $`N`, the following three topologies agree:
 
-1. the intrinsic strong topology $`s(N,N_*)`;
+1. the strong operator topology;
 2. Sakai's coefficient-series ultrastrong operator topology;
-3. the strong operator topology.
+3. the intrinsic strong topology $`s(N,N_*)`.
 
 The formal API gives all three canonical closed-ball homeomorphisms and
 their arbitrary-filter convergence criteria.  This is exactly the
@@ -548,6 +548,29 @@ error convergences on the $`(2r)^2` ball.  Combining these filter-general
 criteria gives the three homeomorphisms without a trace-class representation
 theorem and without promoting the bounded comparison to a global topology
 equality.
+:::
+
+:::proposition "prop:operator_topology_closed_ball_Sak_1_15_2" (parent := "operator-topologies") (lean := "NonUnitalStarSubalgebra.IsWOTClosed.operatorTopologyClosedBallAgreement") (uses := "prop:operator_topology_closed_ball_weak_family_Sak_1_15_2, prop:operator_topology_closed_ball_strong_family_Sak_1_15_2")
+Let $`H` be a complex Hilbert space and let $`N` be a WOT-closed,
+possibly nonunital self-adjoint subalgebra of $`B(H)`, with canonical
+quotient predual $`N_*=B(H)_*/N^\perp`.  On every zero-centered norm-closed
+ball of $`N`, the restricted topologies agree in Sakai's printed order:
+
+1. WOT, coefficient-series $`\sigma`-WOT, and $`\sigma(N,N_*)`;
+2. SOT, coefficient-series ultrastrong topology, and $`s(N,N_*)`.
+
+The formal declaration is one source-facing certificate containing the four
+adjacent canonical identity homeomorphisms in these two chains.  Its
+closed-ball formulation has the source's arbitrary-net semantics; it does
+not assert global equality of any of the six ambient topologies.  This is
+Sakai, Proposition 1.15.2.
+:::
+
+:::proof "prop:operator_topology_closed_ball_Sak_1_15_2"
+The weak-family and strong-family clauses above already construct the
+required identity homeomorphisms.  The source-facing declaration pairs them,
+without adding a topology or changing their hypotheses, in the exact order
+of the two printed clauses.
 :::
 
 :::proposition "prop:loc_cvx_result" (parent := "operator-topologies") (lean := "Ultraweak.predualDualEquiv")

@@ -62,8 +62,9 @@ square-summable coefficient-series and ambient-relative WOT-closure bridges exte
 graph, together with the concrete ultrastrong/intrinsic-strong comparison and the source-faithful
 five-way closedness theorem of Sakai Proposition 1.15.1, the induced quotient-predual subspace
 topology, and the weak-family closed-ball clause of Proposition 1.15.2, to 129 nodes and 238
-statement-dependency edges in the preceding validated build. The strong-family closed-ball clause
-brings the current generated graph to 130 nodes and 240 statement-dependency edges.
+statement-dependency edges in the preceding validated build. The strong-family clause and exact
+source-order package complete Proposition 1.15.2 in the current generated graph, which has 131
+nodes and 242 statement-dependency edges.
 Declaration links cover the
 Section 1.10,
 spectral-approximation, fixed-projection, strong lower-spectral-projection, element-polar-
@@ -71,5 +72,6 @@ decomposition, source-normality, arbitrary orthogonal-projection-sum, projection
 complete-additivity, normal-positive-functional-support, norm-orthogonality, functional-Jordan,
 general functional-polar, vector-functional WOT, norm-closed-predual, and coefficient-series
 test-space, ambient-relative Kaplansky-density, concrete-ultrastrong, and bounded-operator
-closedness, induced-predual, induced-strong, and bounded weak- and strong-family topology APIs.
+closedness, induced-predual, induced-strong, bounded weak- and strong-family topology APIs, and
+the exact paired Proposition 1.15.2 interface.
 The legacy sources remain available in Git history.

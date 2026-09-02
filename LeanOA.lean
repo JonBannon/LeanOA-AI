@@ -78,6 +78,7 @@ public import LeanOA.Ultraweak.BoundedOperatorInvariantTestSpace
 public import LeanOA.Ultraweak.BoundedOperatorRelativeKaplansky
 public import LeanOA.Ultraweak.BoundedOperatorStrongTopology
 public import LeanOA.Ultraweak.BoundedOperatorTopology
+public import LeanOA.Ultraweak.BoundedOperatorTopologyAgreement
 public import LeanOA.Ultraweak.BoundedOperatorUltrastrong
 public import LeanOA.Ultraweak.BoundedOperatorWOTClosure
 public import LeanOA.Ultraweak.CentralSupport

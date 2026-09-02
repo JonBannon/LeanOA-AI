@@ -24,7 +24,9 @@ Sak-AI has two complementary reading paths.
   Theorem 1.14.3.  The general normal-functional polar decomposition of
   Theorem 1.14.4 is now complete as well: its right-multiplication
   convention, norm equality, initial and final support equations, and pair
-  uniqueness agree with the source.  This completes Section 1.14.
+  uniqueness agree with the source.  This completes Section 1.14.  The
+  five-way closedness theorem of Proposition 1.15.1 and both bounded-ball
+  topology chains of Proposition 1.15.2 are source-formalized as well.
 * The *library path* follows reusable Lean concepts: weak topologies and
   preduals, ultraweak continuity, closed ideals, projection lattices, and
   support constructions.  Names and assumptions are chosen for Mathlib
@@ -128,10 +130,11 @@ The connected frontier targets completed so far are:
     ultrastrong convergence, and concrete-predual ultraweak convergence are
     equivalent, exactly as in Sakai 1.15.1;
 20. on every zero-centered norm-closed ball of a WOT-closed such algebra,
-    the intrinsic weak-star, coefficient-series $`\sigma`-WOT, and WOT
-    topologies agree, and the intrinsic strong, concrete ultrastrong, and SOT
-    topologies agree.  Both clauses of Sakai 1.15.2 are represented by
-    canonical homeomorphisms and arbitrary-filter convergence theorems.
+    WOT, coefficient-series $`\sigma`-WOT, and the intrinsic weak-star
+    topology agree, while SOT, concrete ultrastrong, and the intrinsic strong
+    topology agree.  Sakai 1.15.2 is represented by one exact source-order
+    package of the two chains, backed by canonical homeomorphisms and
+    arbitrary-filter convergence theorems.
 
 The source audit found an important correction and a genuine ambiguity.
 Sakai prints the strong $`s(M,M_*)` topology, not the ultraweak
@@ -165,22 +168,25 @@ closure transport, and relative Kaplansky density in the WOT closure.  It
 does not assume the converse series representation or either topology
 equality later stated in Corollary 1.15.6.
 
-The current exact numbered frontier remains Proposition 1.15.2, now at its
-final source-facing packaging step.  Both constituent clauses are
-source-formalized.  On each norm-closed ball of a WOT-closed self-adjoint
-subalgebra, WOT, coefficient-series $`\sigma`-WOT, and the intrinsic topology
-$`\sigma(N,N_*)` agree; on the same ball, SOT, concrete ultrastrong
-convergence, and the intrinsic topology $`s(N,N_*)` agree.  The statements
-use canonical homeomorphisms and arbitrary-filter convergence, not only
-sequences.  The full proposition is not yet marked source-formalized until
-its two printed clauses are packaged together exactly.  In particular, the
-bounded-ball results do not assert global equality of any of these
-topologies.
+Proposition 1.15.2 is source-formalized.  On each norm-closed ball of a
+WOT-closed self-adjoint subalgebra, WOT, coefficient-series $`\sigma`-WOT,
+and the intrinsic topology $`\sigma(N,N_*)` agree; on the same ball, SOT,
+concrete ultrastrong convergence, and the intrinsic topology $`s(N,N_*)`
+agree.  One source-facing declaration packages the two chains in Sakai's
+printed order, while the underlying API supplies canonical homeomorphisms
+and arbitrary-filter convergence equivalences.  These bounded-ball results
+do not assert global equality of any of the six ambient topologies.
+
+The next exact numbered frontier is Theorem 1.15.3.  The next bounded
+transaction is a direct source and API audit of Sakai's Hilbert--Schmidt and
+trace-class development, fixing the precise isometric and positivity
+statement and rechecking Mathlib and Sak-AI before any new infinite-
+dimensional trace-class object is introduced.
 
 Sakai Proposition 1.15.1: SOURCE-FORMALIZED
 Sakai Proposition 1.15.2(1): SOURCE-FORMALIZED
 Sakai Proposition 1.15.2(2): SOURCE-FORMALIZED
-Sakai Proposition 1.15.2: NOT SOURCE-FORMALIZED
+Sakai Proposition 1.15.2: SOURCE-FORMALIZED
 
 # Migration parity
 
@@ -205,8 +211,8 @@ Sakai 1.13.2, arbitrary orthogonal projection sums, and the complete-additivity
 characterization closing Sakai 1.13, the functional-support theory of Sakai
 1.14.2, the orthogonal Jordan decomposition of Sakai 1.14.3, the general
 functional polar decomposition of Sakai 1.14.4, the five-way closedness
-theorem of Sakai 1.15.1, and both bounded-topology clauses of Sakai 1.15.2,
-together
+theorem of Sakai 1.15.1, and the exact two-clause bounded-topology theorem of
+Sakai 1.15.2, together
 with $`C^*`-algebra foundations, operator topologies,
 positive separation, Stonean spectra and real rank zero, normality and
 predual uniqueness, Kaplansky density, projection lattices, and element

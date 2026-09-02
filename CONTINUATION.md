@@ -93,17 +93,17 @@ Last updated: 2026-09-02
   source-safe one-way edges; unit-ball normalization proves the reverse implication. The exact
   five-way global closedness theorem is source-formalized without claiming equality of the
   topologies.
-- Proposition 1.15.2 has been source-audited. Its “bounded spheres” are zero-centered norm-closed
+- Proposition 1.15.2 is source-formalized. Its “bounded spheres” are zero-centered norm-closed
   balls, and its equality-of-restricted-topologies statement is net-general. The canonical
-  quotient-predual topology of an ultraweakly closed submodule is now identified with the ambient ultraweak
-  subspace topology at `RCLike` generality. For a WOT-closed operator algebra, the intrinsic
-  quotient-predual topology, coefficient-series sigma-WOT, and WOT are canonically homeomorphic
-  on each closed ball, with arbitrary-filter convergence corollaries. The positive-square route
-  now also identifies intrinsic strong, concrete ultrastrong, and SOT on each closed ball, again
-  by canonical homeomorphisms with arbitrary-filter corollaries. The intrinsic strong carrier is
-  defined under the minimal ultraweak-closedness hypothesis; source WOT closedness supplies it by
-  Proposition 1.15.1. Clauses (1) and (2) are SOURCE-FORMALIZED. The full proposition remains NOT
-  SOURCE-FORMALIZED only until its exact two-clause source-facing package is added.
+  quotient-predual topology of an ultraweakly closed submodule is identified with the ambient
+  ultraweak subspace topology at `RCLike` generality. For a WOT-closed operator algebra, WOT,
+  coefficient-series sigma-WOT, and the intrinsic quotient-predual topology are canonically
+  homeomorphic on each closed ball. The positive-square route likewise identifies SOT, concrete
+  ultrastrong, and intrinsic strong on each closed ball. The source-facing package records the
+  four adjacent homeomorphisms in the exact printed order, while the underlying APIs retain their
+  arbitrary-filter convergence corollaries. The intrinsic strong carrier is defined under the
+  minimal ultraweak-closedness hypothesis; source WOT closedness supplies it by Proposition
+  1.15.1. No global topology equality is claimed.
 - The theorem package had no uncommitted changes at the start of the orchestration work.
 - Jireh Loreaux's LeanOA and Mathlib are read-only references. The original LeanOA checkout has
   not been modified.
@@ -170,14 +170,15 @@ Every normal functional `g` also has a unique Sakai polar pair `(v, |g|)` with
 `v * star v = s(|g⋆|)`. Proposition 1.15.1 is source-formalized. The five concrete and intrinsic
 closedness predicates remain distinct, and the reverse implication uses relative Kaplansky
 density plus unit-ball normalization rather than a later global topology equality. Proposition
-1.15.2 is now the current source target. Clause (1) is source-formalized through the canonical
-quotient predual and compact-to-Hausdorff homeomorphisms on every norm-closed ball. Clause (2) is
-also source-formalized through filter-general positive-square bridges and canonical bounded-ball
-homeomorphisms among intrinsic strong, concrete ultrastrong, and SOT. This does not assert global
-equality of those topologies, use a trace-class representation theorem, weaken nets to sequences,
-or add an unitality or factor hypothesis. The series topology remains the existing weak pairing
-against Sakai's raw coefficient series, not a new synonym. The remaining bounded transaction is
-the exact paired packaging of clauses (1) and (2), followed by source-facing Verso integration.
+1.15.2 is source-formalized through one exact package of its two printed chains. Clause (1) uses
+the canonical quotient predual and compact-to-Hausdorff homeomorphisms on every norm-closed ball;
+clause (2) uses filter-general positive-square bridges and canonical bounded-ball homeomorphisms
+among SOT, concrete ultrastrong, and intrinsic strong. This does not assert global equality of
+those topologies, use a trace-class representation theorem, weaken nets to sequences, or add an
+unitality or factor hypothesis. The series topology remains the existing weak pairing against
+Sakai's raw coefficient series, not a new synonym. The next exact numbered frontier is Theorem
+1.15.3, beginning with a direct source/API audit of the Hilbert--Schmidt and trace-class
+development.
 
 The implemented public design is:
 
@@ -484,11 +485,13 @@ master/review history, and current LeanOA for an equivalent or more general decl
 ## Documentation continuation
 
 The Verso package preserves all 87 active nodes and 141 statement-dependency edges in the generated
-legacy graph and extends them to 129 nodes and 238 edges through the exact strong-topology,
-fixed-projection, spectral-approximation, element-polar-decomposition, completed Section 1.13,
+legacy graph and extends them through the exact strong-topology, fixed-projection,
+spectral-approximation, element-polar-decomposition, completed Section 1.13,
 normal-positive-functional-support, norm-orthogonality, functional-Jordan, and general
 functional-polar edges, followed by the Section 1.15 concrete-predual, closedness, induced-
-predual, and bounded weak-family edges. The exact manifest count and audit state are recorded in
+predual, bounded weak/strong-family, and exact Proposition 1.15.2 package edges. The exact
+current graph has 131 nodes and 242 statement-dependency edges; its manifest has 635 entries and
+391 unique linked Lean declarations. The full audit state is recorded in
 `VERSO_STATUS.md`. The legacy
 sources remain recoverable from Git history. New mathematical documentation must be authored in
 Verso first.

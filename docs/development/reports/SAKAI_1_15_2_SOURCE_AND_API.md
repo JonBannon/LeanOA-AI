@@ -2,12 +2,13 @@
 
 ## Status
 
-**SOURCE AUDIT COMPLETE; CLAUSES (1) AND (2) SOURCE-FORMALIZED; PROPOSITION NOT YET SOURCE-FORMALIZED.**
+**SOURCE-FORMALIZED.**
 
 This report fixes the translation target and records the implemented weak- and
-strong-family clauses. The exact two-clause proposition has not yet been
-packaged as one source-facing declaration, so the full Proposition 1.15.2 is
-not yet marked source-formalized.
+strong-family clauses. The exact two-clause proposition is packaged in source
+order by
+`NonUnitalStarSubalgebra.IsWOTClosed.operatorTopologyClosedBallAgreement`, so
+the full Proposition 1.15.2 is source-formalized.
 
 The source inspected directly was Shoichiro Sakai, *C\*-Algebras and
 W\*-Algebras* (1971), local scan
@@ -288,6 +289,14 @@ families and their filter-general convergence interfaces are implemented.
    the required ultraweak closedness by Proposition 1.15.1; no stronger
    foundational hypothesis is baked into the carrier.
 
+8. **Exact source-order packaging — COMPLETE.**
+   `NonUnitalStarSubalgebra.IsWOTClosed.operatorTopologyClosedBallAgreement`
+   records the WOT-to-coefficient-series-sigma-WOT-to-intrinsic-weak-star
+   clause first and the SOT-to-coefficient-series-ultrastrong-to-intrinsic-
+   strong clause second. The structure retains the six topology-bearing
+   closed-ball carriers and packages only the four adjacent homeomorphisms,
+   without identifying any ambient topologies globally.
+
 This is exactly the positive-square route in Sakai's proof. It does not use a
 global topology equality, a trace-class or coefficient-representation
 theorem, a sequence reduction, or an added unitality or factor hypothesis.
@@ -350,20 +359,23 @@ ultraweak-closedness assumption. The source-facing theorem specializes along
 the previously proved equivalence between WOT and ultraweak closedness for
 self-adjoint operator subalgebras of `B(H)`.
 
-### Transaction C — final source packaging and documentation — NEXT
+### Transaction C — final source packaging and documentation — COMPLETE
 
-Package the two parts as the exact two-clause Proposition 1.15.2 theorem,
-link it from Verso, and advance the source frontier only after both clauses
-kernel-check. Any chosen-predual transport should be a corollary of the
-induced quotient-predual theorem rather than a replacement for it.
+The two parts are packaged as the exact two-clause Proposition 1.15.2 theorem
+by `NonUnitalStarSubalgebra.IsWOTClosed.operatorTopologyClosedBallAgreement`.
+The source-facing interface reuses the induced quotient-predual theorem and
+the existing weak- and strong-family homeomorphisms; it introduces no
+chosen-predual replacement and no global topology equality.
 
 ## Source status
 
 ```text
 Sakai Proposition 1.15.2(1): SOURCE-FORMALIZED
 Sakai Proposition 1.15.2(2): SOURCE-FORMALIZED
-Sakai Proposition 1.15.2: NOT SOURCE-FORMALIZED
+Sakai Proposition 1.15.2: SOURCE-FORMALIZED
 ```
 
-The last line records only the missing exact paired packaging; it does not
-indicate a mathematical or proof gap in either clause.
+The next numbered frontier is Theorem 1.15.3. The next bounded transaction is
+a direct source/API audit of Sakai's intervening Hilbert--Schmidt and
+trace-class development and of the theorem's exact isometric and positivity
+statement before any new infinite-dimensional trace-class carrier is chosen.

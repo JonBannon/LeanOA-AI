@@ -271,10 +271,16 @@ in their workstream.
   only an ultraweakly closed self-adjoint subalgebra of a dual $C^*$-algebra; the SOT and
   ultrastrong ball carriers are generic over normed spaces and scalars. The source theorem is
   stated under ultraweak closedness, equivalent here to its WOT-closed hypothesis.
+- **Exact source-order packaging:** COMPLETE.
+  `NonUnitalStarSubalgebra.IsWOTClosed.operatorTopologyClosedBallAgreement` lists the WOT,
+  coefficient-series sigma-WOT, and intrinsic weak-star agreements first, followed by the SOT,
+  coefficient-series ultrastrong, and intrinsic strong agreements. It packages restricted
+  closed-ball homeomorphisms and does not identify the ambient topologies globally. Sakai
+  Proposition 1.15.2 is **SOURCE-FORMALIZED**.
 - **Deferred generality opportunity:** prove SOT = ultrastrong on an arbitrary
   operator-norm-bounded set, with no closed-algebra hypothesis. The current source proof does not
   need that stronger interface, so it is not a blocker.
-- **Next bounded action:** package the separately source-formalized weak and strong clauses in
-  Sakai's exact printed order. Proposition 1.15.2 remains **NOT SOURCE-FORMALIZED** as a whole
-  until that two-clause package exists. No bounded-ball result is to be advertised as a global
-  topology equality.
+- **Next bounded action:** audit Theorem 1.15.3 directly from Sakai and re-audit the available
+  Mathlib and Sak-AI APIs for the intervening infinite-dimensional Hilbert--Schmidt and trace-class
+  development. Fix the exact isometric and positivity statement before introducing a trace-class
+  carrier. No bounded-ball result is to be advertised as a global topology equality.

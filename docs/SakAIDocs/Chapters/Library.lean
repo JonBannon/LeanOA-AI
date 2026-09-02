@@ -8,6 +8,7 @@ import LeanOA.Ultraweak.CompleteAdditivity
 import LeanOA.Ultraweak.BoundedOperatorClosedness
 import LeanOA.Ultraweak.BoundedOperatorStrongTopology
 import LeanOA.Ultraweak.BoundedOperatorTopology
+import LeanOA.Ultraweak.BoundedOperatorTopologyAgreement
 import LeanOA.Ultraweak.BoundedOperatorRelativeKaplansky
 import LeanOA.Ultraweak.KaplanskyDensity
 import LeanOA.Ultraweak.NormalOrder
@@ -462,6 +463,13 @@ The corresponding arbitrary-filter criteria are
 Their proof reduces convergence to weak convergence of bounded
 positive-square errors and reuses the weak-family theorem.  These are
 closed-ball comparisons, not global equalities of operator topologies.
+`LeanOA.Ultraweak.BoundedOperatorTopologyAgreement` then exposes the exact
+source-facing endpoint
+{name}`NonUnitalStarSubalgebra.IsWOTClosed.operatorTopologyClosedBallAgreement`.
+It contains only the four adjacent identity homeomorphisms in Sakai's two
+printed chains; it adds no carrier or competing topology.  This completes
+Proposition 1.15.2 and makes a direct source/API audit of Theorem 1.15.3 the
+next numbered library step.
 
 # Portability rule
 

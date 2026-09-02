@@ -47,19 +47,17 @@ general normal-functional polar decomposition in Theorem 1.14.4. Keep the source
 visibly distinct from the derived support-product-zero characterization. Present 1.14.4 with its
 right-action convention, norm, initial support, uniqueness, and final support of
 `Ultraweak.functionalAbs` of the adjoint. The older self-adjoint-unitary left factorization is a
-dependency, not the general theorem. Section 1.14 is complete, and the public current frontier
-now points past the source-formalized Proposition 1.15.1 to Proposition 1.15.2. The next public
-addition should follow a direct source/API audit of its bounded-sphere and induced-predual
-interfaces. That audit is now complete: “bounded spheres” means norm-closed balls, and the exact
-statement is topology-level and net-general. The generic quotient-predual subspace-topology bridge
-and the weak-family closed-ball theorem now kernel-check and have a deliberately partial public
-node labeled Proposition 1.15.2(1). The positive-square strong-family comparison now also
-kernel-checks for arbitrary filters and source-formalizes Proposition 1.15.2(2) on the same
-norm-closed balls. Its public node should link the intrinsic-strong/SOT,
-ultrastrong/SOT, and intrinsic-strong/ultrastrong homeomorphisms while explicitly denying global
-topology equality. The public frontier remains Proposition 1.15.2 until a following transaction
-packages the two clauses in Sakai's exact printed order; do not label the full proposition
-source-formalized before that declaration exists.
+dependency, not the general theorem. Section 1.14 and Propositions 1.15.1--1.15.2 are complete.
+For Proposition 1.15.2, “bounded spheres” means norm-closed balls, and the exact statement is
+topology-level and net-general. The generic quotient-predual subspace-topology bridge and the
+weak-family closed-ball theorem have a dedicated clause (1) node. The positive-square
+strong-family comparison supplies the clause (2) node for arbitrary filters on the same balls.
+The full source node links
+`NonUnitalStarSubalgebra.IsWOTClosed.operatorTopologyClosedBallAgreement`, which packages those
+clauses in Sakai's printed order while retaining all six topology carriers and explicitly denying
+global topology equality. The public current frontier is now a direct source/API audit of Theorem
+1.15.3; do not create a source-theorem node for it before the exact trace-class statement and its
+available infrastructure have been checked.
 
 The first Section 1.15 transaction completes the direct source and API audit but does not complete
 Proposition 1.15.1. Do not create a theorem node or declaration link for it. The public current

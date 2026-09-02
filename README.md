@@ -23,13 +23,13 @@ functional, including its canonical absolute value, norm identity, and initial/f
 equations. Sakai Proposition 1.15.1 is now source-formalized: global closedness in WOT,
 coefficient-series $\sigma$-WOT, SOT, concrete ultrastrong convergence, and the concrete-predual
 ultraweak topology is equivalent for a possibly nonunital self-adjoint subalgebra of $B(H)$.
-Both clauses of Proposition 1.15.2 are now source-formalized. For a WOT-closed such subalgebra,
-its canonical quotient-predual topology, coefficient-series $\sigma$-WOT, and WOT agree on every
-zero-centered norm-closed ball. On the same balls, its intrinsic strong topology, concrete
-ultrastrong topology, and SOT agree. The API supplies canonical homeomorphisms and arbitrary-filter
-convergence corollaries. The proposition remains the current source frontier only for exact
-two-clause packaging; the full proposition is not yet marked source-formalized. These bounded-set
-results do not claim global equality of the topologies.
+Proposition 1.15.2 is now source-formalized. For a WOT-closed such subalgebra, WOT,
+coefficient-series $\sigma$-WOT, and its canonical quotient-predual topology agree on every
+zero-centered norm-closed ball. On the same balls, SOT, concrete ultrastrong topology, and its
+intrinsic strong topology agree. The source-facing API packages both three-topology chains in
+Sakai's printed order, while the underlying modules supply canonical homeomorphisms and
+arbitrary-filter convergence corollaries. These bounded-set results do not claim global equality
+of the topologies. The next numbered frontier is a direct source and API audit of Theorem 1.15.3.
 
 - [Sak-AI documentation site](https://jonbannon.github.io/Sak-AI/)
 - [API documentation](https://jonbannon.github.io/Sak-AI/docs/)
@@ -41,7 +41,7 @@ The primary documentation source and deployed project site are the first-class V
 package in [`docs/`](docs/). It supplies a mathematical reading path, checked declaration links,
 dependency graph, formalization summary, full-text search, and index. The retired LeanBlueprint
 sources remain recoverable from Git history; all 87 former nodes and 141 dependency edges remain
-represented in Verso, whose current graph has 130 nodes and 240 statement-dependency edges. Exact
+represented in Verso, whose current graph has 131 nodes and 242 statement-dependency edges. Exact
 generated build audit data is recorded in
 [`VERSO_STATUS.md`](VERSO_STATUS.md).
 

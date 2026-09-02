@@ -110,7 +110,10 @@ support_le_iff_apply_eq_apply_one + support-zero implies norm orthogonality [GRE
         ↓
       Proposition 1.15.2 strong-family bounded-ball comparison [GREEN]
         ↓
-      Proposition 1.15.2 exact source-order two-clause package [frontier]
+      Proposition 1.15.2 exact source-order two-clause package
+        [GREEN; SOURCE-FORMALIZED]
+        ↓
+      Theorem 1.15.3 direct source/API audit [frontier]
 ```
 
 ```text
@@ -164,8 +167,10 @@ filter-general positive-square criteria
   ↓
 positive-square strong-family equivalence on norm-closed balls [Sakai 1.15.2(2); GREEN]
   ↓
-Sakai Proposition 1.15.2 [both clauses SOURCE-FORMALIZED separately;
-  exact source-order two-clause package frontier; NOT SOURCE-FORMALIZED as a whole]
+NonUnitalStarSubalgebra.IsWOTClosed.operatorTopologyClosedBallAgreement
+  [Sakai Proposition 1.15.2; exact source order; SOURCE-FORMALIZED; GREEN]
+  ↓
+Sakai Theorem 1.15.3 direct source/API audit [frontier]
 ```
 
 ## Current junction nodes

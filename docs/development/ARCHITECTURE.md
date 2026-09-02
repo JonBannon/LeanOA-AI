@@ -106,13 +106,14 @@ is the established semantic certificate. The choice-based `Ultraweak.functionalA
 because Sakai names the unique positive factor $|g|$ and the final-projection clause needs
 $s(|g^*|)$; no choice-based polar element or decomposition structure is introduced.
 
-Section 1.14 and Proposition 1.15.1 are complete. Proposition 1.15.2 remains the exact numbered
-source frontier. Both its weak-family and strong-family clauses are now source-formalized
-separately. Sakai's “bounded spheres” are zero-centered norm-closed balls, and the implemented
-theorems give equality of the restricted topologies for arbitrary filters/nets. The quotient
-predual is identified with the ambient ultraweak subspace topology at general
-ultraweakly-closed-submodule and `RCLike` generality. The whole proposition is not yet
-source-formalized because its two clauses have not yet been packaged in the exact printed order.
+Section 1.14 and Propositions 1.15.1--1.15.2 are complete. Sakai's “bounded spheres” in
+Proposition 1.15.2 are zero-centered norm-closed balls, and the implemented theorems give equality
+of the restricted topologies for arbitrary filters/nets. The quotient predual is identified with
+the ambient ultraweak subspace topology at general ultraweakly-closed-submodule and `RCLike`
+generality. `NonUnitalStarSubalgebra.IsWOTClosed.operatorTopologyClosedBallAgreement` packages the
+weak-family and strong-family homeomorphisms in their exact printed order while retaining all six
+topology carriers; it does not assert any global topology equality. The exact numbered frontier is
+now the direct source/API audit of Theorem 1.15.3.
 
 The first Section 1.15 transaction fixes the topology boundary without filling it by notation.
 Mathlib's `ContinuousLinearMapWOT` is the concrete weak operator topology, and
@@ -150,8 +151,9 @@ from intrinsic strong to that carrier. The final theorem keeps all five source p
 distinct. Its difficult reverse edge identifies an ultraweakly closed subalgebra with its WOT
 closure by applying relative Kaplansky density on the unit ball and then normalizing arbitrary
 elements. `NonUnitalStarSubalgebra.operatorTopologyClosedness_tfae` therefore source-formalizes
-Proposition 1.15.1 without asserting either later topology equality. IQ-010 is resolved, and the
-public frontier advances to Proposition 1.15.2.
+Proposition 1.15.1 without asserting either later topology equality. IQ-010 is resolved; the
+subsequent bounded-topology development source-formalizes Proposition 1.15.2 without changing that
+distinction.
 
 For Proposition 1.15.2, the induced predual is not a new foundational object. It is the existing
 quotient `P / Ultraweak.preannihilator N` supplied by `Ultraweak.closedSubmodulePredual`.
@@ -175,6 +177,9 @@ restricted-space results, not a global equality of intrinsic strong, ultrastrong
 
 A cleaner direct proof that SOT and ultrastrong agree on every arbitrary operator-norm-bounded
 subset—without any closed-algebra hypothesis—would improve the reusable concrete API. It is
-deliberately deferred because the present source-faithful route is complete without it. The next
-architectural transaction is instead the exact source-order two-clause package for Proposition
-1.15.2.
+deliberately deferred because the present source-faithful route is complete without it. The exact
+source-order package is now
+`NonUnitalStarSubalgebra.IsWOTClosed.operatorTopologyClosedBallAgreement`. The next architectural
+transaction is a direct source and API audit of Theorem 1.15.3, including the intervening
+Hilbert--Schmidt and trace-class infrastructure, before any new infinite-dimensional operator ideal
+is introduced.

@@ -287,8 +287,12 @@ homeomorphism should plausibly hold on an arbitrary operator-norm-bounded set, w
 that the set is a closed self-adjoint algebra. The source-specific route instead uses ultraweak
 closedness—equivalent to WOT closedness in this setting—to reuse the weak-family square-ball
 comparison. This is a future Mathlib-portability improvement, not a blocker for the separately
-source-formalized Proposition 1.15.2(2). The immediate source gap is only the exact source-order
-two-clause package for the full proposition.
+source-formalized Proposition 1.15.2(2). The exact source-order package is now
+`NonUnitalStarSubalgebra.IsWOTClosed.operatorTopologyClosedBallAgreement`, so Proposition 1.15.2
+is source-formalized without any global topology-equality claim. The next source/API audit is
+Theorem 1.15.3. It must re-check the intervening infinite-dimensional Hilbert--Schmidt and
+trace-class infrastructure in Mathlib and Sak-AI before choosing a carrier or treating the earlier
+reconnaissance below as exhaustive.
 
 ### Finite vector-functional layer and completion reconnaissance
 

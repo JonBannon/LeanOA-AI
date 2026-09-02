@@ -362,18 +362,21 @@ Kaplansky unit-ball theorem followed by scalar normalization.  The proof uses
 only the one-way comparison maps available at this point in Sakai and does
 not claim the later equality of the operator topologies.
 
-The current exact numbered frontier remains Proposition 1.15.2, now at its
-exact two-clause packaging step.  Both clauses are source-formalized.  On
-each norm-closed ball of a WOT-closed self-adjoint subalgebra, WOT,
-coefficient-series $`\sigma`-WOT, and the intrinsic topology
-$`\sigma(N,N_*)` agree; on the same ball, SOT, concrete ultrastrong
-convergence, and the intrinsic topology $`s(N,N_*)` agree.  Both results are
-stated by canonical homeomorphisms and arbitrary-filter convergence, not
-only for sequences.  The full proposition is not yet marked
-source-formalized until the two printed clauses are packaged together
-exactly, and no global equality of these topologies is claimed.
+Proposition 1.15.2 is source-formalized.  On each norm-closed ball of a
+WOT-closed self-adjoint subalgebra, WOT, coefficient-series $`\sigma`-WOT,
+and the intrinsic topology $`\sigma(N,N_*)` agree; on the same ball, SOT,
+concrete ultrastrong convergence, and the intrinsic topology $`s(N,N_*)`
+agree.  One source-facing declaration packages both chains in Sakai's
+printed order, backed by canonical homeomorphisms and arbitrary-filter
+convergence equivalences.  No global equality of these topologies is
+claimed.
+
+The next exact numbered frontier is Theorem 1.15.3.  Work begins with a
+direct source and API audit of Sakai's Hilbert--Schmidt and trace-class
+development before introducing any new infinite-dimensional trace-class
+object.
 
 Sakai Proposition 1.15.1: SOURCE-FORMALIZED
 Sakai Proposition 1.15.2(1): SOURCE-FORMALIZED
 Sakai Proposition 1.15.2(2): SOURCE-FORMALIZED
-Sakai Proposition 1.15.2: NOT SOURCE-FORMALIZED
+Sakai Proposition 1.15.2: SOURCE-FORMALIZED

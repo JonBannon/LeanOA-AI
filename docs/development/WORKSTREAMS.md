@@ -754,17 +754,22 @@ This audit starts from `76b84e9` and fixes the exact target before topology impl
   theorem then gives canonical homeomorphisms and arbitrary-filter convergence equivalences among
   intrinsic strong, concrete ultrastrong, and SOT. No sequence restriction, trace-class
   representation, or global topology equality is used.
-- **WS-15Y, exact source-order packaging:** NEXT. Package clauses (1) and (2), in Sakai's printed
-  order, as one exact Proposition 1.15.2 interface without collapsing the six topology carriers.
+- **WS-15Y, exact source-order packaging:** COMPLETE.
+  `NonUnitalStarSubalgebra.IsWOTClosed.operatorTopologyClosedBallAgreement` packages clauses (1)
+  and (2), in Sakai's printed order, without collapsing the six topology carriers. Its fields are
+  the canonical restricted closed-ball homeomorphisms already proved by WS-15W and WS-15X.
 - **Generality review:** COMPLETE / GREEN. `InducedStrong` is defined for any ultraweakly closed
   self-adjoint subalgebra of a dual $C^*$-algebra. The SOT and ultrastrong closed-ball carriers are
   generic over normed spaces and scalars. The source specialization assumes ultraweak closedness,
   which is equivalent here to Sakai's WOT-closed hypothesis by Proposition 1.15.1. A direct
   SOT/ultrastrong theorem for arbitrary operator-norm-bounded sets, without a closed-algebra
   hypothesis, remains a worthwhile generality extension but is not needed for the source clause.
-- **Source status:** Proposition 1.15.2(1) and Proposition 1.15.2(2) are each
-  **SOURCE-FORMALIZED**. Proposition 1.15.2 as a single exact two-clause package is **NOT
-  SOURCE-FORMALIZED** until WS-15Y is complete.
+- **Source status:** Sakai Proposition 1.15.2 is **SOURCE-FORMALIZED** in one exact two-clause
+  source-facing declaration. This status concerns equality of the restricted topologies on
+  norm-closed balls and does not assert global topology equality.
+- **Next bounded transaction:** audit Theorem 1.15.3 directly from the source, including the
+  intervening Hilbert--Schmidt and trace-class development, and re-audit Mathlib and Sak-AI before
+  selecting any infinite-dimensional trace-class representation.
 
 Collision rule: do not introduce another predual class or topology synonym, do not use the
 choice-based W-star predual as a substitute for the explicit quotient restriction map, and do not
