@@ -373,6 +373,31 @@ theorem isClosed_iff_image_toUltraweakEquiv [CompleteSpace P]
     ← image_closure_toUltraweakEquiv hS,
     (toUltraweakEquiv (M := M) (P := P)).injective.image_injective.eq_iff]
 
+/-- A real-convex subset of the ambient algebra is closed in the intrinsic strong realization
+exactly when it is closed in the specified ultraweak realization. -/
+theorem isClosed_ofStrong_preimage_iff_ofUltraweak_preimage [CompleteSpace P]
+    (S : Set M) (hS : Convex ℝ S) :
+    IsClosed (ofStrong ⁻¹' S : Set s(M, P)) ↔
+      IsClosed (ofUltraweak ⁻¹' S : Set σ(M, P)) := by
+  let A : Set s(M, P) := ofStrong ⁻¹' S
+  have hA : Convex ℝ A := by
+    letI : Module ℝ s(M, P) := RestrictScalars.module ℝ ℂ s(M, P)
+    letI : IsScalarTower ℝ ℂ s(M, P) := RestrictScalars.isScalarTower ℝ ℂ s(M, P)
+    exact hS.linear_preimage
+      ((linearEquiv M P).restrictScalars ℝ).toLinearMap
+  have himage : toUltraweakEquiv '' A =
+      (ofUltraweak ⁻¹' S : Set σ(M, P)) := by
+    ext x
+    constructor
+    · rintro ⟨y, hy, rfl⟩
+      exact hy
+    · intro hx
+      refine ⟨(toUltraweakEquiv (M := M) (P := P)).symm x, ?_,
+        (toUltraweakEquiv (M := M) (P := P)).apply_symm_apply x⟩
+      exact hx
+  rw [← himage]
+  exact isClosed_iff_image_toUltraweakEquiv hA
+
 /-- For `f : M →ₗ[ℂ] ℂ`, continuity of `x ↦ f (ofUltraweak x)` on `σ(M, P)` is
 equivalent to continuity of `x ↦ f (ofStrong x)` on `s(M, P)`. -/
 theorem continuous_ultraweak_iff_strong [CompleteSpace P] (f : M →ₗ[ℂ] ℂ) :

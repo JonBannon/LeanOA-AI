@@ -696,3 +696,35 @@ by Proposition 1.15.1, without importing the later topology-equality theorem.
 Collision rule: do not replace the square-summable seminorms by sup-on-set uniform convergence,
 and do not prove the converse intrinsic/concrete comparison before its later source dependency.
 The next bounded transaction is the final source-faithful closedness equivalence.
+
+### Section 1.15.1 seventh closedness-assembly transaction
+
+This transaction starts from `79196cc` and completes Sakai Proposition 1.15.1 without importing
+the later topology-equality theorems.
+
+- **WS-15Q, nested test-space and concrete $`\sigma`-WOT bridge:** COMPLETE / GREEN.
+  `Ultraweak.testWeakRestrictionL` reuses `WeakBilin.restrictRightL` for arbitrary predual test
+  submodules $`V\leq W`, and `Ultraweak.isClosed_testWeak_of_le` gives the corresponding
+  closed-set implication for an arbitrary ambient subset. The source coefficient-series topology
+  specializes this map through the finite coefficient core to Mathlib WOT.
+- **WS-15R, intrinsic closure and relative-Kaplansky endpoint:** COMPLETE / GREEN.
+  `Ultraweak.Strong.isClosed_ofStrong_preimage_iff_ofUltraweak_preimage` transports closedness for
+  any real-convex ambient subset. For a concrete bounded-operator star subalgebra, ultraweak
+  closedness and the relative unit-ball theorem put the unit ball of its WOT closure back in the
+  source; normalization and rescaling then prove equality with the full WOT closure.
+- **WS-15S, source theorem assembly:** COMPLETE / GREEN.
+  `NonUnitalStarSubalgebra.operatorTopologyClosedness_tfae` states the five global predicates in
+  Sakai's order: WOT, coefficient-series $`\sigma`-WOT, SOT, concrete ultrastrong, and
+  concrete-predual ultraweak closedness. Four named iff theorems expose the pairwise WOT
+  equivalences for retrieval.
+- **Generality review:** COMPLETE / GREEN. The reusable test-space theorem is independent of
+  operator algebras, and the strong/ultraweak theorem assumes only real convexity. Hilbert-space,
+  star-subalgebra, and Kaplansky assumptions appear only in the source-specific reverse endpoint.
+- **Source and Verso status:** Sakai Proposition 1.15.1 is **SOURCE-FORMALIZED** and has a dedicated
+  source proposition node. No converse coefficient-series representation, topology equality, or
+  trace-class identification is claimed.
+
+Collision rule: retain the five concrete/intrinsic predicates as distinct objects until Sakai's
+later representation results justify topology equality. The next bounded transaction is a direct
+source and API audit of Proposition 1.15.2, especially its induced-predual and bounded-sphere
+interfaces.

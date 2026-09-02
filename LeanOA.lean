@@ -72,6 +72,7 @@ public import LeanOA.Ultraweak.Annihilator
 public import LeanOA.Ultraweak.Basic
 public import LeanOA.Ultraweak.Bornology
 public import LeanOA.Ultraweak.BoundedOperator
+public import LeanOA.Ultraweak.BoundedOperatorClosedness
 public import LeanOA.Ultraweak.BoundedOperatorCoefficientSeries
 public import LeanOA.Ultraweak.BoundedOperatorInvariantTestSpace
 public import LeanOA.Ultraweak.BoundedOperatorRelativeKaplansky

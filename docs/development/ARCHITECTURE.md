@@ -106,8 +106,8 @@ is the established semantic certificate. The choice-based `Ultraweak.functionalA
 because Sakai names the unique positive factor $|g|$ and the final-projection clause needs
 $s(|g^*|)$; no choice-based polar element or decomposition structure is introduced.
 
-Section 1.14 is complete. Proposition 1.15.1 remains the next source frontier; its first bounded
-transaction is the completed source, topology, and existing-API audit recorded below.
+Section 1.14 and Proposition 1.15.1 are complete. Proposition 1.15.2 is the next exact numbered
+source frontier; its first bounded transaction is a direct source and existing-API audit.
 
 The first Section 1.15 transaction fixes the topology boundary without filling it by notation.
 Mathlib's `ContinuousLinearMapWOT` is the concrete weak operator topology, and
@@ -131,23 +131,19 @@ remain abstract specified-predual constructions. The intrinsic theorem
 closure-image theorem. It must not be read as an identification of `s(M,P)` with concrete SOT or
 ultrastrong topology. Likewise, Sakai's separately defined $\sigma$-weak operator topology must not
 be identified definitionally with `σ(B(H),B(H)_*)`; the source proves only the relevant closedness
-equivalence here and postpones global topology identifications.
+equivalence here and postpones global topology identifications. The derived
+`Strong.isClosed_ofStrong_preimage_iff_ofUltraweak_preimage` states this closure transport directly
+for an arbitrary real-convex subset of the ambient algebra.
 
-The direct source audit of Proposition 1.15.1, its finite WOT coefficient layer, the norm-closed
-coefficient predual, and the one-sided coefficient-series comparison are complete, but the
-proposition is not source-formalized. The generic
-duality theorem uses the actual closure subtype; the operator-algebra assembly exposes a short
-carrier canonically isometric to it so the established `Predual` class remains usable at the
-project-wide synthesis depth. The source series-test space is the span of exactly the countable
-separately square-summable series and receives a continuous identity from the full predual
-topology; no converse is claimed. The ultrastrong comparison map and relative Kaplansky closure
-machinery were kept as separate transactions. Both layers are now complete in exactly the
-source-required directions: a transported
-`testWeakClosure` stays on the original carrier, the generic theorem accepts an explicit target
-star subalgebra equal to that closure, and the finite coefficient core identifies the target with
-Mathlib's WOT closure on $B(H)$. Its unit ball is the ultraweak and Mackey closure of the source
-unit ball. The dedicated square-summable carrier maps continuously to pointwise/SOT, and positive
-diagonal coefficient series give the continuous identity from intrinsic strong to that carrier.
-The converse topology equality remains deferred; current Mathlib also has no complete
-double-commutant bridge. IQ-010 owns the remaining OPEN / RED final assembly. No Verso node claims the source
-proposition, and the public frontier remains Proposition 1.15.1.
+The direct source audit of Proposition 1.15.1, its finite WOT coefficient layer, norm-closed
+coefficient predual, coefficient-series test topology, concrete ultrastrong carrier, and relative
+Kaplansky theorem are complete. `Ultraweak.testWeakRestrictionL` reuses the existing generic
+`WeakBilin.restrictRightL`, so the source series topology maps to the finite-core topology and then
+to Mathlib WOT without a second topology implementation. The dedicated square-summable carrier
+maps to pointwise/SOT, while positive diagonal coefficient series give the continuous identity
+from intrinsic strong to that carrier. The final theorem keeps all five source predicates
+distinct. Its difficult reverse edge identifies an ultraweakly closed subalgebra with its WOT
+closure by applying relative Kaplansky density on the unit ball and then normalizing arbitrary
+elements. `NonUnitalStarSubalgebra.operatorTopologyClosedness_tfae` therefore source-formalizes
+Proposition 1.15.1 without asserting either later topology equality. IQ-010 is resolved, and the
+public frontier advances to Proposition 1.15.2.

@@ -2,8 +2,10 @@
 
 ## Status and source
 
-This report certifies the source semantics of Sakai, Proposition 1.15.1. It does
-**not** claim that Proposition 1.15.1 has been formalized.
+This report certifies the source semantics of Sakai, Proposition 1.15.1.
+**Production status (2026-09-02): SOURCE-FORMALIZED.** The statement is
+`NonUnitalStarSubalgebra.operatorTopologyClosedness_tfae` in
+`LeanOA.Ultraweak.BoundedOperatorClosedness`.
 
 The source inspected directly was Shoichiro Sakai, *C\*-Algebras and
 W\*-Algebras* (1971), local scan `SakaiBook_1971.pdf`:
@@ -89,6 +91,14 @@ the following are equivalent: \(N\) is closed in
 3. the strong operator topology;
 4. the strongest operator topology;
 5. \(\sigma(B(H),B(H)_*)\).
+
+The production predicates are, in the same order,
+`NonUnitalStarSubalgebra.IsWOTClosed`, `IsSigmaWOTClosed`, `IsSOTClosed`,
+`IsUSOTClosed`, and the established
+`NonUnitalStarSubalgebra.IsUltraweakClosed` instantiated with the concrete
+vector-functional predual. The ambient algebra is
+`H →L[ℂ] H`, and `NonUnitalStarSubalgebra` preserves the source's lack of an
+explicit unital assumption.
 
 Condition (5) is the weak topology of the dual pair consisting of \(B(H)\) and
 its predual—the topology now normally called the ultraweak or weak-star

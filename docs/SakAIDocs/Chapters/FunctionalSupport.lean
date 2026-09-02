@@ -353,27 +353,20 @@ partial-isometry structure.
 # Next checkpoint
 
 Definitions 1.14.1--1.14.2 and Theorems 1.14.3--1.14.4 are complete, so
-Section 1.14 is closed.  The current source frontier is Proposition 1.15.1
-in *Concrete $`C^*`-Algebras and $`W^*`-Algebras*.  Its source audit is
-complete: the proposition compares global closedness of a self-adjoint
-subalgebra of $`B(\mathcal H)` in WOT, $`\sigma`-WOT, SOT, Sakai's
-square-summable-vector “strongest” (ultrastrong) topology, and
-$`\sigma(B(\mathcal H),B(\mathcal H)_*)`.  The proposition is not yet
-source-formalized.  The finite vector-functional span now induces Mathlib WOT
-exactly and exhausts its continuous dual, and its norm closure is certified
-as a specified predual by canonical evaluation.  Separately square-summable
-coefficient series now converge in that predual, evaluate by their source
-series, and give the source-safe continuous identity from the full
-concrete-predual topology to the series-test topology.  The converse
-topology comparison remains deferred to Sakai's later representation
-theorem.  The ambient-relative Kaplansky bridge is now complete: the finite
-coefficient test-weak closure is exactly Mathlib's WOT closure, and the unit
-ball of a self-adjoint subalgebra is Mackey dense in the unit ball of that
-closure.  This supplies the relative-density step in Sakai's reverse
-closedness argument.  The concrete ultrastrong bridge is now also complete:
-its square-summable seminorms are represented by positive diagonal
-coefficient-series functionals, yielding only the source-required continuous
-chain from intrinsic strong to ultrastrong to pointwise/SOT.  The final
-five-way global closedness assembly is the next bounded implementation step.
+Section 1.14 is closed.  Proposition 1.15.1 is now also source-formalized for
+a possibly nonunital self-adjoint subalgebra of $`B(\mathcal H)`: global
+closedness in WOT, coefficient-series $`\sigma`-WOT, SOT, the concrete
+ultrastrong topology, and the concrete-predual ultraweak topology are
+equivalent.  The difficult reverse implication uses the established relative
+Kaplansky unit-ball theorem followed by scalar normalization.  The proof uses
+only the one-way comparison maps available at this point in Sakai and does
+not claim the later equality of the operator topologies.
 
-Sakai Proposition 1.15.1: NOT SOURCE-FORMALIZED
+The current exact numbered frontier is Proposition 1.15.2, which compares the
+weak-family and strong-family topologies on bounded spheres of a weakly closed
+self-adjoint subalgebra.  Its precise source statement, its use of the induced
+predual $`N_*`, and the existing subtype/restriction APIs must be audited before
+formalization begins.
+
+Sakai Proposition 1.15.1: SOURCE-FORMALIZED
+Sakai Proposition 1.15.2: NOT SOURCE-FORMALIZED

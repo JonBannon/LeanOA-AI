@@ -8,7 +8,14 @@ production outcome: the coefficient-completion predual and the source-safe
 one-sided coefficient-series topology comparison have been kernel-proved, as
 has ambient-relative Kaplansky density in Mathlib's WOT closure. The report
 still does **not** claim equality of sigma-WOT with the full predual topology
-or that Sakai Proposition 1.15.1 has been formalized.
+or, within the historical stages recorded here, that Sakai Proposition 1.15.1
+had been formalized.
+
+**Supersession note (2026-09-02):**
+`NonUnitalStarSubalgebra.operatorTopologyClosedness_tfae` now
+source-formalizes Proposition 1.15.1 using the recorded one-sided comparison
+maps and relative Kaplansky density. The converse series representation and
+global topology equality remain deferred exactly as this report requires.
 
 The audit compares:
 

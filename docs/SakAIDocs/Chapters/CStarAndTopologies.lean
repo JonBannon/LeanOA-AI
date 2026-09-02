@@ -430,6 +430,40 @@ norm-closure reduction removes closedness of $`A`, and compatible convex
 closure transfers the equality to the full-predual Mackey topology.
 :::
 
+:::proposition "prop:operator_topology_closedness_Sak_1_15_1" (parent := "operator-topologies") (lean := "NonUnitalStarSubalgebra.operatorTopologyClosedness_tfae, NonUnitalStarSubalgebra.isWOTClosed_iff_isSigmaWOTClosed, NonUnitalStarSubalgebra.isWOTClosed_iff_isSOTClosed, NonUnitalStarSubalgebra.isWOTClosed_iff_isUSOTClosed, NonUnitalStarSubalgebra.isWOTClosed_iff_isUltraweakClosed") (uses := "thm:vector_functional_series_predual_bridge, thm:bounded_operator_ultrastrong_bridge, thm:wot_relative_kaplansky, thm:sigma_le_s_le_tau")
+Let $`H` be a complex Hilbert space and let $`N` be a possibly nonunital
+self-adjoint subalgebra of $`B(H)`.  The following five global closedness
+conditions are equivalent:
+
+1. $`N` is weak-operator closed;
+2. $`N` is closed for Sakai's coefficient-series $`\sigma`-weak operator
+   topology;
+3. $`N` is strong-operator closed;
+4. $`N` is closed for Sakai's strongest, or ultrastrong, operator topology;
+5. $`N` is closed for $`\sigma(B(H),B(H)_*)`, using the concrete
+   vector-functional predual.
+
+This is Sakai, Proposition 1.15.1.  It is a statement about global closedness,
+not merely bounded subsets, and it does not assert equality of the five
+topologies.
+:::
+
+:::proof "prop:operator_topology_closedness_Sak_1_15_1"
+The easy arrows use continuous identities.  The coefficient-series topology
+restricts continuously to the finite coefficient core and hence to Mathlib
+WOT; WOT maps from SOT; ultrastrong maps to SOT; and intrinsic strong maps to
+ultrastrong.  Real-convex closure transport then sends intrinsic-strong
+closedness of the subalgebra to concrete-predual ultraweak closedness.
+
+For the reverse arrow, take the Mathlib-WOT closure of $`N`.  Relative
+Kaplansky density identifies its closed unit ball with the ultraweak closure
+of the unit ball of $`N`.  Ultraweak closedness therefore puts every
+norm-at-most-one element of the WOT closure back in $`N`; normalizing an
+arbitrary nonzero element by its norm and rescaling proves that the whole WOT
+closure equals $`N`.  This completes the five-way equivalence without using
+the converse coefficient-series or ultrastrong representation theorems.
+:::
+
 :::proposition "prop:loc_cvx_result" (parent := "operator-topologies") (lean := "Ultraweak.predualDualEquiv")
 The ultraweakly continuous complex-linear functionals on $`M` are precisely
 those represented by the specified predual $`M_*`.

@@ -5,6 +5,7 @@ import LeanOA.Mathlib.RingTheory.Annihilator
 import LeanOA.Ultraweak.Annihilator
 import LeanOA.Ultraweak.CentralSupport
 import LeanOA.Ultraweak.CompleteAdditivity
+import LeanOA.Ultraweak.BoundedOperatorClosedness
 import LeanOA.Ultraweak.BoundedOperatorRelativeKaplansky
 import LeanOA.Ultraweak.KaplanskyDensity
 import LeanOA.Ultraweak.NormalOrder
@@ -425,6 +426,15 @@ to pointwise convergence.  `LeanOA.Ultraweak.BoundedOperatorUltrastrong`
 identifies each of its defining $`B(H)` seminorms with the GNS seminorm of a
 positive diagonal coefficient-series functional and exposes the continuous
 identity from intrinsic strong convergence.
+`LeanOA.Ultraweak.BoundedOperatorClosedness` then exposes the four concrete
+closedness predicates, the series-test-to-WOT identity, the relative
+unit-ball normalization lemmas, and
+{name}`NonUnitalStarSubalgebra.operatorTopologyClosedness_tfae`.  The four
+pairwise WOT equivalences are separately named for theorem search.  Its
+generic dependencies {name}`Ultraweak.testWeakRestrictionL` and
+{name}`Ultraweak.Strong.isClosed_ofStrong_preimage_iff_ofUltraweak_preimage`
+remain usable for arbitrary nested predual test spaces and arbitrary
+real-convex ambient subsets, respectively.
 
 # Portability rule
 

@@ -48,7 +48,9 @@ visibly distinct from the derived support-product-zero characterization. Present
 right-action convention, norm, initial support, uniqueness, and final support of
 `Ultraweak.functionalAbs` of the adjoint. The older self-adjoint-unitary left factorization is a
 dependency, not the general theorem. Section 1.14 is complete, and the public current frontier
-should now point to the Section 1.15 topology/API audit and Proposition 1.15.1.
+now points past the source-formalized Proposition 1.15.1 to Proposition 1.15.2. The next public
+addition should follow a direct source/API audit of its bounded-sphere and induced-predual
+interfaces.
 
 The first Section 1.15 transaction completes the direct source and API audit but does not complete
 Proposition 1.15.1. Do not create a theorem node or declaration link for it. The public current
@@ -91,6 +93,14 @@ The prose must explicitly deny the converse and topology equality. The frontier 
 the final five-way global closedness assembly; later representation/equality results remain
 deferred to their source order.
 
+The seventh transaction is the source proposition node for Sakai 1.15.1. It states all five
+global closedness predicates in source order and links the final `List.TFAE` theorem together with
+the four named WOT equivalences. Its proof narrative must make the relative Kaplansky unit-ball
+argument and scalar normalization visible, and must explicitly deny that the theorem establishes
+global equality of the topologies. With this node checked, the public frontier advances to
+Proposition 1.15.2; the next documentation transaction begins with a source/API audit rather than
+an implementation claim.
+
 If the general topology bridges are mentioned later in the library/API path, distinguish them
 precisely: Mathlib's `ContinuousLinearMapWOT` is concrete WOT;
 `PointwiseConvergenceCLM` is pointwise/SOT; Sak-AI's `σ(M,P)`, `s(M,P)`, and Mackey topology are
@@ -99,8 +109,8 @@ closed corollary, and `Strong.isClosed_iff_image_toUltraweakEquiv` do not identi
 ultrastrong topology with the intrinsic types. The dedicated square-summable carrier is related
 only by the proved chain intrinsic strong → concrete ultrastrong → pointwise/SOT. Likewise,
 `WeakBilin.restrictRightL` and its coefficient-series specialization prove only the continuous
-identity in the displayed direction. No Verso mathematical
-status should be inferred from these connective API declarations alone.
+identity in the displayed direction. The source theorem uses these one-way maps only to compare
+closed self-adjoint subalgebras; it does not convert them into topology equalities.
 
 ## Work that must wait
 

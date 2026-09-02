@@ -2,9 +2,13 @@
 
 ## Status
 
-This is an interface and blocker audit. It does **not** claim that Sakai,
-Proposition 1.15.1 has been formalized, translated into Lean, or proved from
-the APIs listed below.
+**SOURCE-FORMALIZED (2026-09-02).** The original interface and blocker audit
+below is retained because it records why the five topology carriers must stay
+distinct. Production module `LeanOA.Ultraweak.BoundedOperatorClosedness`
+defines the four concrete closedness predicates, reuses the existing
+`NonUnitalStarSubalgebra.IsUltraweakClosed` predicate for the fifth, and proves
+`NonUnitalStarSubalgebra.operatorTopologyClosedness_tfae` in the exact source
+order. The four pairwise WOT equivalences are also named separately.
 
 Source semantics and page references are recorded in
 `SAKAI_1_15_1_SOURCE.md`. The comparison here is against:
@@ -295,15 +299,19 @@ showing that it suffices for global closedness of the subalgebra.
    This is a bounded unit-ball closure theorem, not yet the proposition's
    five-way global closedness equivalence.
 
-6. **Carrier transport.** Closedness statements must be transported across
+6. **Carrier transport — RESOLVED.** Closedness statements are transported across
    the synonym/equivalence carriers without silently changing the underlying
    self-adjoint subalgebra or replacing global closedness by bounded closure.
+   The generic theorem
+   `Ultraweak.Strong.isClosed_ofStrong_preimage_iff_ofUltraweak_preimage`
+   handles any real-convex ambient subset.
 
-7. **Reverse WOT/SOT direction.** Existing
+7. **Reverse WOT/SOT direction — RESOLVED.** Existing
    `isClosed_pointwise_of_isClosed_wot` supplies only WOT-closed implies
-   SOT-closed. The converse for self-adjoint subalgebras still requires the
-   source's Kaplansky/Mackey argument or a separately formalized concrete
-   double-commutant theorem.
+   SOT-closed. For a self-adjoint subalgebra, relative Kaplansky density puts
+   the unit ball of its WOT closure into the ultraweak closure of its own unit
+   ball; ultraweak closedness and scalar normalization then identify the full
+   WOT closure with the source algebra.
 
 ## Shortest honest route
 
@@ -343,14 +351,14 @@ prematurely proving all of the later trace-class theory.
    Proposition 1.15.1. No global equality with `σ(B(H),P)` or `s(B(H),P)` is
    claimed before the later Corollary 1.15.6 infrastructure.
 
-7. Package the final theorem as equivalence of five global closedness
-   predicates for a self-adjoint subalgebra, preserving the source's lack of an
-   explicit unital assumption. Only then should Proposition 1.15.1 be marked
-   formalized.
+7. **Complete.** `operatorTopologyClosedness_tfae` packages the five global
+   closedness predicates for a possibly nonunital self-adjoint subalgebra, and
+   the source proposition is marked formalized.
 
 This route uses the current Sak-AI semantic core and avoids duplicating WOT,
 SOT, compatible-dual closure, or Kaplansky machinery. The coefficient/predual
 instantiation, the source-required one-sided coefficient-series and
-ultrastrong comparisons, and the ambient-relative WOT-closure density argument
-are now complete. The irreducible remaining work is the final source-faithful
-closedness assembly.
+ultrastrong comparisons, the ambient-relative WOT-closure density argument,
+and the final source-faithful closedness assembly are complete. The later
+converse representations and topology equalities remain deferred in source
+order.

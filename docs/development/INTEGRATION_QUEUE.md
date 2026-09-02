@@ -197,7 +197,7 @@ in their workstream.
 
 ## IQ-010 — Sakai 1.15.1 concrete operator topologies and relative closure
 
-- **Status:** OPEN / RED — source statement certified; proposition not source-formalized
+- **Status:** RESOLVED / GREEN — Proposition 1.15.1 source-formalized
 - **Affected streams:** concrete operator topologies, specified preduals, intrinsic strong/Mackey
   topology, Kaplansky density, mirrored Mathlib staging, Verso
 - **Question:** How should the concrete WOT, $\sigma$-WOT, SOT, and ultrastrong topologies on
@@ -206,15 +206,14 @@ in their workstream.
   predual objects?
 - **Source decision:** Proposition 1.15.1 concerns a self-adjoint subalgebra of $B(H)$ and five
   global closedness conditions. It does not assert global equality of all five topologies and is
-  not restricted to bounded spheres. The direct source audit is complete, but no source theorem is
-  claimed.
+  not restricted to bounded spheres. The direct source audit and source theorem are complete.
 - **Available bridges:** pinned Mathlib already owns WOT (`ContinuousLinearMapWOT`) and
   pointwise/SOT (`PointwiseConvergenceCLM`). The accepted mirrored-Mathlib additions are the
   general continuous identity `PointwiseConvergenceCLM.toWOT` and the theorem that WOT-closed sets
   are pointwise/SOT closed. Within the specified-predual layer,
   `Strong.isClosed_iff_image_toUltraweakEquiv` is a direct real-convex corollary of the existing
-  strong/ultraweak closure-image theorem. None of these declarations defines a topology or proves
-  Proposition 1.15.1. The second transaction adds the algebraic vector-functional span, proves its
+  strong/ultraweak closure-image theorem. At that checkpoint none of these declarations defined a
+  topology or proved Proposition 1.15.1. The second transaction adds the algebraic vector-functional span, proves its
   star and fixed-multiplier stability, proves a bidirectional identity equivalence with Mathlib
   WOT, and identifies it with all WOT-continuous linear functionals. It uses the existing
   `WeakBilin`/`LinearMap.IsWeak` core and introduces no topology synonym.
@@ -240,21 +239,24 @@ in their workstream.
   diagonal coefficient series identify every defining seminorm with an intrinsic GNS seminorm,
   giving the continuous identity from `s(B(H),P_H)` to the concrete carrier. No converse or
   topology equality is claimed.
-- **Missing edge:** the final equivalence of the five global closedness predicates. The converse
-  coefficient-series representation and topology equalities are deliberately deferred to
-  Sakai Corollaries 1.15.5--1.15.6. Current Mathlib also lacks the concrete
-  $B(H)$/double-commutant bridge.
+- **Seventh transaction:** the general test-space restriction map is exposed by reusing
+  `WeakBilin.restrictRightL`; the coefficient-series test topology therefore maps continuously to
+  the finite coefficient topology and Mathlib WOT. The five global closedness predicates are
+  packaged in source order. The reverse implication applies the relative Kaplansky unit-ball
+  equality and scalar normalization to show that an ultraweakly closed subalgebra equals its WOT
+  closure. `operatorTopologyClosedness_tfae` completes the proposition.
+- **Deferred edges:** the converse coefficient-series representation and topology equalities remain
+  deliberately deferred to Sakai Corollaries 1.15.5--1.15.6. Current Mathlib also lacks the
+  concrete $B(H)$/double-commutant bridge, but it is not needed for Proposition 1.15.1.
 - **Overlap evidence:** pinned Mathlib is
   `476ab284693e554a6b48c5f5210cb4fb5ae51252`; audited current Mathlib still has the same
   representation gap; original LeanOA
   `cb811c1006ae78a0ff1d175253200e1859843370` adds no concrete WOT/SOT/predual bridge.
-- **Decision so far:** reuse Mathlib WOT and pointwise/SOT, use only the one dedicated
+- **Decision:** reuse Mathlib WOT and pointwise/SOT, use only the one dedicated
   square-summable convergence carrier that the source semantics require, introduce no local
-  replacement predual, and assemble no source-facing theorem from stronger assumptions. Keep the
-  intrinsic and concrete topology families explicitly distinct. Add no source-theorem Verso node for
-  Proposition 1.15.1 while the proposition is unproved; independently useful proved
-  infrastructure may be documented as such.
-- **Next bounded action:** assemble the five global closedness predicates and prove their
-  source-faithful equivalence, using the one-way topology maps and relative unit-ball density.
-  Keep the later coefficient-series representation theorem separate. The public frontier remains
-  Proposition 1.15.1.
+  replacement predual, and keep the intrinsic and concrete topology families explicitly distinct.
+  The source theorem uses exactly the source hypotheses and one-way maps, with no later topology
+  equality imported.
+- **Next bounded action:** audit Proposition 1.15.2 directly, especially the induced predual of a
+  weakly closed self-adjoint subalgebra and the subtype/restriction topology APIs. The public
+  frontier is Proposition 1.15.2.

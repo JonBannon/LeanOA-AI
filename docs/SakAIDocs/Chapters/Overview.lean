@@ -146,31 +146,24 @@ quantifiers.  Section 1.14 is now complete.  Its functional-support theory
 feeds the support characterization of Sakai's norm orthogonality, the unique
 orthogonal positive/negative decomposition of a self-adjoint normal
 functional, and the unique right polar decomposition of an arbitrary normal
-functional.  The current source frontier is Proposition 1.15.1 in *Concrete
-$`C^*`-Algebras and $`W^*`-Algebras*.  The direct audit establishes that it
-compares global closedness of a self-adjoint subalgebra of $`B(\mathcal H)`
-in WOT, $`\sigma`-WOT, SOT, the square-summable-vector ultrastrong topology,
-and $`\sigma(B(\mathcal H),B(\mathcal H)_*)`.  It is not yet
-source-formalized.  The finite vector-functional layer is now complete: its
-span is invariant under star and fixed multiplication, induces Mathlib WOT
-in both directions, and is the full WOT-continuous dual.  The norm-completed
-coefficient space is now proved to be a specified predual of
-$`B(\mathcal H)` by a more general isometric duality theorem for bounded maps
-into any complete Hilbert space.  The source's countable, separately
-square-summable coefficient series now converge in that predual and generate
-a test space receiving a continuous identity from the full concrete-predual
-topology.  This proves only the required one-sided $`\sigma`-WOT comparison;
-the converse representation theorem is intentionally deferred.  The
-ambient-relative Kaplansky bridge is now proved against an explicit
-test-weak-closure target and instantiated with Mathlib's WOT closure on
-$`B(\mathcal H)`.  In particular, the source unit ball is Mackey dense in
-the unit ball of its WOT closure.  The concrete ultrastrong bridge is now
-proved in the exact one-way form needed here: intrinsic strong maps
-continuously to square-summable-vector ultrastrong convergence, which maps
-continuously to pointwise/SOT.  The final five-way global closedness assembly
-is the next source-critical transaction.
+functional.  Proposition 1.15.1 is now source-formalized: for a possibly
+nonunital self-adjoint subalgebra of $`B(\mathcal H)`, global closedness in
+WOT, coefficient-series $`\sigma`-WOT, SOT, concrete ultrastrong convergence,
+and the concrete-predual ultraweak topology is equivalent.  The proof joins
+the finite vector-functional WOT model, the norm-completed concrete predual,
+the two source-safe one-way topology comparisons, intrinsic real-convex
+closure transport, and relative Kaplansky density in the WOT closure.  It
+does not assume the converse series representation or either topology
+equality later stated in Corollary 1.15.6.
 
-Sakai Proposition 1.15.1: NOT SOURCE-FORMALIZED
+The current exact numbered frontier is Proposition 1.15.2: bounded-sphere
+equivalence of the weak-family and strong-family topologies on a weakly closed
+self-adjoint subalgebra.  The next bounded transaction is a direct source and
+API audit of that result, especially the induced predual $`N_*` and the
+subtype topology interfaces.
+
+Sakai Proposition 1.15.1: SOURCE-FORMALIZED
+Sakai Proposition 1.15.2: NOT SOURCE-FORMALIZED
 
 # Migration parity
 

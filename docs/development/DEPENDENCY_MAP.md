@@ -102,7 +102,11 @@ support_le_iff_apply_eq_apply_one + support-zero implies norm orthogonality [GRE
         ↓
       Ultraweak.existsUnique_functional_polar_decomposition [Sakai 1.14.4] [GREEN]
         ↓
-      Section 1.15 topology/API audit and Proposition 1.15.1 [frontier]
+      Section 1.15 topology/API audit
+        ↓
+      Proposition 1.15.1 global operator-topology closedness [GREEN]
+        ↓
+      Proposition 1.15.2 bounded-sphere topology comparison [frontier]
 ```
 
 ```text
@@ -127,6 +131,8 @@ specified-predual Ultraweak σ(M,P)
 Strong.image_closure_toUltraweakEquiv
   ↓
 Strong.isClosed_iff_image_toUltraweakEquiv [real-convex intrinsic bridge; GREEN]
+  ↓
+Strong.isClosed_ofStrong_preimage_iff_ofUltraweak_preimage [ambient-set bridge; GREEN]
 
 [GREEN] finite vector-coefficient realization of WOT
   ↓
@@ -134,12 +140,17 @@ Strong.isClosed_iff_image_toUltraweakEquiv [real-convex intrinsic bridge; GREEN]
   ↓
 [GREEN] countable coefficient-series test space
   + [GREEN] full-predual topology → series-test topology
+  + [GREEN] series-test topology → finite-core topology → Mathlib WOT
   ↓
 [DEFERRED to Cor. 1.15.5--1.15.6] converse series representation / topology equality
   + [GREEN] intrinsic s → concrete ultrastrong → pointwise/SOT
   + [GREEN] relative Kaplansky density in Mathlib's WOT closure
   ↓
-Sakai Proposition 1.15.1 [NOT SOURCE-FORMALIZED; final five-way assembly next]
+ultraweak closed → WOT closure equals source [unit-ball normalization; GREEN]
+  ↓
+Sakai Proposition 1.15.1 [SOURCE-FORMALIZED; GREEN]
+  ↓
+Sakai Proposition 1.15.2 [frontier; source/API audit next]
 ```
 
 ## Current junction nodes

@@ -6,6 +6,11 @@ This transaction formalizes the finite vector-coefficient layer used at the begi
 §1.15. It does **not** construct the norm-completed predual of `B(H)`, identify the concrete
 σ-WOT with a predual weak topology, or prove Proposition 1.15.1.
 
+**Supersession note (2026-09-02):** those limitations describe this historical transaction.
+Subsequent modules construct the concrete predual and one-sided comparison APIs, and
+`NonUnitalStarSubalgebra.operatorTopologyClosedness_tfae` now source-formalizes Proposition
+1.15.1 without asserting equality of the topologies.
+
 In the inspected 1971 edition, Sakai defines WOT on printed page 34 (PDF page 46) by the
 seminorms
 
