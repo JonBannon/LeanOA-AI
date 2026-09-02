@@ -209,3 +209,36 @@ authority for public mathematical completion claims.
   restriction, weak-pairing, and predual APIs before selecting a production statement.
 - **Decision:** `CONTINUE` — the next bounded transaction is a source/API audit with a precise
   outcome and requires no escalation.
+
+## 2026-09-02 — AUT-006 — Sakai Proposition 1.15.2 source and API audit
+
+- **Starting HEAD:** `76b84e9af66525a2a3bdafac4b7ac14388e5c0a3`.
+- **Ending HEAD:** `6fff914d4187b421bed86eed4a0ec7e8d4693051`.
+- **Target:** reconstruct Proposition 1.15.2 directly from Sakai and determine the shortest
+  nonduplicative implementation route through the existing predual and concrete-topology APIs.
+- **Source:** Sakai, Proposition 1.15.2, Section 1.15, printed page 35 / PDF page 47; definitions
+  and context on printed pages 33–34 / PDF pages 45–46.
+- **Result:** certified that “bounded spheres” means zero-centered norm-closed balls and that the
+  source claim is equality of restricted topologies for arbitrary nets. Part 1 compares WOT,
+  coefficient-series sigma-WOT, and intrinsic `sigma(N,N_*)`; part 2 compares SOT, concrete
+  ultrastrong, and intrinsic `s(N,N_*)`. The existing quotient
+  `P_H / Ultraweak.preannihilator N` is the correct induced predual. The next general seam is its
+  evaluation formula and continuous equivalence with the ambient ultraweak subtype. No source
+  theorem was claimed formalized.
+- **Classification:** `SOURCE_AUDIT`.
+- **Overlap audit:** no equivalent proposition or relative weak-star closed-subspace package was
+  found in pinned Mathlib, the available later official Mathlib snapshot, original LeanOA, or the
+  configured LeanOA upstream. Existing Sak-AI quotient-predual, compact-ball, WOT/SOT, series, and
+  ultrastrong APIs cover the underlying ingredients.
+- **Validation:** lint passed; the 3,560-job clean Verso theorem/site build and generated-site check
+  passed. The site remains at 127 nodes, 233 statement edges, and 615 manifest/cache entries. The
+  conflict, proof-debt, and `git diff --check` scans passed. Only known pinned Verso/SubVerso
+  warnings remain.
+- **Blockers discovered:** none. The induced-predual carrier coercions and later positive-square
+  maps are engineering work. Typeclass structures on the possibly nonunital algebra subtype must
+  remain explicit/local to avoid coherence problems.
+- **Next target:** prove the general quotient-predual/ambient-subspace topology equivalence and
+  Sakai Proposition 1.15.2 part 1 on norm-closed balls; defer the strong-family half to the next
+  positive-square transaction.
+- **Decision:** `CONTINUE` — source meaning and architecture are fixed, so implementation can
+  proceed without escalation.

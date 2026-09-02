@@ -18,8 +18,8 @@ active_source:
   source: Sakai, C*-Algebras and W*-Algebras (1971)
   section: "1.15"
   theorem: Proposition 1.15.2
-  status: NOT SOURCE-FORMALIZED
-  target_area: direct source and induced-predual bounded-sphere API audit
+  status: SOURCE-AUDITED; NOT SOURCE-FORMALIZED
+  target_area: induced quotient-predual topology bridge and weak-family closed balls
 
 status: active
 
@@ -42,34 +42,50 @@ last_mathematical_transaction:
 
 current_blockers: []
 
-next_transaction:
+last_source_audit:
+  commit: 6fff914d4187b421bed86eed4a0ec7e8d4693051
   classification: SOURCE_AUDIT
+  summary: >-
+    Directly verified Proposition 1.15.2 on printed page 35, fixed
+    Sakai's bounded-sphere terminology as zero-centered norm-closed balls,
+    and audited pinned/current Mathlib, original/upstream LeanOA, and Sak-AI.
+    The existing quotient by the preannihilator is the correct induced
+    predual; the missing seam is its evaluation and ambient-subspace topology
+    equivalence. The source theorem remains unformalized.
+  checks:
+    lint: pass
+    docs: pass
+    proof_debt_scan: pass
+
+next_transaction:
+  classification: SOURCE_THEOREM_PART
   target: >-
-    Read Sakai Proposition 1.15.2 directly and audit the pinned Mathlib and
-    Sak-AI APIs needed to state it faithfully, especially the meaning of its
-    bounded spheres, the induced predual N_*, and the relevant subtype,
-    restriction, and relative-topology constructions.
+    Prove at general RCLike closed-submodule generality that the canonical
+    quotient predual induces exactly the ambient ultraweak subspace topology,
+    package it safely for a WOT-closed possibly nonunital star subalgebra of
+    B(H), and formalize the WOT, coefficient-series sigma-WOT, and intrinsic
+    sigma(N,N_*) equivalence on every norm-closed ball.
   scratch_targets:
-    - Scratch/WS15TProp1152SourceProbe.lean
-    - Scratch/WS15USubtypeTopologyProbe.lean
-  enables: a source-faithful, architecturally coherent Proposition 1.15.2 production transaction
-  confidence: high
+    - Scratch/WS15WClosedSubmodulePredualProbe.lean
+    - Scratch/WS15XWeakBallProbe.lean
+  enables: Sakai Proposition 1.15.2 part 1 and the weak-square dependency for part 2
+  confidence: medium
 
 next_candidates:
-  - target: source-faithful implementation of Proposition 1.15.2
-    reason: follows once the induced-predual and bounded-sphere semantics are fixed by the audit
+  - target: positive-square strong-family closed-ball equivalence
+    reason: this is Proposition 1.15.2 part 2 and reuses the weak-family bounded theorem
     confidence: medium
-  - target: Sakai Theorem 1.15.3 on trace-class representation
-    reason: supplies the later source route to normal-functional representation and topology equality
+  - target: exact two-clause Proposition 1.15.2 packaging and Verso node
+    reason: source completion follows after both bounded-family halves kernel-check
     confidence: medium
 
 continuation:
   decision: continue
   rationale: >-
-    Proposition 1.15.1 is source-formalized and fully validated. Proposition
-    1.15.2 is the next source result, but its induced-predual and bounded-sphere
-    formulations require a direct source/API audit before an honest Lean
-    statement is selected.
+    The source and API audit removed the only statement-level uncertainty.
+    The quotient predual already exists, the missing topology bridge has a
+    canonical general formulation, and the weak-family proof is determined by
+    compactness and the established one-way concrete topology maps.
 
 escalation:
   required: false
