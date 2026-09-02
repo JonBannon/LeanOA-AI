@@ -289,10 +289,13 @@ closedness—equivalent to WOT closedness in this setting—to reuse the weak-fa
 comparison. This is a future Mathlib-portability improvement, not a blocker for the separately
 source-formalized Proposition 1.15.2(2). The exact source-order package is now
 `NonUnitalStarSubalgebra.IsWOTClosed.operatorTopologyClosedBallAgreement`, so Proposition 1.15.2
-is source-formalized without any global topology-equality claim. The next source/API audit is
-Theorem 1.15.3. It must re-check the intervening infinite-dimensional Hilbert--Schmidt and
-trace-class infrastructure in Mathlib and Sak-AI before choosing a carrier or treating the earlier
-reconnaissance below as exhaustive.
+is source-formalized without any global topology-equality claim. The direct source/API audit of
+Theorem 1.15.3 is now complete; see `reports/SAKAI_1_15_3_SOURCE_AND_API.md`. It confirms that
+neither pinned nor audited current Mathlib supplies an infinite-dimensional Hilbert--Schmidt,
+positive-trace, trace-class/Schatten, or nuclear-operator carrier. In particular,
+`LinearMap.trace` falls back to zero outside its finite-basis setting and cannot express Sakai's
+trace. The exact source statement and prerequisite chain are fixed, but the theorem remains not
+source-formalized and no permanent trace-class carrier has been chosen.
 
 ### Finite vector-functional layer and completion reconnaissance
 
@@ -303,7 +306,7 @@ WOT-continuous dual. Classification: `LOCAL BRIDGE NEEDED`, now implemented with
 type. The intrinsic dual involution reuses Mathlib's `WithConv` star rather than defining another
 dual-star operation.
 
-Neither pinned Mathlib nor the official `master` tree inspected on 2026-09-01 supplies a ready
+Neither pinned Mathlib nor the official `master` tree inspected again on 2026-09-02 supplies a ready
 infinite-dimensional `TraceClass`, `HilbertSchmidt`, Schatten, or nuclear-operator ideal suitable
 as `B(H)_*`. Pinned Mathlib does supply rank-one maps, Hilbert-basis/ℓ² infrastructure, algebraic
 tensor products, and projective seminorm machinery; current `SingularValues` remains

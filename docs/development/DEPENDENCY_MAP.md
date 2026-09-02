@@ -113,7 +113,10 @@ support_le_iff_apply_eq_apply_one + support-zero implies norm orthogonality [GRE
       Proposition 1.15.2 exact source-order two-clause package
         [GREEN; SOURCE-FORMALIZED]
         ↓
-      Theorem 1.15.3 direct source/API audit [frontier]
+      Theorem 1.15.3 exact statement/prerequisite audit
+        [SOURCE-CHECKED; SOURCE-MAPPED; theorem not formalized]
+        ↓
+      arbitrary-index ENNReal operator-energy identity [frontier]
 ```
 
 ```text
@@ -170,7 +173,10 @@ positive-square strong-family equivalence on norm-closed balls [Sakai 1.15.2(2);
 NonUnitalStarSubalgebra.IsWOTClosed.operatorTopologyClosedBallAgreement
   [Sakai Proposition 1.15.2; exact source order; SOURCE-FORMALIZED; GREEN]
   ↓
-Sakai Theorem 1.15.3 direct source/API audit [frontier]
+Sakai Theorem 1.15.3 exact statement/prerequisite audit
+  [SOURCE-CHECKED; SOURCE-MAPPED; theorem not formalized]
+  ↓
+arbitrary-index ENNReal operator-energy identity [frontier]
 ```
 
 ## Current junction nodes

@@ -280,7 +280,12 @@ in their workstream.
 - **Deferred generality opportunity:** prove SOT = ultrastrong on an arbitrary
   operator-norm-bounded set, with no closed-algebra hypothesis. The current source proof does not
   need that stronger interface, so it is not a blocker.
-- **Next bounded action:** audit Theorem 1.15.3 directly from Sakai and re-audit the available
-  Mathlib and Sak-AI APIs for the intervening infinite-dimensional Hilbert--Schmidt and trace-class
-  development. Fix the exact isometric and positivity statement before introducing a trace-class
-  carrier. No bounded-ball result is to be advertised as a global topology equality.
+- **Theorem 1.15.3 source/API audit:** COMPLETE. The source target is the arbitrary-Hilbert-space
+  linear isometric identification `a ↦ (x ↦ Tr(xa))` of trace-class operators with the existing
+  concrete predual, with positivity preserved and reflected. The prerequisite chain and current
+  Mathlib/Sak-AI gaps are recorded in `reports/SAKAI_1_15_3_SOURCE_AND_API.md`. This is a source
+  map, not a theorem proof.
+- **Next bounded action:** prove the representation-neutral arbitrary-index `RCLike`
+  Hilbert--Schmidt operator-energy/adjoint equality in `ℝ≥0∞`, first in scratch and then in the
+  weakest useful production layer if its API is clean. Do not introduce a trace-class carrier in
+  this transaction. No bounded-ball result is to be advertised as a global topology equality.

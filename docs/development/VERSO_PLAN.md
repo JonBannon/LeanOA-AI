@@ -55,9 +55,12 @@ strong-family comparison supplies the clause (2) node for arbitrary filters on t
 The full source node links
 `NonUnitalStarSubalgebra.IsWOTClosed.operatorTopologyClosedBallAgreement`, which packages those
 clauses in Sakai's printed order while retaining all six topology carriers and explicitly denying
-global topology equality. The public current frontier is now a direct source/API audit of Theorem
-1.15.3; do not create a source-theorem node for it before the exact trace-class statement and its
-available infrastructure have been checked.
+global topology equality. The direct source/API audit of Theorem 1.15.3 is complete: its exact
+arbitrary-Hilbert-space isometry and two-way positivity clause are source-checked, its
+prerequisites are source-mapped, and the theorem is not source-formalized. Do not create a
+source-theorem node for it before the independent positive trace and trace-class statement are
+kernel-proved. The next safe production candidate is the carrier-neutral arbitrary-index ENNReal
+operator-energy identity.
 
 The first Section 1.15 transaction completes the direct source and API audit but does not complete
 Proposition 1.15.1. Do not create a theorem node or declaration link for it. The public current

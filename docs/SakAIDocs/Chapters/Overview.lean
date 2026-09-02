@@ -177,16 +177,23 @@ printed order, while the underlying API supplies canonical homeomorphisms
 and arbitrary-filter convergence equivalences.  These bounded-ball results
 do not assert global equality of any of the six ambient topologies.
 
-The next exact numbered frontier is Theorem 1.15.3.  The next bounded
-transaction is a direct source and API audit of Sakai's Hilbert--Schmidt and
-trace-class development, fixing the precise isometric and positivity
-statement and rechecking Mathlib and Sak-AI before any new infinite-
-dimensional trace-class object is introduced.
+The next exact numbered frontier is Theorem 1.15.3.  Its direct source and
+API audit is complete: the target is the linear isometric identification
+$`a \mapsto (x \mapsto \operatorname{Tr}(xa))` for an arbitrary complex
+Hilbert space, with positivity preserved and reflected.  The prerequisites
+are source-mapped, but the theorem is not source-formalized and current
+Mathlib supplies no infinite-dimensional Hilbert--Schmidt or trace-class
+carrier.  The next bounded step is the representation-neutral,
+arbitrary-index extended-real operator-energy identity; it selects no
+trace-class semantics.
 
 Sakai Proposition 1.15.1: SOURCE-FORMALIZED
 Sakai Proposition 1.15.2(1): SOURCE-FORMALIZED
 Sakai Proposition 1.15.2(2): SOURCE-FORMALIZED
 Sakai Proposition 1.15.2: SOURCE-FORMALIZED
+Sakai Theorem 1.15.3 statement: SOURCE-CHECKED
+Sakai Theorem 1.15.3 prerequisites: SOURCE-MAPPED
+Sakai Theorem 1.15.3: NOT SOURCE-FORMALIZED
 
 # Migration parity
 

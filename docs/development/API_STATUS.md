@@ -39,6 +39,7 @@ promise of permanent immutability.
 
 | Area | Owner | Reason / consumers | Stabilization criterion |
 | --- | --- | --- | --- |
+| Infinite-dimensional Hilbert--Schmidt / positive trace / trace class | Section 1.15 | Sakai Theorem 1.15.3 is source-checked and source-mapped, but current Mathlib and Sak-AI have no suitable carrier. The exact target must reuse the existing coefficient predual and preserve `Tr(xa)` orientation and two-way positivity. | Kernel-prove a basis-independent positive trace and source-equivalent `Tr(|a|) < ∞` carrier, then package the isometric equivalence without a competing predual. |
 | Mirrored Mathlib extension layer | architecture + Mathlib reconnaissance | Some declarations may move upstream or be replaced by newer Mathlib APIs. | Per-module overlap audit and a migration plan for any upstream replacement. |
 | Broader positive-functional / representation assembly | architecture | Functional support, orthogonal Jordan decomposition, and general functional polar decomposition are stable focused slices, but Sak-AI still has no separate broad representation layer beyond Mathlib GNS and these APIs. | A later Sakai consumer demonstrates another missing interface and design review chooses its home. |
 | Legacy mathematical typography in Verso | Verso stream | Existing source consistently uses older plain-text forms; new prose follows the recorded convention. | One systematic documentation-only migration, not scattered edits. |

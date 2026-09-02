@@ -371,12 +371,19 @@ printed order, backed by canonical homeomorphisms and arbitrary-filter
 convergence equivalences.  No global equality of these topologies is
 claimed.
 
-The next exact numbered frontier is Theorem 1.15.3.  Work begins with a
-direct source and API audit of Sakai's Hilbert--Schmidt and trace-class
-development before introducing any new infinite-dimensional trace-class
-object.
+The next exact numbered frontier is Theorem 1.15.3.  Its direct source and
+API audit is complete: Sakai identifies the independently defined
+trace-class Banach space with the existing concrete predual by
+$`a \mapsto (x \mapsto \operatorname{Tr}(xa))` and includes a two-way
+positivity clause, with no separability hypothesis.  The prerequisites are
+source-mapped, but the theorem is not source-formalized.  The next bounded
+step is the carrier-neutral arbitrary-index extended-real operator-energy
+identity.
 
 Sakai Proposition 1.15.1: SOURCE-FORMALIZED
 Sakai Proposition 1.15.2(1): SOURCE-FORMALIZED
 Sakai Proposition 1.15.2(2): SOURCE-FORMALIZED
 Sakai Proposition 1.15.2: SOURCE-FORMALIZED
+Sakai Theorem 1.15.3 statement: SOURCE-CHECKED
+Sakai Theorem 1.15.3 prerequisites: SOURCE-MAPPED
+Sakai Theorem 1.15.3: NOT SOURCE-FORMALIZED

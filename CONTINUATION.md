@@ -176,9 +176,14 @@ clause (2) uses filter-general positive-square bridges and canonical bounded-bal
 among SOT, concrete ultrastrong, and intrinsic strong. This does not assert global equality of
 those topologies, use a trace-class representation theorem, weaken nets to sequences, or add an
 unitality or factor hypothesis. The series topology remains the existing weak pairing against
-Sakai's raw coefficient series, not a new synonym. The next exact numbered frontier is Theorem
-1.15.3, beginning with a direct source/API audit of the Hilbert--Schmidt and trace-class
-development.
+Sakai's raw coefficient series, not a new synonym. The direct source/API audit of Theorem 1.15.3
+is complete. Its exact target is the arbitrary-Hilbert-space linear isometric identification
+`a ↦ (x ↦ Tr(xa))` of the independently defined trace-class Banach space with the existing
+concrete predual, including preservation and reflection of positivity. Neither pinned nor audited
+current Mathlib supplies the required infinite-dimensional Hilbert--Schmidt, positive-trace, or
+trace-class layer. The next bounded transaction is the carrier-neutral arbitrary-index `RCLike`
+operator-energy/adjoint identity in `ℝ≥0∞`; no trace-class carrier has been selected and Theorem
+1.15.3 is not source-formalized.
 
 The implemented public design is:
 

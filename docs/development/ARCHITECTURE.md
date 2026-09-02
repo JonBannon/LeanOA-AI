@@ -113,7 +113,11 @@ the ambient ultraweak subspace topology at general ultraweakly-closed-submodule 
 generality. `NonUnitalStarSubalgebra.IsWOTClosed.operatorTopologyClosedBallAgreement` packages the
 weak-family and strong-family homeomorphisms in their exact printed order while retaining all six
 topology carriers; it does not assert any global topology equality. The exact numbered frontier is
-now the direct source/API audit of Theorem 1.15.3.
+Theorem 1.15.3. Its direct source/API audit is complete: it fixes the arbitrary-Hilbert-space
+trace-pairing isometry and its two-way positivity clause, while recording that the
+infinite-dimensional positive trace, Hilbert--Schmidt, and trace-class layers are absent from
+current Mathlib. The next bounded architectural step is the carrier-neutral arbitrary-index
+`RCLike` operator-energy identity in `ℝ≥0∞`.
 
 The first Section 1.15 transaction fixes the topology boundary without filling it by notation.
 Mathlib's `ContinuousLinearMapWOT` is the concrete weak operator topology, and
@@ -179,7 +183,10 @@ A cleaner direct proof that SOT and ultrastrong agree on every arbitrary operato
 subset—without any closed-algebra hypothesis—would improve the reusable concrete API. It is
 deliberately deferred because the present source-faithful route is complete without it. The exact
 source-order package is now
-`NonUnitalStarSubalgebra.IsWOTClosed.operatorTopologyClosedBallAgreement`. The next architectural
-transaction is a direct source and API audit of Theorem 1.15.3, including the intervening
-Hilbert--Schmidt and trace-class infrastructure, before any new infinite-dimensional operator ideal
-is introduced.
+`NonUnitalStarSubalgebra.IsWOTClosed.operatorTopologyClosedBallAgreement`. The direct source and
+API audit of Theorem 1.15.3 is complete. The exact source target is a linear isometric
+identification `a ↦ (x ↦ Tr(xa))` with the existing coefficient predual, including preservation
+and reflection of positivity, for an arbitrary complex Hilbert space. No permanent trace-class
+carrier is yet selected. Before the later architectural choice between a Hilbert--Schmidt-first
+construction and a source-faithful predual-range proof, the common next step is a
+basis-independent extended-real operator-energy theorem at arbitrary-index `RCLike` generality.

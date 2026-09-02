@@ -50,8 +50,11 @@ strong on the same balls. The reusable foundations identify the quotient-predual
 topology with the ambient ultraweak subspace topology and construct the intrinsic strong topology
 from that quotient predual. The strong comparison reduces arbitrary-filter convergence to weak
 convergence of the bounded positive-square errors $(x_i-x)^*(x_i-x)$ and reuses the weak-family
-homeomorphisms. No global topology equality is claimed. The next numbered frontier is a direct
-source/API audit of Theorem 1.15.3.
+homeomorphisms. No global topology equality is claimed. The direct source/API audit of Theorem
+1.15.3 is complete: the exact nonseparable isometric and positivity statement is source-checked,
+its prerequisites are source-mapped, and the theorem is not yet source-formalized. The next safe
+prerequisite is the arbitrary-index extended-real Hilbert--Schmidt operator-energy identity; it
+commits to no trace-class carrier.
 Scratch checks a nontrivial
 refinement-plus-mesh filter and the complete competing-resolution support/uniqueness chain under an
 explicit left-endpoint moment limit. The public document accurately stops before those candidate
@@ -103,9 +106,13 @@ longer part of the build or deployment.
    1.14.4. Proposition 1.15.1 and Proposition 1.15.2 are source-formalized. The latter packages
    both printed topology chains on every norm-closed ball through the explicit quotient predual,
    canonical homeomorphisms, arbitrary-filter convergence, and the positive-square reduction. Do
-   not infer a global topology equality from these bounded results. The next bounded slice is a
-   direct source/API audit of Theorem 1.15.3, beginning with its Hilbert--Schmidt and trace-class
-   prerequisites. No resolution, integral, or PVM structure becomes public before a genuine
+   not infer a global topology equality from these bounded results. The direct source/API audit of
+   Theorem 1.15.3 is complete and records the exact arbitrary-Hilbert-space isometry, its two-way
+   positivity clause, and the missing infinite-dimensional operator-ideal infrastructure. The
+   next bounded slice is the representation-neutral arbitrary-index `RCLike` operator-energy
+   identity in extended nonnegative reals. No trace-class carrier is selected by that step, and
+   Theorem 1.15.3 remains not source-formalized. No resolution, integral, or PVM structure becomes
+   public before a genuine
    mathematical interface fixes it.
 
 Do not create a second theorem-status registry: Verso blocks and `uses` references are the

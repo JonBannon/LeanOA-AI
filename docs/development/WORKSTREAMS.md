@@ -767,9 +767,17 @@ This audit starts from `76b84e9` and fixes the exact target before topology impl
 - **Source status:** Sakai Proposition 1.15.2 is **SOURCE-FORMALIZED** in one exact two-clause
   source-facing declaration. This status concerns equality of the restricted topologies on
   norm-closed balls and does not assert global topology equality.
-- **Next bounded transaction:** audit Theorem 1.15.3 directly from the source, including the
-  intervening Hilbert--Schmidt and trace-class development, and re-audit Mathlib and Sak-AI before
-  selecting any infinite-dimensional trace-class representation.
+- **WS-15Z, Theorem 1.15.3 source/API audit:** COMPLETE. The exact target is the
+  arbitrary-Hilbert-space linear isometric identification `a ↦ (x ↦ Tr(xa))` of the independently
+  defined trace-class Banach space with the existing coefficient predual, including preservation
+  and reflection of positivity. The intervening source chain is mapped, and pinned plus audited
+  current Mathlib contain no infinite-dimensional Hilbert--Schmidt, positive-trace, trace-class,
+  Schatten, or nuclear-operator layer. See `reports/SAKAI_1_15_3_SOURCE_AND_API.md`. This status is
+  `SOURCE-CHECKED` / `SOURCE-MAPPED`, not `SOURCE-FORMALIZED`.
+- **Next bounded transaction:** scratch-test and, if clean, promote the arbitrary-index `RCLike`
+  ENNReal operator-energy/adjoint identity. It is common representation-neutral infrastructure;
+  it must not introduce a Hilbert--Schmidt or trace-class carrier. Choosing the permanent
+  trace-class semantic core remains a later architectural decision.
 
 Collision rule: do not introduce another predual class or topology synonym, do not use the
 choice-based W-star predual as a substitute for the explicit quotient restriction map, and do not

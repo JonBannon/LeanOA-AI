@@ -29,7 +29,12 @@ zero-centered norm-closed ball. On the same balls, SOT, concrete ultrastrong top
 intrinsic strong topology agree. The source-facing API packages both three-topology chains in
 Sakai's printed order, while the underlying modules supply canonical homeomorphisms and
 arbitrary-filter convergence corollaries. These bounded-set results do not claim global equality
-of the topologies. The next numbered frontier is a direct source and API audit of Theorem 1.15.3.
+of the topologies. The direct source and API audit of Theorem 1.15.3 is complete: the target is the
+nonseparable linear isometric identification of trace-class operators with the existing concrete
+predual, with positivity preserved and reflected. Current Mathlib supplies no infinite-dimensional
+Hilbert--Schmidt or trace-class carrier. The next bounded step is the representation-neutral,
+arbitrary-index `RCLike` Hilbert--Schmidt energy identity in extended nonnegative reals; Theorem
+1.15.3 itself is not yet source-formalized.
 
 - [Sak-AI documentation site](https://jonbannon.github.io/Sak-AI/)
 - [API documentation](https://jonbannon.github.io/Sak-AI/docs/)

@@ -468,8 +468,12 @@ source-facing endpoint
 {name}`NonUnitalStarSubalgebra.IsWOTClosed.operatorTopologyClosedBallAgreement`.
 It contains only the four adjacent identity homeomorphisms in Sakai's two
 printed chains; it adds no carrier or competing topology.  This completes
-Proposition 1.15.2 and makes a direct source/API audit of Theorem 1.15.3 the
-next numbered library step.
+Proposition 1.15.2.  The direct source/API audit of Theorem 1.15.3 is now
+complete: its exact arbitrary-Hilbert-space trace-pairing isometry and
+two-way positivity clause are fixed, the missing infinite-dimensional
+operator-ideal prerequisites are recorded, and the theorem remains not
+source-formalized.  The next library step is the carrier-neutral
+arbitrary-index extended-real operator-energy identity.
 
 # Portability rule
 
