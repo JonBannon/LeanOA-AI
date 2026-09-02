@@ -175,3 +175,37 @@ authority for public mathematical completion claims.
 - **Next target:** the final five-way global closedness theorem for Proposition 1.15.1.
 - **Decision:** `CONTINUE` — every source-required one-way bridge is now present, so the final
   assembly is the shortest honest next transaction.
+
+## 2026-09-02 — AUT-005 — Sakai Proposition 1.15.1 closedness equivalence
+
+- **Starting HEAD:** `79196ccf10629df7c8875278a79e8c43ba141e5d`.
+- **Ending HEAD:** `966f56ddda385db7e67a7af3a0cca4ecd1c25df2`.
+- **Target:** assemble Sakai's five equivalent global closedness conditions for a possibly
+  nonunital self-adjoint subalgebra of `B(H)` without importing the later equality of topologies.
+- **Source:** Sakai, Proposition 1.15.1, Section 1.15, printed page 35.
+- **Result:** formalized the five predicates in source order—WOT, coefficient-series sigma-WOT,
+  SOT, concrete ultrastrong, and concrete-predual ultraweak closedness—and proved their exact
+  `List.TFAE` equivalence. The forward chain uses generic continuous restriction maps and the
+  intrinsic convex closedness bridge. The reverse implication uses the established relative
+  Kaplansky unit-ball theorem followed by scalar normalization. No converse series
+  representation, topology equality, or trace-class identification is claimed.
+- **Classification:** `SOURCE_THEOREM`.
+- **Important declarations:**
+  `Ultraweak.testWeakRestrictionL`,
+  `Ultraweak.isClosed_testWeak_of_le`,
+  `Ultraweak.Strong.isClosed_ofStrong_preimage_iff_ofUltraweak_preimage`,
+  `ContinuousLinearMapWOT.vectorFunctionalSeriesWeakToWOTL`,
+  `NonUnitalStarSubalgebra.IsUltraweakClosed.wotClosure_eq`,
+  `NonUnitalStarSubalgebra.operatorTopologyClosedness_tfae`, and the four named
+  `isWOTClosed_iff_*` corollaries.
+- **Validation:** full 3,199-job theorem build, lint, clean Verso site build/check,
+  generated-artifact counts, principal axiom audit, conflict and proof-debt scans, and
+  `git diff --check` passed. Verso reports 127 nodes, 233 statement edges, and 615
+  manifest/cache entries; its only warnings are replayed from pinned Verso/SubVerso dependencies.
+- **Blockers discovered:** none. Proposition 1.15.2 still requires a direct source/API audit of
+  its bounded-sphere terminology and its use of the induced predual `N_*`; this is statement
+  translation work rather than a blocker inherited by Proposition 1.15.1.
+- **Next target:** audit Proposition 1.15.2 against the source and the existing subtype,
+  restriction, weak-pairing, and predual APIs before selecting a production statement.
+- **Decision:** `CONTINUE` — the next bounded transaction is a source/API audit with a precise
+  outcome and requires no escalation.

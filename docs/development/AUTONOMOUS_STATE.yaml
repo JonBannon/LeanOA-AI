@@ -7,7 +7,7 @@ governor:
 repository:
   path: /Users/jonbannon/LeanRepos/LeanOA-AI
   branch: master
-  last_validated_mathematical_head: 18e12990fca545ac7fdae1054f1c4d7dfa7f8bda
+  last_validated_mathematical_head: 966f56ddda385db7e67a7af3a0cca4ecd1c25df2
   worktree_at_activation: clean
   origin_ahead_at_activation: 44
   origin_behind_at_activation: 0
@@ -17,22 +17,22 @@ repository:
 active_source:
   source: Sakai, C*-Algebras and W*-Algebras (1971)
   section: "1.15"
-  theorem: Proposition 1.15.1
+  theorem: Proposition 1.15.2
   status: NOT SOURCE-FORMALIZED
-  target_area: final five-way global closedness assembly
+  target_area: direct source and induced-predual bounded-sphere API audit
 
 status: active
 
 last_mathematical_transaction:
-  commit: 18e12990fca545ac7fdae1054f1c4d7dfa7f8bda
-  classification: INFRASTRUCTURE
+  commit: 966f56ddda385db7e67a7af3a0cca4ecd1c25df2
+  classification: SOURCE_THEOREM
   summary: >-
-    Constructed the square-summable-convergence carrier for continuous linear
-    maps, proved its exact square-root-of-tsum seminorm formula and continuous
-    identity to pointwise convergence, and proved the source-required
-    continuous identity s(B(H),P_H) -> USOT using positive diagonal
-    coefficient-series functionals. No converse identity, topology equality,
-    or five-way closedness theorem was claimed.
+    Formalized Sakai Proposition 1.15.1 as the exact five-way global
+    closedness equivalence for a possibly nonunital self-adjoint subalgebra of
+    B(H): WOT, coefficient-series sigma-WOT, SOT, concrete ultrastrong, and
+    concrete-predual ultraweak closedness. The proof uses only source-required
+    one-way comparison maps and relative Kaplansky density; it does not claim
+    equality of the underlying topologies.
   source_reference: Sakai section 1.15, printed page 35
   checks:
     build: pass
@@ -43,33 +43,33 @@ last_mathematical_transaction:
 current_blockers: []
 
 next_transaction:
-  classification: SOURCE_THEOREM
+  classification: SOURCE_AUDIT
   target: >-
-    Assemble the five equivalent global closedness predicates of Sakai
-    Proposition 1.15.1 for a possibly nonunital self-adjoint subalgebra of
-    B(H), using the established WOT, SOT, concrete ultrastrong, concrete
-    coefficient-series, intrinsic ultraweak, and relative Kaplansky APIs.
+    Read Sakai Proposition 1.15.2 directly and audit the pinned Mathlib and
+    Sak-AI APIs needed to state it faithfully, especially the meaning of its
+    bounded spheres, the induced predual N_*, and the relevant subtype,
+    restriction, and relative-topology constructions.
   scratch_targets:
-    - Scratch/WS15QClosednessAssemblyProbe.lean
-    - Scratch/WS15RProp1151Probe.lean
-  enables: source-faithful completion of Sakai Proposition 1.15.1
-  confidence: medium
+    - Scratch/WS15TProp1152SourceProbe.lean
+    - Scratch/WS15USubtypeTopologyProbe.lean
+  enables: a source-faithful, architecturally coherent Proposition 1.15.2 production transaction
+  confidence: high
 
 next_candidates:
-  - target: converse coefficient-series representation and topology equality
-    reason: belongs to Sakai Corollaries 1.15.5--1.15.6 rather than the immediate proposition
+  - target: source-faithful implementation of Proposition 1.15.2
+    reason: follows once the induced-predual and bounded-sphere semantics are fixed by the audit
     confidence: medium
-  - target: positive and general normal functional representation theorems
-    reason: supplies the source route to the deferred topology equalities later in section 1.15
+  - target: Sakai Theorem 1.15.3 on trace-class representation
+    reason: supplies the later source route to normal-functional representation and topology equality
     confidence: medium
 
 continuation:
   decision: continue
   rationale: >-
-    All source-required one-way topology comparisons and the ambient-relative
-    unit-ball density endpoint are now available. The next bounded transaction
-    is the final closedness assembly; it is source-determined and does not
-    require the later converse topology-identification theorems.
+    Proposition 1.15.1 is source-formalized and fully validated. Proposition
+    1.15.2 is the next source result, but its induced-predual and bounded-sphere
+    formulations require a direct source/API audit before an honest Lean
+    statement is selected.
 
 escalation:
   required: false
