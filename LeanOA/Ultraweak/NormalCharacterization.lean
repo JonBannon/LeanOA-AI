@@ -192,3 +192,46 @@ theorem isNormalOnProjections_iff_mem_continuousDual (φ : M →ₚ[ℂ] ℂ) :
 end NonUnital
 
 end PositiveLinearMap
+
+namespace PositiveContinuousLinearMap
+
+/-- Pulling an ultraweakly continuous positive functional back to the underlying C-star algebra
+produces a functional that is normal on projections. -/
+theorem comp_toUltraweakPosCLM_isNormalOnProjections
+    {M P : Type*} [CStarAlgebra M] [PartialOrder M] [StarOrderedRing M]
+    [NormedAddCommGroup P] [NormedSpace ℂ P] [CompleteSpace P] [Predual ℂ M P]
+    (ψ : σ(M, P) →P[ℂ] ℂ) :
+    (ψ.comp (Ultraweak.toUltraweakPosCLM P)).toPositiveLinearMap.IsNormalOnProjections := by
+  let ψM : M →ₚ[ℂ] ℂ :=
+    (ψ.comp (Ultraweak.toUltraweakPosCLM P)).toPositiveLinearMap
+  apply ψM.isNormalOnProjections_of_mem_continuousDual (P := P)
+  exact (Ultraweak.mem_continuousDual_iff_exists_comp_toUltraweakL
+    ψM.toContinuousLinearMap).2 ⟨ψ.toContinuousLinearMap, by
+      ext x
+      simp [ψM]⟩
+
+end PositiveContinuousLinearMap
+
+namespace PositiveLinearMap.IsNormalOnProjections
+
+/-- Conjugation by a fixed element preserves normality of a positive functional. -/
+theorem conjugate
+    {M P : Type*} [CStarAlgebra M] [PartialOrder M] [StarOrderedRing M]
+    [NormedAddCommGroup P] [NormedSpace ℂ P] [CompleteSpace P] [Predual ℂ M P]
+    {φ : M →ₚ[ℂ] ℂ} (hφ : φ.IsNormalOnProjections) (a : M) :
+    (φ.conjugate a).IsNormalOnProjections := by
+  have hφmem : φ.toContinuousLinearMap ∈ Ultraweak.continuousDual ℂ M P :=
+    (φ.isNormalOnProjections_iff_mem_continuousDual (P := P)).mp hφ
+  obtain ⟨φσ, hφσ⟩ :=
+    (Ultraweak.mem_continuousDual_iff_exists_comp_toUltraweakL
+      φ.toContinuousLinearMap).mp hφmem
+  apply (φ.conjugate a).isNormalOnProjections_of_mem_continuousDual (P := P)
+  apply (Ultraweak.mem_continuousDual_iff_exists_comp_toUltraweakL
+    (φ.conjugate a).toContinuousLinearMap).2
+  refine ⟨φσ.comp ((Ultraweak.mulRightL (P := P) a).comp
+    (Ultraweak.mulLeftL (P := P) (star a))), ?_⟩
+  ext x
+  have hx := congrArg (fun f : M →L[ℂ] ℂ ↦ f (star a * x * a)) hφσ
+  simpa [mul_assoc] using hx
+
+end PositiveLinearMap.IsNormalOnProjections

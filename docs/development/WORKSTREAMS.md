@@ -457,10 +457,55 @@ obtain the unique orthogonal decomposition of a self-adjoint normal functional.
   `∃!` theorem. No public choice-based positive/negative parts, decomposition structure, normal-
   functional wrapper, or competing polar decomposition was introduced. The implementation report
   is `reports/SAKAI_1_14_1_1_14_3_JORDAN_DECOMPOSITION.md`.
-- **Next bounded wave:** Sakai Theorem 1.14.4, the polar decomposition of an arbitrary normal
-  functional. Audit the exact partial-isometry, norm, and support clauses before extending the
-  existing functional factorization API.
+- **Downstream outcome:** the separate Sakai 1.14.4 wave completed the general normal-functional
+  polar decomposition after auditing its right-action, norm, support, uniqueness, and final-
+  projection clauses. It is recorded below.
 
 Collision rule: Theorem 1.14.4 work may reuse the self-adjoint-unitary factorization and Jordan
 decomposition, but must not relabel either as the general functional polar decomposition or create
 a second functional-support object.
+
+## Sakai 1.14.4 general functional-polar-decomposition wave
+
+> **Read and obey `docs/development/SAKAI_DESIGN_CONTRACT.md` and the authoritative Sak-AI specifications it references. These requirements govern this workstream. Do not introduce designs inconsistent with them.**
+
+This wave completes Section 1.14 by formalizing the polar decomposition of an arbitrary normal
+functional with the exact source orientation and normalizations.
+
+- **WS-14I, source and overlap audit:** COMPLETE / GREEN. Direct inspection of Sakai fixes
+  `R_v g (x) = g (x * v)` and hence the factorization `g x = φ (x * v)`. The source requires
+  normal positivity of `φ`, equality of norms, `star v * v = s(φ)`, uniqueness of the pair, and
+  $v v^* = s(|g^*|)$. Pinned and audited current Mathlib, original LeanOA, and baseline Sak-AI
+  contain no theorem with those clauses. The source and overlap record is
+  `reports/SAKAI_1_14_4_SOURCE.md`.
+- **WS-14J, shared API:** COMPLETE / GREEN. `PositiveLinearMap.conjugate` and
+  `PositiveLinearMap.conjugate_apply` live at nonunital $C^*$-algebra generality.
+  `PositiveLinearMap.IsNormalOnProjections.conjugate` is the ultraweak normality bridge, while
+  `PositiveLinearMap.support_conjugate_eq_mul_star` transports initial support to final support.
+  The normal pullback helper
+  `PositiveContinuousLinearMap.comp_toUltraweakPosCLM_isNormalOnProjections` was promoted from the
+  prior Jordan proof and that consumer now reuses it.
+- **WS-14K, existence and uniqueness:** COMPLETE / GREEN. The private analytic engine extends the
+  exposed-face argument directly from the self-adjoint unit ball to the full unit ball; it does
+  not route the theorem through the Jordan decomposition or identify the earlier
+  `Ultraweak.PolarDecomposition` with this result.
+  `Ultraweak.existsUnique_functional_polar_decomposition_basic` packages exact right
+  factorization, norm equality, initial support, and pair uniqueness.
+- **WS-14L, source packaging:** COMPLETE / GREEN. `Ultraweak.functionalAbs` deliberately names the
+  unique positive factor required by Sakai. Its normality, existence specification, norm, and
+  uniqueness interfaces are
+  `functionalAbs_isNormalOnProjections`, `functionalAbs_spec`, `norm_functionalAbs`, and
+  `eq_functionalAbs_of_polar_decomposition`. The final-support bridge is
+  `functional_polar_decomposition_final_projection`; the exact source endpoint is
+  `Ultraweak.existsUnique_functional_polar_decomposition`. The full implementation and API record
+  is `reports/SAKAI_1_14_4_FUNCTIONAL_POLAR_DECOMPOSITION.md`.
+- **Architecture outcome:** no `IsPartialIsometry` predicate is introduced. The equation
+  `star v * v = support φ` certifies the established partial-isometry semantics. No normal-
+  functional wrapper, second support, chosen polar element, or decomposition structure is added.
+  The older `Ultraweak.PolarDecomposition` remains the narrower self-adjoint/left-action engine.
+- **Next bounded wave:** audit the source topology and existing Mathlib/Sak-AI APIs for Section
+  1.15, then formalize Proposition 1.15.1 if the exact statement and assumptions are certifiable.
+
+Collision rule: Section 1.15 work may consume `functionalAbs` and the exact polar theorem, but must
+not create another functional absolute value, normal-functional wrapper, or topology merely to
+match source notation.

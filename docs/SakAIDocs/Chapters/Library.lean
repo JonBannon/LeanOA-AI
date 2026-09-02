@@ -10,6 +10,7 @@ import LeanOA.Ultraweak.NormalOrder
 import LeanOA.Ultraweak.Opposite
 import LeanOA.Ultraweak.ElementPolarDecomposition
 import LeanOA.Ultraweak.FunctionalJordanDecomposition
+import LeanOA.Ultraweak.FunctionalPolarDecomposition
 import LeanOA.Ultraweak.FunctionalSupport
 import LeanOA.Ultraweak.OrthogonalProjectionSum
 import LeanOA.Ultraweak.PredualUniqueness
@@ -41,6 +42,8 @@ to the reusable library layers in which they live.
 {index}[null left ideal]
 {index}[orthogonal positive functionals]
 {index}[Jordan decomposition, of a normal functional]
+{index}[polar decomposition, of a normal functional]
+{index}[absolute value, of a normal functional]
 
 # Duality and ultraweak topology
 
@@ -211,6 +214,46 @@ exact additive norm identity.  Complementary carrier projections and the
 positive polar factor remain private implementation data.  No choice-based
 positive/negative-part definitions or second normal-functional structure are
 introduced.
+
+# General functional polar decomposition
+
+The exact Sakai 1.14.4 endpoint is
+{name}`Ultraweak.existsUnique_functional_polar_decomposition`.  Its input is
+the existing continuous-linear-functional representation on a specified
+ultraweak topology.  Its unique pair $`(v,\varphi)` consists of an algebra
+element and an ordinary positive linear map carrying an explicit
+`PositiveLinearMap.IsNormalOnProjections` proof.  The factorization uses the
+source's right-action convention:
+
+$`
+  g(x)=\varphi(xv),
+`
+
+represented by {name}`PositiveLinearMap.cutoff`.  The same theorem includes
+the norm equality, the initial-support equation $`v^*v=s(\varphi)`, and the
+final-support equation $`vv^*=s(\lvert g^*\rvert)`.  Its `ExistsUnique`
+packages uniqueness of the whole pair, not only uniqueness of the positive
+factor.
+
+The canonical positive factor $`\lvert g\rvert` is
+{name}`Ultraweak.functionalAbs`.  Its normality, normalized factorization,
+norm, and recognition interfaces are respectively
+{name}`Ultraweak.functionalAbs_isNormalOnProjections`,
+{name}`Ultraweak.functionalAbs_spec`,
+{name}`Ultraweak.norm_functionalAbs`, and
+{name}`Ultraweak.eq_functionalAbs_of_polar_decomposition`.  The separately
+discoverable final-support lemma is
+{name}`Ultraweak.functional_polar_decomposition_final_projection`; the
+initial-support-only package used internally by the source theorem is
+{name}`Ultraweak.existsUnique_functional_polar_decomposition_basic`.
+
+Conjugation of an ordinary positive functional is the general $`C^*`-level
+operation {name}`PositiveLinearMap.conjugate`.  Normality is preserved by
+{name}`PositiveLinearMap.IsNormalOnProjections.conjugate`, and
+{name}`PositiveLinearMap.support_conjugate_eq_mul_star` supplies the support
+transport needed for the final projection.  No new normal-functional wrapper
+or partial-isometry predicate is introduced: the equation
+$`v^*v=s(\varphi)` already says that the initial product is a projection.
 
 # Element polar decomposition
 

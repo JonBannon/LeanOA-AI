@@ -15,6 +15,26 @@ open scoped ComplexOrder
 
 namespace PositiveLinearMap
 
+section Conjugation
+
+variable {A : Type*} [NonUnitalCStarAlgebra A] [PartialOrder A] [StarOrderedRing A]
+
+/-- Conjugation of a positive functional by an algebra element: `x ↦ φ (a⋆ * x * a)`.
+
+This construction is non-unital and belongs to the ordinary C-star-algebra API; preservation of
+normality is supplied separately by the ultraweak API. -/
+noncomputable def conjugate (φ : A →ₚ[ℂ] ℂ) (a : A) : A →ₚ[ℂ] ℂ :=
+  PositiveLinearMap.mk₀
+    (φ.toContinuousLinearMap.comp
+      (ContinuousLinearMap.mulLeftRight ℂ A (star a) a)).toLinearMap
+    fun _ hx ↦ φ.map_nonneg (star_left_conjugate_nonneg hx a)
+
+@[simp]
+theorem conjugate_apply (φ : A →ₚ[ℂ] ℂ) (a x : A) :
+    φ.conjugate a x = φ (star a * x * a) := rfl
+
+end Conjugation
+
 section Orthogonality
 
 variable {A : Type*} [NonUnitalCStarAlgebra A] [PartialOrder A] [StarOrderedRing A]

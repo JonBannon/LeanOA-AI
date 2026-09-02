@@ -42,10 +42,13 @@ its projection-chain proof dependency, without duplicating Section 1.13 or expos
 policy. Section 1.13 is complete.
 
 The Section 1.14 reading path now includes functional support, Sakai's norm-theoretic Definition
-1.14.1, and the exact unique orthogonal Jordan decomposition in Theorem 1.14.3. Keep the source
-definition visibly distinct from the derived support-product-zero characterization. The public
-current frontier should now point to Sakai Theorem 1.14.4, the polar decomposition of an arbitrary
-normal functional; do not present the earlier self-adjoint-unitary factorization as that theorem.
+1.14.1, the exact unique orthogonal Jordan decomposition in Theorem 1.14.3, and the source-faithful
+general normal-functional polar decomposition in Theorem 1.14.4. Keep the source definition
+visibly distinct from the derived support-product-zero characterization. Present 1.14.4 with its
+right-action convention, norm, initial support, uniqueness, and final support of
+`Ultraweak.functionalAbs` of the adjoint. The older self-adjoint-unitary left factorization is a
+dependency, not the general theorem. Section 1.14 is complete, and the public current frontier
+should now point to the Section 1.15 topology/API audit and Proposition 1.15.1.
 
 ## Work that must wait
 

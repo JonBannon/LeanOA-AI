@@ -91,5 +91,20 @@ generality, preserving Sakai's norm equality as the definition. Theorem 1.14.3 r
 self-adjoint-unitary positive factorization and private complementary corner cutdowns to expose one
 `ExistsUnique` theorem for normal positive parts. Support-product zero is a downstream
 characterization, and no choice-based parts, decomposition structure, normal-functional wrapper,
-or second polar API is public. The next bounded frontier is Theorem 1.14.4, the polar decomposition
-of an arbitrary normal functional.
+or second polar API is public.
+
+Theorem 1.14.4 is implemented downstream in `Ultraweak.FunctionalPolarDecomposition`. The older
+`Ultraweak.PolarDecomposition` is retained as the self-adjoint, self-adjoint-unitary, left-action
+factorization needed by strong-topology work; it is not generalized or renamed into the source
+theorem. The new module instead extends the same exposed-face method directly to the full unit
+ball, then reuses functional support for its carrier and uniqueness arguments. Its convention is
+Sakai's right action `g x = φ (x * v)`. `PositiveLinearMap.conjugate` is placed at nonunital
+$C^*$-algebra generality, while preservation of normality and support transport remain in the
+ultraweak layer. There is still no public partial-isometry predicate: the initial-support equation
+is the established semantic certificate. The choice-based `Ultraweak.functionalAbs` is deliberate
+because Sakai names the unique positive factor $|g|$ and the final-projection clause needs
+$s(|g^*|)$; no choice-based polar element or decomposition structure is introduced.
+
+Section 1.14 is complete. The next bounded frontier is a source, topology, and existing-API audit
+of Section 1.15 followed, if the statement is certifiable against current infrastructure, by
+Proposition 1.15.1.

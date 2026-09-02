@@ -181,9 +181,38 @@ projection to a self-adjoint unitary. No reverse splitting theorem or matching f
 centrality lemma was found. Both reverse steps remain private because the present wave has only one
 consumer; they become upstream candidates only if a second independent use appears. The public
 reusable additions are instead `PositiveLinearMap.support_le_iff_apply_eq_apply_one` and the
-support/norm-orthogonality implications. The next overlap audit should target the exact arbitrary-
-normal-functional polar decomposition of Sakai Theorem 1.14.4, not reinterpret the self-adjoint
-factorization used for Theorem 1.14.3.
+support/norm-orthogonality implications. The exact arbitrary-normal-functional overlap audit has
+now been completed below; it does not reinterpret the self-adjoint factorization used for Theorem
+1.14.3.
+
+## Section 1.14.4 general normal-functional polar decomposition
+
+Pinned Mathlib (`476ab284...`), audited current Mathlib (`567908cf...`), original LeanOA
+(`cb811c...`), and baseline Sak-AI contain no arbitrary normal-functional polar decomposition with
+Sakai's exact right-action, norm, initial-support, uniqueness, and final-support clauses. Existing
+Sak-AI `Ultraweak.PolarDecomposition` is materially narrower: its input is self-adjoint, its
+implementing element is a self-adjoint unitary, and its factorization uses left multiplication.
+It remains a valid internal engine but cannot be relabeled as Theorem 1.14.4.
+
+The completed implementation adds no competing foundational object. It extends the exposed-face
+argument directly to the full unit ball in `Ultraweak.FunctionalPolarDecomposition`, uses the
+existing `PositiveLinearMap.cutoff` for the source formula `g x = φ (x * v)`, and reuses functional
+support for the carrier and uniqueness proofs. `IsStarProjection (star v * v)` follows from the
+initial-support equality, so the absence of a Mathlib `IsPartialIsometry` predicate is not a
+blocker and no local predicate was introduced.
+
+The reusable C-star addition is `PositiveLinearMap.conjugate`, defined at nonunital generality as
+`x ↦ φ (star a * x * a)`. Preservation of projection normality belongs downstream because it
+depends on Sak-AI's specified-predual bridge. The support-transport theorem
+`PositiveLinearMap.support_conjugate_eq_mul_star` is $W^*$-specific. The normal pullback theorem
+`PositiveContinuousLinearMap.comp_toUltraweakPosCLM_isNormalOnProjections` consolidates a repeated
+Sak-AI proof and is now reused by the earlier Jordan module.
+
+`Ultraweak.functionalAbs` is intentionally local rather than an attempted Mathlib replacement: it
+is the unique positive factor of a specified-predual normal functional and is needed to state
+Sakai's final-projection identity as support of the absolute value of the adjoint. No chosen polar
+element, normal-functional bundle, or general ordered-dual absolute value is added. The next
+overlap audit is Section 1.15's topology and API boundary, beginning with Proposition 1.15.1.
 
 ## Radon--Stieltjes refinement audit
 

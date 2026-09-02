@@ -9,8 +9,8 @@ pp. 31--33 (local PDF pp. 43--45) in
 Section 1.14 is **Polar Decomposition of Linear Functionals on a $W^*$-Algebra**.  It ends before
 Section 1.15, **Concrete $C^*$-Algebras and $W^*$-Algebras**, on printed p. 33.
 
-This document is a bounded scope audit only.  It does not mark any result of Section 1.14 as
-source-formalized.
+This document began as a bounded scope audit and originally marked no result of Section 1.14 as
+source-formalized.  The completion addendum records the later production integration.
 
 ## Numbered source inventory
 
@@ -125,3 +125,21 @@ Sakai 1.14.2: normal-positive-functional support projection
 Success should mean that the null ideal, canonical support projection, greatest-zero-projection
 property, cutdown identities, and faithfulness criterion are all kernel-proved and documented.
 It should not automatically launch the full polar-decomposition theorem in the same transaction.
+
+## Completion addendum
+
+Section 1.14 is now complete through Theorem 1.14.4.  Production modules provide Definition
+1.14.1, Definition 1.14.2, Theorem 1.14.3, and the exact general functional polar decomposition
+of Theorem 1.14.4.  The latter uses Sakai's right-action convention
+`R_v phi(x) = phi(x * v)`, proves uniqueness of `(v, phi)`, norm preservation,
+`star v * v = s(phi)`, and `v * star v = s(|g*|)`.
+
+The implementation extends the existing exposed-face factorization architecture downstream; it
+does not relabel the older self-adjoint/left/unitary theorem, introduce a second decomposition
+theory, or add a partial-isometry predicate.  The canonical `Ultraweak.functionalAbs` is published
+only after uniqueness because Sakai's final-projection clause immediately uses `|g*|`.  Direct
+source and production details are in `SAKAI_1_14_4_SOURCE.md` and
+`SAKAI_1_14_4_FUNCTIONAL_POLAR_DECOMPOSITION.md`.
+
+The completed Section 1.14 production code contains no custom axioms, `sorry`, `admit`, or other
+mathematical placeholders.  The next source checkpoint begins in Section 1.15.

@@ -74,6 +74,7 @@ public import LeanOA.Ultraweak.Corner
 public import LeanOA.Ultraweak.Dual
 public import LeanOA.Ultraweak.ElementPolarDecomposition
 public import LeanOA.Ultraweak.FunctionalJordanDecomposition
+public import LeanOA.Ultraweak.FunctionalPolarDecomposition
 public import LeanOA.Ultraweak.FunctionalSupport
 public import LeanOA.Ultraweak.Ideal
 public import LeanOA.Ultraweak.IsUnital

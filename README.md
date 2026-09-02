@@ -17,8 +17,11 @@ families. The converse is genuinely arbitrary-cardinal: a maximal orthogonal dec
 recovers the least upper bound of every projection chain. Section 1.14.2 now constructs the support
 of a normal positive functional from its null left ideal and proves the greatest-zero-projection,
 cutdown, and faithfulness interfaces. Sakai's norm orthogonality and the unique orthogonal Jordan
-decomposition of a self-adjoint normal functional are now formalized through Theorem 1.14.3. The
-next checkpoint is the general normal-functional polar decomposition of Theorem 1.14.4.
+decomposition of a self-adjoint normal functional are now formalized through Theorem 1.14.3.
+Theorem 1.14.4 completes Section 1.14 with the unique polar decomposition of an arbitrary normal
+functional, including its canonical absolute value, norm identity, and initial/final support
+equations. The next checkpoint is the concrete operator-topology audit leading to Sakai
+Proposition 1.15.1.
 
 - [Sak-AI documentation site](https://jonbannon.github.io/Sak-AI/)
 - [API documentation](https://jonbannon.github.io/Sak-AI/docs/)
@@ -30,7 +33,7 @@ The primary documentation source and deployed project site are the first-class V
 package in [`docs/`](docs/). It supplies a mathematical reading path, checked declaration links,
 dependency graph, formalization summary, full-text search, and index. The retired LeanBlueprint
 sources remain recoverable from Git history; all 87 former nodes and 141 dependency edges are in
-Verso, whose current graph has 120 nodes and 217 statement-dependency edges. Exact build audit data
+Verso, whose current graph has 121 nodes and 222 statement-dependency edges. Exact build audit data
 is recorded in [`VERSO_STATUS.md`](VERSO_STATUS.md).
 
 Local theorem verification:

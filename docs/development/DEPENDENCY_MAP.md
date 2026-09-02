@@ -82,18 +82,27 @@ PositiveLinearMap.support [intrinsic W*-algebra API; chosen predual hidden]
 annihilation, greatest-zero, cutdown, and theorem-level faithfulness interfaces
   ↓
 support_le_iff_apply_eq_apply_one + support-zero implies norm orthogonality [GREEN]
-
-PositiveLinearMap.IsOrthogonal [general nonunital API] [GREEN]
-  + existing self-adjoint-unitary positive factorization [GREEN]
-  + ultraweak corner cutdowns and explicit projection normality [GREEN]
-  ↓
-private complementary-carrier construction and exact norm identity
-  ↓
-Ultraweak.existsUnique_orthogonal_decomposition_of_isSelfAdjoint [GREEN]
-  ↓
-support_mul_eq_zero_of_isOrthogonal + isOrthogonal_iff_support_mul_eq_zero [GREEN]
-  ↓
-arbitrary-normal-functional polar decomposition [Sakai 1.14.4 frontier]
+  ├─→ PositiveLinearMap.IsOrthogonal [general nonunital API] [GREEN]
+  │     + existing self-adjoint-unitary positive factorization [GREEN]
+  │     + ultraweak corner cutdowns and explicit projection normality [GREEN]
+  │     ↓
+  │   private complementary-carrier construction and exact norm identity
+  │     ↓
+  │   Ultraweak.existsUnique_orthogonal_decomposition_of_isSelfAdjoint [GREEN]
+  │     ↓
+  │   support_mul_eq_zero_of_isOrthogonal + isOrthogonal_iff_support_mul_eq_zero [GREEN]
+  │
+  └─→ full-unit-ball exposed-face factorization with source right action [private engine]
+        + PositiveLinearMap.conjugate and preservation of normality [GREEN]
+        + functional support carrier and uniqueness API [GREEN]
+        ↓
+      Ultraweak.existsUnique_functional_polar_decomposition_basic [GREEN]
+        ↓
+      Ultraweak.functionalAbs + final support transport under adjoint [GREEN]
+        ↓
+      Ultraweak.existsUnique_functional_polar_decomposition [Sakai 1.14.4] [GREEN]
+        ↓
+      Section 1.15 topology/API audit and Proposition 1.15.1 [frontier]
 ```
 
 ## Current junction nodes
@@ -253,8 +262,36 @@ corner cutdowns, and the functional-support carrier API. The exact public endpoi
 `Ultraweak.existsUnique_orthogonal_decomposition_of_isSelfAdjoint`. Support-product zero is proved
 equivalent only afterward, through `PositiveLinearMap.support_mul_eq_zero_of_isOrthogonal` and
 `PositiveLinearMap.isOrthogonal_iff_support_mul_eq_zero`, so the dependency is noncircular. See
-`reports/SAKAI_1_14_1_1_14_3_JORDAN_DECOMPOSITION.md`. The next source dependency is the genuinely
-general polar decomposition of an arbitrary normal functional in Theorem 1.14.4.
+`reports/SAKAI_1_14_1_1_14_3_JORDAN_DECOMPOSITION.md`.
+
+Theorem 1.14.4 does not reinterpret that self-adjoint theorem. The older
+`Ultraweak.PolarDecomposition` supplies only a self-adjoint functional factored through left
+multiplication by a self-adjoint unitary. The distinct downstream module
+`Ultraweak.FunctionalPolarDecomposition` runs the exposed-face argument over the full unit ball and
+produces the source convention `g x = φ (x * v)` directly. Its public dependency chain is:
+
+```text
+PositiveLinearMap.conjugate [nonunital C*-algebra]
+  + PositiveLinearMap.IsNormalOnProjections.conjugate
+  + PositiveLinearMap.support_conjugate_eq_mul_star
+  ↓
+existsUnique_functional_polar_decomposition_basic
+  ↓
+functionalAbs / functionalAbs_isNormalOnProjections / functionalAbs_spec
+  + norm_functionalAbs / eq_functionalAbs_of_polar_decomposition
+  ↓
+functional_polar_decomposition_final_projection
+  ↓
+existsUnique_functional_polar_decomposition [exact Sakai 1.14.4]
+```
+
+The basic theorem packages right factorization, norm equality, initial support, and uniqueness.
+The canonical `functionalAbs` is introduced only after that uniqueness theorem, because the source
+names the positive factor and its adjoint support occurs in the final-projection clause. Initial
+support remains the partial-isometry certificate; no parallel predicate, bundled normal
+functional, chosen polar element, or second support object is introduced. Section 1.14 is GREEN.
+The next dependency reconnaissance is the Section 1.15 topology/API audit, with Proposition 1.15.1
+as the first bounded source target.
 
 ## Cartography fields for a major concept
 

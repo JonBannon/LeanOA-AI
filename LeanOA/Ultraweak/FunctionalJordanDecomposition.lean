@@ -191,18 +191,6 @@ private theorem split_positive_factor
     simp only [ofUltraweak_toUltraweak, mul_one]
     exact congrArg (φ ∘ toUltraweak ℂ P) hq.isIdempotentElem.eq
 
-private theorem induced_isNormalOnProjections
-    {M P : Type*} [CStarAlgebra M] [PartialOrder M] [StarOrderedRing M]
-    [NormedAddCommGroup P] [NormedSpace ℂ P] [CompleteSpace P] [Predual ℂ M P]
-    (ψ : σ(M, P) →P[ℂ] ℂ) :
-    (ψ.comp (toUltraweakPosCLM P)).toPositiveLinearMap.IsNormalOnProjections := by
-  let ψM : M →ₚ[ℂ] ℂ := (ψ.comp (toUltraweakPosCLM P)).toPositiveLinearMap
-  apply ψM.isNormalOnProjections_of_mem_continuousDual (P := P)
-  exact (mem_continuousDual_iff_exists_comp_toUltraweakL ψM.toContinuousLinearMap).2
-    ⟨ψ.toContinuousLinearMap, by
-      ext x
-      simp [ψM]⟩
-
 private theorem exists_orthogonal_decomposition_with_carrier
     {M P : Type*} [CStarAlgebra M] [PartialOrder M] [StarOrderedRing M]
     [NormedAddCommGroup P] [NormedSpace ℂ P] [CompleteSpace P] [Predual ℂ M P]
@@ -219,8 +207,10 @@ private theorem exists_orthogonal_decomposition_with_carrier
     split_positive_factor f hf u hu huU φ hfac
   let f₁ : M →ₚ[ℂ] ℂ := (φ₁.comp (toUltraweakPosCLM P)).toPositiveLinearMap
   let f₂ : M →ₚ[ℂ] ℂ := (φ₂.comp (toUltraweakPosCLM P)).toPositiveLinearMap
-  refine ⟨p, f₁, f₂, induced_isNormalOnProjections φ₁,
-    induced_isNormalOnProjections φ₂, ?_, ?_, hcarrier₁, hcarrier₂⟩
+  refine ⟨p, f₁, f₂,
+    PositiveContinuousLinearMap.comp_toUltraweakPosCLM_isNormalOnProjections φ₁,
+    PositiveContinuousLinearMap.comp_toUltraweakPosCLM_isNormalOnProjections φ₂,
+    ?_, ?_, hcarrier₁, hcarrier₂⟩
   · ext x
     have hx := congrArg (fun g : σ(M, P) →L[ℂ] ℂ ↦ g (toUltraweak ℂ P x)) hdecomp
     simpa [f₁, f₂] using hx

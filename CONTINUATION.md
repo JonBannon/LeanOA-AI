@@ -55,6 +55,12 @@ Last updated: 2026-09-01
   self-adjoint-unitary positive factorization supplies the unique normal positive decomposition,
   exact difference, and norm sum. No choice-based parts, decomposition structure, normal-
   functional wrapper, or competing polar API was added.
+- Sakai Theorem 1.14.4 is source-formalized, completing Section 1.14. The exact source convention
+  is `R_v φ (x) = φ (x * v)`. The public unique pair consists of a normal positive functional and
+  a multiplier with equal norm, initial projection `star v * v = support φ`, and final projection
+  `v * star v = support |g⋆|`. The canonical positive factor is `Ultraweak.functionalAbs`.
+  `PositiveLinearMap.conjugate` is C-star-general and support transport reuses the intrinsic
+  functional-support API. No new partial-isometry predicate or second support hierarchy was added.
 - The theorem package had no uncommitted changes at the start of the orchestration work.
 - Jireh Loreaux's LeanOA and Mathlib are read-only references. The original LeanOA checkout has
   not been modified.
@@ -110,14 +116,17 @@ an index type in an independent universe. The converse uses a same-algebra-unive
 the Zorn decomposition is subtype-indexed; after normality is recovered, the forward theorem gives
 the fully universe-polymorphic result.
 
-Sakai Definitions 1.14.1--1.14.2 and Theorem 1.14.3 are now source-formalized. For a normal
+Sakai Section 1.14 is now source-formalized. For a normal
 positive functional `φ`, the null left ideal is `M (1 - s(φ))`, so
 `φ (star x * x) = 0 ↔ x * s(φ) = 0`; the complement is the greatest projection killed by `φ`.
 Sakai's orthogonality relation is exactly `‖φ - ψ‖ = ‖φ‖ + ‖ψ‖`, and for normal positive
 functionals it is equivalent to `s(φ) * s(ψ) = 0`. Every self-adjoint normal functional has a
 unique orthogonal normal positive/negative decomposition with the exact additive norm identity.
-The next bounded source target is Theorem 1.14.4, the polar decomposition of an arbitrary normal
-functional; its partial-isometry and support clauses must be audited before implementation.
+Every normal functional `g` also has a unique Sakai polar pair `(v, |g|)` with
+`g(x) = |g|(x * v)`, equal norm, `star v * v = s(|g|)`, and
+`v * star v = s(|g⋆|)`. The next bounded source target is the concrete operator-topology setup
+and Proposition 1.15.1; it requires an API audit of WOT, SOT, ultrastrong, sigma-weak, and predual
+topologies before implementation.
 
 The implemented public design is:
 
@@ -346,16 +355,28 @@ The completed implementation layers are:
     - explicit normality, the exact difference and norm sum, and carrier-based uniqueness;
     - one source-facing `ExistsUnique` theorem, with no choice-based parts or second polar API;
     - independent mathematical/API review and an acyclic proof of the support equivalence.
+20. Section 1.14.4 functional-polar wave (begun at baseline
+    `ec16f22d31bca0b816eaf7f30f653ecdab5a5aae`, completed on 2026-09-01):
+    - direct certification of Sakai's right-multiplication convention and both support
+      orientations;
+    - a single exposed-face extension downstream of the existing functional-factorization
+      foundations, because the earlier public theorem covered only self-adjoint functionals;
+    - exact pair uniqueness, normal positivity, norm preservation, and initial support;
+    - canonical `Ultraweak.functionalAbs` introduced only after uniqueness;
+    - normal positive conjugation and support transport proving the final projection
+      `v * star v = s(|g⋆|)`;
+    - no competing functional-polar namespace, partial-isometry predicate, support object, or
+      chosen-predual leak in the intrinsic support bridge.
 
 The source audit has closed the 1.11.3 review question with LEVEL C rather than an accepted
 definition. Do not promote `atTop ⊓ comap divisionMesh (nhds 0)` as Sakai's meaning. Canonical
 Lemma 1.11.1 is now source-formalized. Section 1.12 contains the single element
 polar-decomposition theorem 1.12.1 and is complete through an independent
 CFC/support/ultraweak-compactness chain followed by algebraic uniqueness. Section 1.13 is now
-complete through the production projection-chain and complete-additivity modules. Definitions
-1.14.1--1.14.2 and Theorem 1.14.3 are complete. The next bounded transaction is a direct source and
-overlap audit of Theorem 1.14.4, the polar decomposition of an arbitrary normal functional, before
-extending the existing self-adjoint factorization. Revisit a public PVM/integral interface only
+complete through the production projection-chain and complete-additivity modules. Section 1.14 is
+complete through the general normal-functional polar decomposition of Theorem 1.14.4. The next
+bounded transaction is a source/API audit of the five concrete operator topologies preceding
+Proposition 1.15.1 and of Mathlib's current concrete-operator topology support. Revisit a public PVM/integral interface only
 when coherent mathematics or new primary evidence fixes it.
 
 Before each substantial proof, search the current Sak-AI tree, pinned Mathlib, current Mathlib
@@ -364,10 +385,10 @@ master/review history, and current LeanOA for an equivalent or more general decl
 ## Documentation continuation
 
 The Verso package preserves all 87 active nodes and 141 statement-dependency edges in the generated
-legacy graph and extends them to 120 nodes and 217 edges through the exact strong-topology,
+legacy graph and extends them to 121 nodes and 222 edges through the exact strong-topology,
 fixed-projection, spectral-approximation, element-polar-decomposition, completed Section 1.13,
-normal-positive-functional-support, norm-orthogonality, and functional-Jordan edges. The exact
-manifest count and audit state are recorded in
+normal-positive-functional-support, norm-orthogonality, functional-Jordan, and general
+functional-polar edges. The exact manifest count and audit state are recorded in
 `VERSO_STATUS.md`. The legacy
 sources remain recoverable from Git history. New mathematical documentation must be authored in
 Verso first.

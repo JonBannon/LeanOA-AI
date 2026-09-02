@@ -21,7 +21,10 @@ Sak-AI has two complementary reading paths.
   and faithfulness theory of a normal positive functional in Definition
   1.14.2 is complete as well, together with the norm orthogonality of
   Definition 1.14.1 and the unique functional Jordan decomposition of
-  Theorem 1.14.3.
+  Theorem 1.14.3.  The general normal-functional polar decomposition of
+  Theorem 1.14.4 is now complete as well: its right-multiplication
+  convention, norm equality, initial and final support equations, and pair
+  uniqueness agree with the source.  This completes Section 1.14.
 * The *library path* follows reusable Lean concepts: weak topologies and
   preduals, ultraweak continuity, closed ideals, projection lattices, and
   support constructions.  Names and assumptions are chosen for Mathlib
@@ -111,7 +114,15 @@ The connected frontier targets completed so far are:
     self-adjoint normal functional has a unique expression
     $`f=f_+-f_-` by orthogonal normal positive functionals, with
     $`\lVert f\rVert=\lVert f_+\rVert+\lVert f_-\rVert`.  This completes
-    Definitions 1.14.1--1.14.2 and Theorem 1.14.3.
+    Definitions 1.14.1--1.14.2 and Theorem 1.14.3;
+18. every normal functional $`g` has a unique pair $`(v,\lvert g\rvert)`
+    with $`\lvert g\rvert` normal and positive such that
+    $`g(x)=\lvert g\rvert(xv)`,
+    $`\lVert g\rVert=\lVert\lvert g\rvert\rVert`,
+    $`v^*v=s(\lvert g\rvert)`, and
+    $`vv^*=s(\lvert g^*\rvert)`.  This is the exact right-translation,
+    norm, support, and uniqueness content of Sakai 1.14.4, and closes
+    Section 1.14.
 
 The source audit found an important correction and a genuine ambiguity.
 Sakai prints the strong $`s(M,M_*)` topology, not the ultraweak
@@ -131,12 +142,15 @@ ultraweak compactness of the closed unit ball; it does not depend on the
 unresolved integral semantics.  Section 1.13 is also complete: Definitions
 1.13.1, 1.13.4, and 1.13.5, Theorem 1.13.2, and Corollary 1.13.3 are all
 represented with their arbitrary directed-set or arbitrary-family
-quantifiers.  Definitions 1.14.1--1.14.2 and Theorem 1.14.3 are now
-complete: the functional-support theory feeds the support characterization
-of Sakai's norm orthogonality and the unique orthogonal positive/negative
-decomposition of a self-adjoint normal functional.  The current bounded
-checkpoint is Theorem 1.14.4, the general polar decomposition of an
-arbitrary normal functional.
+quantifiers.  Section 1.14 is now complete.  Its functional-support theory
+feeds the support characterization of Sakai's norm orthogonality, the unique
+orthogonal positive/negative decomposition of a self-adjoint normal
+functional, and the unique right polar decomposition of an arbitrary normal
+functional.  The current bounded checkpoint begins Section 1.15, *Concrete
+$`C^*`-Algebras and $`W^*`-Algebras*: audit the concrete operator topologies
+on $`B(\mathcal H)` and then formalize Proposition 1.15.1, the equivalence of
+closedness for self-adjoint subalgebras in the weak, $`\sigma`-weak, strong,
+strongest, and $`\sigma(B(\mathcal H),B(\mathcal H)_*)` topologies.
 
 # Migration parity
 
@@ -149,17 +163,18 @@ completed theorem.
 
 The lower-spectral-projection, element-polar-decomposition, source-normality,
 arbitrary orthogonal-sum, complete-additivity, normal-positive-functional-
-support, norm-orthogonality, and functional-Jordan-decomposition nodes are
-new work after that migration baseline; they extend rather than replace the
-87 historical nodes.
+support, norm-orthogonality, functional-Jordan-decomposition, and general
+functional-polar-decomposition nodes are new work after that migration
+baseline; they extend rather than replace the 87 historical nodes.
 
 The dependency graph below therefore represents the whole completed Sak-AI
 development through canonical truncated-affine recovery, the general
 fixed-projection ultraweak decomposition used in Sakai 1.11.3, and the
 element polar decomposition of Sakai 1.12.1, the exact normality theorem of
 Sakai 1.13.2, arbitrary orthogonal projection sums, and the complete-additivity
-characterization closing Sakai 1.13, and the functional-support theory of
-Sakai 1.14.2 and orthogonal Jordan decomposition of Sakai 1.14.3, together
+characterization closing Sakai 1.13, the functional-support theory of Sakai
+1.14.2, the orthogonal Jordan decomposition of Sakai 1.14.3, and the general
+functional polar decomposition of Sakai 1.14.4, together
 with $`C^*`-algebra foundations, operator topologies,
 positive separation, Stonean spectra and real rank zero, normality and
 predual uniqueness, Kaplansky density, projection lattices, and element

@@ -172,3 +172,24 @@ review confirmed positivity, normality, sign, norm identity, support orientation
 and the predual boundary. The review rejected public choice-based parts, a Jordan-decomposition
 structure, a normal-functional wrapper, exposed carrier projections, and a competing polar API.
 No human design gate blocks the source audit of Theorem 1.14.4.
+
+## Accepted API review for Sakai 1.14.4
+
+The direct source audit fixes Sakai's convention as
+`R_v φ (x) = φ (x * v)`, with `star v * v = s(φ)`, equal norms, uniqueness of both `v` and `φ`,
+and `v * star v = s(|g⋆|)`. The previous `Ultraweak.PolarDecomposition` theorem covers only a
+self-adjoint functional through a self-adjoint unitary and left multiplication; it is reusable
+analytic infrastructure but is not the general source theorem.
+
+The accepted extension is the downstream module
+`LeanOA.Ultraweak.FunctionalPolarDecomposition`. Its source-facing endpoint is
+`Ultraweak.existsUnique_functional_polar_decomposition`. The ordinary positive conjugation
+`PositiveLinearMap.conjugate` is published at nonunital C-star generality, while normality and
+support transport reuse the established ultraweak-continuity and functional-support APIs.
+`Ultraweak.functionalAbs` is published only after pair uniqueness because Sakai immediately uses
+the canonical positive factor as `|g|`.
+
+The review rejected a second functional-polar namespace, a normal-functional wrapper, another
+support/carrier construction, and a new `IsPartialIsometry` predicate. The source equation
+`star v * v = s(φ)` already provides the established projection-based partial-isometry semantics.
+Section 1.14 is complete. No human design gate blocks the Section 1.15 concrete-topology audit.

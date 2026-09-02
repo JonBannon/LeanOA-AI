@@ -160,6 +160,35 @@ in their workstream.
 - **Rejected alternatives:** no new normal-functional wrapper, Jordan-decomposition structure,
   public `positivePart`/`negativePart`, competing polar decomposition, or exposed carrier
   projection.
-- **Next bounded action:** source-audit Sakai Theorem 1.14.4, the polar decomposition of an
-  arbitrary normal functional. Distinguish it from the self-adjoint-unitary factorization already
-  used here and reuse the completed support and Jordan APIs.
+- **Outcome:** IQ-009 records the completed source-faithful general functional polar decomposition.
+
+## IQ-009 — Sakai 1.14.4 general normal-functional polar decomposition
+
+- **Status:** RESOLVED / GREEN
+- **Affected streams:** positive functionals, normality, functional support, exposed faces,
+  adjoint functionals, Verso
+- **Question:** How should Sakai's arbitrary-normal-functional polar decomposition be exposed
+  without mistaking the existing self-adjoint/left-action theorem for the source result or adding
+  a parallel partial-isometry and absolute-value architecture?
+- **Source decision:** use Sakai's right-action convention `g x = φ (x * v)`. Preserve norm
+  equality, `star v * v = s(φ)`, uniqueness of the pair, and $v v^* = s(|g^*|)$ as explicit
+  clauses.
+- **Reuse decision:** keep `Ultraweak.PolarDecomposition` unchanged as the narrower self-adjoint,
+  self-adjoint-unitary, left-multiplication factorization. Put the exact theorem downstream in
+  `Ultraweak.FunctionalPolarDecomposition`, extending the same exposed-face method to the full unit
+  ball and reusing `PositiveLinearMap.support`, support-nullity, cutdown, and existing ultraweak
+  multiplication. Reuse the promoted normal pullback helper in both the Jordan and polar modules.
+- **Shared API:** add nonunital `PositiveLinearMap.conjugate`; add normality preservation and
+  `PositiveLinearMap.support_conjugate_eq_mul_star` downstream. Expose
+  `Ultraweak.existsUnique_functional_polar_decomposition_basic`, then define the unique positive
+  factor as `Ultraweak.functionalAbs` with its normality, specification, norm, and uniqueness
+  lemmas. `Ultraweak.functional_polar_decomposition_final_projection` supplies the adjoint-support
+  identity, and `Ultraweak.existsUnique_functional_polar_decomposition` is the exact source
+  package.
+- **Rejected alternatives:** no new `IsPartialIsometry` predicate; the initial-support equation
+  already gives the established projection semantics. No normal-functional wrapper, second
+  support, choice-based polar element, decomposition structure, or Jordan-derived surrogate
+  statement. `functionalAbs` itself is deliberate because Sakai names the unique positive factor
+  and the final-projection clause needs the support of the adjoint's absolute value.
+- **Outcome:** Section 1.14 is complete. The next bounded action is a direct source/topology/API
+  audit of Section 1.15 followed by Proposition 1.15.1.

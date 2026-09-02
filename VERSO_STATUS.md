@@ -4,11 +4,11 @@ Last updated: 2026-09-01
 
 ## Current state
 
-The Verso Blueprint package in `docs/` builds and generates a multi-page site with 120 active nodes
-and 217 statement-dependency edges. This includes all 87 nodes and 141 edges from the generated
-legacy LeanBlueprint graph plus thirty-three new connected nodes through Sakai 1.14.3.
-The manifest has 565 entries and reports no
-unknown dependency references or missing external Lean declarations.
+The Verso Blueprint package in `docs/` builds and generates a multi-page site with 121 active nodes
+and 222 statement-dependency edges. It includes all 87 nodes and 141 edges from the generated
+legacy LeanBlueprint graph and the connected development through Sakai 1.14.4.
+The manifest has 572 entries and reports no unknown dependency references or missing external
+Lean declarations.
 
 The apparent historical count of 88 came from counting textual `\label` occurrences: one of those
 labels belongs to a fully commented-out proposal about recovering the norm from states. It was
@@ -32,7 +32,9 @@ ultraweak closedness, the intrinsic support and greatest-zero characterization, 
 identities, global faithfulness, and the explicitly labeled derived faithful-support-corner
 theorem. It now also presents Sakai's exact norm orthogonality, its support-product-zero
 characterization, and the unique orthogonal Jordan decomposition of a self-adjoint normal
-functional, including the exact norm sum.
+functional, including the exact norm sum. It now closes Section 1.14 with the unique general
+normal-functional polar decomposition, canonical functional absolute value, norm identity, and
+initial/final support equations.
 Scratch checks a nontrivial
 refinement-plus-mesh filter and the complete competing-resolution support/uniqueness chain under an
 explicit left-endpoint moment limit. The public document accurately stops before those candidate
@@ -61,7 +63,7 @@ test -f _out/site/html-multi/-verso-data/blueprint-manifest.json
 test -f _out/site/html-multi/-verso-data/blueprint-html-cache.json
 ```
 
-All checks passed on 2026-09-01. `vbp check` reports `ok: true`, zero errors, and 565 manifest/cache
+All checks passed on 2026-09-01. `vbp check` reports `ok: true`, zero errors, and 572 manifest/cache
 entries. The build replays warnings from three pinned upstream Verso or
 SubVerso modules; Sak-AI's own documentation modules elaborate without warnings.
 
@@ -78,10 +80,11 @@ longer part of the build or deployment.
    Section 1.12's independent CFC/support/compactness proof and algebraic uniqueness theorem now
    supply exact Theorem 1.12.1. Section 1.13 is complete through source normality, arbitrary
    orthogonal projection sums, projection-chain decomposition, and theorem-level complete
-   additivity. Definitions 1.14.1--1.14.2 and Theorem 1.14.3 are complete through functional
+   additivity. Section 1.14 is complete through functional
    support, exact norm orthogonality, its support characterization, and the unique orthogonal
-   Jordan decomposition. The next bounded slice is Theorem 1.14.4, the polar decomposition of an
-   arbitrary normal functional. No resolution, integral, or PVM structure becomes public before a
+   Jordan decomposition, followed by the exact general functional polar decomposition of Theorem
+   1.14.4. The next bounded slice is the concrete operator-topology audit leading to Proposition
+   1.15.1. No resolution, integral, or PVM structure becomes public before a
    genuine mathematical interface fixes it.
 
 Do not create a second theorem-status registry: Verso blocks and `uses` references are the
